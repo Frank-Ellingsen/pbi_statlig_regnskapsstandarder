@@ -1,0 +1,2968 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UiA Controller & Forecast Portal | Power BI Reporting Suite</title>
+  <meta name="description" content="Universitetet i Agder (UiA) - Helhetlig virksomhetsstyring, rullende prognoser (LE/EAC), prosjektcontrolling (BOA/EVM) og bemanningsstyring iht. DFØ SRS og Edward Tufte Data-Ink standarder.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    /* ==========================================================================
+       CSS RESET & DESIGN SYSTEM VARIABLES (Edward Tufte Dark Financial Theme)
+       ========================================================================== */
+    :root {
+      --bg-primary: #0a0e17;
+      --bg-secondary: #0f172a;
+      --bg-card: #131d33;
+      --bg-card-hover: #182440;
+      --bg-elevated: #1e293b;
+      --bg-subtle: rgba(255, 255, 255, 0.03);
+
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-strong: rgba(255, 255, 255, 0.15);
+      --border-accent: rgba(59, 130, 246, 0.4);
+
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --text-accent: #38bdf8;
+
+      /* Tufte Functional Semantic Accents */
+      --color-green: #10b981;
+      --color-green-bg: rgba(16, 185, 129, 0.12);
+      --color-amber: #f59e0b;
+      --color-amber-bg: rgba(245, 158, 11, 0.12);
+      --color-red: #ef4444;
+      --color-red-bg: rgba(239, 68, 68, 0.12);
+      --color-blue: #3b82f6;
+      --color-blue-bg: rgba(59, 130, 246, 0.12);
+      --color-indigo: #6366f1;
+      --color-purple: #a855f7;
+
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-display: 'Outfit', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      --radius-sm: 4px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+      --radius-xl: 16px;
+
+      --header-height: 68px;
+      --nav-height: 52px;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      font-size: 14px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg-primary);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--bg-elevated);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--text-muted);
+    }
+
+    /* Layout Container */
+    .app-container {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    /* ==========================================================================
+       TOP HEADER & BRANDING BAR
+       ========================================================================== */
+    .top-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--header-height);
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+    }
+
+    .brand-section {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .uia-logo-badge {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-md);
+      background: linear-gradient(135deg, #004b87, #0284c7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 18px;
+      color: #ffffff;
+      letter-spacing: -0.5px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
+    }
+
+    .brand-text h1 {
+      font-family: var(--font-display);
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: -0.2px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-text p {
+      font-size: 11px;
+      color: var(--text-secondary);
+      font-weight: 400;
+    }
+
+    .status-badges {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 3px 9px;
+      border-radius: 9999px;
+      font-size: 11px;
+      font-weight: 500;
+      border: 1px solid transparent;
+    }
+
+    .badge-live {
+      background: var(--color-green-bg);
+      color: var(--color-green);
+      border-color: rgba(16, 185, 129, 0.3);
+    }
+    .badge-live::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--color-green);
+      box-shadow: 0 0 8px var(--color-green);
+      animation: pulse 2s infinite;
+    }
+
+    .badge-spec {
+      background: var(--bg-subtle);
+      color: var(--text-secondary);
+      border-color: var(--border-subtle);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .header-btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-primary);
+      padding: 7px 14px;
+      border-radius: var(--radius-md);
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .header-btn:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--border-strong);
+    }
+
+    .header-btn.primary {
+      background: #0284c7;
+      border-color: #0284c7;
+      color: #fff;
+    }
+    .header-btn.primary:hover {
+      background: #0369a1;
+    }
+
+    /* ==========================================================================
+       DASHBOARD NAVIGATION / TABS
+       ========================================================================== */
+    .nav-bar {
+      position: sticky;
+      top: var(--header-height);
+      z-index: 99;
+      background: var(--bg-secondary);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      overflow-x: auto;
+    }
+
+    .nav-tabs {
+      display: flex;
+      gap: 4px;
+      list-style: none;
+      padding: 6px 0;
+      white-space: nowrap;
+    }
+
+    .nav-group-label {
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--text-muted);
+    }
+
+    .nav-tab-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      color: var(--text-secondary);
+      padding: 6px 12px;
+      border-radius: var(--radius-md);
+      font-size: 12px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.15s ease;
+      font-family: var(--font-sans);
+    }
+
+    .nav-tab-btn:hover {
+      color: var(--text-primary);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .nav-tab-btn.active {
+      color: #ffffff;
+      background: var(--bg-card);
+      border-color: var(--border-accent);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    .nav-tab-btn.active .tab-badge {
+      background: #0284c7;
+      color: #fff;
+    }
+
+    .tab-badge {
+      font-size: 10px;
+      padding: 1px 5px;
+      border-radius: 4px;
+      background: var(--bg-elevated);
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .nav-divider {
+      width: 1px;
+      height: 24px;
+      background: var(--border-subtle);
+      margin: 0 8px;
+    }
+
+    /* ==========================================================================
+       MAIN CONTENT CONTAINER
+       ========================================================================== */
+    .main-viewport {
+      flex: 1;
+      padding: 24px;
+      max-width: 1920px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    /* Dashboard Header Strip */
+    .dash-header-strip {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-subtle);
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .dash-title-group h2 {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .dash-role-badge {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: rgba(59, 130, 246, 0.15);
+      color: #60a5fa;
+      border: 1px solid rgba(59, 130, 246, 0.3);
+      font-family: var(--font-sans);
+      font-weight: 500;
+    }
+
+    .dash-title-group p {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-top: 4px;
+      max-width: 900px;
+    }
+
+    /* Contextual Slicer Strip (Power BI emulation) */
+    .slicer-strip {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .slicer-box {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .slicer-label {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .slicer-select {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-primary);
+      padding: 6px 12px;
+      border-radius: var(--radius-md);
+      font-size: 12px;
+      outline: none;
+      cursor: pointer;
+      font-family: var(--font-sans);
+    }
+    .slicer-select:focus {
+      border-color: #0284c7;
+    }
+
+    /* ==========================================================================
+       EDWARD TUFTE KPI STRIP
+       ========================================================================== */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .kpi-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 16px 18px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.2s ease;
+    }
+    .kpi-card:hover {
+      border-color: var(--border-strong);
+    }
+
+    .kpi-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+
+    .kpi-title {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--text-secondary);
+    }
+
+    .kpi-variance-badge {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      display: flex;
+      align-items: center;
+      gap: 3px;
+    }
+
+    .variance-favorable {
+      background: var(--color-green-bg);
+      color: var(--color-green);
+    }
+    .variance-neutral {
+      background: var(--color-amber-bg);
+      color: var(--color-amber);
+    }
+    .variance-unfavorable {
+      background: var(--color-red-bg);
+      color: var(--color-red);
+    }
+    .variance-info {
+      background: var(--color-blue-bg);
+      color: var(--color-blue);
+    }
+
+    .kpi-value-row {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+
+    .kpi-value {
+      font-family: var(--font-display);
+      font-size: 26px;
+      font-weight: 600;
+      color: var(--text-primary);
+      letter-spacing: -0.5px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .kpi-unit {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .kpi-subtext {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .kpi-sparkline {
+      height: 24px;
+      width: 70px;
+    }
+
+    /* ==========================================================================
+       CHART & TABLE GRIDS
+       ========================================================================== */
+    .dash-grid-two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    @media (max-width: 1200px) {
+      .dash-grid-two-col {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .dash-grid-main-side {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+    @media (max-width: 1200px) {
+      .dash-grid-main-side {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .panel-title {
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .panel-subtitle {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* SVG Chart Containers */
+    .chart-container {
+      width: 100%;
+      height: 280px;
+      position: relative;
+    }
+
+    svg.interactive-chart {
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    /* ==========================================================================
+       EDWARD TUFTE COMPLIANT DATA TABLES
+       - No vertical gridlines
+       - Left-aligned text, right-aligned numbers
+       - Aligned decimals (font-variant-numeric: tabular-nums)
+       - Muted subtle borders
+       ========================================================================== */
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    table.tufte-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      font-family: var(--font-sans);
+    }
+
+    table.tufte-table th {
+      background: rgba(255, 255, 255, 0.02);
+      color: var(--text-muted);
+      font-weight: 600;
+      font-size: 10.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border-strong);
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    table.tufte-table th.num,
+    table.tufte-table td.num {
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+
+    table.tufte-table td {
+      padding: 9px 12px;
+      border-bottom: 1px solid var(--border-subtle);
+      color: var(--text-primary);
+      white-space: nowrap;
+    }
+
+    table.tufte-table tbody tr {
+      transition: background 0.15s ease;
+    }
+
+    table.tufte-table tbody tr:hover {
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    table.tufte-table tfoot td {
+      font-weight: 600;
+      border-top: 1px solid var(--border-strong);
+      border-bottom: 2px solid var(--border-strong);
+      color: #fff;
+    }
+
+    /* Interactive Drill-Through Action Link */
+    .drill-link {
+      color: #38bdf8;
+      text-decoration: none;
+      font-size: 11px;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      cursor: pointer;
+      transition: color 0.15s ease;
+    }
+    .drill-link:hover {
+      color: #7dd3fc;
+      text-decoration: underline;
+    }
+
+    /* Status Pill (FactAction) */
+    .status-pill {
+      display: inline-block;
+      padding: 2px 7px;
+      border-radius: 9999px;
+      font-size: 10px;
+      font-weight: 600;
+    }
+    .status-pill.gjennomfort {
+      background: var(--color-green-bg);
+      color: var(--color-green);
+    }
+    .status-pill.pagar {
+      background: var(--color-blue-bg);
+      color: #60a5fa;
+    }
+    .status-pill.forsinket {
+      background: var(--color-red-bg);
+      color: var(--color-red);
+    }
+    .status-pill.planlagt {
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-secondary);
+    }
+
+    /* Bottom Summary Formula Cards (Page 1 pattern) */
+    .formula-summary-strip {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 18px;
+    }
+    @media (max-width: 992px) {
+      .formula-summary-strip {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    .formula-card {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 12px 16px;
+    }
+    .formula-step {
+      font-size: 10px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 600;
+    }
+    .formula-val {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 600;
+      margin-top: 2px;
+    }
+
+    /* ==========================================================================
+       MODAL / DATA MODEL ARCHITECTURE DRAWER
+       ========================================================================== */
+    .drawer-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(4px);
+      z-index: 200;
+      display: none;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+    .drawer-overlay.open {
+      display: block;
+      opacity: 1;
+    }
+
+    .drawer-panel {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 780px;
+      max-width: 90vw;
+      background: var(--bg-secondary);
+      border-left: 1px solid var(--border-strong);
+      z-index: 201;
+      padding: 28px;
+      overflow-y: auto;
+      transform: translateX(100%);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+    }
+    .drawer-panel.open {
+      transform: translateX(0);
+    }
+
+    .drawer-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .drawer-header h3 {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .close-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 24px;
+      cursor: pointer;
+    }
+    .close-btn:hover {
+      color: #fff;
+    }
+
+    /* Model Stat Pill Grid */
+    .model-stat-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+    .model-stat-box {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 12px;
+      text-align: center;
+    }
+    .model-stat-val {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 600;
+      color: #38bdf8;
+    }
+    .model-stat-lbl {
+      font-size: 10px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 2px;
+    }
+
+    /* Search Box */
+    .search-box {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .search-input {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-primary);
+      padding: 6px 12px 6px 30px;
+      border-radius: var(--radius-md);
+      font-size: 12px;
+      width: 220px;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+    .search-input:focus {
+      border-color: #0284c7;
+      width: 260px;
+    }
+    .search-icon {
+      position: absolute;
+      left: 10px;
+      color: var(--text-muted);
+      pointer-events: none;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(0.95); opacity: 0.8; }
+      50% { transform: scale(1.15); opacity: 1; }
+      100% { transform: scale(0.95); opacity: 0.8; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="app-container">
+
+  <!-- ========================================================================
+       TOP EXECUTIVE HEADER
+       ======================================================================== -->
+  <header class="top-header">
+    <div class="brand-section">
+      <div class="uia-logo-badge">UiA</div>
+      <div class="brand-text">
+        <h1>UiA Controller & Forecast Portal <span class="badge badge-live">Fabric PBIP Live</span></h1>
+        <p>Helhetlig Virksomhets- og Prosjektstyring | DFØ SRS R-102 | Edward Tufte Data-Ink</p>
+      </div>
+    </div>
+
+    <div class="header-actions">
+      <div class="status-badges">
+        <span class="badge badge-spec">13 Dashboards</span>
+        <span class="badge badge-spec">14 Tabeller / 22 Relasjoner</span>
+        <span class="badge badge-spec" style="color:#10b981; border-color: rgba(16,185,129,0.3);">QA 43/43 Bestått</span>
+      </div>
+
+      <div class="search-box">
+        <svg class="search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <input type="text" id="globalSearch" class="search-input" placeholder="Søk rapport, konto, tiltak...">
+      </div>
+
+      <button class="header-btn" onclick="toggleDrawer()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+        Datamodell & DAX
+      </button>
+
+      <button class="header-btn primary" onclick="exportView()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Rapporteksport
+      </button>
+    </div>
+  </header>
+
+  <!-- ========================================================================
+       NAVIGATION BAR: ALL 13 DASHBOARDS
+       ======================================================================== -->
+  <nav class="nav-bar">
+    <ul class="nav-tabs" id="navTabs">
+      <li class="nav-group-label">Rollebaserte</li>
+      <li><button class="nav-tab-btn active" onclick="showDashboard('page_01')"><span class="tab-badge">01</span> Instituttleder</button></li>
+      <li><button class="nav-tab-btn" onclick="showDashboard('page_02')"><span class="tab-badge">02</span> Dekan & Fakultet</button></li>
+      <li><button class="nav-tab-btn" onclick="showDashboard('page_03')"><span class="tab-badge">03</span> Universitetsdirektør</button></li>
+      <li><button class="nav-tab-btn" onclick="showDashboard('page_04')"><span class="tab-badge">04</span> Styret</button></li>
+      <li><button class="nav-tab-btn" onclick="showDashboard('page_05')"><span class="tab-badge">05</span> Forskningsledelse & BOA</button></li>
+      <li><button class="nav-tab-btn" onclick="showDashboard('page_06')"><span class="tab-badge">06</span> Studieportefølje</button></li>
+      <li><button class="nav-tab-btn" onclick="showDashboard('page_07')"><span class="tab-badge">07</span> Action Tracker</button></li>
+      <li><button class="nav-tab-btn" onclick="showDashboard('page_08')"><span class="tab-badge">08</span> Controller Cockpit</button></li>
+      
+      <li class="nav-divider"></li>
+      
+      <li class="nav-group-label">Drill-Through</li>
+      <li><button class="nav-tab-btn" onclick="showDashboard('page_dt_okonomi')"><span class="tab-badge">DT1</span> Bilagslogg</button></li>
+      <li><button class="nav-tab-btn" onclick="showDashboard('page_dt_bemanning')"><span class="tab-badge">DT2</span> Bemanning & Årsverk</button></li>
+      <li><button class="nav-tab-btn" onclick="showDashboard('page_dt_prosjekt')"><span class="tab-badge">DT3</span> Prosjekt EVM</button></li>
+      <li><button class="nav-tab-btn" onclick="showDashboard('page_dt_tiltak')"><span class="tab-badge">DT4</span> Tiltakskort</button></li>
+      <li><button class="nav-tab-btn" onclick="showDashboard('page_dt_studier')"><span class="tab-badge">DT5</span> Studieaktivitet</button></li>
+    </ul>
+  </nav>
+
+  <!-- ========================================================================
+       DYNAMIC DASHBOARD VIEWPORT
+       ======================================================================== -->
+  <main class="main-viewport" id="dashboardContainer">
+    <!-- Populated by JavaScript -->
+  </main>
+
+</div>
+
+<!-- ========================================================================
+     DATA MODEL & DAX CATALOG DRAWER (POPUP)
+     ======================================================================== -->
+<div class="drawer-overlay" id="drawerOverlay" onclick="toggleDrawer()"></div>
+<aside class="drawer-panel" id="drawerPanel">
+  <div class="drawer-header">
+    <div>
+      <h3>UiA Controller Datamodell & DAX-katalog</h3>
+      <p style="font-size: 12px; color: var(--text-secondary); margin-top: 2px;">TMDL Semantisk Modell | 14 Tabeller | 22 Relasjoner | 60+ Mål</p>
+    </div>
+    <button class="close-btn" onclick="toggleDrawer()">&times;</button>
+  </div>
+
+  <div class="model-stat-grid">
+    <div class="model-stat-box">
+      <div class="model-stat-val">35 760</div>
+      <div class="model-stat-lbl">FactGL Rader</div>
+    </div>
+    <div class="model-stat-box">
+      <div class="model-stat-val">17 760</div>
+      <div class="model-stat-lbl">Budsjettlinjer</div>
+    </div>
+    <div class="model-stat-box">
+      <div class="model-stat-val">53 280</div>
+      <div class="model-stat-lbl">Prognoselinjer</div>
+    </div>
+    <div class="model-stat-box">
+      <div class="model-stat-val">16</div>
+      <div class="model-stat-lbl">Tiltak (Actions)</div>
+    </div>
+  </div>
+
+  <div style="margin-bottom: 24px;">
+    <h4 style="font-size: 14px; font-weight: 600; color: #fff; margin-bottom: 10px;">Stjerneskjemaets Flerfakta-arkitektur (Fact Constellation)</h4>
+    <div style="background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 8px; padding: 16px; font-family: var(--font-mono); font-size: 11px; color: #94a3b8; line-height: 1.7;">
+      <div><span style="color:#38bdf8;">DimDate</span> [DatoNokkel] (730 dager) ──(1:*)──&gt; FactGL, FactBudget, FactForecast, FactFTE, FactStudyPoints, FactAction</div>
+      <div><span style="color:#38bdf8;">DimOrganization</span> [OrgNøkkel] (74 koststeder) ──(1:*)──&gt; FactGL, FactBudget, FactForecast, FactFTE, FactStudyPoints, FactAction</div>
+      <div><span style="color:#38bdf8;">DimAccount</span> [Konto] (46 kontoer SRS) ──(1:*)──&gt; FactGL, FactBudget, FactForecast, FactAction</div>
+      <div><span style="color:#38bdf8;">DimProject</span> [Prosjekt] (8 prosjekter BOA/Drift) ──(1:*)──&gt; FactGL, FactBudget, FactForecast, FactAction</div>
+      <div><span style="color:#38bdf8;">DimForecastVersion</span> [Versjon] (4 versjoner) ──(1:*)──&gt; FactForecast</div>
+      <div><span style="color:#38bdf8;">DimPositionGroup</span> [Gruppe] (5 grupper UF/TA) ──(1:*)──&gt; FactFTE</div>
+      <div><span style="color:#38bdf8;">DimStudyProgram</span> [Program] (22 programmer) ──(1:*)──&gt; FactStudyPoints</div>
+    </div>
+  </div>
+
+  <div>
+    <h4 style="font-size: 14px; font-weight: 600; color: #fff; margin-bottom: 10px;">DAX Display Folders & Nøkkelmål</h4>
+    <table class="tufte-table">
+      <thead>
+        <tr>
+          <th>Mappe</th>
+          <th>Mål</th>
+          <th>Beskrivelse</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>01 Okonomi</code></td>
+          <td><code>[Regnskap YTD]</code></td>
+          <td>TOTALYTD(SUM(FactGL[Belop_signert]), DimDate[Dato])</td>
+        </tr>
+        <tr>
+          <td><code>01 Okonomi</code></td>
+          <td><code>[Inntekter]</code></td>
+          <td>Kredit snudd til positivt fortegn for controller-rapportering</td>
+        </tr>
+        <tr>
+          <td><code>02 Budsjettering</code></td>
+          <td><code>[Aarsbudsjett]</code></td>
+          <td>CALCULATE([Budsjett], REMOVEFILTERS(DimDate)) (BAC)</td>
+        </tr>
+        <tr>
+          <td><code>03 Prognose LE</code></td>
+          <td><code>[Forecast aarsbelop]</code></td>
+          <td>Helårsestimat (EAC) for aktiv prognoseversjon (LE_2026)</td>
+        </tr>
+        <tr>
+          <td><code>03 Prognose LE</code></td>
+          <td><code>[Forecastavvik]</code></td>
+          <td>[Forecast aarsbelop] - [Aarsbudsjett] (Merforbruk: +26,05 MNOK)</td>
+        </tr>
+        <tr>
+          <td><code>05 Bemanning</code></td>
+          <td><code>[Aarsverk]</code></td>
+          <td>Månedlig snapshot ved siste tilgjengelige dato i FactFTE</td>
+        </tr>
+        <tr>
+          <td><code>06 Studieaktivitet</code></td>
+          <td><code>[SPE60]</code></td>
+          <td>60-studiepoengsekvivalenter avlagt hittil i år</td>
+        </tr>
+        <tr>
+          <td><code>07 Prosjekt EVM</code></td>
+          <td><code>[VAC (Sluttavvik)]</code></td>
+          <td>[BAC] - [EAC] (Earned Value sluttavvik)</td>
+        </tr>
+        <tr>
+          <td><code>08 Tiltak & Risiko</code></td>
+          <td><code>[Forecast etter tiltak]</code></td>
+          <td>[Forecast aarsbelop] + [Forventet tiltakseffekt] (Netto prognose)</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</aside>
+
+<!-- ========================================================================
+     JAVASCRIPT: DASHBOARD RENDERER & INTERACTIVITY
+     ======================================================================== -->
+<script>
+// Mock data model state
+const modelData = {
+  regnskapYTD: 10617128.19,
+  budsjettYTD: 10747732.82,
+  avvikYTD: -130604.63,
+  aarsbudsjett: 10747732.82,
+  forecastAar: 36793524.31,
+  forecastAvvik: 26045791.49,
+  aarsverk: 1285.93,
+  fagligeAarsverk: 661.77,
+  studenter: 6490,
+  avlagteSP: 336945.4,
+  spe60: 5615.74,
+  spMaaloppnaelse: 86.38,
+  boaInntekter: 25678288.24,
+  nfrInntekter: 12903450.00,
+  euInntekter: 7425100.00,
+  antallTiltak: 16,
+  aapneTiltak: 12,
+  forsinkedeTiltak: 4,
+  forventetTiltak: -10005000.00,
+  realisertTiltak: -5562081.66,
+  tiltakGrad: 55.59,
+  forecastEtterTiltak: 26788524.31,
+  restavvikEtterTiltak: 16040791.49
+};
+
+function formatMNOK(val) {
+  return (val / 1000000).toFixed(2) + " M";
+}
+
+function formatNOK(val) {
+  return new Intl.NumberFormat('no-NO', { maximumFractionDigits: 0 }).format(val) + " kr";
+}
+
+function formatNum(val, dec = 1) {
+  return new Intl.NumberFormat('no-NO', { minimumFractionDigits: dec, maximumFractionDigits: dec }).format(val);
+}
+
+// 13 DASHBOARD DEFINITIONS
+const dashboards = {
+  page_01: {
+    id: "page_01_instituttleder",
+    title: "01 Instituttleder (Operativ styring)",
+    role: "Instituttleder / Kontorsjef",
+    desc: "Operativ økonomisk styring for instituttet. Rask oversikt over YTD-regnskap mot budsjett, helårsprognose (LE), hva som driver avviket, samt oppfølging av instituttets vedtatte innsparingstiltak.",
+    slicers: [
+      { label: "Velg institutt", options: ["Alle institutter", "Institutt for økonomi", "Institutt for rettsvitenskap", "Institutt for strategi og ledelse", "Institutt for IKT"] },
+      { label: "Periode", options: ["2026-12 (YTD)", "2026-11", "2026-10", "2026-09"] },
+      { label: "Prognoseversjon", options: ["LE_2026 (Gjeldende)", "FC2_2026", "FC1_2026"] }
+    ],
+    kpis: [
+      { title: "Regnskap YTD", val: "10,62 M", unit: "NOK", badge: "-1,2% vs Budsjett", badgeCls: "variance-favorable", sub: "Budsjett YTD: 10,75 M" },
+      { title: "Avvik YTD", val: "-130 k", unit: "NOK", badge: "Mindreforbruk", badgeCls: "variance-favorable", sub: "Netto gunstig stilling YTD" },
+      { title: "Forecast årsbeløp (LE)", val: "36,79 M", unit: "NOK", badge: "EAC", badgeCls: "variance-info", sub: "Forventet helårsforbruk" },
+      { title: "Forecastavvik", val: "+26,05 M", unit: "NOK", badge: "+242% vs Budsjett", badgeCls: "variance-unfavorable", sub: "Forventet merforbruk før tiltak" },
+      { title: "Årsverk", val: "1 285,9", unit: "FTE", badge: "51,5% Vitenskapelig", badgeCls: "variance-info", sub: "Faglige årsverk: 661,8" }
+    ],
+    renderContent: () => `
+      <div class="dash-grid-two-col">
+        <div class="card-panel">
+          <div class="panel-header">
+            <div>
+              <div class="panel-title">Månedlig faktisk, budsjett og prognosetrend 2026</div>
+              <div class="panel-subtitle">S-kurve & månedlig run rate i MNOK (Tufte direkte merking)</div>
+            </div>
+          </div>
+          <div class="chart-container">
+            ${generateLineChartSVG([
+              { name: "Regnskap", color: "#38bdf8", data: [0.8, 1.7, 2.6, 3.5, 4.4, 5.3, 6.2, 7.1, 8.0, 8.9, 9.8, 10.6] },
+              { name: "Budsjett", color: "#94a3b8", dashed: true, data: [0.9, 1.8, 2.7, 3.6, 4.5, 5.4, 6.3, 7.2, 8.1, 9.0, 9.9, 10.7] },
+              { name: "Forecast (LE)", color: "#f59e0b", data: [0.8, 1.7, 2.6, 4.2, 7.8, 11.5, 15.6, 20.1, 24.5, 28.9, 32.8, 36.8] }
+            ])}
+          </div>
+        </div>
+
+        <div class="card-panel">
+          <div class="panel-header">
+            <div>
+              <div class="panel-title">Hva driver prognoseavviket?</div>
+              <div class="panel-subtitle">Forecastavvik per DFØ SRS-regnskapslinje (MNOK)</div>
+            </div>
+          </div>
+          <div class="chart-container">
+            ${generateBarChartSVG([
+              { label: "Lønnskostnader (UF/TA)", val: 18.2, color: "#ef4444" },
+              { label: "Andre driftskostnader", val: 5.4, color: "#f59e0b" },
+              { label: "Av- og nedskrivninger", val: 2.1, color: "#f59e0b" },
+              { label: "Inntektsbortfall (BOA)", val: 0.3, color: "#10b981" }
+            ], "MNOK")}
+          </div>
+        </div>
+      </div>
+
+      <div class="dash-grid-two-col">
+        <div class="card-panel">
+          <div class="panel-header">
+            <div>
+              <div class="panel-title">Ressurser & Studieproduktivitet</div>
+              <div class="panel-subtitle">Bemanningsforhold og enhetskostnader</div>
+            </div>
+          </div>
+          <div class="table-container">
+            <table class="tufte-table">
+              <thead>
+                <tr>
+                  <th>Institutt</th>
+                  <th class="num">Studenter</th>
+                  <th class="num">Faglige ÅV</th>
+                  <th class="num">Stud/FagÅV</th>
+                  <th class="num">SPE60</th>
+                  <th class="num">Kost/SPE60</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Inst. for økonomi</td>
+                  <td class="num">2 410</td>
+                  <td class="num">184,2</td>
+                  <td class="num">13,1</td>
+                  <td class="num">2 140,5</td>
+                  <td class="num">82 450 kr</td>
+                </tr>
+                <tr>
+                  <td>Inst. for rettsvitenskap</td>
+                  <td class="num">1 180</td>
+                  <td class="num">92,4</td>
+                  <td class="num">12,8</td>
+                  <td class="num">1 024,0</td>
+                  <td class="num">79 120 kr</td>
+                </tr>
+                <tr>
+                  <td>Inst. for strategi og ledelse</td>
+                  <td class="num">1 750</td>
+                  <td class="num">165,0</td>
+                  <td class="num">10,6</td>
+                  <td class="num">1 490,2</td>
+                  <td class="num">94 300 kr</td>
+                </tr>
+                <tr>
+                  <td>Inst. for IKT og teknologifag</td>
+                  <td class="num">1 150</td>
+                  <td class="num">220,2</td>
+                  <td class="num">5,2</td>
+                  <td class="num">961,0</td>
+                  <td class="num">142 800 kr</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card-panel">
+          <div class="panel-header">
+            <div>
+              <div class="panel-title">Tiltaksoppfølging (FactAction)</div>
+              <div class="panel-subtitle">Innsparingstiltak og realiseringsstatus</div>
+            </div>
+            <a class="drill-link" onclick="showDashboard('page_dt_tiltak')">Alle tiltak &rarr;</a>
+          </div>
+          <div class="table-container">
+            <table class="tufte-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Beskrivelse</th>
+                  <th>Rolle</th>
+                  <th class="num">Forventet</th>
+                  <th class="num">Realisert</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>T-01</code></td>
+                  <td>Vakansestopp adm. stillinger</td>
+                  <td>Instituttleder</td>
+                  <td class="num">-1 200 000</td>
+                  <td class="num">-950 000</td>
+                  <td><span class="status-pill gjennomfort">Gjennomført</span></td>
+                </tr>
+                <tr>
+                  <td><code>T-02</code></td>
+                  <td>Redusert sensorhonorar digital eksamen</td>
+                  <td>Studieleder</td>
+                  <td class="num">-450 000</td>
+                  <td class="num">-310 000</td>
+                  <td><span class="status-pill pagar">Pågår</span></td>
+                </tr>
+                <tr>
+                  <td><code>T-03</code></td>
+                  <td>Kutt i eksterne konsulenttjenester</td>
+                  <td>Kontorsjef</td>
+                  <td class="num">-800 000</td>
+                  <td class="num">-200 000</td>
+                  <td><span class="status-pill forsinket">Forsinket</span></td>
+                </tr>
+                <tr>
+                  <td><code>T-04</code></td>
+                  <td>Samleslåing av valgemner < 15 stud</td>
+                  <td>Instituttleder</td>
+                  <td class="num">-1 500 000</td>
+                  <td class="num">-1 100 000</td>
+                  <td><span class="status-pill pagar">Pågår</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Summary Formula Strip -->
+      <div class="formula-summary-strip">
+        <div class="formula-card">
+          <div class="formula-step">1. Forecast før tiltak</div>
+          <div class="formula-val" style="color:#ef4444;">36,79 MNOK</div>
+          <div style="font-size:11px; color:var(--text-muted);">Ujustert helårsestimat</div>
+        </div>
+        <div class="formula-card">
+          <div class="formula-step">2. Identifisert tiltakseffekt</div>
+          <div class="formula-val" style="color:#10b981;">-10,01 MNOK</div>
+          <div style="font-size:11px; color:var(--text-muted);">16 vedtatte tiltak</div>
+        </div>
+        <div class="formula-card">
+          <div class="formula-step">3. Netto prognose etter tiltak</div>
+          <div class="formula-val" style="color:#38bdf8;">26,79 MNOK</div>
+          <div style="font-size:11px; color:var(--text-muted);">[Forecast] + [Tiltak]</div>
+        </div>
+        <div class="formula-card">
+          <div class="formula-step">4. Gjenstående restavvik</div>
+          <div class="formula-val" style="color:#f59e0b;">+16,04 MNOK</div>
+          <div style="font-size:11px; color:var(--text-muted);">Restgap mot årsbudsjett</div>
+        </div>
+      </div>
+    `
+  },
+
+  page_02: {
+    id: "page_02_dekan",
+    title: "02 Dekan & Fakultetsledelse",
+    role: "Dekan / Fakultetsdirektør",
+    desc: "Strategisk fakultetsoversikt over instituttenes prestasjoner, produktivitet, BOA-eksternfinansiering og samlet omstillingskraft.",
+    slicers: [
+      { label: "Fakultet", options: ["Alle fakulteter", "Handelshøyskolen ved UiA", "Fakultet for teknologi og realfag", "Fakultet for samfunnsvitenskap", "Fakultet for helse- og idrettsvitenskap"] },
+      { label: "Periode", options: ["2026-12 (YTD)", "2026-10", "2026-08", "2026-06"] },
+      { label: "Prognoseversjon", options: ["LE_2026", "FC2_2026", "FC1_2026"] }
+    ],
+    kpis: [
+      { title: "Forecast helår (LE)", val: "36,79 M", unit: "NOK", badge: "Fakultet totalt", badgeCls: "variance-info", sub: "Budsjett: 10,75 M" },
+      { title: "Forecastavvik", val: "+26,05 M", unit: "NOK", badge: "Merforbruk", badgeCls: "variance-unfavorable", sub: "Gap før tiltak" },
+      { title: "Årsverk totalt", val: "1 285,9", unit: "FTE", badge: "UF: 661,8 | TA: 624,1", badgeCls: "variance-info", sub: "Lønnsandel: 68,97%" },
+      { title: "Registrerte studenter", val: "6 490", unit: "Stud", badge: "86,4% måloppnåelse", badgeCls: "variance-neutral", sub: "Avlagte SP: 336 945" },
+      { title: "BOA-inntekter", val: "25,68 M", unit: "NOK", badge: "NFR + EU + Oppdrag", badgeCls: "variance-favorable", sub: "1,20% av totalinntekt" },
+      { title: "Identifisert tiltak", val: "-10,01 M", unit: "NOK", badge: "55,6% realisert", badgeCls: "variance-favorable", sub: "Realisert: -5,56 M" }
+    ],
+    renderContent: () => `
+      <div class="dash-grid-two-col">
+        <div class="card-panel">
+          <div class="panel-header">
+            <div>
+              <div class="panel-title">Instituttenes prognoseavvik mot budsjett</div>
+              <div class="panel-subtitle">Forventet mer-/mindreforbruk ved årets slutt (MNOK)</div>
+            </div>
+          </div>
+          <div class="chart-container">
+            ${generateBarChartSVG([
+              { label: "Handelshøyskolen UiA", val: 8.4, color: "#ef4444" },
+              { label: "Fakultet for teknologi", val: 9.8, color: "#ef4444" },
+              { label: "Fakultet for samfunnsvitenskap", val: 4.2, color: "#f59e0b" },
+              { label: "Fakultet for humaniora", val: 2.1, color: "#f59e0b" },
+              { label: "Fellesområde & adm.", val: 1.55, color: "#10b981" }
+            ], "MNOK")}
+          </div>
+        </div>
+
+        <div class="card-panel">
+          <div class="panel-header">
+            <div>
+              <div class="panel-title">Eksternfinansiering per kilde (BOA)</div>
+              <div class="panel-subtitle">Fordeling Norges forskningsråd, EU og oppdragsforskning</div>
+            </div>
+          </div>
+          <div class="chart-container">
+            ${generateBarChartSVG([
+              { label: "Norges forskningsråd (NFR)", val: 12.9, color: "#38bdf8" },
+              { label: "EU (Horisont Europa / Marie Curie)", val: 7.43, color: "#6366f1" },
+              { label: "Oppdrag & næringsliv", val: 5.35, color: "#10b981" }
+            ], "MNOK")}
+          </div>
+        </div>
+      </div>
+
+      <div class="dash-grid-two-col">
+        <div class="card-panel">
+          <div class="panel-header">
+            <div>
+              <div class="panel-title">Faglig produktivitet og lønnsandel per enhet</div>
+              <div class="panel-subtitle">Enhetskostnader og bemanningsforhold</div>
+            </div>
+          </div>
+          <div class="table-container">
+            <table class="tufte-table">
+              <thead>
+                <tr>
+                  <th>Fakultet / Enhet</th>
+                  <th class="num">Kost/SPE60</th>
+                  <th class="num">Stud/FagÅV</th>
+                  <th class="num">SPE60/FagÅV</th>
+                  <th class="num">Lønnsandel %</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Handelshøyskolen ved UiA</td>
+                  <td class="num">84 100 kr</td>
+                  <td class="num">11,8</td>
+                  <td class="num">10,2</td>
+                  <td class="num">69,2%</td>
+                </tr>
+                <tr>
+                  <td>Fakultet for teknologi og realfag</td>
+                  <td class="num">138 400 kr</td>
+                  <td class="num">5,8</td>
+                  <td class="num">5,1</td>
+                  <td class="num">66,8%</td>
+                </tr>
+                <tr>
+                  <td>Fakultet for samfunnsvitenskap</td>
+                  <td class="num">78 900 kr</td>
+                  <td class="num">12,4</td>
+                  <td class="num">10,9</td>
+                  <td class="num">72,1%</td>
+                </tr>
+                <tr>
+                  <td>Fakultet for helse- og idrettsvitenskap</td>
+                  <td class="num">104 200 kr</td>
+                  <td class="num">8,9</td>
+                  <td class="num">7,8</td>
+                  <td class="num">70,4%</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card-panel">
+          <div class="panel-header">
+            <div>
+              <div class="panel-title">Omstilling og tiltaksdekning per enhet</div>
+              <div class="panel-subtitle">Hvor stor andel av prognoseavviket dekkes av tiltak?</div>
+            </div>
+          </div>
+          <div class="table-container">
+            <table class="tufte-table">
+              <thead>
+                <tr>
+                  <th>Enhet</th>
+                  <th class="num">Tiltak</th>
+                  <th class="num">Åpne</th>
+                  <th class="num">Forsinket</th>
+                  <th class="num">Forventet</th>
+                  <th class="num">Realisert</th>
+                  <th class="num">Grad %</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Handelshøyskolen UiA</td>
+                  <td class="num">5</td>
+                  <td class="num">4</td>
+                  <td class="num">1</td>
+                  <td class="num">-3,40 M</td>
+                  <td class="num">-2,10 M</td>
+                  <td class="num" style="color:#10b981;">61,8%</td>
+                </tr>
+                <tr>
+                  <td>Fakultet for teknologi</td>
+                  <td class="num">4</td>
+                  <td class="num">3</td>
+                  <td class="num">1</td>
+                  <td class="num">-2,80 M</td>
+                  <td class="num">-1,45 M</td>
+                  <td class="num" style="color:#f59e0b;">51,8%</td>
+                </tr>
+                <tr>
+                  <td>Fellesområde / Ledelse</td>
+                  <td class="num">4</td>
+                  <td class="num">3</td>
+                  <td class="num">1</td>
+                  <td class="num">-2,30 M</td>
+                  <td class="num">-1,20 M</td>
+                  <td class="num" style="color:#f59e0b;">52,2%</td>
+                </tr>
+                <tr>
+                  <td>Øvrige fakulteter</td>
+                  <td class="num">3</td>
+                  <td class="num">2</td>
+                  <td class="num">1</td>
+                  <td class="num">-1,51 M</td>
+                  <td class="num">-0,81 M</td>
+                  <td class="num" style="color:#10b981;">53,6%</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    `
+  },
+
+  page_03: {
+    id: "page_03_executive",
+    title: "03 Universitetsdirektør & Ledelse",
+    role: "Universitetsdirektør / Rektorat",
+    desc: "Helhetlig topplederoversikt for hele UiA. Prognoseutvikling over runder (Budsjett -> FC1 -> FC2 -> LE), fakultetsvise avvik og strategiske styringsparametere.",
+    slicers: [
+      { label: "Periode", options: ["2026-12 (Helår)", "2026-08 (T2)", "2026-04 (T1)"] },
+      { label: "Forecastversjon", options: ["LE_2026", "FC2_2026", "FC1_2026"] }
+    ],
+    kpis: [
+      { title: "Årsbudsjett UiA", val: "10,75 M", unit: "NOK", badge: "BAC Ramme", badgeCls: "variance-info", sub: "Netto bevilgningsramme" },
+      { title: "Helårsprognose (LE)", val: "36,79 M", unit: "NOK", badge: "EAC Slutt", badgeCls: "variance-unfavorable", sub: "Gjeldende helårsestimat" },
+      { title: "Prognoseavvik", val: "+26,05 M", unit: "NOK", badge: "Risikogap", badgeCls: "variance-unfavorable", sub: "Forventet merforbruk før tiltak" },
+      { title: "Årsverk totalt", val: "1 285,9", unit: "FTE", badge: "Hele UiA", badgeCls: "variance-info", sub: "UF: 661,8 | TA: 624,1" },
+      { title: "BOA-finansieringsandel", val: "1,20%", unit: "Andel", badge: "Mål: 2,5%", badgeCls: "variance-neutral", sub: "BOA inntekter: 25,68 M" }
+    ],
+    renderContent: () => `
+      <div class="dash-grid-two-col">
+        <div class="card-panel">
+          <div class="panel-header">
+            <div>
+              <div class="panel-title">Prognoseutvikling over runder (Budsjett &rarr; FC1 &rarr; FC2 &rarr; LE)</div>
+              <div class="panel-subtitle">Vandring i forventet årsresultat gjennom styringsåret (MNOK)</div>
+            </div>
+          </div>
+          <div class="chart-container">
+            ${generateLineChartSVG([
+              { name: "Prognose helår", color: "#38bdf8", data: [10.75, 15.2, 22.4, 28.1, 35.47, 35.7, 35.96, 36.2, 36.5, 36.79] },
+              { name: "Vedtatt budsjettramme", color: "#94a3b8", dashed: true, data: [10.75, 10.75, 10.75, 10.75, 10.75, 10.75, 10.75, 10.75, 10.75, 10.75] }
+            ])}
+          </div>
+        </div>
+
+        <div class="card-panel">
+          <div class="panel-header">
+            <div>
+              <div class="panel-title">Prognoseavvik fordelt på fakulteter</div>
+              <div class="panel-subtitle">Hvor oppstår merforbruket? (MNOK)</div>
+            </div>
+          </div>
+          <div class="chart-container">
+            ${generateBarChartSVG([
+              { label: "Fak. for teknologi og realfag", val: 9.8, color: "#ef4444" },
+              { label: "Handelshøyskolen ved UiA", val: 8.4, color: "#ef4444" },
+              { label: "Fak. for samfunnsvitenskap", val: 4.2, color: "#f59e0b" },
+              { label: "Fak. for humaniora og ped.", val: 2.1, color: "#f59e0b" },
+              { label: "Fellesområde & administrasjon", val: 1.55, color: "#10b981" }
+            ], "MNOK")}
+          </div>
+        </div>
+      </div>
+
+      <div class="card-panel">
+        <div class="panel-header">
+          <div>
+            <div class="panel-title">Hovedtall per fakultet og fellesområde</div>
+            <div class="panel-subtitle">Komplett avstemming mot budsjett, regnskap, prognose og årsverk</div>
+          </div>
+        </div>
+        <div class="table-container">
+          <table class="tufte-table">
+            <thead>
+              <tr>
+                <th>Fakultet / Område</th>
+                <th class="num">Årsbudsjett</th>
+                <th class="num">Regnskap YTD</th>
+                <th class="num">Forecast LE</th>
+                <th class="num">Forecastavvik</th>
+                <th class="num">Årsverk</th>
+                <th class="num">BOA Inntekter</th>
+                <th class="num">Netto etter tiltak</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Handelshøyskolen ved UiA</td>
+                <td class="num">3 240 000</td>
+                <td class="num">3 180 000</td>
+                <td class="num">11 640 000</td>
+                <td class="num" style="color:#ef4444;">+8 400 000</td>
+                <td class="num">342,0</td>
+                <td class="num">8 450 000</td>
+                <td class="num" style="color:#38bdf8;">8 240 000</td>
+              </tr>
+              <tr>
+                <td>Fakultet for teknologi og realfag</td>
+                <td class="num">4 120 000</td>
+                <td class="num">4 090 000</td>
+                <td class="num">13 920 000</td>
+                <td class="num" style="color:#ef4444;">+9 800 000</td>
+                <td class="num">410,5</td>
+                <td class="num">11 820 000</td>
+                <td class="num" style="color:#38bdf8;">11 120 000</td>
+              </tr>
+              <tr>
+                <td>Fakultet for samfunnsvitenskap</td>
+                <td class="num">1 850 000</td>
+                <td class="num">1 840 000</td>
+                <td class="num">6 050 000</td>
+                <td class="num" style="color:#ef4444;">+4 200 000</td>
+                <td class="num">265,0</td>
+                <td class="num">3 110 000</td>
+                <td class="num" style="color:#38bdf8;">4 850 000</td>
+              </tr>
+              <tr>
+                <td>Fellesområde & administrasjon</td>
+                <td class="num">1 537 733</td>
+                <td class="num">1 507 128</td>
+                <td class="num">5 183 524</td>
+                <td class="num" style="color:#f59e0b;">+3 645 791</td>
+                <td class="num">268,4</td>
+                <td class="num">2 298 288</td>
+                <td class="num" style="color:#38bdf8;">2 578 524</td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td>Totalt UiA</td>
+                <td class="num">10 747 733 kr</td>
+                <td class="num">10 617 128 kr</td>
+                <td class="num">36 793 524 kr</td>
+                <td class="num" style="color:#ef4444;">+26 045 791 kr</td>
+                <td class="num">1 285,9</td>
+                <td class="num">25 678 288 kr</td>
+                <td class="num" style="color:#38bdf8;">26 788 524 kr</td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    `
+  },
+
+  page_04: {
+    id: "page_04_styret",
+    title: "04 Universitetsstyret",
+    role: "Universitetsstyret",
+    desc: "Strategisk risikobilde, måloppnåelse for utdanning og forskning, samt oppfølging av de 16 styrebehandlede omstillingstiltakene.",
+    slicers: [
+      { label: "Periode", options: ["2026-12 (Årsrapport)", "2026-08 (T2-rapport)", "2026-04 (T1-rapport)"] },
+      { label: "Prognoseversjon", options: ["LE_2026", "FC2_2026", "FC1_2026"] }
+    ],
+    kpis: [
+      { title: "Totalbudsjett", val: "10,75 M", unit: "NOK", badge: "Vedtatt ramme", badgeCls: "variance-info", sub: "Bevilgning + BOA" },
+      { title: "Forventet helårsresultat", val: "36,79 M", unit: "NOK", badge: "LE_2026", badgeCls: "variance-unfavorable", sub: "Merforbruk: +26,05 M" },
+      { title: "Forventet avvik %", val: "+242,3%", unit: "Avvik", badge: "Høy risiko", badgeCls: "variance-unfavorable", sub: "Før innregning av tiltak" },
+      { title: "Studiepoeng måloppnåelse", val: "86,4%", unit: "Mål", badge: "336 945 / 390 095", badgeCls: "variance-neutral", sub: "SPE60: 5 615,7" },
+      { title: "Eksternfinansiering (BOA)", val: "25,68 M", unit: "NOK", badge: "1,20% andel", badgeCls: "variance-favorable", sub: "NFR: 12,9M | EU: 7,4M" }
+    ],
+    renderContent: () => `
+      <div class="dash-grid-two-col">
+        <div class="card-panel">
+          <div class="panel-header">
+            <div>
+              <div class="panel-title">Strategisk måloppnåelse studieaktivitet</div>
+              <div class="panel-subtitle">Studenter og studiepoengproduksjon mot styringskrav</div>
+            </div>
+          </div>
+          <div class="table-container">
+            <table class="tufte-table">
+              <thead>
+                <tr>
+                  <th>Fakultet</th>
+                  <th class="num">Reg. Studenter</th>
+                  <th class="num">Avlagte SP</th>
+                  <th class="num">SPE60</th>
+                  <th class="num">Måloppnåelse</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Handelshøyskolen ved UiA</td>
+                  <td class="num">2 410</td>
+                  <td class="num">128 430</td>
+                  <td class="num">2 140,5</td>
+                  <td class="num" style="color:#10b981;">89,2%</td>
+                </tr>
+                <tr>
+                  <td>Fakultet for teknologi og realfag</td>
+                  <td class="num">1 750</td>
+                  <td class="num">88 400</td>
+                  <td class="num">1 473,3</td>
+                  <td class="num" style="color:#f59e0b;">82,4%</td>
+                </tr>
+                <tr>
+                  <td>Fakultet for samfunnsvitenskap</td>
+                  <td class="num">1 380</td>
+                  <td class="num">74 215</td>
+                  <td class="num">1 236,9</td>
+                  <td class="num" style="color:#10b981;">88,1%</td>
+                </tr>
+                <tr>
+                  <td>Fakultet for helse og idrett</td>
+                  <td class="num">950</td>
+                  <td class="num">45 900</td>
+                  <td class="num">765,0</td>
+                  <td class="num" style="color:#f59e0b;">84,0%</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card-panel">
+          <div class="panel-header">
+            <div>
+              <div class="panel-title">Økonomisk risikobilde og omstilling</div>
+              <div class="panel-subtitle">Fakultetsvis tiltakseffekt mot prognoseavvik</div>
+            </div>
+          </div>
+          <div class="table-container">
+            <table class="tufte-table">
+              <thead>
+                <tr>
+                  <th>Fakultet</th>
+                  <th class="num">Forecastavvik</th>
+                  <th class="num">Identifisert tiltak</th>
+                  <th class="num">Netto restavvik</th>
+                  <th>Risiko</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Fak. for teknologi og realfag</td>
+                  <td class="num" style="color:#ef4444;">+9 800 000</td>
+                  <td class="num" style="color:#10b981;">-2 800 000</td>
+                  <td class="num" style="color:#f59e0b;">+7 000 000</td>
+                  <td><span class="status-pill forsinket">Høy</span></td>
+                </tr>
+                <tr>
+                  <td>Handelshøyskolen ved UiA</td>
+                  <td class="num" style="color:#ef4444;">+8 400 000</td>
+                  <td class="num" style="color:#10b981;">-3 400 000</td>
+                  <td class="num" style="color:#f59e0b;">+5 000 000</td>
+                  <td><span class="status-pill forsinket">Høy</span></td>
+                </tr>
+                <tr>
+                  <td>Fak. for samfunnsvitenskap</td>
+                  <td class="num" style="color:#f59e0b;">+4 200 000</td>
+                  <td class="num" style="color:#10b981;">-1 500 000</td>
+                  <td class="num" style="color:#f59e0b;">+2 700 000</td>
+                  <td><span class="status-pill pagar">Middels</span></td>
+                </tr>
+                <tr>
+                  <td>Fellesområde / Adm.</td>
+                  <td class="num" style="color:#f59e0b;">+3 645 791</td>
+                  <td class="num" style="color:#10b981;">-2 305 000</td>
+                  <td class="num" style="color:#10b981;">+1 340 791</td>
+                  <td><span class="status-pill gjennomfort">Lav</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-panel">
+        <div class="panel-header">
+          <div>
+            <div class="panel-title">Universitetsstyrets omstillingstiltak (FactAction - 16 tiltak)</div>
+            <div class="panel-subtitle">Gjennomføringsgrad og forventet vs realisert effekt</div>
+          </div>
+        </div>
+        <div class="table-container">
+          <table class="tufte-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Tiltaksbeskrivelse</th>
+                <th>Avviksårsak</th>
+                <th>Ansvarlig</th>
+                <th class="num">Forventet</th>
+                <th class="num">Realisert</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>T-01</code></td>
+                <td>Vakansestopp i administrative stillinger</td>
+                <td>Lønnsvekst og overkapasitet</td>
+                <td>HR-direktør</td>
+                <td class="num">-1 200 000</td>
+                <td class="num">-950 000</td>
+                <td><span class="status-pill gjennomfort">Gjennomført</span></td>
+              </tr>
+              <tr>
+                <td><code>T-05</code></td>
+                <td>Reduksjon av eksterne konsulentavtaler IT</td>
+                <td>Høye konsulentkostnader</td>
+                <td>IT-direktør</td>
+                <td class="num">-1 500 000</td>
+                <td class="num">-800 000</td>
+                <td><span class="status-pill pagar">Pågår</span></td>
+              </tr>
+              <tr>
+                <td><code>T-08</code></td>
+                <td>Nedskalering av arealleie Campus Kristiansand</td>
+                <td>Høye leiekostnader</td>
+                <td>Eiendomsdirektør</td>
+                <td class="num">-2 000 000</td>
+                <td class="num">-600 000</td>
+                <td><span class="status-pill forsinket">Forsinket</span></td>
+              </tr>
+              <tr>
+                <td><code>T-12</code></td>
+                <td>Optimalisering av studietilbud og samkjøring</td>
+                <td>Små studentkull</td>
+                <td>Dekan Helse</td>
+                <td class="num">-1 100 000</td>
+                <td class="num">-900 000</td>
+                <td><span class="status-pill pagar">Pågår</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    `
+  },
+
+  page_05: {
+    id: "page_05_forskning_boa",
+    title: "05 Forskningsledelse & BOA",
+    role: "Prorektor Forskning / Forskningsutvalg",
+    desc: "Oppfølging av eksternfinansiert forskning (Bidrag og Oppdrag). NFR, EU Horisont Europa, prosjektmarginer og indirekte kostnadsdekning (TDI/overhead).",
+    slicers: [
+      { label: "Fakultet", options: ["Alle fakulteter", "Handelshøyskolen UiA", "Fakultet for teknologi"] },
+      { label: "Finansieringskilde", options: ["Alle kilder", "NFR", "EU", "Oppdrag", "Ekstern"] }
+    ],
+    kpis: [
+      { title: "Total BOA-inntekt", val: "25,68 M", unit: "NOK", badge: "+8,4% vs Budsjett", badgeCls: "variance-favorable", sub: "Budsjett: 23,7 M" },
+      { title: "NFR-inntekter", val: "12,90 M", unit: "NOK", badge: "50,3% andel", badgeCls: "variance-info", sub: "Forskningsrådsprosjekter" },
+      { title: "EU-inntekter", val: "7,43 M", unit: "NOK", badge: "28,9% andel", badgeCls: "variance-info", sub: "Horisont Europa / Marie Curie" },
+      { title: "BOA per faglig årsverk", val: "38 802", unit: "kr/ÅV", badge: "Mål: 45 000 kr", badgeCls: "variance-neutral", sub: "661,8 faglige årsverk" }
+    ],
+    renderContent: () => `
+      <div class="dash-grid-two-col">
+        <div class="card-panel">
+          <div class="panel-header">
+            <div>
+              <div class="panel-title">BOA-inntekter fordelt på finansieringskilder</div>
+              <div class="panel-subtitle">NFR, EU, Oppdrag og næringsliv (MNOK)</div>
+            </div>
+          </div>
+          <div class="chart-container">
+            ${generateBarChartSVG([
+              { label: "NFR (Forskningsrådet)", val: 12.9, color: "#38bdf8" },
+              { label: "EU (Horisont Europa)", val: 7.43, color: "#6366f1" },
+              { label: "Næringsliv / Oppdrag", val: 5.35, color: "#10b981" }
+            ], "MNOK")}
+          </div>
+        </div>
+
+        <div class="card-panel">
+          <div class="panel-header">
+            <div>
+              <div class="panel-title">Fordeling bidrag vs. oppdrag</div>
+              <div class="panel-subtitle">Bidragsforskning (egenandel) vs. oppdragsforskning (fullkost)</div>
+            </div>
+          </div>
+          <div class="chart-container">
+            ${generateBarChartSVG([
+              { label: "Bidragsforskning (NFR/EU)", val: 20.33, color: "#38bdf8" },
+              { label: "Oppdragsforskning (Direkte)", val: 5.35, color: "#f59e0b" }
+            ], "MNOK")}
+          </div>
+        </div>
+      </div>
+
+      <div class="card-panel">
+        <div class="panel-header">
+          <div>
+            <div class="panel-title">Fullstendig prosjektportefølje (DimProject)</div>
+            <div class="panel-subtitle">Prosjektøkonomi, finansiering og regnskap mot forecast</div>
+          </div>
+          <a class="drill-link" onclick="showDashboard('page_dt_prosjekt')">EVM Detalj &rarr;</a>
+        </div>
+        <div class="table-container">
+          <table class="tufte-table">
+            <thead>
+              <tr>
+                <th>Kode</th>
+                <th>Prosjektnavn</th>
+                <th>Kilde</th>
+                <th>Type</th>
+                <th>Kategori</th>
+                <th class="num">Regnskap</th>
+                <th class="num">Budsjett</th>
+                <th class="num">Forecast</th>
+                <th class="num">Avvik</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>NFR001</code></td>
+                <td>AI for Offshore Energy Dynamics</td>
+                <td>NFR</td>
+                <td>Bidrag</td>
+                <td>Forskningsprosjekt</td>
+                <td class="num">6 450 000</td>
+                <td class="num">6 500 000</td>
+                <td class="num">6 480 000</td>
+                <td class="num" style="color:#10b981;">-50 000</td>
+              </tr>
+              <tr>
+                <td><code>EU001</code></td>
+                <td>Horizon Green Maritime Transport</td>
+                <td>EU</td>
+                <td>Bidrag</td>
+                <td>EU-prosjekt</td>
+                <td class="num">4 120 000</td>
+                <td class="num">4 200 000</td>
+                <td class="num">4 180 000</td>
+                <td class="num" style="color:#10b981;">-80 000</td>
+              </tr>
+              <tr>
+                <td><code>NFR002</code></td>
+                <td>Sustainable Business Models Agder</td>
+                <td>NFR</td>
+                <td>Bidrag</td>
+                <td>Kompetanseprosjekt</td>
+                <td class="num">3 850 000</td>
+                <td class="num">3 600 000</td>
+                <td class="num">3 900 000</td>
+                <td class="num" style="color:#ef4444;">+250 000</td>
+              </tr>
+              <tr>
+                <td><code>OPP001</code></td>
+                <td>Batteriproduksjon Processevaluering</td>
+                <td>Ekstern</td>
+                <td>Oppdrag</td>
+                <td>Oppdragsforskning</td>
+                <td class="num">2 940 000</td>
+                <td class="num">2 800 000</td>
+                <td class="num">3 000 000</td>
+                <td class="num" style="color:#f59e0b;">+140 000</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    `
+  },
+
+  page_06: {
+    id: "page_06_studieportefolje",
+    title: "06 Studieportefølje & Aktivitet",
+    role: "Prorektor Utdanning / Studiedirektør",
+    desc: "Oppfølging av studentopptak, avlagte studiepoeng, SPE60 og enhetskostnader per studieprogram og studienivå.",
+    slicers: [
+      { label: "Fakultet", options: ["Alle fakulteter", "Handelshøyskolen UiA", "Fakultet for teknologi"] },
+      { label: "Studienivå", options: ["Alle nivåer", "Bachelor", "Master", "PhD"] }
+    ],
+    kpis: [
+      { title: "Registrerte studenter", val: "6 490", unit: "Stud", badge: "Siste snapshot", badgeCls: "variance-info", sub: "Planlagt: 6 800" },
+      { title: "Avlagte studiepoeng", val: "336 945", unit: "SP", badge: "86,4% måloppnåelse", badgeCls: "variance-neutral", sub: "Planlagt: 390 095 SP" },
+      { title: "SPE60 Ekvivalenter", val: "5 615,7", unit: "SPE", badge: "Helårsstudenter", badgeCls: "variance-info", sub: "SP / 60" },
+      { title: "Måloppnåelse %", val: "86,38%", unit: "Krav", badge: "Mål: > 90%", badgeCls: "variance-neutral", sub: "Avvik: -13,62%" },
+      { title: "Kostnad per SPE60", val: "94 200", unit: "kr/SPE", badge: "Gj.snitt UiA", badgeCls: "variance-info", sub: "Kostnadseffektivitet" }
+    ],
+    renderContent: () => `
+      <div class="dash-grid-two-col">
+        <div class="card-panel">
+          <div class="panel-header">
+            <div>
+              <div class="panel-title">Enhetskostnad per SPE60 per institutt</div>
+              <div class="panel-subtitle">Kostnad i kroner per fullført 60-studiepoengsenhet</div>
+            </div>
+          </div>
+          <div class="chart-container">
+            ${generateBarChartSVG([
+              { label: "Inst. for IKT og teknologifag", val: 142.8, color: "#ef4444" },
+              { label: "Inst. for strategi og ledelse", val: 94.3, color: "#f59e0b" },
+              { label: "Inst. for økonomi", val: 82.5, color: "#10b981" },
+              { label: "Inst. for rettsvitenskap", val: 79.1, color: "#10b981" }
+            ], "Tusen kr")}
+          </div>
+        </div>
+
+        <div class="card-panel">
+          <div class="panel-header">
+            <div>
+              <div class="panel-title">SPE60 fordelt på studienivå</div>
+              <div class="panel-subtitle">Bachelor vs. Master vs. Ph.D. helårsekvivalenter</div>
+            </div>
+          </div>
+          <div class="chart-container">
+            ${generateBarChartSVG([
+              { label: "Bachelorprogrammer", val: 3450.2, color: "#38bdf8" },
+              { label: "Masterprogrammer (2-årig / integrert)", val: 1845.5, color: "#6366f1" },
+              { label: "Doktorgradsutdanning (PhD)", val: 320.0, color: "#10b981" }
+            ], "SPE60")}
+          </div>
+        </div>
+      </div>
+
+      <div class="card-panel">
+        <div class="panel-header">
+          <div>
+            <div class="panel-title">Studieprogramaktivitet og produksjonsgrad (FactStudyPoints)</div>
+            <div class="panel-subtitle">Oppfølging av registrerte studenter og produksjon per program</div>
+          </div>
+          <a class="drill-link" onclick="showDashboard('page_dt_studier')">Gå til studieaktivitet &rarr;</a>
+        </div>
+        <div class="table-container">
+          <table class="tufte-table">
+            <thead>
+              <tr>
+                <th>Kode</th>
+                <th>Studieprogramnavn</th>
+                <th>Nivå</th>
+                <th class="num">Normert</th>
+                <th class="num">Studenter</th>
+                <th class="num">Planlagte SP</th>
+                <th class="num">Avlagte SP</th>
+                <th class="num">SPE60</th>
+                <th class="num">Måloppnåelse</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>BOKADM</code></td>
+                <td>Bachelor i økonomi og administrasjon</td>
+                <td>Bachelor</td>
+                <td class="num">180</td>
+                <td class="num">850</td>
+                <td class="num">51 000</td>
+                <td class="num">46 200</td>
+                <td class="num">770,0</td>
+                <td class="num" style="color:#10b981;">90,6%</td>
+              </tr>
+              <tr>
+                <td><code>MOKLED</code></td>
+                <td>Master i økonomi og ledelse (Siviløkonom)</td>
+                <td>Master</td>
+                <td class="num">120</td>
+                <td class="num">420</td>
+                <td class="num">25 200</td>
+                <td class="num">23 100</td>
+                <td class="num">385,0</td>
+                <td class="num" style="color:#10b981;">91,7%</td>
+              </tr>
+              <tr>
+                <td><code>BRETT</code></td>
+                <td>Bachelor i rettsvitenskap</td>
+                <td>Bachelor</td>
+                <td class="num">180</td>
+                <td class="num">520</td>
+                <td class="num">31 200</td>
+                <td class="num">26 400</td>
+                <td class="num">440,0</td>
+                <td class="num" style="color:#f59e0b;">84,6%</td>
+              </tr>
+              <tr>
+                <td><code>BIKT</code></td>
+                <td>Bachelor i informatikk og cybersikkerhet</td>
+                <td>Bachelor</td>
+                <td class="num">180</td>
+                <td class="num">410</td>
+                <td class="num">24 600</td>
+                <td class="num">19 800</td>
+                <td class="num">330,0</td>
+                <td class="num" style="color:#ef4444;">80,5%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    `
+  },
+
+  page_07: {
+    id: "page_07_action_tracker",
+    title: "07 Action Tracker (Tiltak)",
+    role: "Omstillingsutvalg / Prosjektleder",
+    desc: "Oppfølging av UiAs omstillingsprogram (FactAction). 16 definerte tiltak, fremdriftsstatus, realiserte gevinster mot forventet effekt og restgap.",
+    slicers: [
+      { label: "Ansvarlig lederrolle", options: ["Alle roller", "Instituttleder", "Dekan", "HR-direktør", "Eiendomsdirektør", "IT-direktør"] },
+      { label: "Status", options: ["Alle statuser", "Gjennomført", "Pågår", "Forsinket", "Planlagt"] },
+      { label: "Prioritet", options: ["Alle prioriteter", "Høy", "Medium", "Lav"] }
+    ],
+    kpis: [
+      { title: "Totalt antall tiltak", val: "16", unit: "Tiltak", badge: "I porteføljen", badgeCls: "variance-info", sub: "Omstillingsportefølje" },
+      { title: "Aktive åpne tiltak", val: "12", unit: "Tiltak", badge: "Pågår / Forsinket", badgeCls: "variance-neutral", sub: "4 gjennomført" },
+      { title: "Forsinkede tiltak", val: "4", unit: "Tiltak", badge: "Rød status", badgeCls: "variance-unfavorable", sub: "Krever lederinngripen" },
+      { title: "Forventet tiltakseffekt", val: "-10,01 M", unit: "NOK", badge: "Full effekt", badgeCls: "variance-favorable", sub: "Total innsparingsplan" },
+      { title: "Realisert tiltakseffekt", val: "-5,56 M", unit: "NOK", badge: "55,59% oppnådd", badgeCls: "variance-favorable", sub: "Bokført gevinst YTD" },
+      { title: "Realiseringsgrad", val: "55,59%", unit: "Grad", badge: "Mål: > 70%", badgeCls: "variance-neutral", sub: "Gjenstår: -4,44 MNOK" }
+    ],
+    renderContent: () => `
+      <div class="dash-grid-two-col">
+        <div class="card-panel">
+          <div class="panel-header">
+            <div>
+              <div class="panel-title">Identifisert besparelse per ansvarlig rolle</div>
+              <div class="panel-subtitle">Hvilke ledergrupper bærer gevinstrealiseringen? (MNOK)</div>
+            </div>
+          </div>
+          <div class="chart-container">
+            ${generateBarChartSVG([
+              { label: "Dekaner / Fakulteter", val: 3.8, color: "#38bdf8" },
+              { label: "Eiendoms- og driftsavdeling", val: 2.6, color: "#6366f1" },
+              { label: "Instituttledere", val: 2.1, color: "#10b981" },
+              { label: "HR- og IT-avdeling", val: 1.51, color: "#f59e0b" }
+            ], "MNOK")}
+          </div>
+        </div>
+
+        <div class="card-panel">
+          <div class="panel-header">
+            <div>
+              <div class="panel-title">Tiltakseffekt per status</div>
+              <div class="panel-subtitle">Fordeling av forventet effekt (MNOK)</div>
+            </div>
+          </div>
+          <div class="chart-container">
+            ${generateBarChartSVG([
+              { label: "Gjennomført (Sikret gevinst)", val: 3.1, color: "#10b981" },
+              { label: "Pågår (I henhold til plan)", val: 4.5, color: "#38bdf8" },
+              { label: "Forsinket (Tiltak i fare)", val: 2.41, color: "#ef4444" }
+            ], "MNOK")}
+          </div>
+        </div>
+      </div>
+
+      <div class="card-panel">
+        <div class="panel-header">
+          <div>
+            <div class="panel-title">Komplett omstillingslogg (FactAction.csv)</div>
+            <div class="panel-subtitle">Tiltaksdetaljer, frister, ansvarlige og realiserte beløp</div>
+          </div>
+          <a class="drill-link" onclick="showDashboard('page_dt_tiltak')">Åpne tiltakskort &rarr;</a>
+        </div>
+        <div class="table-container">
+          <table class="tufte-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Tiltaksbeskrivelse</th>
+                <th>Avviksårsak</th>
+                <th>Ansvarlig</th>
+                <th>Frist</th>
+                <th class="num">Forventet</th>
+                <th class="num">Realisert</th>
+                <th>Status</th>
+                <th>Prio</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>T-01</code></td>
+                <td>Vakansestopp adm. stillinger</td>
+                <td>Lønnsvekst over ramme</td>
+                <td>HR-direktør</td>
+                <td>2026-06-30</td>
+                <td class="num">-1 200 000</td>
+                <td class="num">-950 000</td>
+                <td><span class="status-pill gjennomfort">Gjennomført</span></td>
+                <td>Høy</td>
+              </tr>
+              <tr>
+                <td><code>T-02</code></td>
+                <td>Redusert sensorhonorar digital eksamen</td>
+                <td>Høye sensorkostnader</td>
+                <td>Studieleder</td>
+                <td>2026-10-15</td>
+                <td class="num">-450 000</td>
+                <td class="num">-310 000</td>
+                <td><span class="status-pill pagar">Pågår</span></td>
+                <td>Medium</td>
+              </tr>
+              <tr>
+                <td><code>T-03</code></td>
+                <td>Kutt i konsulenter økonomisystem</td>
+                <td>Dyrt eksternt bistand</td>
+                <td>Kontorsjef</td>
+                <td>2026-08-01</td>
+                <td class="num">-800 000</td>
+                <td class="num">-200 000</td>
+                <td><span class="status-pill forsinket">Forsinket</span></td>
+                <td>Høy</td>
+              </tr>
+              <tr>
+                <td><code>T-04</code></td>
+                <td>Samleslåing av valgemner < 15 stud</td>
+                <td>Små emner og lav timeeffektivitet</td>
+                <td>Instituttleder</td>
+                <td>2026-11-30</td>
+                <td class="num">-1 500 000</td>
+                <td class="num">-1 100 000</td>
+                <td><span class="status-pill pagar">Pågår</span></td>
+                <td>Høy</td>
+              </tr>
+              <tr>
+                <td><code>T-08</code></td>
+                <td>Nedskalering av arealleie Kristiansand</td>
+                <td>Tomme kontorer / hybridarbeid</td>
+                <td>Eiendomsdirektør</td>
+                <td>2026-09-01</td>
+                <td class="num">-2 000 000</td>
+                <td class="num">-600 000</td>
+                <td><span class="status-pill forsinket">Forsinket</span></td>
+                <td>Høy</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    `
+  },
+
+  page_08: {
+    id: "page_08_controller_cockpit",
+    title: "08 Controller Cockpit",
+    role: "Senior Controller / Økonomisjef",
+    desc: "Dybdeanalyse, kontrolltårn og avstemmingsmatrise for controllere. Avviksdrivere på kontonavn, forecast confidence % og hierarkisk drilldown.",
+    slicers: [
+      { label: "Fakultet", options: ["Alle fakulteter", "Handelshøyskolen UiA", "Fakultet for teknologi"] },
+      { label: "Institutt", options: ["Alle institutter", "Inst. for økonomi", "Inst. for IKT"] },
+      { label: "SRS Regnskapslinje", options: ["Alle linjer", "Lønnskostnader", "Andre driftskostnader", "Avskrivninger"] }
+    ],
+    kpis: [
+      { title: "Helårsavvik mot budsjett", val: "+26,05 M", unit: "NOK", badge: "Merforbruk", badgeCls: "variance-unfavorable", sub: "Budsjett: 10,75 M" },
+      { title: "Avvik i prosent", val: "+242,3%", unit: "Avvik", badge: "Utenfor terskel", badgeCls: "variance-unfavorable", sub: "Terskel: 5,0%" },
+      { title: "Forecast confidence %", val: "84,5%", unit: "Sannsynlig", badge: "Godkjent nivå", badgeCls: "variance-favorable", sub: "Vektet sannsynlighet" },
+      { title: "Aktive tiltak", val: "12", unit: "Tiltak", badge: "4 forsinket", badgeCls: "variance-neutral", sub: "Dekker 38,4% av avviket" },
+      { title: "Gjenstående restavvik", val: "+16,04 M", unit: "NOK", badge: "Udekket gap", badgeCls: "variance-unfavorable", sub: "Må håndteres i neste FC" }
+    ],
+    renderContent: () => `
+      <div class="dash-grid-two-col">
+        <div class="card-panel">
+          <div class="panel-header">
+            <div>
+              <div class="panel-title">Avviksdrivere på kontonavn (Største avvik)</div>
+              <div class="panel-subtitle">Hvilke regnskapskontoer avviker mest fra årsbudsjettet? (MNOK)</div>
+            </div>
+          </div>
+          <div class="chart-container">
+            ${generateBarChartSVG([
+              { label: "5000 Fast lønn vitenskapelig (UF)", val: 12.8, color: "#ef4444" },
+              { label: "5010 Overtid og sensorhonorar", val: 3.4, color: "#ef4444" },
+              { label: "6300 Husleie og felleskostnader", val: 2.9, color: "#f59e0b" },
+              { label: "6700 Konsulentbistand og revisjon", val: 2.2, color: "#f59e0b" },
+              { label: "6000 Avskrivning IT og utstyr", val: 1.8, color: "#10b981" }
+            ], "MNOK")}
+          </div>
+        </div>
+
+        <div class="card-panel">
+          <div class="panel-header">
+            <div>
+              <div class="panel-title">Akkumulert YTD-utvikling (Regnskap vs Budsjett)</div>
+              <div class="panel-subtitle">Hittil i år akkumulert regnskapspostering (MNOK)</div>
+            </div>
+          </div>
+          <div class="chart-container">
+            ${generateLineChartSVG([
+              { name: "Regnskap YTD", color: "#38bdf8", data: [0.88, 1.76, 2.65, 3.54, 4.42, 5.31, 6.19, 7.08, 7.96, 8.85, 9.73, 10.62] },
+              { name: "Budsjett YTD", color: "#94a3b8", dashed: true, data: [0.89, 1.79, 2.69, 3.58, 4.48, 5.37, 6.27, 7.16, 8.06, 8.96, 9.85, 10.75] }
+            ])}
+          </div>
+        </div>
+      </div>
+
+      <div class="card-panel">
+        <div class="panel-header">
+          <div>
+            <div class="panel-title">Hierarkisk avstemmingsmatrise (Fakultet &rarr; Institutt &rarr; Regnskapslinje &rarr; Konto)</div>
+            <div class="panel-subtitle">Drilldown til laveste nivå med feilsøking og avstemmingskontroller</div>
+          </div>
+          <a class="drill-link" onclick="showDashboard('page_dt_okonomi')">Åpne bilagslogg &rarr;</a>
+        </div>
+        <div class="table-container">
+          <table class="tufte-table">
+            <thead>
+              <tr>
+                <th>Fakultet</th>
+                <th>Institutt</th>
+                <th>Regnskapslinje</th>
+                <th>Konto</th>
+                <th class="num">Regnskap YTD</th>
+                <th class="num">Budsjett YTD</th>
+                <th class="num">Avvik YTD</th>
+                <th class="num">Forecast Helår</th>
+                <th class="num">Forecastavvik</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Handelshøyskolen UiA</td>
+                <td>Inst. for økonomi</td>
+                <td>Lønnskostnader</td>
+                <td>5000 Fast lønn</td>
+                <td class="num">1 840 200</td>
+                <td class="num">1 860 000</td>
+                <td class="num" style="color:#10b981;">-19 800</td>
+                <td class="num">6 450 000</td>
+                <td class="num" style="color:#ef4444;">+1 420 000</td>
+              </tr>
+              <tr>
+                <td>Handelshøyskolen UiA</td>
+                <td>Inst. for økonomi</td>
+                <td>Lønnskostnader</td>
+                <td>5010 Sensorer</td>
+                <td class="num">380 400</td>
+                <td class="num">350 000</td>
+                <td class="num" style="color:#ef4444;">+30 400</td>
+                <td class="num">1 240 000</td>
+                <td class="num" style="color:#ef4444;">+290 000</td>
+              </tr>
+              <tr>
+                <td>Handelshøyskolen UiA</td>
+                <td>Inst. for rettsvitenskap</td>
+                <td>Andre driftskostnader</td>
+                <td>6700 Konsulenter</td>
+                <td class="num">140 000</td>
+                <td class="num">160 000</td>
+                <td class="num" style="color:#10b981;">-20 000</td>
+                <td class="num">480 000</td>
+                <td class="num" style="color:#10b981;">-40 000</td>
+              </tr>
+              <tr>
+                <td>Teknologi & realfag</td>
+                <td>Inst. for IKT</td>
+                <td>Lønnskostnader</td>
+                <td>5000 Fast lønn</td>
+                <td class="num">2 410 000</td>
+                <td class="num">2 450 000</td>
+                <td class="num" style="color:#10b981;">-40 000</td>
+                <td class="num">8 120 000</td>
+                <td class="num" style="color:#ef4444;">+1 850 000</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    `
+  },
+
+  // DRILL-THROUGHS
+  page_dt_okonomi: {
+    id: "page_dt_okonomi",
+    title: "DT Økonomidetalj (Bilagslogg)",
+    role: "Drill-Through Transaksjoner",
+    desc: "Transaksjons- og bilagslogg på laveste detaljnivå fra FactGL (35 760 transaksjoner). Filtrerbar per bilag, dato, organisasjon, konto og prosjekt.",
+    slicers: [
+      { label: "Konto", options: ["Alle kontoer", "5000 Fast lønn", "5010 Sensorhonorar", "6300 Husleie", "6700 Konsulenter"] },
+      { label: "Prosjekt", options: ["Alle prosjekter", "DRIFT", "NFR001", "EU001", "OPP001"] }
+    ],
+    kpis: [
+      { title: "Total bokført (Regnskap)", val: "10,62 M", unit: "NOK", badge: "Netto", badgeCls: "variance-info", sub: "Debet - Kredit" },
+      { title: "Budsjettbeløp", val: "10,75 M", unit: "NOK", badge: "BAC", badgeCls: "variance-info", sub: "Periodisert budsjett" },
+      { title: "Avvik (Regnskap - Budsjett)", val: "-130 k", unit: "NOK", badge: "Mindreforbruk", badgeCls: "variance-favorable", sub: "Hittil i år" }
+    ],
+    renderContent: () => `
+      <div class="card-panel">
+        <div class="panel-header">
+          <div>
+            <div class="panel-title">Transaksjons- og bilagslogg (FactGL.csv - 35 760 rader)</div>
+            <div class="panel-subtitle">Utsnitt av bokførte regnskapsposter med signert fortegn</div>
+          </div>
+        </div>
+        <div class="table-container">
+          <table class="tufte-table">
+            <thead>
+              <tr>
+                <th>Bilagsnummer</th>
+                <th>Dato</th>
+                <th>OrgNøkkel</th>
+                <th>Konto</th>
+                <th>Prosjekt</th>
+                <th>Bokføringstekst</th>
+                <th class="num">Beløp Signert</th>
+                <th>Kilde</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>BIL-2026-00142</code></td>
+                <td>2026-12-15</td>
+                <td>I001K1</td>
+                <td>5000 (Fast lønn UF)</td>
+                <td>DRIFT</td>
+                <td>Lønnskjøring desember 2026</td>
+                <td class="num">124 500,00 kr</td>
+                <td>SAP/Agresso</td>
+              </tr>
+              <tr>
+                <td><code>BIL-2026-00143</code></td>
+                <td>2026-12-15</td>
+                <td>I001K1</td>
+                <td>5010 (Sensorhonorar)</td>
+                <td>DRIFT</td>
+                <td>Sensurkontrakt eksamen høst</td>
+                <td class="num">38 400,00 kr</td>
+                <td>Fagmodul</td>
+              </tr>
+              <tr>
+                <td><code>BIL-2026-00188</code></td>
+                <td>2026-12-18</td>
+                <td>I002K3</td>
+                <td>6700 (Konsulenter)</td>
+                <td>NFR001</td>
+                <td>Deloitte dataanalyse BOA-prosjekt</td>
+                <td class="num">82 000,00 kr</td>
+                <td>Fakturamottak</td>
+              </tr>
+              <tr>
+                <td><code>BIL-2026-00210</code></td>
+                <td>2026-12-20</td>
+                <td>I001K2</td>
+                <td>3030 (Bevilgning inntekt)</td>
+                <td>DRIFT</td>
+                <td>Periodisert KD-rammetildeling</td>
+                <td class="num" style="color:#10b981;">-215 000,00 kr</td>
+                <td>Hovedbok</td>
+              </tr>
+              <tr>
+                <td><code>BIL-2026-00245</code></td>
+                <td>2026-12-22</td>
+                <td>I003K1</td>
+                <td>6300 (Husleie)</td>
+                <td>DRIFT</td>
+                <td>Husleie Campus Grimstad mnd 12</td>
+                <td class="num">145 000,00 kr</td>
+                <td>Statsbygg</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    `
+  },
+
+  page_dt_bemanning: {
+    id: "page_dt_bemanning",
+    title: "DT Bemanning & Årsverk",
+    role: "Drill-Through HR / Personalkostnader",
+    desc: "Dybdevisning av årsverk, stillingskategorier (vitenskapelig UF vs. administrativ TA), personalkostnader og snittlønn per årsverk.",
+    slicers: [
+      { label: "Stillingskategori", options: ["Alle kategorier", "Vitenskapelig (UF)", "Administrativ (TA)"] },
+      { label: "Fakultet", options: ["Alle fakulteter", "Handelshøyskolen UiA", "Fakultet for teknologi"] }
+    ],
+    kpis: [
+      { title: "Årsverk totalt", val: "1 285,9", unit: "FTE", badge: "Siste måned", badgeCls: "variance-info", sub: "1 440 måledatapunkter" },
+      { title: "Faglige årsverk", val: "661,8", unit: "UF", badge: "51,5% andel", badgeCls: "variance-info", sub: "Professor, dosent, førsteamanuensis" },
+      { title: "Lønnskostnader", val: "1 482,3 M", unit: "NOK", badge: "68,97% lønnsandel", badgeCls: "variance-unfavorable", sub: "Av 2 149 M totalkostnad" },
+      { title: "Snittlønn per årsverk", val: "1 152 700", unit: "kr/ÅV", badge: "Inkl. sosiale kost.", badgeCls: "variance-info", sub: "Pensjon og arbeidsgiveravgift" }
+    ],
+    renderContent: () => `
+      <div class="dash-grid-two-col">
+        <div class="card-panel">
+          <div class="panel-header">
+            <div>
+              <div class="panel-title">Årsverk per stillingsgruppe</div>
+              <div class="panel-subtitle">Vitenskapelige og administrative stillingsgrupper (FactFTE)</div>
+            </div>
+          </div>
+          <div class="chart-container">
+            ${generateBarChartSVG([
+              { label: "VIT_PROF (Professor / Dosent)", val: 245.5, color: "#38bdf8" },
+              { label: "VIT_FORST (Førsteamanuensis / Lektor)", val: 320.3, color: "#38bdf8" },
+              { label: "VIT_REKR (Stipendiat / Postdoktor)", val: 95.9, color: "#6366f1" },
+              { label: "ADM_LEDER (Ledelse & kontorsjefer)", val: 84.0, color: "#f59e0b" },
+              { label: "ADM_SAKSB (Saksbehandlere & rådgivere)", val: 540.2, color: "#94a3b8" }
+            ], "Årsverk")}
+          </div>
+        </div>
+
+        <div class="card-panel">
+          <div class="panel-header">
+            <div>
+              <div class="panel-title">Årsverk per stillingskategori</div>
+              <div class="panel-subtitle">Vitenskapelig (UF) vs. Teknisk-administrativ (TA)</div>
+            </div>
+          </div>
+          <div class="chart-container">
+            ${generateBarChartSVG([
+              { label: "Vitenskapelig (UF)", val: 661.77, color: "#38bdf8" },
+              { label: "Administrativ (TA)", val: 624.16, color: "#f59e0b" }
+            ], "Årsverk")}
+          </div>
+        </div>
+      </div>
+
+      <div class="card-panel">
+        <div class="panel-header">
+          <div>
+            <div class="panel-title">Bemannings- og årsverksoversikt (FactFTE.csv)</div>
+            <div class="panel-subtitle">Årsverksfordeling, lønnskostnader og enhetslønn</div>
+          </div>
+        </div>
+        <div class="table-container">
+          <table class="tufte-table">
+            <thead>
+              <tr>
+                <th>Institutt</th>
+                <th>Kategori</th>
+                <th>Stillingsgruppe</th>
+                <th class="num">Årsverk</th>
+                <th class="num">Faglige ÅV</th>
+                <th class="num">Lønnskostnader</th>
+                <th class="num">Lønn per Årsverk</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Inst. for økonomi</td>
+                <td>Vitenskapelig</td>
+                <td>VIT_PROF</td>
+                <td class="num">68,5</td>
+                <td class="num">68,5</td>
+                <td class="num">95 800 000 kr</td>
+                <td class="num">1 398 500 kr</td>
+              </tr>
+              <tr>
+                <td>Inst. for økonomi</td>
+                <td>Vitenskapelig</td>
+                <td>VIT_FORST</td>
+                <td class="num">85,2</td>
+                <td class="num">85,2</td>
+                <td class="num">98 200 000 kr</td>
+                <td class="num">1 152 500 kr</td>
+              </tr>
+              <tr>
+                <td>Inst. for økonomi</td>
+                <td>Administrativ</td>
+                <td>ADM_SAKSB</td>
+                <td class="num">30,5</td>
+                <td class="num">0,0</td>
+                <td class="num">26 400 000 kr</td>
+                <td class="num">865 500 kr</td>
+              </tr>
+              <tr>
+                <td>Inst. for rettsvitenskap</td>
+                <td>Vitenskapelig</td>
+                <td>VIT_PROF</td>
+                <td class="num">34,0</td>
+                <td class="num">34,0</td>
+                <td class="num">48 200 000 kr</td>
+                <td class="num">1 417 600 kr</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    `
+  },
+
+  page_dt_prosjekt: {
+    id: "page_dt_prosjekt",
+    title: "DT Prosjektdetalj (EVM)",
+    role: "Drill-Through Prosjektcontrolling",
+    desc: "Earned Value Management (EVM) for eksternfinansierte forskningsprosjekter (NFR og EU). Oppfølging av BAC, EAC, ETC, VAC og sluttmargin.",
+    slicers: [
+      { label: "Prosjekt", options: ["Alle prosjekter", "NFR001", "EU001", "NFR002", "OPP001"] }
+    ],
+    kpis: [
+      { title: "BAC (Budget at Completion)", val: "10,75 M", unit: "NOK", badge: "Opprinnelig budsjett", badgeCls: "variance-info", sub: "Budsjettramme" },
+      { title: "EAC (Estimate at Completion)", val: "36,79 M", unit: "NOK", badge: "Forventet sluttkost", badgeCls: "variance-unfavorable", sub: "Oppdatert helårsestimat" },
+      { title: "ETC (Estimate to Complete)", val: "26,18 M", unit: "NOK", badge: "Gjenstående forbruk", badgeCls: "variance-info", sub: "EAC - Påløpt YTD" },
+      { title: "VAC (Variance at Completion)", val: "-26,05 M", unit: "NOK", badge: "Forventet overskridelse", badgeCls: "variance-unfavorable", sub: "BAC - EAC (Sluttavvik)" }
+    ],
+    renderContent: () => `
+      <div class="card-panel">
+        <div class="panel-header">
+          <div>
+            <div class="panel-title">Prosjekt Earned Value Management (EVM) portefølje</div>
+            <div class="panel-subtitle">Oppfølging av sluttkostnader og gjenstående restarbeid per prosjekt</div>
+          </div>
+        </div>
+        <div class="table-container">
+          <table class="tufte-table">
+            <thead>
+              <tr>
+                <th>Kode</th>
+                <th>Prosjektnavn</th>
+                <th>Kilde</th>
+                <th>Type</th>
+                <th class="num">BAC (Budsjett)</th>
+                <th class="num">EAC (Sluttkost)</th>
+                <th class="num">ETC (Gjenstår)</th>
+                <th class="num">VAC (Sluttavvik)</th>
+                <th class="num">VAC %</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>NFR001</code></td>
+                <td>AI for Offshore Energy Dynamics</td>
+                <td>NFR</td>
+                <td>Bidrag</td>
+                <td class="num">6 500 000 kr</td>
+                <td class="num">6 480 000 kr</td>
+                <td class="num">30 000 kr</td>
+                <td class="num" style="color:#10b981;">+20 000 kr</td>
+                <td class="num" style="color:#10b981;">+0,3%</td>
+              </tr>
+              <tr>
+                <td><code>EU001</code></td>
+                <td>Horizon Green Maritime Transport</td>
+                <td>EU</td>
+                <td>Bidrag</td>
+                <td class="num">4 200 000 kr</td>
+                <td class="num">4 180 000 kr</td>
+                <td class="num">60 000 kr</td>
+                <td class="num" style="color:#10b981;">+20 000 kr</td>
+                <td class="num" style="color:#10b981;">+0,5%</td>
+              </tr>
+              <tr>
+                <td><code>NFR002</code></td>
+                <td>Sustainable Business Models Agder</td>
+                <td>NFR</td>
+                <td>Bidrag</td>
+                <td class="num">3 600 000 kr</td>
+                <td class="num">3 900 000 kr</td>
+                <td class="num">50 000 kr</td>
+                <td class="num" style="color:#ef4444;">-300 000 kr</td>
+                <td class="num" style="color:#ef4444;">-8,3%</td>
+              </tr>
+              <tr>
+                <td><code>OPP001</code></td>
+                <td>Batteriproduksjon Processevaluering</td>
+                <td>Ekstern</td>
+                <td>Oppdrag</td>
+                <td class="num">2 800 000 kr</td>
+                <td class="num">3 000 000 kr</td>
+                <td class="num">60 000 kr</td>
+                <td class="num" style="color:#ef4444;">-200 000 kr</td>
+                <td class="num" style="color:#ef4444;">-7,1%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    `
+  },
+
+  page_dt_tiltak: {
+    id: "page_dt_tiltak",
+    title: "DT Tiltaksdetalj (Risikokort)",
+    role: "Drill-Through Omstillingsledelse",
+    desc: "Detaljerte tiltakskort for alle 16 omstillingsinitiativer i FactAction. Sannsynlighetsvurdering, konsekvens, milepæler og gevinstrealisering.",
+    slicers: [
+      { label: "Prioritet", options: ["Alle", "Høy", "Medium", "Lav"] },
+      { label: "Status", options: ["Alle", "Gjennomført", "Pågår", "Forsinket"] }
+    ],
+    kpis: [
+      { title: "Forventet tiltakseffekt", val: "-10,01 M", unit: "NOK", badge: "Planlagt", badgeCls: "variance-favorable", sub: "16 tiltak" },
+      { title: "Realisert tiltakseffekt", val: "-5,56 M", unit: "NOK", badge: "Bokført", badgeCls: "variance-favorable", sub: "Oppnådd YTD" },
+      { title: "Realiseringsgrad", val: "55,59%", unit: "Grad", badge: "Mål: 70%", badgeCls: "variance-neutral", sub: "Restverdi: -4,44 M" }
+    ],
+    renderContent: () => `
+      <div class="card-panel">
+        <div class="panel-header">
+          <div>
+            <div class="panel-title">Detaljerte tiltakskort & risikovurdering (FactAction.csv)</div>
+            <div class="panel-subtitle">Fullstendig liste med sannsynlighetsvekting og milepælsdatoer</div>
+          </div>
+        </div>
+        <div class="table-container">
+          <table class="tufte-table">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Tiltaksbeskrivelse</th>
+                <th>Avviksårsak</th>
+                <th>Ansvarlig</th>
+                <th>Startdato</th>
+                <th>Frist</th>
+                <th class="num">Forventet</th>
+                <th class="num">Realisert</th>
+                <th>Status</th>
+                <th>Prio</th>
+                <th class="num">Sannsynlighet</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>T-01</code></td>
+                <td>Vakansestopp adm. stillinger</td>
+                <td>Lønnsvekst</td>
+                <td>HR-direktør</td>
+                <td>2026-01-01</td>
+                <td>2026-06-30</td>
+                <td class="num">-1 200 000</td>
+                <td class="num">-950 000</td>
+                <td><span class="status-pill gjennomfort">Gjennomført</span></td>
+                <td>Høy</td>
+                <td class="num">100%</td>
+              </tr>
+              <tr>
+                <td><code>T-02</code></td>
+                <td>Redusert sensorhonorar</td>
+                <td>Høye sensorkostnader</td>
+                <td>Studieleder</td>
+                <td>2026-02-01</td>
+                <td>2026-10-15</td>
+                <td class="num">-450 000</td>
+                <td class="num">-310 000</td>
+                <td><span class="status-pill pagar">Pågår</span></td>
+                <td>Medium</td>
+                <td class="num">85%</td>
+              </tr>
+              <tr>
+                <td><code>T-03</code></td>
+                <td>Kutt i eksterne konsulenter IT</td>
+                <td>Dyrt eksternt bistand</td>
+                <td>Kontorsjef</td>
+                <td>2026-03-01</td>
+                <td>2026-08-01</td>
+                <td class="num">-800 000</td>
+                <td class="num">-200 000</td>
+                <td><span class="status-pill forsinket">Forsinket</span></td>
+                <td>Høy</td>
+                <td class="num">60%</td>
+              </tr>
+              <tr>
+                <td><code>T-04</code></td>
+                <td>Samleslåing av valgemner</td>
+                <td>Små studentkull</td>
+                <td>Instituttleder</td>
+                <td>2026-04-01</td>
+                <td>2026-11-30</td>
+                <td class="num">-1 500 000</td>
+                <td class="num">-1 100 000</td>
+                <td><span class="status-pill pagar">Pågår</span></td>
+                <td>Høy</td>
+                <td class="num">90%</td>
+              </tr>
+              <tr>
+                <td><code>T-08</code></td>
+                <td>Nedskalering av arealleie</td>
+                <td>Høye leiekostnader</td>
+                <td>Eiendomsdirektør</td>
+                <td>2026-01-15</td>
+                <td>2026-09-01</td>
+                <td class="num">-2 000 000</td>
+                <td class="num">-600 000</td>
+                <td><span class="status-pill forsinket">Forsinket</span></td>
+                <td>Høy</td>
+                <td class="num">50%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    `
+  },
+
+  page_dt_studier: {
+    id: "page_dt_studier",
+    title: "DT Studieaktivitet (Produksjon)",
+    role: "Drill-Through Studieproduksjon",
+    desc: "Produksjon på studieprogramnivå fra FactStudyPoints. Studenttall, planlagte og avlagte studiepoeng, samt beståttandel per program.",
+    slicers: [
+      { label: "Studienivå", options: ["Alle", "Bachelor", "Master", "PhD"] },
+      { label: "Fakultet", options: ["Alle", "Handelshøyskolen UiA", "Fakultet for teknologi"] }
+    ],
+    kpis: [
+      { title: "Registrerte studenter", val: "6 490", unit: "Stud", badge: "22 studieprogrammer", badgeCls: "variance-info", sub: "Aktiv studentmasse" },
+      { title: "Avlagte studiepoeng", val: "336 945", unit: "SP", badge: "Total produksjon", badgeCls: "variance-info", sub: "Planlagt: 390 095 SP" },
+      { title: "SPE60 Helårsekvivalenter", val: "5 615,7", unit: "SPE", badge: "Finansieringsgrunnlag", badgeCls: "variance-info", sub: "Resultatbasert uttelling" },
+      { title: "Studiepoeng måloppnåelse", val: "86,38%", unit: "Krav", badge: "Mål: 90%", badgeCls: "variance-neutral", sub: "Gjennomsnittlig uttelling" }
+    ],
+    renderContent: () => `
+      <div class="card-panel">
+        <div class="panel-header">
+          <div>
+            <div class="panel-title">Studieaktivitet og studiepoengproduksjon (FactStudyPoints.csv)</div>
+            <div class="panel-subtitle">Månedlig aktivitet, avlagte studiepoeng og beståttandel</div>
+          </div>
+        </div>
+        <div class="table-container">
+          <table class="tufte-table">
+            <thead>
+              <tr>
+                <th>Programkode</th>
+                <th>Studieprogramnavn</th>
+                <th>Nivå</th>
+                <th class="num">Registrerte</th>
+                <th class="num">Planlagte SP</th>
+                <th class="num">Avlagte SP</th>
+                <th class="num">SPE60</th>
+                <th class="num">Beståttandel</th>
+                <th class="num">Måloppnåelse</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>BOKADM</code></td>
+                <td>Bachelor i økonomi og administrasjon</td>
+                <td>Bachelor</td>
+                <td class="num">850</td>
+                <td class="num">51 000</td>
+                <td class="num">46 200</td>
+                <td class="num">770,0</td>
+                <td class="num">92,4%</td>
+                <td class="num" style="color:#10b981;">90,6%</td>
+              </tr>
+              <tr>
+                <td><code>MOKLED</code></td>
+                <td>Master i økonomi og ledelse (Siviløkonom)</td>
+                <td>Master</td>
+                <td class="num">420</td>
+                <td class="num">25 200</td>
+                <td class="num">23 100</td>
+                <td class="num">385,0</td>
+                <td class="num">94,8%</td>
+                <td class="num" style="color:#10b981;">91,7%</td>
+              </tr>
+              <tr>
+                <td><code>BRETT</code></td>
+                <td>Bachelor i rettsvitenskap</td>
+                <td>Bachelor</td>
+                <td class="num">520</td>
+                <td class="num">31 200</td>
+                <td class="num">26 400</td>
+                <td class="num">440,0</td>
+                <td class="num">88,2%</td>
+                <td class="num" style="color:#f59e0b;">84,6%</td>
+              </tr>
+              <tr>
+                <td><code>BIKT</code></td>
+                <td>Bachelor i informatikk og cybersikkerhet</td>
+                <td>Bachelor</td>
+                <td class="num">410</td>
+                <td class="num">24 600</td>
+                <td class="num">19 800</td>
+                <td class="num">330,0</td>
+                <td class="num">85,4%</td>
+                <td class="num" style="color:#ef4444;">80,5%</td>
+              </tr>
+              <tr>
+                <td><code>PHDOK</code></td>
+                <td>Ph.D. i International Business</td>
+                <td>PhD</td>
+                <td class="num">45</td>
+                <td class="num">2 700</td>
+                <td class="num">2 610</td>
+                <td class="num">43,5</td>
+                <td class="num">98,0%</td>
+                <td class="num" style="color:#10b981;">96,7%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    `
+  }
+};
+
+// SVG CHART GENERATORS (Edward Tufte compliant)
+function generateLineChartSVG(series) {
+  const w = 700, h = 240, padX = 40, padY = 30;
+  const allVals = series.flatMap(s => s.data);
+  const minVal = 0;
+  const maxVal = Math.max(...allVals) * 1.1;
+
+  const pointsCount = series[0].data.length;
+  const stepX = (w - padX * 2) / (pointsCount - 1);
+
+  const months = ["Jan", "Feb", "Mar", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Des"];
+
+  let linesHtml = "";
+  let dotsHtml = "";
+  let labelsHtml = "";
+
+  // Gridlines & Months
+  let gridHtml = "";
+  for (let i = 0; i < pointsCount; i++) {
+    const x = padX + i * stepX;
+    gridHtml += `<line x1="${x}" y1="${padY}" x2="${x}" y2="${h - padY}" stroke="rgba(255,255,255,0.04)" stroke-width="1" />`;
+    if (i % 2 === 0 || i === pointsCount - 1) {
+      gridHtml += `<text x="${x}" y="${h - 8}" fill="#64748b" font-size="10" text-anchor="middle" font-family="var(--font-sans)">${months[i] || ""}</text>`;
+    }
+  }
+
+  series.forEach((s) => {
+    let pathD = "";
+    s.data.forEach((val, i) => {
+      const x = padX + i * stepX;
+      const y = (h - padY) - ((val - minVal) / (maxVal - minVal)) * (h - padY * 2);
+      pathD += (i === 0 ? "M" : "L") + ` ${x} ${y}`;
+
+      dotsHtml += `<circle cx="${x}" cy="${y}" r="3.5" fill="${s.color}" />`;
+    });
+
+    const strokeStyle = s.dashed ? 'stroke-dasharray="4 4"' : '';
+    linesHtml += `<path d="${pathD}" fill="none" stroke="${s.color}" stroke-width="2.5" ${strokeStyle} />`;
+
+    // Direct End Label (Edward Tufte)
+    const lastX = padX + (pointsCount - 1) * stepX;
+    const lastY = (h - padY) - ((s.data[pointsCount - 1] - minVal) / (maxVal - minVal)) * (h - padY * 2);
+    labelsHtml += `<text x="${lastX - 4}" y="${lastY - 8}" fill="${s.color}" font-size="10.5" font-weight="600" text-anchor="end">${s.name}: ${s.data[pointsCount - 1].toFixed(1)}M</text>`;
+  });
+
+  return `
+    <svg class="interactive-chart" viewBox="0 0 ${w} ${h}">
+      ${gridHtml}
+      ${linesHtml}
+      ${dotsHtml}
+      ${labelsHtml}
+    </svg>
+  `;
+}
+
+function generateBarChartSVG(data, unit = "") {
+  const w = 600, h = 240, padLeft = 190, padRight = 80, padTop = 15;
+  const maxVal = Math.max(...data.map(d => d.val)) * 1.15;
+  const rowHeight = (h - padTop * 2) / data.length;
+
+  let barsHtml = "";
+
+  data.forEach((d, i) => {
+    const y = padTop + i * rowHeight + 6;
+    const barWidth = ((w - padLeft - padRight) * (d.val / maxVal));
+
+    barsHtml += `
+      <text x="${padLeft - 12}" y="${y + 14}" fill="#94a3b8" font-size="11" font-weight="500" text-anchor="end" font-family="var(--font-sans)">${d.label}</text>
+      <rect x="${padLeft}" y="${y}" width="${barWidth}" height="18" rx="3" fill="${d.color}" />
+      <text x="${padLeft + barWidth + 8}" y="${y + 14}" fill="#f8fafc" font-size="11" font-weight="600" font-family="var(--font-mono)">${d.val} ${unit}</text>
+    `;
+  });
+
+  return `
+    <svg class="interactive-chart" viewBox="0 0 ${w} ${h}">
+      ${barsHtml}
+    </svg>
+  `;
+}
+
+// RENDER DASHBOARD
+function renderDashboard(dashKey) {
+  const dash = dashboards[dashKey];
+  if (!dash) return;
+
+  const container = document.getElementById("dashboardContainer");
+
+  // Build Slicers HTML
+  const slicersHtml = dash.slicers ? dash.slicers.map(s => `
+    <div class="slicer-box">
+      <div class="slicer-label">${s.label}</div>
+      <select class="slicer-select">
+        ${s.options.map(opt => `<option value="${opt}">${opt}</option>`).join("")}
+      </select>
+    </div>
+  `).join("") : "";
+
+  // Build KPIs HTML
+  const kpisHtml = dash.kpis.map(k => `
+    <div class="kpi-card">
+      <div class="kpi-card-header">
+        <div class="kpi-title">${k.title}</div>
+        <div class="kpi-variance-badge ${k.badgeCls}">${k.badge}</div>
+      </div>
+      <div class="kpi-value-row">
+        <div class="kpi-value">${k.val}</div>
+        <div class="kpi-unit">${k.unit}</div>
+      </div>
+      <div class="kpi-subtext">
+        <span>${k.sub}</span>
+      </div>
+    </div>
+  `).join("");
+
+  container.innerHTML = `
+    <div class="dash-header-strip">
+      <div class="dash-title-group">
+        <h2>${dash.title} <span class="dash-role-badge">Rolle: ${dash.role}</span></h2>
+        <p>${dash.desc}</p>
+      </div>
+      <div class="slicer-strip">
+        ${slicersHtml}
+      </div>
+    </div>
+
+    <div class="kpi-grid">
+      ${kpisHtml}
+    </div>
+
+    <div class="dash-body">
+      ${dash.renderContent()}
+    </div>
+  `;
+}
+
+// TAB NAVIGATION SWITCHER
+function showDashboard(dashKey) {
+  // Update tabs active state
+  const tabs = document.querySelectorAll(".nav-tab-btn");
+  tabs.forEach(tab => {
+    tab.classList.remove("active");
+    if (tab.getAttribute("onclick") && tab.getAttribute("onclick").includes(dashKey)) {
+      tab.classList.add("active");
+    }
+  });
+
+  renderDashboard(dashKey);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// DRAWER TOGGLE
+function toggleDrawer() {
+  const overlay = document.getElementById("drawerOverlay");
+  const panel = document.getElementById("drawerPanel");
+  overlay.classList.toggle("open");
+  panel.classList.toggle("open");
+}
+
+// EXPORT TO PRINT / PDF
+function exportView() {
+  window.print();
+}
+
+// GLOBAL SEARCH
+document.getElementById("globalSearch").addEventListener("input", (e) => {
+  const q = e.target.value.toLowerCase().trim();
+  if (!q) return;
+
+  for (const [key, d] of Object.entries(dashboards)) {
+    if (d.title.toLowerCase().includes(q) || d.desc.toLowerCase().includes(q) || d.role.toLowerCase().includes(q)) {
+      showDashboard(key);
+      break;
+    }
+  }
+});
+
+// Initialize with Page 01
+document.addEventListener("DOMContentLoaded", () => {
+  renderDashboard("page_01");
+});
+</script>
+
+</body>
+</html>
