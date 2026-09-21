@@ -3,43 +3,49 @@ table FactFTE
 
 	column DatoNokkel
 		dataType: int64
-		sourceColumn: DatoNokkel
+		lineageTag: 84b9320b-b1bd-4fdb-8c64-3e5e463c766e
 		summarizeBy: none
+		sourceColumn: DatoNokkel
 
 	column Organisasjonsnokkel
 		dataType: int64
-		sourceColumn: Organisasjonsnokkel
+		lineageTag: 6a5a5e01-8a07-4c7e-8464-190141d4a94d
 		summarizeBy: none
+		sourceColumn: Organisasjonsnokkel
 
 	column Stillingsgruppe
 		dataType: string
-		sourceColumn: Stillingsgruppe
+		lineageTag: 19d2c194-cb0f-47dc-8fe4-f768efc501be
 		summarizeBy: none
+		sourceColumn: Stillingsgruppe
 
 	column Aarsverk
 		dataType: double
 		formatString: #,##0.00
-		sourceColumn: Aarsverk
+		lineageTag: 7adb8480-e542-4c08-8b24-ffc3e0f20e6e
 		summarizeBy: sum
+		sourceColumn: Aarsverk
 
 	column FagligeAarsverk
 		dataType: double
 		formatString: #,##0.00
-		sourceColumn: FagligeAarsverk
+		lineageTag: 48c944ec-55d8-4b12-8441-3162fa546521
 		summarizeBy: sum
+		sourceColumn: FagligeAarsverk
 
 	column Scenario
 		dataType: string
-		sourceColumn: Scenario
+		lineageTag: b2ea3d63-e8ef-4436-b834-d4712a1edac1
 		summarizeBy: none
+		sourceColumn: Scenario
 
 	partition FactFTE = m
 		mode: import
-		source = ```
-			let
-			    Source = Csv.Document(File.Contents(DataFolder & "FactFTE.csv"), [Delimiter=";", Columns=6, Encoding=65001, QuoteStyle=QuoteStyle.None]),
-			    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
-			    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"DatoNokkel", Int64.Type}, {"Organisasjonsnokkel", Int64.Type}, {"Stillingsgruppe", type text}, {"Aarsverk", type number}, {"FagligeAarsverk", type number}, {"Scenario", type text}})
-			in
-			    #"Changed Type"
-			```
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "FactFTE.csv"), [Delimiter=";", Columns=6, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"DatoNokkel", Int64.Type}, {"Organisasjonsnokkel", Int64.Type}, {"Stillingsgruppe", type text}, {"Aarsverk", type number}, {"FagligeAarsverk", type number}, {"Scenario", type text}})
+				in
+				    #"Changed Type"
+

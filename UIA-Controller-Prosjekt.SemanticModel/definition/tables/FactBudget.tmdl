@@ -3,42 +3,48 @@ table FactBudget
 
 	column DatoNokkel
 		dataType: int64
-		sourceColumn: DatoNokkel
+		lineageTag: 77ad79ef-472b-4de6-92a2-41aaaba209db
 		summarizeBy: none
+		sourceColumn: DatoNokkel
 
 	column Organisasjonsnokkel
 		dataType: int64
-		sourceColumn: Organisasjonsnokkel
+		lineageTag: 0a76a4a3-c850-4e5f-9bf1-5653d98b18c4
 		summarizeBy: none
+		sourceColumn: Organisasjonsnokkel
 
 	column Konto
 		dataType: int64
-		sourceColumn: Konto
+		lineageTag: 12dde605-bb93-4b13-adfe-5960f31f2d37
 		summarizeBy: none
+		sourceColumn: Konto
 
 	column Prosjekt
 		dataType: string
-		sourceColumn: Prosjekt
+		lineageTag: 60a523d4-d77d-4159-9981-b2b0de2d92d1
 		summarizeBy: none
+		sourceColumn: Prosjekt
 
 	column BudsjettBelop
 		dataType: double
 		formatString: #,##0.00
-		sourceColumn: BudsjettBelop
+		lineageTag: b02fe2ee-ce66-449c-8b6f-6c1258c852b5
 		summarizeBy: sum
+		sourceColumn: BudsjettBelop
 
 	column Scenario
 		dataType: string
-		sourceColumn: Scenario
+		lineageTag: e93c8dd3-9156-414b-9ea1-1ba17053c96a
 		summarizeBy: none
+		sourceColumn: Scenario
 
 	partition FactBudget = m
 		mode: import
-		source = ```
-			let
-			    Source = Csv.Document(File.Contents(DataFolder & "FactBudget.csv"), [Delimiter=";", Columns=6, Encoding=65001, QuoteStyle=QuoteStyle.None]),
-			    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
-			    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"DatoNokkel", Int64.Type}, {"Organisasjonsnokkel", Int64.Type}, {"Konto", Int64.Type}, {"Prosjekt", type text}, {"BudsjettBelop", type number}, {"Scenario", type text}})
-			in
-			    #"Changed Type"
-			```
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "FactBudget.csv"), [Delimiter=";", Columns=6, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"DatoNokkel", Int64.Type}, {"Organisasjonsnokkel", Int64.Type}, {"Konto", Int64.Type}, {"Prosjekt", type text}, {"BudsjettBelop", type number}, {"Scenario", type text}})
+				in
+				    #"Changed Type"
+

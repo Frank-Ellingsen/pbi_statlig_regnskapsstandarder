@@ -10,6 +10,8 @@ annotation __PBI_TimeIntelligenceEnabled = 0
 
 annotation PBI_ProTooling = ["DevMode"]
 
+annotation PBI_QueryOrder = ["_Measures","DimDate","DimOrganization","DimAccount","DimProject","DimForecastVersion","DimPositionGroup","DimStudyProgram","FactGL","FactBudget","FactForecast","FactFTE","FactStudyPoints","DataFolder"]
+
 ref table _Measures
 ref table DimDate
 ref table DimOrganization
@@ -25,3 +27,4 @@ ref table FactFTE
 ref table FactStudyPoints
 
 ref cultureInfo en-US
+

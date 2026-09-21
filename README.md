@@ -85,26 +85,14 @@ Automatisk avstemt med DuckDB ([`scripts/validate_model.py`](file:///c:/Users/fr
 
 ---
 
-## 4. Anbefalt Rapportoppsett (Tufte Data-Ink Standard)
+## 4. Pre-konfigurert Rapportsuite i Power BI (PBIR)
 
-For presentasjon for ledelsen ved UiA anbefales følgende 4 rapportsider i Power BI:
+Rapportdefinisjonen i [`UIA-Controller-Prosjekt.Report`](file:///c:/Users/frank/Desktop/UIA/uia_powerbi_complete_forecast_model/UIA-Controller-Prosjekt.Report) er forhåndskonfigurert med de 4 typiske controllersidene for UiA Handelshøyskolen:
 
-### Side 1: Ledelsesstatus (Actual vs. Budget vs. Forecast)
-*   **KPI-kort**: `Faktisk belop`, `Budsjett`, `Gjeldende forecast` (standard `LE_2026`), `Avvik mot budsjett %`.
-*   **Hovedmatrise**: Drill-down i `UiA organisasjon`-hierarkiet (`OrgNavn` > `Instituttnavn` > `Koststednavn`) med kolonner:
-    `Faktisk` | `Budsjett` | `Avvik` | `Gjeldende forecast` | `Status`.
-*   **Slicer**: `DimForecastVersion[Versjonsnavn]` (enkeltvalg) og `DimDate[Kvartal]`.
+1.  **`01 Ledelsesstatus & Totaløkonomi`** (`page_01_ledelse`): Faktisk vs. Budsjett vs. Latest Estimate, organisasjonsdrilldown og SRS-fordeling (Lønn, Drift, Avskrivninger).
+2.  **`02 Prognose & Avviksanalyse`** (`page_02_forecast`): Rullende prognoser (FC1, FC2, LE), tiltakseffekter, EVM (BAC, EAC, ETC, VAC) og S-kurve over 12 måneder.
+3.  **`03 Prosjektcontrolling & BOA`** (`page_03_boa`): Bidrag- og oppdragsforskning (NFR, EU, Oppdrag), finansieringskilder, indirekte kostnader og prosjektresultater.
+4.  **`04 Bemanning & Studiepoeng`** (`page_04_bemanning`): Årsverk (faglige UF vs. teknisk-adm), lønn per årsverk, avlagte studiepoeng, gjennomføringsgrad og kostnad per studentekvivalent (`SPE 60`).
 
-### Side 2: Prognoseutvikling & Avviksanalyse (Forecast Drift)
-*   **Vannfallsdiagram (Waterfall)**: `Aarsbudsjett` -> `FC1 endring` -> `FC2 endring` -> `Tiltakseffekt` -> `Latest Estimate`.
-*   **Linjediagram (S-kurve)**: Akkumulert YTD over måneder for Faktisk, Budsjett og Forecast LE med direkte merking (*direct labeling*) i kurven.
-
-### Side 3: Eksternfinansiering & Prosjektcontrolling (BOA)
-*   **Fokus**: Bidrag- og Oppdragsaktivitet (`DimProject[Finansieringstype] IN {"Bidrag", "Oppdrag"}`).
-*   **Nøkkeltall**: `Forecast BOA inntekter`, `Forecast BOA andel %`, fordeling per finansieringskilde (`KD`, `NFR`, `EU`, `Privat`).
-
-### Side 4: Kapasitet, Bemanning & Studiepoeng
-*   **Produktivitetsanalyse**:
-    *   `Forecast kostnad per SPE60` = `[Forecast kostnader] / [SPE 60]`
-    *   `Forecast lonn per aarsverk` = `[Forecast lonnskostnader] / [Aarsverk]`
-    *   Gjennomføringsgrad per studienivå (Bachelor / Master / PhD).
+*For fullstendig layout, visuelle feltoppsett og Edward Tufte Data-Ink retningslinjer, se den detaljerte manualen:*  
+👉 [**`docs/UIA_Controller_Reporting_Suite.md`**](file:///c:/Users/frank/Desktop/UIA/uia_powerbi_complete_forecast_model/docs/UIA_Controller_Reporting_Suite.md)

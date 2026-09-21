@@ -4,48 +4,57 @@ table DimOrganization
 	column Organisasjonsnokkel
 		dataType: int64
 		isKey
-		sourceColumn: Organisasjonsnokkel
+		lineageTag: fdcd7c6e-35d3-4c06-8372-276cec4b4206
 		summarizeBy: none
+		sourceColumn: Organisasjonsnokkel
 
 	column OrgEnhet
 		dataType: int64
-		sourceColumn: OrgEnhet
+		lineageTag: 3c5910cd-039a-4ed7-a19d-fed6736e2a8c
 		summarizeBy: none
+		sourceColumn: OrgEnhet
 
 	column OrgNavn
 		dataType: string
-		sourceColumn: OrgNavn
+		lineageTag: c902641f-f1ff-4683-bdea-5514f20138ac
 		summarizeBy: none
+		sourceColumn: OrgNavn
 
 	column Institutt
 		dataType: int64
-		sourceColumn: Institutt
+		lineageTag: 2cfc046f-76ba-4bd5-82f3-9bedd44ad2a2
 		summarizeBy: none
+		sourceColumn: Institutt
 
 	column Instituttnavn
 		dataType: string
-		sourceColumn: Instituttnavn
+		lineageTag: f03b4f76-98e5-44fa-91f1-48a1975aab32
 		summarizeBy: none
+		sourceColumn: Instituttnavn
 
 	column Koststed
 		dataType: int64
-		sourceColumn: Koststed
+		lineageTag: 1437529d-d010-4788-abaf-d70ea7600f47
 		summarizeBy: none
+		sourceColumn: Koststed
 
 	column Koststednavn
 		dataType: string
-		sourceColumn: Koststednavn
+		lineageTag: 380381c2-0991-4f2d-95ff-3c5320f403e8
 		summarizeBy: none
+		sourceColumn: Koststednavn
 
 	column Koststedtype
 		dataType: string
-		sourceColumn: Koststedtype
+		lineageTag: 4a22e84e-451f-47f6-8135-6b566389be63
 		summarizeBy: none
+		sourceColumn: Koststedtype
 
 	column Organisasjonsnivaa
 		dataType: string
-		sourceColumn: Organisasjonsnivaa
+		lineageTag: 33194f69-66b7-4f03-8a38-f0cc23ca42c5
 		summarizeBy: none
+		sourceColumn: Organisasjonsnivaa
 
 	hierarchy 'UiA organisasjon'
 		lineageTag: d0000002-0000-0000-0000-000000000002
@@ -64,11 +73,11 @@ table DimOrganization
 
 	partition DimOrganization = m
 		mode: import
-		source = ```
-			let
-			    Source = Csv.Document(File.Contents(DataFolder & "DimOrganization.csv"), [Delimiter=";", Columns=9, Encoding=65001, QuoteStyle=QuoteStyle.None]),
-			    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
-			    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Organisasjonsnokkel", Int64.Type}, {"OrgEnhet", Int64.Type}, {"OrgNavn", type text}, {"Institutt", Int64.Type}, {"Instituttnavn", type text}, {"Koststed", Int64.Type}, {"Koststednavn", type text}, {"Koststedtype", type text}, {"Organisasjonsnivaa", type text}})
-			in
-			    #"Changed Type"
-			```
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "DimOrganization.csv"), [Delimiter=";", Columns=9, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Organisasjonsnokkel", Int64.Type}, {"OrgEnhet", Int64.Type}, {"OrgNavn", type text}, {"Institutt", Int64.Type}, {"Instituttnavn", type text}, {"Koststed", Int64.Type}, {"Koststednavn", type text}, {"Koststedtype", type text}, {"Organisasjonsnivaa", type text}})
+				in
+				    #"Changed Type"
+

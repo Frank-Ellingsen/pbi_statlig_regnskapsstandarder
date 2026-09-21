@@ -1,0 +1,191 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 676.66668701171875,
+        "y": 301.33334350585938
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 1670.6018316640216,
+            "y": 609.92854424028917
+          },
+          "nodeIndex": "_Measures",
+          "nodeLineageTag": "m0000000-0000-0000-0000-000000000001",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 339.17430835481161,
+            "y": 950.01629176842857
+          },
+          "nodeIndex": "DimAccount",
+          "nodeLineageTag": "d0000003-0000-0000-0000-000000000001",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1147.4477031688557,
+            "y": 433.2626713531323
+          },
+          "nodeIndex": "DimDate",
+          "nodeLineageTag": "d0000001-0000-0000-0000-000000000001",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 50,
+            "y": 731.62947097474648
+          },
+          "nodeIndex": "DimForecastVersion",
+          "nodeLineageTag": "d0000005-0000-0000-0000-000000000001",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 680.28275260348073,
+            "y": -39.001946987096062
+          },
+          "nodeIndex": "DimOrganization",
+          "nodeLineageTag": "d0000002-0000-0000-0000-000000000001",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 969.4325128490359,
+            "y": 227.624136987494
+          },
+          "nodeIndex": "DimPositionGroup",
+          "nodeLineageTag": "d0000006-0000-0000-0000-000000000001",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 627.20884953815016,
+            "y": 1169.8570884805786
+          },
+          "nodeIndex": "DimProject",
+          "nodeLineageTag": "d0000004-0000-0000-0000-000000000001",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1436.6018316640216,
+            "y": 645.24180705025265
+          },
+          "nodeIndex": "DimStudyProgram",
+          "nodeLineageTag": "d0000007-0000-0000-0000-000000000001",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 918.1631679316713,
+            "y": 785.67962588578212
+          },
+          "nodeIndex": "FactBudget",
+          "nodeLineageTag": "f0000002-0000-0000-0000-000000000001",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 629.00472604331776,
+            "y": 462.1876169790005
+          },
+          "nodeIndex": "FactForecast",
+          "nodeLineageTag": "f0000003-0000-0000-0000-000000000001",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 969.398836988797,
+            "y": -50
+          },
+          "nodeIndex": "FactFTE",
+          "nodeLineageTag": "f0000004-0000-0000-0000-000000000001",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 630.666677072211,
+            "y": 817.49399843912909
+          },
+          "nodeIndex": "FactGL",
+          "nodeLineageTag": "f0000001-0000-0000-0000-000000000001",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1435.7776531762172,
+            "y": 318.71223583788037
+          },
+          "nodeIndex": "FactStudyPoints",
+          "nodeLineageTag": "f0000005-0000-0000-0000-000000000001",
+          "size": {
+            "height": 272,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

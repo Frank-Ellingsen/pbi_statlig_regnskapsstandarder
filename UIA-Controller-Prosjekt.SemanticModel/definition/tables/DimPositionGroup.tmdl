@@ -4,26 +4,29 @@ table DimPositionGroup
 	column Stillingsgruppe
 		dataType: string
 		isKey
-		sourceColumn: Stillingsgruppe
+		lineageTag: bfef5c6b-6133-4995-908d-2424e5ae0d8b
 		summarizeBy: none
+		sourceColumn: Stillingsgruppe
 
 	column Stillingsgruppenavn
 		dataType: string
-		sourceColumn: Stillingsgruppenavn
+		lineageTag: 363dcaa8-8179-4927-9343-31e71b0fac94
 		summarizeBy: none
+		sourceColumn: Stillingsgruppenavn
 
 	column Stillingskategori
 		dataType: string
-		sourceColumn: Stillingskategori
+		lineageTag: f64c7856-6c66-41e6-925a-a59a7f67d51a
 		summarizeBy: none
+		sourceColumn: Stillingskategori
 
 	partition DimPositionGroup = m
 		mode: import
-		source = ```
-			let
-			    Source = Csv.Document(File.Contents(DataFolder & "DimPositionGroup.csv"), [Delimiter=";", Columns=3, Encoding=65001, QuoteStyle=QuoteStyle.None]),
-			    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
-			    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Stillingsgruppe", type text}, {"Stillingsgruppenavn", type text}, {"Stillingskategori", type text}})
-			in
-			    #"Changed Type"
-			```
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "DimPositionGroup.csv"), [Delimiter=";", Columns=3, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Stillingsgruppe", type text}, {"Stillingsgruppenavn", type text}, {"Stillingskategori", type text}})
+				in
+				    #"Changed Type"
+

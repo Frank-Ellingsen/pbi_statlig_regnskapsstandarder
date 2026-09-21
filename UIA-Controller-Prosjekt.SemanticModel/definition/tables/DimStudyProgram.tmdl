@@ -4,43 +4,51 @@ table DimStudyProgram
 	column Studieprogram
 		dataType: string
 		isKey
-		sourceColumn: Studieprogram
+		lineageTag: 70cfb198-a09e-4dfb-93e4-4167075322a3
 		summarizeBy: none
+		sourceColumn: Studieprogram
 
 	column Studieprogramnavn
 		dataType: string
-		sourceColumn: Studieprogramnavn
+		lineageTag: e2793f57-c847-4d75-aa21-64afbc3475aa
 		summarizeBy: none
+		sourceColumn: Studieprogramnavn
 
 	column Studienivaa
 		dataType: string
-		sourceColumn: Studienivaa
+		lineageTag: ea8339e0-108e-409b-8543-c9be2ee32f40
 		summarizeBy: none
+		sourceColumn: Studienivaa
 
 	column NormerteStudiepoeng
 		dataType: int64
-		sourceColumn: NormerteStudiepoeng
+		lineageTag: 04729620-c896-4412-8ea0-347b9e5ced5b
 		summarizeBy: none
+		sourceColumn: NormerteStudiepoeng
 
 	column Institutt
 		dataType: int64
-		sourceColumn: Institutt
+		lineageTag: 59c2fddc-6638-4bbf-a0d6-c4bc7c9786b8
 		summarizeBy: none
+		sourceColumn: Institutt
 
 	column OrgEnhet
 		dataType: int64
-		sourceColumn: OrgEnhet
+		lineageTag: b3c075da-b884-40c1-97c4-a6f9e299665b
 		summarizeBy: none
+		sourceColumn: OrgEnhet
 
 	column Status
 		dataType: string
-		sourceColumn: Status
+		lineageTag: 3149f424-5b26-43ae-bfee-0bd08bbcbb87
 		summarizeBy: none
+		sourceColumn: Status
 
 	column Rapporteringsaar
 		dataType: int64
-		sourceColumn: Rapporteringsaar
+		lineageTag: 5fadcbcd-9481-4c94-926b-78839ce712a8
 		summarizeBy: none
+		sourceColumn: Rapporteringsaar
 
 	hierarchy Studie
 		lineageTag: d0000007-0000-0000-0000-000000000002
@@ -55,11 +63,11 @@ table DimStudyProgram
 
 	partition DimStudyProgram = m
 		mode: import
-		source = ```
-			let
-			    Source = Csv.Document(File.Contents(DataFolder & "DimStudyProgram.csv"), [Delimiter=";", Columns=8, Encoding=65001, QuoteStyle=QuoteStyle.None]),
-			    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
-			    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Studieprogram", type text}, {"Studieprogramnavn", type text}, {"Studienivaa", type text}, {"NormerteStudiepoeng", Int64.Type}, {"Institutt", Int64.Type}, {"OrgEnhet", Int64.Type}, {"Status", type text}, {"Rapporteringsaar", Int64.Type}})
-			in
-			    #"Changed Type"
-			```
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "DimStudyProgram.csv"), [Delimiter=";", Columns=8, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Studieprogram", type text}, {"Studieprogramnavn", type text}, {"Studienivaa", type text}, {"NormerteStudiepoeng", Int64.Type}, {"Institutt", Int64.Type}, {"OrgEnhet", Int64.Type}, {"Status", type text}, {"Rapporteringsaar", Int64.Type}})
+				in
+				    #"Changed Type"
+

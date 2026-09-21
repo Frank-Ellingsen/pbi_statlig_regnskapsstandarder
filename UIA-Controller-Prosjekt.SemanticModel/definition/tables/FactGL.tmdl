@@ -3,74 +3,86 @@ table FactGL
 
 	column Bilag
 		dataType: string
-		sourceColumn: Bilag
+		lineageTag: 27569f42-08b4-4f0a-8f2d-a498179cf0d9
 		summarizeBy: none
+		sourceColumn: Bilag
 
 	column DatoNokkel
 		dataType: int64
-		sourceColumn: DatoNokkel
+		lineageTag: 35ad6185-5702-4eae-aa92-d8f17eeeb8ef
 		summarizeBy: none
+		sourceColumn: DatoNokkel
 
 	column Organisasjonsnokkel
 		dataType: int64
-		sourceColumn: Organisasjonsnokkel
+		lineageTag: faa407e5-5893-4bd5-939d-5509d7157e1d
 		summarizeBy: none
+		sourceColumn: Organisasjonsnokkel
 
 	column Konto
 		dataType: int64
-		sourceColumn: Konto
+		lineageTag: 76917d83-171f-4d9e-a59c-508168af8466
 		summarizeBy: none
+		sourceColumn: Konto
 
 	column Prosjekt
 		dataType: string
-		sourceColumn: Prosjekt
+		lineageTag: b07c4c28-1cff-44c5-86d4-11cdf789f19e
 		summarizeBy: none
+		sourceColumn: Prosjekt
 
 	column Finansieringskilde
 		dataType: string
-		sourceColumn: Finansieringskilde
+		lineageTag: 3eaa8068-a994-4e4a-b6ad-80cc5b32ff6b
 		summarizeBy: none
+		sourceColumn: Finansieringskilde
 
 	column Tekst
 		dataType: string
-		sourceColumn: Tekst
+		lineageTag: f5c5b709-3342-49c4-a16b-a5e413442d4e
 		summarizeBy: none
+		sourceColumn: Tekst
 
 	column Belop_signert
 		dataType: double
 		formatString: #,##0.00
-		sourceColumn: Belop_signert
+		lineageTag: b35b492d-4d5c-4aae-a908-f4c55266dd4f
 		summarizeBy: sum
+		sourceColumn: Belop_signert
 
 	column Debet
 		dataType: double
 		formatString: #,##0.00
-		sourceColumn: Debet
+		lineageTag: 4bb3d3d8-5200-4ecb-8db3-25fb59591cf4
 		summarizeBy: sum
+		sourceColumn: Debet
 
 	column Kredit
 		dataType: double
 		formatString: #,##0.00
-		sourceColumn: Kredit
+		lineageTag: 530759f4-bf46-4bc6-92b6-bef335a21ed3
 		summarizeBy: sum
+		sourceColumn: Kredit
 
 	column Valuta
 		dataType: string
-		sourceColumn: Valuta
+		lineageTag: 631dbc2f-0050-4bb8-b1c0-67724f365420
 		summarizeBy: none
+		sourceColumn: Valuta
 
 	column Datakilde
 		dataType: string
-		sourceColumn: Datakilde
+		lineageTag: 01093eef-436a-4d18-b6d7-7faec9e30cd8
 		summarizeBy: none
+		sourceColumn: Datakilde
 
 	partition FactGL = m
 		mode: import
-		source = ```
-			let
-			    Source = Csv.Document(File.Contents(DataFolder & "FactGL.csv"), [Delimiter=";", Columns=12, Encoding=65001, QuoteStyle=QuoteStyle.None]),
-			    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
-			    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Bilag", type text}, {"DatoNokkel", Int64.Type}, {"Organisasjonsnokkel", Int64.Type}, {"Konto", Int64.Type}, {"Prosjekt", type text}, {"Finansieringskilde", type text}, {"Tekst", type text}, {"Belop_signert", type number}, {"Debet", type number}, {"Kredit", type number}, {"Valuta", type text}, {"Datakilde", type text}})
-			in
-			    #"Changed Type"
-			```
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "FactGL.csv"), [Delimiter=";", Columns=12, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Bilag", type text}, {"DatoNokkel", Int64.Type}, {"Organisasjonsnokkel", Int64.Type}, {"Konto", Int64.Type}, {"Prosjekt", type text}, {"Finansieringskilde", type text}, {"Tekst", type text}, {"Belop_signert", type number}, {"Debet", type number}, {"Kredit", type number}, {"Valuta", type text}, {"Datakilde", type text}})
+				in
+				    #"Changed Type"
+

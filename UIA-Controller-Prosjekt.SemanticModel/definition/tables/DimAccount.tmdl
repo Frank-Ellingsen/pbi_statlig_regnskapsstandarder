@@ -4,23 +4,27 @@ table DimAccount
 	column Konto
 		dataType: int64
 		isKey
-		sourceColumn: Konto
+		lineageTag: a27d2ac7-9b21-4c9c-ba94-99faae4983b7
 		summarizeBy: none
+		sourceColumn: Konto
 
 	column Kontonavn
 		dataType: string
-		sourceColumn: Kontonavn
+		lineageTag: 8f076926-987f-4681-bcea-5d3e607e54a9
 		summarizeBy: none
+		sourceColumn: Kontonavn
 
 	column Kontotype
 		dataType: string
-		sourceColumn: Kontotype
+		lineageTag: 5f8250dd-1c9d-4030-b783-b6b6d9aad378
 		summarizeBy: none
+		sourceColumn: Kontotype
 
 	column SRS_regnskapslinje
 		dataType: string
-		sourceColumn: SRS_regnskapslinje
+		lineageTag: 56d278ab-e949-419f-a1f7-57d8e0088f26
 		summarizeBy: none
+		sourceColumn: SRS_regnskapslinje
 
 	hierarchy Kontohierarki
 		lineageTag: d0000003-0000-0000-0000-000000000002
@@ -43,11 +47,11 @@ table DimAccount
 
 	partition DimAccount = m
 		mode: import
-		source = ```
-			let
-			    Source = Csv.Document(File.Contents(DataFolder & "DimAccount.csv"), [Delimiter=";", Columns=4, Encoding=65001, QuoteStyle=QuoteStyle.None]),
-			    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
-			    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Konto", Int64.Type}, {"Kontonavn", type text}, {"Kontotype", type text}, {"SRS_regnskapslinje", type text}})
-			in
-			    #"Changed Type"
-			```
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "DimAccount.csv"), [Delimiter=";", Columns=4, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Konto", Int64.Type}, {"Kontonavn", type text}, {"Kontotype", type text}, {"SRS_regnskapslinje", type text}})
+				in
+				    #"Changed Type"
+

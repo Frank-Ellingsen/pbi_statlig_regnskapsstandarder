@@ -1,7 +1,10 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/pagesMetadata/1.1.0/schema.json",
   "pageOrder": [
-    "88726ce5ce0b9b783465"
+    "page_01_ledelse",
+    "page_02_forecast",
+    "page_03_boa",
+    "page_04_bemanning"
   ],
-  "activePageName": "88726ce5ce0b9b783465"
+  "activePageName": "page_01_ledelse"
 }
