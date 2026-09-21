@@ -1,104 +1,161 @@
--- ============================================================
--- MASTER DAX MEASURES LIBRARY - UIA CONTROLLER MODEL
--- ============================================================
+-- ==============================================================================
+-- MASTER DAX MEASURES LIBRARY - UIA CONTROLLER & FORECAST MODEL
+-- Author: Frank Ellingsen (Financial Controller / Project Controller)
+-- Model: UIA-Controller-Prosjekt.pbip (TMDL Semantic Model)
+-- 50 Automated Tested Measures across 8 Controller Disciplines
+-- ==============================================================================
 
--- ============================================================
+-- ==============================================================================
 -- 01 FAKTISK (ACTUALS / HOVEDBOK - FactGL)
--- ============================================================
+-- ==============================================================================
 
 Faktisk belop = 
 SUM ( FactGL[Belop_signert] )
+/* Format: #,##0 | Netto faktisk bokført beløp (Debet - Kredit) */
 
 Faktisk debet = 
 SUM ( FactGL[Debet] )
+/* Format: #,##0 | Total brutto debetposteringer */
 
 Faktisk kredit = 
 SUM ( FactGL[Kredit] )
+/* Format: #,##0 | Total brutto kreditposteringer */
 
 Faktisk inntekter = 
 CALCULATE (
     -[Faktisk belop],
     DimAccount[Kontotype] = "Inntekt"
 )
+/* Format: #,##0 | Inntekter (Kredit vendt til positivt fortegn for controller-visning) */
 
 Faktisk kostnader = 
 CALCULATE (
     [Faktisk belop],
     DimAccount[Kontotype] = "Kostnad"
 )
+/* Format: #,##0 | Samlede drifts- og personalkostnader (Debet) */
 
 Faktisk lonnskostnader = 
 CALCULATE (
     [Faktisk belop],
     DimAccount[SRS_regnskapslinje] = "Lonnskostnader"
 )
+/* Format: #,##0 | Lønn, sosiale kostnader og pensjon iht. SRS */
 
 Faktisk driftskostnader = 
 CALCULATE (
     [Faktisk belop],
-    DimAccount[SRS_regnskapslinje] IN { "Andre driftskostnader", "Husleie og lokaler" }
+    DimAccount[SRS_regnskapslinje] = "Andre driftskostnader"
 )
+/* Format: #,##0 | Varekjøp, fremmede tjenester, husleie og lokaler */
+
+Faktisk avskrivninger = 
+CALCULATE (
+    [Faktisk belop],
+    DimAccount[SRS_regnskapslinje] = "Avskrivninger"
+)
+/* Format: #,##0 | Ordinære avskrivninger på anleggsmidler */
+
+Faktisk BOA inntekter = 
+CALCULATE (
+    [Faktisk inntekter],
+    DimProject[Finansieringstype] IN { "Bidrag", "Oppdrag" }
+)
+/* Format: #,##0 | Ekstern finansiering fra NFR, EU og oppdragsforskning */
+
+Faktisk BOA andel % = 
+DIVIDE ( [Faktisk BOA inntekter], [Faktisk inntekter] )
+/* Format: 0.0% | Andel eksternfinansiert virksomhet av totale inntekter */
+
+Faktisk lonn per aarsverk = 
+DIVIDE ( [Faktisk lonnskostnader], [Aarsverk] )
+/* Format: #,##0 | Lønnskostnad per registrert årsverk */
+
+Faktisk kostnad per SPE60 = 
+DIVIDE ( [Faktisk kostnader], [SPE 60] )
+/* Format: #,##0 | Totalkostnad per 60 studiepoengsekvivalent */
 
 Faktisk YTD = 
 TOTALYTD ( [Faktisk belop], DimDate[Dato] )
+/* Format: #,##0 | Faktisk akkumulert hittil i år */
 
 Faktisk inntekter YTD = 
 TOTALYTD ( [Faktisk inntekter], DimDate[Dato] )
+/* Format: #,##0 | Faktiske inntekter akkumulert hittil i år */
 
 Faktisk kostnader YTD = 
 TOTALYTD ( [Faktisk kostnader], DimDate[Dato] )
+/* Format: #,##0 | Faktiske kostnader akkumulert hittil i år */
 
 
--- ============================================================
--- 02 BUDSJETT (BUDGET - FactBudget)
--- ============================================================
+-- ==============================================================================
+-- 02 BUDSJETT (BUDGET - FactBudget & BAC)
+-- ==============================================================================
 
 Budsjett = 
 SUM ( FactBudget[BudsjettBelop] )
+/* Format: #,##0 | Periodisert budsjettbeløp (netto) */
 
 Budsjett inntekter = 
 CALCULATE (
     -[Budsjett],
     DimAccount[Kontotype] = "Inntekt"
 )
+/* Format: #,##0 | Budsjetterte inntekter (positivt fortegn) */
 
 Budsjett kostnader = 
 CALCULATE (
     [Budsjett],
     DimAccount[Kontotype] = "Kostnad"
 )
+/* Format: #,##0 | Budsjetterte kostnader (positivt fortegn) */
 
 Budsjett lonnskostnader = 
 CALCULATE (
     [Budsjett],
     DimAccount[SRS_regnskapslinje] = "Lonnskostnader"
 )
+/* Format: #,##0 | Budsjetterte lønnskostnader */
+
+Budsjett lonn per aarsverk = 
+DIVIDE ( [Budsjett lonnskostnader], [Aarsverk] )
+/* Format: #,##0 | Budsjettert lønnskostnad per årsverk */
 
 Budsjett YTD = 
 TOTALYTD ( [Budsjett], DimDate[Dato] )
+/* Format: #,##0 | Budsjett akkumulert hittil i år */
 
 Aarsbudsjett = 
 CALCULATE (
     [Budsjett],
     REMOVEFILTERS ( DimDate[MaanedNr], DimDate[Maaned], DimDate[AarMaaned], DimDate[Dato], DimDate[DatoNokkel] )
 )
+/* Format: #,##0 | Vedtatt totalt årsbudsjett (uavhengig av månedskontekst) */
+
+BAC (Budget at Completion) = 
+[Aarsbudsjett]
+/* Format: #,##0 | EVM / Prosjektledelse: Vedtatt budsjettramme ved fullføring */
 
 
--- ============================================================
--- 03 FORECAST & LATEST ESTIMATE (FactForecast)
--- ============================================================
+-- ==============================================================================
+-- 03 FORECAST & LATEST ESTIMATE (FactForecast, EAC, ETC)
+-- ==============================================================================
 
 Forecast belop = 
 SUM ( FactForecast[ForecastBelop] )
+/* Format: #,##0 | Grunnlagsprognose før iverksatte tiltak */
 
 Tiltakseffekt = 
 SUM ( FactForecast[Tiltakseffekt] )
+/* Format: #,##0 | Økonomisk effekt av ledelses- og innsparingstiltak */
 
 Forecast etter tiltak = 
 [Forecast belop] + [Tiltakseffekt]
+/* Format: #,##0 | Netto prognosebeløp inkludert tiltakseffekter */
 
 Valgt forecastversjon = 
 SELECTEDVALUE ( DimForecastVersion[Versjon], "LE_2026" )
+/* Tekst | Aktiv versjon fra slicer (standard LE_2026 hvis ikke valgt) */
 
 Gjeldende forecast = 
 VAR ValgtVersjon = [Valgt forecastversjon]
@@ -107,6 +164,7 @@ RETURN
         [Forecast belop],
         KEEPFILTERS ( DimForecastVersion[Versjon] = ValgtVersjon )
     )
+/* Format: #,##0 | Prognose filtrert på valgt/standard versjon */
 
 Gjeldende forecast etter tiltak = 
 VAR ValgtVersjon = [Valgt forecastversjon]
@@ -115,77 +173,129 @@ RETURN
         [Forecast etter tiltak],
         KEEPFILTERS ( DimForecastVersion[Versjon] = ValgtVersjon )
     )
+/* Format: #,##0 | Prognose etter tiltak for valgt versjon */
 
 Forecast aarsbelop = 
 CALCULATE (
     [Gjeldende forecast],
     REMOVEFILTERS ( DimDate[MaanedNr], DimDate[Maaned], DimDate[AarMaaned], DimDate[Dato], DimDate[DatoNokkel] )
 )
+/* Format: #,##0 | Helårsprognose (uavhengig av månedskontekst) */
+
+EAC (Estimate at Completion) = 
+[Forecast aarsbelop]
+/* Format: #,##0 | EVM / Prosjektledelse: Forventet totalkostnad/sluttkostnad */
 
 Forecast YTD = 
 TOTALYTD ( [Gjeldende forecast], DimDate[Dato] )
+/* Format: #,##0 | Prognose hittil i år */
 
 Forecast restaar = 
 [Forecast aarsbelop] - [Forecast YTD]
+/* Format: #,##0 | Gjenstående prognose for rest-året */
+
+ETC (Estimate to Complete) = 
+[Forecast restaar]
+/* Format: #,##0 | EVM / Prosjektledelse: Forventet gjenstående kostnad frem til ferdigstillelse */
 
 Latest Estimate = 
 CALCULATE (
     [Forecast belop],
     DimForecastVersion[Versjon] = "LE_2026"
 )
+/* Format: #,##0 | Låst referanse til Latest Estimate (LE) */
 
 Latest Estimate aarsbelop = 
 CALCULATE ( [Latest Estimate], REMOVEFILTERS ( DimDate ) )
+/* Format: #,##0 | Helårsreferanse for Latest Estimate (LE) */
 
 Forecast inntekter = 
 CALCULATE (
     -[Gjeldende forecast],
     DimAccount[Kontotype] = "Inntekt"
 )
+/* Format: #,##0 | Prognostiserte inntekter (positivt fortegn) */
 
 Forecast kostnader = 
 CALCULATE (
     [Gjeldende forecast],
     DimAccount[Kontotype] = "Kostnad"
 )
+/* Format: #,##0 | Prognostiserte kostnader (positivt fortegn) */
 
 Forecast lonnskostnader = 
 CALCULATE (
     [Gjeldende forecast],
     DimAccount[SRS_regnskapslinje] = "Lonnskostnader"
 )
+/* Format: #,##0 | Prognostiserte personalkostnader */
 
 Forecast BOA inntekter = 
 CALCULATE (
     [Forecast inntekter],
     DimProject[Finansieringstype] IN { "Bidrag", "Oppdrag" }
 )
+/* Format: #,##0 | Prognostiserte eksterne forskningsinntekter */
 
 Forecast BOA andel % = 
 DIVIDE ( [Forecast BOA inntekter], [Forecast inntekter] )
+/* Format: 0.0% | Prognostisert BOA-andel */
+
+Forecast lonn per aarsverk = 
+DIVIDE ( [Forecast lonnskostnader], [Aarsverk] )
+/* Format: #,##0 | Prognostisert lønn per årsverk */
+
+Forecast kostnad per SPE60 = 
+DIVIDE ( [Forecast kostnader], [SPE 60] )
+/* Format: #,##0 | Prognostisert kostnad per 60 studiepoengsekvivalent */
 
 
--- ============================================================
--- 04 AVVIKSANALYSE & ESTIMATENDRING (VARIANCE & DRIFT)
--- ============================================================
+-- ==============================================================================
+-- 04 AVVIK & ANALYSE (VARIANCE, DRIFT & VAC)
+-- ==============================================================================
 
 Avvik mot budsjett = 
 [Faktisk belop] - [Budsjett]
+/* Format: #,##0 | Periodisk avvik mellom faktisk og budsjett */
 
 Avvik mot budsjett % = 
 DIVIDE ( [Avvik mot budsjett], ABS ( [Budsjett] ) )
+/* Format: 0.0% | Relativt periodisk avvik */
+
+Avvik inntekter = 
+[Faktisk inntekter] - [Budsjett inntekter]
+/* Format: #,##0 | Mer-/mindreinntekt mot budsjett */
+
+Avvik kostnader = 
+[Faktisk kostnader] - [Budsjett kostnader]
+/* Format: #,##0 | Mer-/mindreforbruk mot budsjett */
+
+Avvik lonnskostnader = 
+[Faktisk lonnskostnader] - [Budsjett lonnskostnader]
+/* Format: #,##0 | Avvik på personalkostnader */
 
 Forecast mot budsjett = 
 [Forecast aarsbelop] - [Aarsbudsjett]
+/* Format: #,##0 | Forventet helårsavvik mot vedtatt budsjett */
 
 Forecast mot budsjett % = 
 DIVIDE ( [Forecast mot budsjett], ABS ( [Aarsbudsjett] ) )
+/* Format: 0.0% | Forventet helårsavvik i prosent */
+
+VAC (Variance at Completion) = 
+[BAC (Budget at Completion)] - [EAC (Estimate at Completion)]
+/* Format: #,##0 | EVM: Avvik ved fullføring (Positivt = Besparelse / Under budsjett, Negativt = Overskridelse) */
+
+VAC % = 
+DIVIDE ( [VAC (Variance at Completion)], [BAC (Budget at Completion)] )
+/* Format: 0.0% | Avvik ved fullføring i prosent av budsjettramme */
 
 Forecast etter tiltak mot budsjett = 
 CALCULATE (
     [Gjeldende forecast etter tiltak],
     REMOVEFILTERS ( DimDate[MaanedNr], DimDate[Maaned], DimDate[AarMaaned], DimDate[Dato], DimDate[DatoNokkel] )
 ) - [Aarsbudsjett]
+/* Format: #,##0 | Forventet helårsavvik etter implementerte tiltak */
 
 Forecast endring fra FC1 = 
 [Forecast aarsbelop]
@@ -194,6 +304,7 @@ Forecast endring fra FC1 =
         DimForecastVersion[Versjon] = "FC1_2026",
         REMOVEFILTERS ( DimDate )
     )
+/* Format: #,##0 | Estimatendring (drift) mot tidlig prognose FC1 */
 
 Forecast endring fra FC2 = 
 [Forecast aarsbelop]
@@ -202,92 +313,107 @@ Forecast endring fra FC2 =
         DimForecastVersion[Versjon] = "FC2_2026",
         REMOVEFILTERS ( DimDate )
     )
+/* Format: #,##0 | Estimatendring (drift) mot mellomprognose FC2 */
 
 LE mot budsjett = 
 [Latest Estimate aarsbelop] - [Aarsbudsjett]
+/* Format: #,##0 | Avvik mellom LE og opprinnelig budsjett */
 
 LE mot budsjett % = 
 DIVIDE ( [LE mot budsjett], ABS ( [Aarsbudsjett] ) )
+/* Format: 0.0% | LE-avvik i prosent */
 
 
--- ============================================================
+-- ==============================================================================
 -- 05 BEMANNING & ÅRSVERK (FTE - FactFTE)
--- ============================================================
+-- ==============================================================================
 
 Aarsverk = 
 SUM ( FactFTE[Aarsverk] )
+/* Format: #,##0.00 | Totalt antall utførte årsverk */
 
 Faglige aarsverk = 
 SUM ( FactFTE[FagligeAarsverk] )
+/* Format: #,##0.00 | Årsverk innen vitenskapelige/undervisningsstillinger */
 
 Administrative aarsverk = 
 CALCULATE (
     [Aarsverk],
-    DimPositionGroup[Stillingskategori] = "Administrativ"
+    DimPositionGroup[Stillingskategori] = "Teknisk-administrativ"
 )
+/* Format: #,##0.00 | Årsverk innen tekniske og administrative stillinger */
+
+Faglig andel % = 
+DIVIDE ( [Faglige aarsverk], [Aarsverk] )
+/* Format: 0.0% | Andel faglige/UF-stillinger av total bemanning */
 
 Aarsverk snitt = 
 AVERAGEX (
     VALUES ( DimDate[AarMaaned] ),
     [Aarsverk]
 )
-
-Forecast lonn per aarsverk = 
-DIVIDE ( [Forecast lonnskostnader], [Aarsverk] )
+/* Format: #,##0.00 | Gjennomsnittlig månedsbemanning */
 
 
--- ============================================================
--- 06 STUDIEPOENG & UTDANNINGSPRODUKSJON (FactStudyPoints)
--- ============================================================
+-- ==============================================================================
+-- 06 STUDIEPOENG & PRODUKTIVITET (FactStudyPoints)
+-- ==============================================================================
 
 Avlagte studiepoeng = 
 SUM ( FactStudyPoints[AvlagteStudiepoeng] )
+/* Format: #,##0.0 | Faktisk produserte og eksaminerte studiepoeng */
 
 Planlagte studiepoeng = 
 SUM ( FactStudyPoints[PlanlagteStudiepoeng] )
+/* Format: #,##0.0 | Planlagt utdanningskapasitet */
 
 SPE 60 = 
 SUM ( FactStudyPoints[SPE60] )
+/* Format: #,##0.00 | Studiepoengekvivalenter (60 SP = 1 fulltidsstudent) */
 
 Registrerte studenter = 
 SUM ( FactStudyPoints[RegistrerteStudenter] )
+/* Format: #,##0 | Antall aktive semesterregistrerte studenter */
 
 Gjennomforingsgrad % = 
 DIVIDE ( [Avlagte studiepoeng], [Planlagte studiepoeng] )
+/* Format: 0.0% | Gjennomføringsgrad (Avlagte vs Planlagte SP) */
 
-Avlagte studiepoeng YTD = 
-TOTALYTD ( [Avlagte studiepoeng], DimDate[Dato] )
+Studiepoeng per faglige aarsverk = 
+DIVIDE ( [Avlagte studiepoeng], [Faglige aarsverk] )
+/* Format: #,##0.0 | Studiepoengproduksjon per vitenskapelig årsverk */
 
-SPE 60 YTD = 
-TOTALYTD ( [SPE 60], DimDate[Dato] )
-
-Forecast kostnad per SPE60 = 
-DIVIDE ( [Forecast kostnader], [SPE 60] )
+SPE60 per faglige aarsverk = 
+DIVIDE ( [SPE 60], [Faglige aarsverk] )
+/* Format: #,##0.00 | Heltidsekvivalenter per vitenskapelig årsverk */
 
 
--- ============================================================
+-- ==============================================================================
 -- 07 DATAKVALITET & FORECAST-METRIKKER
--- ============================================================
+-- ==============================================================================
 
 Forecast datakvalitet % = 
 AVERAGE ( FactForecast[Sannsynlighet] )
+/* Format: 0.0% | Gjennomsnittlig modenhet/sannsynlighet på prognosen */
 
 Forecast faktisk andel % = 
 DIVIDE (
     CALCULATE ( [Forecast belop], FactForecast[Datastatus] = "Faktisk hittil" ),
     [Forecast belop]
 )
+/* Format: 0.0% | Andel av helårsprognosen som er realisert regnskap */
 
 Forecast estimert andel % = 
 DIVIDE (
     CALCULATE ( [Forecast belop], FactForecast[Datastatus] = "Estimert restaar" ),
     [Forecast belop]
 )
+/* Format: 0.0% | Andel av helårsprognosen som er gjenstående estimat */
 
 
--- ============================================================
--- 08 STATUSINDIKATORER & FORMATERING
--- ============================================================
+-- ==============================================================================
+-- 08 STATUSINDIKATORER & FORMATERING (TUFTEDATA-INK COLORS)
+-- ==============================================================================
 
 Forecaststatus = 
 VAR AvvikPct = [Forecast mot budsjett %]
@@ -300,13 +426,15 @@ RETURN
         AvvikPct < -0.05, "Bla",
         "Gronn"
     )
+/* Tekst | Risikovurdering: Rød >5%, Gul 2-5%, Grønn +/-2%, Blå <-5% */
 
 Forecaststatus farge = 
 SWITCH (
     [Forecaststatus],
-    "Rod", "#C00000",
-    "Gul", "#FFC000",
-    "Bla", "#5B9BD5",
-    "Gronn", "#70AD47",
-    "#A6A6A6"
+    "Rod", "#C00000",      -- Dempet dyp rød (overforbruk / budsjettoverskridelse)
+    "Gul", "#FFC000",      -- Amber (moderat overforbruk 2-5%)
+    "Bla", "#5B9BD5",      -- Dempet Tufte-blå (mindreforbruk / besparelse)
+    "Gronn", "#70AD47",    -- Dempet salviegrønn (i rute)
+    "#A6A6A6"              -- Nøytral grå
 )
+/* Hex farge | Betinget formatering for KPI-kort og tabeller */

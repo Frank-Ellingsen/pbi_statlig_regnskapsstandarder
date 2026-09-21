@@ -43,9 +43,39 @@ table _Measures
 	measure 'Faktisk driftskostnader' = ```
 		CALCULATE (
 		    [Faktisk belop],
-		    DimAccount[SRS_regnskapslinje] IN { "Andre driftskostnader", "Husleie og lokaler" }
+		    DimAccount[SRS_regnskapslinje] = "Andre driftskostnader"
 		)
 		```
+		formatString: #,##0
+		displayFolder: 01 Faktisk
+
+	measure 'Faktisk avskrivninger' = ```
+		CALCULATE (
+		    [Faktisk belop],
+		    DimAccount[SRS_regnskapslinje] = "Avskrivninger"
+		)
+		```
+		formatString: #,##0
+		displayFolder: 01 Faktisk
+
+	measure 'Faktisk BOA inntekter' = ```
+		CALCULATE (
+		    [Faktisk inntekter],
+		    DimProject[Finansieringstype] IN { "Bidrag", "Oppdrag" }
+		)
+		```
+		formatString: #,##0
+		displayFolder: 01 Faktisk
+
+	measure 'Faktisk BOA andel %' = DIVIDE ( [Faktisk BOA inntekter], [Faktisk inntekter] )
+		formatString: 0.0%
+		displayFolder: 01 Faktisk
+
+	measure 'Faktisk lonn per aarsverk' = DIVIDE ( [Faktisk lonnskostnader], [Aarsverk] )
+		formatString: #,##0
+		displayFolder: 01 Faktisk
+
+	measure 'Faktisk kostnad per SPE60' = DIVIDE ( [Faktisk kostnader], [SPE 60] )
 		formatString: #,##0
 		displayFolder: 01 Faktisk
 
@@ -92,6 +122,10 @@ table _Measures
 		formatString: #,##0
 		displayFolder: 02 Budsjett
 
+	measure 'Budsjett lonn per aarsverk' = DIVIDE ( [Budsjett lonnskostnader], [Aarsverk] )
+		formatString: #,##0
+		displayFolder: 02 Budsjett
+
 	measure 'Budsjett YTD' = TOTALYTD ( [Budsjett], DimDate[Dato] )
 		formatString: #,##0
 		displayFolder: 02 Budsjett
@@ -102,6 +136,10 @@ table _Measures
 		    REMOVEFILTERS ( DimDate[MaanedNr], DimDate[Maaned], DimDate[AarMaaned], DimDate[Dato], DimDate[DatoNokkel] )
 		)
 		```
+		formatString: #,##0
+		displayFolder: 02 Budsjett
+
+	measure 'BAC (Budget at Completion)' = [Aarsbudsjett]
 		formatString: #,##0
 		displayFolder: 02 Budsjett
 
@@ -151,11 +189,19 @@ table _Measures
 		formatString: #,##0
 		displayFolder: 03 Forecast & LE
 
+	measure 'EAC (Estimate at Completion)' = [Forecast aarsbelop]
+		formatString: #,##0
+		displayFolder: 03 Forecast & LE
+
 	measure 'Forecast YTD' = TOTALYTD ( [Gjeldende forecast], DimDate[Dato] )
 		formatString: #,##0
 		displayFolder: 03 Forecast & LE
 
 	measure 'Forecast restaar' = [Forecast aarsbelop] - [Forecast YTD]
+		formatString: #,##0
+		displayFolder: 03 Forecast & LE
+
+	measure 'ETC (Estimate to Complete)' = [Forecast restaar]
 		formatString: #,##0
 		displayFolder: 03 Forecast & LE
 
@@ -212,6 +258,14 @@ table _Measures
 		formatString: 0.0%
 		displayFolder: 03 Forecast & LE
 
+	measure 'Forecast lonn per aarsverk' = DIVIDE ( [Forecast lonnskostnader], [Aarsverk] )
+		formatString: #,##0
+		displayFolder: 03 Forecast & LE
+
+	measure 'Forecast kostnad per SPE60' = DIVIDE ( [Forecast kostnader], [SPE 60] )
+		formatString: #,##0
+		displayFolder: 03 Forecast & LE
+
 	measure 'Avvik mot budsjett' = [Faktisk belop] - [Budsjett]
 		formatString: #,##0
 		displayFolder: 04 Avvik & Analyse
@@ -220,11 +274,31 @@ table _Measures
 		formatString: 0.0%
 		displayFolder: 04 Avvik & Analyse
 
+	measure 'Avvik inntekter' = [Faktisk inntekter] - [Budsjett inntekter]
+		formatString: #,##0
+		displayFolder: 04 Avvik & Analyse
+
+	measure 'Avvik kostnader' = [Faktisk kostnader] - [Budsjett kostnader]
+		formatString: #,##0
+		displayFolder: 04 Avvik & Analyse
+
+	measure 'Avvik lonnskostnader' = [Faktisk lonnskostnader] - [Budsjett lonnskostnader]
+		formatString: #,##0
+		displayFolder: 04 Avvik & Analyse
+
 	measure 'Forecast mot budsjett' = [Forecast aarsbelop] - [Aarsbudsjett]
 		formatString: #,##0
 		displayFolder: 04 Avvik & Analyse
 
 	measure 'Forecast mot budsjett %' = DIVIDE ( [Forecast mot budsjett], ABS ( [Aarsbudsjett] ) )
+		formatString: 0.0%
+		displayFolder: 04 Avvik & Analyse
+
+	measure 'VAC (Variance at Completion)' = [BAC (Budget at Completion)] - [EAC (Estimate at Completion)]
+		formatString: #,##0
+		displayFolder: 04 Avvik & Analyse
+
+	measure 'VAC %' = DIVIDE ( [VAC (Variance at Completion)], [BAC (Budget at Completion)] )
 		formatString: 0.0%
 		displayFolder: 04 Avvik & Analyse
 
@@ -278,10 +352,14 @@ table _Measures
 	measure 'Administrative aarsverk' = ```
 		CALCULATE (
 		    [Aarsverk],
-		    DimPositionGroup[Stillingskategori] = "Administrativ"
+		    DimPositionGroup[Stillingskategori] = "Teknisk-administrativ"
 		)
 		```
 		formatString: #,##0.00
+		displayFolder: 05 Bemanning
+
+	measure 'Faglig andel %' = DIVIDE ( [Faglige aarsverk], [Aarsverk] )
+		formatString: 0.0%
 		displayFolder: 05 Bemanning
 
 	measure 'Aarsverk snitt' = ```
@@ -291,10 +369,6 @@ table _Measures
 		)
 		```
 		formatString: #,##0.00
-		displayFolder: 05 Bemanning
-
-	measure 'Forecast lonn per aarsverk' = DIVIDE ( [Forecast lonnskostnader], [Aarsverk] )
-		formatString: #,##0
 		displayFolder: 05 Bemanning
 
 	measure 'Avlagte studiepoeng' = SUM ( FactStudyPoints[AvlagteStudiepoeng] )
@@ -317,8 +391,12 @@ table _Measures
 		formatString: 0.0%
 		displayFolder: 06 Studiepoeng
 
-	measure 'Forecast kostnad per SPE60' = DIVIDE ( [Forecast kostnader], [SPE 60] )
-		formatString: #,##0
+	measure 'Studiepoeng per faglige aarsverk' = DIVIDE ( [Avlagte studiepoeng], [Faglige aarsverk] )
+		formatString: #,##0.0
+		displayFolder: 06 Studiepoeng
+
+	measure 'SPE60 per faglige aarsverk' = DIVIDE ( [SPE 60], [Faglige aarsverk] )
+		formatString: #,##0.00
 		displayFolder: 06 Studiepoeng
 
 	measure 'Forecast datakvalitet %' = AVERAGE ( FactForecast[Sannsynlighet] )

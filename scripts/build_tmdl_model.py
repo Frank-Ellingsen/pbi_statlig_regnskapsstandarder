@@ -2,7 +2,7 @@
 build_tmdl_model.py
 -------------------
 Generates the complete TMDL semantic model definition for Power BI Desktop (.pbip).
-Builds tables, M partitions, hierarchies, relationships, and DAX measures.
+Builds tables, M partitions, hierarchies, relationships, and the complete DAX measure suite.
 """
 
 import os
@@ -184,9 +184,39 @@ relationship 00000001-0000-0000-0000-000000000019
 \tmeasure 'Faktisk driftskostnader' = ```
 \t\tCALCULATE (
 \t\t    [Faktisk belop],
-\t\t    DimAccount[SRS_regnskapslinje] IN { "Andre driftskostnader", "Husleie og lokaler" }
+\t\t    DimAccount[SRS_regnskapslinje] = "Andre driftskostnader"
 \t\t)
 \t\t```
+\t\tformatString: #,##0
+\t\tdisplayFolder: 01 Faktisk
+
+\tmeasure 'Faktisk avskrivninger' = ```
+\t\tCALCULATE (
+\t\t    [Faktisk belop],
+\t\t    DimAccount[SRS_regnskapslinje] = "Avskrivninger"
+\t\t)
+\t\t```
+\t\tformatString: #,##0
+\t\tdisplayFolder: 01 Faktisk
+
+\tmeasure 'Faktisk BOA inntekter' = ```
+\t\tCALCULATE (
+\t\t    [Faktisk inntekter],
+\t\t    DimProject[Finansieringstype] IN { "Bidrag", "Oppdrag" }
+\t\t)
+\t\t```
+\t\tformatString: #,##0
+\t\tdisplayFolder: 01 Faktisk
+
+\tmeasure 'Faktisk BOA andel %' = DIVIDE ( [Faktisk BOA inntekter], [Faktisk inntekter] )
+\t\tformatString: 0.0%
+\t\tdisplayFolder: 01 Faktisk
+
+\tmeasure 'Faktisk lonn per aarsverk' = DIVIDE ( [Faktisk lonnskostnader], [Aarsverk] )
+\t\tformatString: #,##0
+\t\tdisplayFolder: 01 Faktisk
+
+\tmeasure 'Faktisk kostnad per SPE60' = DIVIDE ( [Faktisk kostnader], [SPE 60] )
 \t\tformatString: #,##0
 \t\tdisplayFolder: 01 Faktisk
 
@@ -233,6 +263,10 @@ relationship 00000001-0000-0000-0000-000000000019
 \t\tformatString: #,##0
 \t\tdisplayFolder: 02 Budsjett
 
+\tmeasure 'Budsjett lonn per aarsverk' = DIVIDE ( [Budsjett lonnskostnader], [Aarsverk] )
+\t\tformatString: #,##0
+\t\tdisplayFolder: 02 Budsjett
+
 \tmeasure 'Budsjett YTD' = TOTALYTD ( [Budsjett], DimDate[Dato] )
 \t\tformatString: #,##0
 \t\tdisplayFolder: 02 Budsjett
@@ -243,6 +277,10 @@ relationship 00000001-0000-0000-0000-000000000019
 \t\t    REMOVEFILTERS ( DimDate[MaanedNr], DimDate[Maaned], DimDate[AarMaaned], DimDate[Dato], DimDate[DatoNokkel] )
 \t\t)
 \t\t```
+\t\tformatString: #,##0
+\t\tdisplayFolder: 02 Budsjett
+
+\tmeasure 'BAC (Budget at Completion)' = [Aarsbudsjett]
 \t\tformatString: #,##0
 \t\tdisplayFolder: 02 Budsjett
 
@@ -292,11 +330,19 @@ relationship 00000001-0000-0000-0000-000000000019
 \t\tformatString: #,##0
 \t\tdisplayFolder: 03 Forecast & LE
 
+\tmeasure 'EAC (Estimate at Completion)' = [Forecast aarsbelop]
+\t\tformatString: #,##0
+\t\tdisplayFolder: 03 Forecast & LE
+
 \tmeasure 'Forecast YTD' = TOTALYTD ( [Gjeldende forecast], DimDate[Dato] )
 \t\tformatString: #,##0
 \t\tdisplayFolder: 03 Forecast & LE
 
 \tmeasure 'Forecast restaar' = [Forecast aarsbelop] - [Forecast YTD]
+\t\tformatString: #,##0
+\t\tdisplayFolder: 03 Forecast & LE
+
+\tmeasure 'ETC (Estimate to Complete)' = [Forecast restaar]
 \t\tformatString: #,##0
 \t\tdisplayFolder: 03 Forecast & LE
 
@@ -353,6 +399,14 @@ relationship 00000001-0000-0000-0000-000000000019
 \t\tformatString: 0.0%
 \t\tdisplayFolder: 03 Forecast & LE
 
+\tmeasure 'Forecast lonn per aarsverk' = DIVIDE ( [Forecast lonnskostnader], [Aarsverk] )
+\t\tformatString: #,##0
+\t\tdisplayFolder: 03 Forecast & LE
+
+\tmeasure 'Forecast kostnad per SPE60' = DIVIDE ( [Forecast kostnader], [SPE 60] )
+\t\tformatString: #,##0
+\t\tdisplayFolder: 03 Forecast & LE
+
 \tmeasure 'Avvik mot budsjett' = [Faktisk belop] - [Budsjett]
 \t\tformatString: #,##0
 \t\tdisplayFolder: 04 Avvik & Analyse
@@ -361,11 +415,31 @@ relationship 00000001-0000-0000-0000-000000000019
 \t\tformatString: 0.0%
 \t\tdisplayFolder: 04 Avvik & Analyse
 
+\tmeasure 'Avvik inntekter' = [Faktisk inntekter] - [Budsjett inntekter]
+\t\tformatString: #,##0
+\t\tdisplayFolder: 04 Avvik & Analyse
+
+\tmeasure 'Avvik kostnader' = [Faktisk kostnader] - [Budsjett kostnader]
+\t\tformatString: #,##0
+\t\tdisplayFolder: 04 Avvik & Analyse
+
+\tmeasure 'Avvik lonnskostnader' = [Faktisk lonnskostnader] - [Budsjett lonnskostnader]
+\t\tformatString: #,##0
+\t\tdisplayFolder: 04 Avvik & Analyse
+
 \tmeasure 'Forecast mot budsjett' = [Forecast aarsbelop] - [Aarsbudsjett]
 \t\tformatString: #,##0
 \t\tdisplayFolder: 04 Avvik & Analyse
 
 \tmeasure 'Forecast mot budsjett %' = DIVIDE ( [Forecast mot budsjett], ABS ( [Aarsbudsjett] ) )
+\t\tformatString: 0.0%
+\t\tdisplayFolder: 04 Avvik & Analyse
+
+\tmeasure 'VAC (Variance at Completion)' = [BAC (Budget at Completion)] - [EAC (Estimate at Completion)]
+\t\tformatString: #,##0
+\t\tdisplayFolder: 04 Avvik & Analyse
+
+\tmeasure 'VAC %' = DIVIDE ( [VAC (Variance at Completion)], [BAC (Budget at Completion)] )
 \t\tformatString: 0.0%
 \t\tdisplayFolder: 04 Avvik & Analyse
 
@@ -419,10 +493,14 @@ relationship 00000001-0000-0000-0000-000000000019
 \tmeasure 'Administrative aarsverk' = ```
 \t\tCALCULATE (
 \t\t    [Aarsverk],
-\t\t    DimPositionGroup[Stillingskategori] = "Administrativ"
+\t\t    DimPositionGroup[Stillingskategori] = "Teknisk-administrativ"
 \t\t)
 \t\t```
 \t\tformatString: #,##0.00
+\t\tdisplayFolder: 05 Bemanning
+
+\tmeasure 'Faglig andel %' = DIVIDE ( [Faglige aarsverk], [Aarsverk] )
+\t\tformatString: 0.0%
 \t\tdisplayFolder: 05 Bemanning
 
 \tmeasure 'Aarsverk snitt' = ```
@@ -432,10 +510,6 @@ relationship 00000001-0000-0000-0000-000000000019
 \t\t)
 \t\t```
 \t\tformatString: #,##0.00
-\t\tdisplayFolder: 05 Bemanning
-
-\tmeasure 'Forecast lonn per aarsverk' = DIVIDE ( [Forecast lonnskostnader], [Aarsverk] )
-\t\tformatString: #,##0
 \t\tdisplayFolder: 05 Bemanning
 
 \tmeasure 'Avlagte studiepoeng' = SUM ( FactStudyPoints[AvlagteStudiepoeng] )
@@ -458,8 +532,12 @@ relationship 00000001-0000-0000-0000-000000000019
 \t\tformatString: 0.0%
 \t\tdisplayFolder: 06 Studiepoeng
 
-\tmeasure 'Forecast kostnad per SPE60' = DIVIDE ( [Forecast kostnader], [SPE 60] )
-\t\tformatString: #,##0
+\tmeasure 'Studiepoeng per faglige aarsverk' = DIVIDE ( [Avlagte studiepoeng], [Faglige aarsverk] )
+\t\tformatString: #,##0.0
+\t\tdisplayFolder: 06 Studiepoeng
+
+\tmeasure 'SPE60 per faglige aarsverk' = DIVIDE ( [SPE 60], [Faglige aarsverk] )
+\t\tformatString: #,##0.00
 \t\tdisplayFolder: 06 Studiepoeng
 
 \tmeasure 'Forecast datakvalitet %' = AVERAGE ( FactForecast[Sannsynlighet] )

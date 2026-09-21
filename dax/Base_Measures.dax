@@ -36,8 +36,29 @@ CALCULATE (
 Faktisk driftskostnader = 
 CALCULATE (
     [Faktisk belop],
-    DimAccount[SRS_regnskapslinje] IN { "Andre driftskostnader", "Husleie og lokaler" }
+    DimAccount[SRS_regnskapslinje] = "Andre driftskostnader"
 )
+
+Faktisk avskrivninger = 
+CALCULATE (
+    [Faktisk belop],
+    DimAccount[SRS_regnskapslinje] = "Avskrivninger"
+)
+
+Faktisk BOA inntekter = 
+CALCULATE (
+    [Faktisk inntekter],
+    DimProject[Finansieringstype] IN { "Bidrag", "Oppdrag" }
+)
+
+Faktisk BOA andel % = 
+DIVIDE ( [Faktisk BOA inntekter], [Faktisk inntekter] )
+
+Faktisk lonn per aarsverk = 
+DIVIDE ( [Faktisk lonnskostnader], [Aarsverk] )
+
+Faktisk kostnad per SPE60 = 
+DIVIDE ( [Faktisk kostnader], [SPE 60] )
 
 Faktisk YTD = 
 TOTALYTD ( [Faktisk belop], DimDate[Dato] )
@@ -50,7 +71,7 @@ TOTALYTD ( [Faktisk kostnader], DimDate[Dato] )
 
 
 -- ------------------------------------------------------------
--- 02 BUDSJETT (BUDGET - FactBudget)
+-- 02 BUDSJETT (BUDGET - FactBudget & BAC)
 -- ------------------------------------------------------------
 
 Budsjett = 
@@ -74,8 +95,20 @@ CALCULATE (
     DimAccount[SRS_regnskapslinje] = "Lonnskostnader"
 )
 
+Budsjett lonn per aarsverk = 
+DIVIDE ( [Budsjett lonnskostnader], [Aarsverk] )
+
 Budsjett YTD = 
 TOTALYTD ( [Budsjett], DimDate[Dato] )
+
+Aarsbudsjett = 
+CALCULATE (
+    [Budsjett],
+    REMOVEFILTERS ( DimDate[MaanedNr], DimDate[Maaned], DimDate[AarMaaned], DimDate[Dato], DimDate[DatoNokkel] )
+)
+
+BAC (Budget at Completion) = 
+[Aarsbudsjett]
 
 
 -- ------------------------------------------------------------
@@ -88,11 +121,14 @@ Avvik mot budsjett =
 Avvik mot budsjett % = 
 DIVIDE ( [Avvik mot budsjett], ABS ( [Budsjett] ) )
 
+Avvik inntekter = 
+[Faktisk inntekter] - [Budsjett inntekter]
+
 Avvik kostnader = 
 [Faktisk kostnader] - [Budsjett kostnader]
 
-Avvik inntekter = 
-[Faktisk inntekter] - [Budsjett inntekter]
+Avvik lonnskostnader = 
+[Faktisk lonnskostnader] - [Budsjett lonnskostnader]
 
 
 -- ------------------------------------------------------------
@@ -108,8 +144,11 @@ SUM ( FactFTE[FagligeAarsverk] )
 Administrative aarsverk = 
 CALCULATE (
     [Aarsverk],
-    DimPositionGroup[Stillingskategori] = "Administrativ"
+    DimPositionGroup[Stillingskategori] = "Teknisk-administrativ"
 )
+
+Faglig andel % = 
+DIVIDE ( [Faglige aarsverk], [Aarsverk] )
 
 Aarsverk snitt = 
 AVERAGEX (
@@ -136,6 +175,12 @@ SUM ( FactStudyPoints[RegistrerteStudenter] )
 
 Gjennomforingsgrad % = 
 DIVIDE ( [Avlagte studiepoeng], [Planlagte studiepoeng] )
+
+Studiepoeng per faglige aarsverk = 
+DIVIDE ( [Avlagte studiepoeng], [Faglige aarsverk] )
+
+SPE60 per faglige aarsverk = 
+DIVIDE ( [SPE 60], [Faglige aarsverk] )
 
 Avlagte studiepoeng YTD = 
 TOTALYTD ( [Avlagte studiepoeng], DimDate[Dato] )
