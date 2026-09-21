@@ -526,8 +526,7 @@ def build_all_pages():
             {"entity": "DimProject", "property": "Prosjektnavn"},
             {"entity": "DimProject", "property": "Finansieringskilde"},
             {"entity": "DimProject", "property": "Finansieringstype"},
-            {"entity": "DimProject", "property": "Startaar"},
-            {"entity": "DimProject", "property": "Sluttaar"},
+            {"entity": "DimProject", "property": "Prosjektkategori"},
             {"entity": "_Measures", "property": "Regnskap", "is_measure": True},
             {"entity": "_Measures", "property": "Budsjett", "is_measure": True},
             {"entity": "_Measures", "property": "Forecast", "is_measure": True},
@@ -728,13 +727,12 @@ def build_all_pages():
         create_table("dt1_tbl_bilag", 20, 150, 1880, 910, 4, [
             {"entity": "FactGL", "property": "Bilag"},
             {"entity": "FactGL", "property": "DatoNokkel"},
+            {"entity": "FactGL", "property": "Organisasjonsnokkel"},
             {"entity": "FactGL", "property": "Konto"},
             {"entity": "FactGL", "property": "Prosjekt"},
-            {"entity": "FactGL", "property": "Finansieringskilde"},
             {"entity": "FactGL", "property": "Tekst"},
-            {"entity": "FactGL", "property": "Debet"},
-            {"entity": "FactGL", "property": "Kredit"},
             {"entity": "FactGL", "property": "Belop_signert"},
+            {"entity": "FactGL", "property": "Datakilde"},
             {"entity": "_Measures", "property": "Regnskap", "is_measure": True}
         ], "Transaksjons- og bilagslogg (FactGL.csv)")
     ]
@@ -817,8 +815,7 @@ def build_all_pages():
             {"entity": "DimProject", "property": "Prosjektnavn"},
             {"entity": "DimProject", "property": "Finansieringskilde"},
             {"entity": "DimProject", "property": "Finansieringstype"},
-            {"entity": "DimProject", "property": "Startaar"},
-            {"entity": "DimProject", "property": "Sluttaar"},
+            {"entity": "DimProject", "property": "Prosjektkategori"},
             {"entity": "_Measures", "property": "BAC (Budget at Completion)", "is_measure": True},
             {"entity": "_Measures", "property": "EAC (Estimate at Completion)", "is_measure": True},
             {"entity": "_Measures", "property": "ETC (Estimate to Complete)", "is_measure": True},

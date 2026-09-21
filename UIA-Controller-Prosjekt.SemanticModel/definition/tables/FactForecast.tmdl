@@ -63,7 +63,6 @@ table FactForecast
 				let
 				    Source = Csv.Document(File.Contents(DataFolder & "FactForecast.csv"), [Delimiter=";", Columns=9, Encoding=65001, QuoteStyle=QuoteStyle.None]),
 				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
-				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"DatoNokkel", Int64.Type}, {"Organisasjonsnokkel", type text}, {"Konto", Int64.Type}, {"Prosjekt", type text}, {"Versjon", type text}, {"ForecastBelop", Currency.Type}, {"Datastatus", type text}, {"Sannsynlighet", type number}, {"Kommentar", type text}})
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"DatoNokkel", Int64.Type}, {"Organisasjonsnokkel", type text}, {"Konto", Int64.Type}, {"Prosjekt", type text}, {"Versjon", type text}, {"ForecastBelop", Currency.Type}, {"Datastatus", type text}, {"Sannsynlighet", type number}, {"Kommentar", type text}}, "en-US")
 				in
 				    #"Changed Type"
-

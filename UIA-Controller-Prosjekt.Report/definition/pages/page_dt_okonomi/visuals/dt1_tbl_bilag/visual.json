@@ -51,6 +51,20 @@
                       "Entity": "FactGL"
                     }
                   },
+                  "Property": "Organisasjonsnokkel"
+                }
+              },
+              "queryRef": "FactGL.Organisasjonsnokkel",
+              "nativeQueryRef": "Organisasjonsnokkel"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactGL"
+                    }
+                  },
                   "Property": "Konto"
                 }
               },
@@ -79,20 +93,6 @@
                       "Entity": "FactGL"
                     }
                   },
-                  "Property": "Finansieringskilde"
-                }
-              },
-              "queryRef": "FactGL.Finansieringskilde",
-              "nativeQueryRef": "Finansieringskilde"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "FactGL"
-                    }
-                  },
                   "Property": "Tekst"
                 }
               },
@@ -107,39 +107,25 @@
                       "Entity": "FactGL"
                     }
                   },
-                  "Property": "Debet"
-                }
-              },
-              "queryRef": "FactGL.Debet",
-              "nativeQueryRef": "Debet"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "FactGL"
-                    }
-                  },
-                  "Property": "Kredit"
-                }
-              },
-              "queryRef": "FactGL.Kredit",
-              "nativeQueryRef": "Kredit"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "FactGL"
-                    }
-                  },
                   "Property": "Belop_signert"
                 }
               },
               "queryRef": "FactGL.Belop_signert",
               "nativeQueryRef": "Belop_signert"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactGL"
+                    }
+                  },
+                  "Property": "Datakilde"
+                }
+              },
+              "queryRef": "FactGL.Datakilde",
+              "nativeQueryRef": "Datakilde"
             },
             {
               "field": {

@@ -37,9 +37,9 @@ table DimDate
 	column AarMaaned
 		dataType: string
 		lineageTag: d0000001-0000-0000-0000-000000000007
+		sortByColumn: MaanedStart
 		summarizeBy: none
 		sourceColumn: AarMaaned
-		sortByColumn: MaanedStart
 
 	column MaanedStart
 		dataType: dateTime
@@ -73,7 +73,6 @@ table DimDate
 				let
 				    Source = Csv.Document(File.Contents(DataFolder & "DimDate.csv"), [Delimiter=";", Columns=7, Encoding=65001, QuoteStyle=QuoteStyle.None]),
 				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
-				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Dato", type date}, {"DatoNokkel", Int64.Type}, {"Aar", Int64.Type}, {"Kvartal", type text}, {"MaanedNr", Int64.Type}, {"AarMaaned", type text}, {"MaanedStart", type date}})
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Dato", type date}, {"DatoNokkel", Int64.Type}, {"Aar", Int64.Type}, {"Kvartal", type text}, {"MaanedNr", Int64.Type}, {"AarMaaned", type text}, {"MaanedStart", type date}}, "en-US")
 				in
 				    #"Changed Type"
-

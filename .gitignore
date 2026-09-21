@@ -23,3 +23,6 @@ Thumbs.db
 
 # Raw incoming package archive
 uia_complete_controller_powerbi_excel_package/
+
+# Local screenshots
+screenshots/

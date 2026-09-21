@@ -20,7 +20,7 @@ def build_model():
     model_content = """model Model
 \tculture: en-US
 \tdefaultPowerBIDataSourceVersion: powerBI_V3
-\tsourceQueryCulture: nb-NO
+\tsourceQueryCulture: en-US
 \tdataAccessOptions
 \t\tlegacyRedirects
 \t\treturnErrorValuesAsNull
@@ -230,7 +230,7 @@ relationship 00000001-0000-0000-0000-000000000022
 \t\t\t\tlet
 \t\t\t\t    Source = Csv.Document(File.Contents(DataFolder & "DimDate.csv"), [Delimiter=";", Columns=7, Encoding=65001, QuoteStyle=QuoteStyle.None]),
 \t\t\t\t    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
-\t\t\t\t    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Dato", type date}, {"DatoNokkel", Int64.Type}, {"Aar", Int64.Type}, {"Kvartal", type text}, {"MaanedNr", Int64.Type}, {"AarMaaned", type text}, {"MaanedStart", type date}})
+\t\t\t\t    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Dato", type date}, {"DatoNokkel", Int64.Type}, {"Aar", Int64.Type}, {"Kvartal", type text}, {"MaanedNr", Int64.Type}, {"AarMaaned", type text}, {"MaanedStart", type date}}, "en-US")
 \t\t\t\tin
 \t\t\t\t    #"Changed Type"
 """
@@ -311,7 +311,7 @@ relationship 00000001-0000-0000-0000-000000000022
 \t\t\t\tlet
 \t\t\t\t    Source = Csv.Document(File.Contents(DataFolder & "DimOrganization.csv"), [Delimiter=";", Columns=8, Encoding=65001, QuoteStyle=QuoteStyle.None]),
 \t\t\t\t    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
-\t\t\t\t    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Organisasjonsnokkel", type text}, {"Fakultet", type text}, {"Fakultetsnavn", type text}, {"Institutt", type text}, {"Instituttnavn", type text}, {"Koststed", type text}, {"Koststednavn", type text}, {"Koststedtype", type text}})
+\t\t\t\t    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Organisasjonsnokkel", type text}, {"Fakultet", type text}, {"Fakultetsnavn", type text}, {"Institutt", type text}, {"Instituttnavn", type text}, {"Koststed", type text}, {"Koststednavn", type text}, {"Koststedtype", type text}}, "en-US")
 \t\t\t\tin
 \t\t\t\t    #"Changed Type"
 """
@@ -396,7 +396,7 @@ relationship 00000001-0000-0000-0000-000000000022
 \t\t\t\tlet
 \t\t\t\t    Source = Csv.Document(File.Contents(DataFolder & "DimAccount.csv"), [Delimiter=";", Columns=8, Encoding=65001, QuoteStyle=QuoteStyle.None]),
 \t\t\t\t    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
-\t\t\t\t    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Konto", Int64.Type}, {"StandardKonto3", Int64.Type}, {"Kontonavn", type text}, {"Kontoklasse", Int64.Type}, {"Kontogruppe", Int64.Type}, {"Kontotype", type text}, {"SRS_regnskapslinje", type text}, {"AktuellFor", type text}})
+\t\t\t\t    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Konto", Int64.Type}, {"StandardKonto3", Int64.Type}, {"Kontonavn", type text}, {"Kontoklasse", Int64.Type}, {"Kontogruppe", Int64.Type}, {"Kontotype", type text}, {"SRS_regnskapslinje", type text}, {"AktuellFor", type text}}, "en-US")
 \t\t\t\tin
 \t\t\t\t    #"Changed Type"
 """
@@ -463,7 +463,7 @@ relationship 00000001-0000-0000-0000-000000000022
 \t\t\t\tlet
 \t\t\t\t    Source = Csv.Document(File.Contents(DataFolder & "DimProject.csv"), [Delimiter=";", Columns=5, Encoding=65001, QuoteStyle=QuoteStyle.None]),
 \t\t\t\t    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
-\t\t\t\t    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Prosjekt", type text}, {"Prosjektnavn", type text}, {"Finansieringstype", type text}, {"Finansieringskilde", type text}, {"Prosjektkategori", type text}})
+\t\t\t\t    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Prosjekt", type text}, {"Prosjektnavn", type text}, {"Finansieringstype", type text}, {"Finansieringskilde", type text}, {"Prosjektkategori", type text}}, "en-US")
 \t\t\t\tin
 \t\t\t\t    #"Changed Type"
 """
@@ -500,7 +500,7 @@ relationship 00000001-0000-0000-0000-000000000022
 \t\t\t\tlet
 \t\t\t\t    Source = Csv.Document(File.Contents(DataFolder & "DimForecastVersion.csv"), [Delimiter=";", Columns=3, Encoding=65001, QuoteStyle=QuoteStyle.None]),
 \t\t\t\t    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
-\t\t\t\t    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Versjon", type text}, {"Versjonsnavn", type text}, {"Sortering", Int64.Type}})
+\t\t\t\t    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Versjon", type text}, {"Versjonsnavn", type text}, {"Sortering", Int64.Type}}, "en-US")
 \t\t\t\tin
 \t\t\t\t    #"Changed Type"
 """
@@ -536,7 +536,7 @@ relationship 00000001-0000-0000-0000-000000000022
 \t\t\t\tlet
 \t\t\t\t    Source = Csv.Document(File.Contents(DataFolder & "DimPositionGroup.csv"), [Delimiter=";", Columns=3, Encoding=65001, QuoteStyle=QuoteStyle.None]),
 \t\t\t\t    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
-\t\t\t\t    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Stillingsgruppe", type text}, {"Stillingsgruppenavn", type text}, {"Stillingskategori", type text}})
+\t\t\t\t    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Stillingsgruppe", type text}, {"Stillingsgruppenavn", type text}, {"Stillingskategori", type text}}, "en-US")
 \t\t\t\tin
 \t\t\t\t    #"Changed Type"
 """
@@ -601,7 +601,7 @@ relationship 00000001-0000-0000-0000-000000000022
 \t\t\t\tlet
 \t\t\t\t    Source = Csv.Document(File.Contents(DataFolder & "DimStudyProgram.csv"), [Delimiter=";", Columns=6, Encoding=65001, QuoteStyle=QuoteStyle.None]),
 \t\t\t\t    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
-\t\t\t\t    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Studieprogram", type text}, {"Studieprogramnavn", type text}, {"Studienivaa", type text}, {"NormerteStudiepoeng", Int64.Type}, {"Institutt", type text}, {"Fakultet", type text}})
+\t\t\t\t    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Studieprogram", type text}, {"Studieprogramnavn", type text}, {"Studienivaa", type text}, {"NormerteStudiepoeng", Int64.Type}, {"Institutt", type text}, {"Fakultet", type text}}, "en-US")
 \t\t\t\tin
 \t\t\t\t    #"Changed Type"
 """
@@ -667,7 +667,7 @@ relationship 00000001-0000-0000-0000-000000000022
 \t\t\t\tlet
 \t\t\t\t    Source = Csv.Document(File.Contents(DataFolder & "FactGL.csv"), [Delimiter=";", Columns=8, Encoding=65001, QuoteStyle=QuoteStyle.None]),
 \t\t\t\t    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
-\t\t\t\t    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Bilag", type text}, {"DatoNokkel", Int64.Type}, {"Organisasjonsnokkel", type text}, {"Konto", Int64.Type}, {"Prosjekt", type text}, {"Belop_signert", Currency.Type}, {"Tekst", type text}, {"Datakilde", type text}})
+\t\t\t\t    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Bilag", type text}, {"DatoNokkel", Int64.Type}, {"Organisasjonsnokkel", type text}, {"Konto", Int64.Type}, {"Prosjekt", type text}, {"Belop_signert", Currency.Type}, {"Tekst", type text}, {"Datakilde", type text}}, "en-US")
 \t\t\t\tin
 \t\t\t\t    #"Changed Type"
 """
@@ -721,7 +721,7 @@ relationship 00000001-0000-0000-0000-000000000022
 \t\t\t\tlet
 \t\t\t\t    Source = Csv.Document(File.Contents(DataFolder & "FactBudget.csv"), [Delimiter=";", Columns=6, Encoding=65001, QuoteStyle=QuoteStyle.None]),
 \t\t\t\t    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
-\t\t\t\t    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"DatoNokkel", Int64.Type}, {"Organisasjonsnokkel", type text}, {"Konto", Int64.Type}, {"Prosjekt", type text}, {"BudsjettBelop", Currency.Type}, {"Scenario", type text}})
+\t\t\t\t    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"DatoNokkel", Int64.Type}, {"Organisasjonsnokkel", type text}, {"Konto", Int64.Type}, {"Prosjekt", type text}, {"BudsjettBelop", Currency.Type}, {"Scenario", type text}}, "en-US")
 \t\t\t\tin
 \t\t\t\t    #"Changed Type"
 """
@@ -794,7 +794,7 @@ relationship 00000001-0000-0000-0000-000000000022
 \t\t\t\tlet
 \t\t\t\t    Source = Csv.Document(File.Contents(DataFolder & "FactForecast.csv"), [Delimiter=";", Columns=9, Encoding=65001, QuoteStyle=QuoteStyle.None]),
 \t\t\t\t    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
-\t\t\t\t    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"DatoNokkel", Int64.Type}, {"Organisasjonsnokkel", type text}, {"Konto", Int64.Type}, {"Prosjekt", type text}, {"Versjon", type text}, {"ForecastBelop", Currency.Type}, {"Datastatus", type text}, {"Sannsynlighet", type number}, {"Kommentar", type text}})
+\t\t\t\t    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"DatoNokkel", Int64.Type}, {"Organisasjonsnokkel", type text}, {"Konto", Int64.Type}, {"Prosjekt", type text}, {"Versjon", type text}, {"ForecastBelop", Currency.Type}, {"Datastatus", type text}, {"Sannsynlighet", type number}, {"Kommentar", type text}}, "en-US")
 \t\t\t\tin
 \t\t\t\t    #"Changed Type"
 """
@@ -849,7 +849,7 @@ relationship 00000001-0000-0000-0000-000000000022
 \t\t\t\tlet
 \t\t\t\t    Source = Csv.Document(File.Contents(DataFolder & "FactFTE.csv"), [Delimiter=";", Columns=6, Encoding=65001, QuoteStyle=QuoteStyle.None]),
 \t\t\t\t    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
-\t\t\t\t    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"DatoNokkel", Int64.Type}, {"Organisasjonsnokkel", type text}, {"Stillingsgruppe", type text}, {"Aarsverk", type number}, {"FagligeAarsverk", type number}, {"Scenario", type text}})
+\t\t\t\t    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"DatoNokkel", Int64.Type}, {"Organisasjonsnokkel", type text}, {"Stillingsgruppe", type text}, {"Aarsverk", type number}, {"FagligeAarsverk", type number}, {"Scenario", type text}}, "en-US")
 \t\t\t\tin
 \t\t\t\t    #"Changed Type"
 """
@@ -917,7 +917,7 @@ relationship 00000001-0000-0000-0000-000000000022
 \t\t\t\tlet
 \t\t\t\t    Source = Csv.Document(File.Contents(DataFolder & "FactStudyPoints.csv"), [Delimiter=";", Columns=8, Encoding=65001, QuoteStyle=QuoteStyle.None]),
 \t\t\t\t    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
-\t\t\t\t    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"DatoNokkel", Int64.Type}, {"Organisasjonsnokkel", type text}, {"Studieprogram", type text}, {"RegistrerteStudenter", Int64.Type}, {"PlanlagteStudiepoeng", Int64.Type}, {"AvlagteStudiepoeng", type number}, {"SPE60", type number}, {"BestattAndel", type number}})
+\t\t\t\t    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"DatoNokkel", Int64.Type}, {"Organisasjonsnokkel", type text}, {"Studieprogram", type text}, {"RegistrerteStudenter", Int64.Type}, {"PlanlagteStudiepoeng", Int64.Type}, {"AvlagteStudiepoeng", type number}, {"SPE60", type number}, {"BestattAndel", type number}}, "en-US")
 \t\t\t\tin
 \t\t\t\t    #"Changed Type"
 """
@@ -1022,7 +1022,7 @@ relationship 00000001-0000-0000-0000-000000000022
 \t\t\t\tlet
 \t\t\t\t    Source = Csv.Document(File.Contents(DataFolder & "FactAction.csv"), [Delimiter=";", Columns=14, Encoding=65001, QuoteStyle=QuoteStyle.None]),
 \t\t\t\t    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
-\t\t\t\t    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"TiltakID", type text}, {"Organisasjonsnokkel", type text}, {"Prosjekt", type text}, {"Konto", Int64.Type}, {"Avviksarsak", type text}, {"Tiltaksbeskrivelse", type text}, {"AnsvarligRolle", type text}, {"StartDatoNokkel", Int64.Type}, {"FristDatoNokkel", Int64.Type}, {"ForventetEffekt", Currency.Type}, {"RealisertEffekt", Currency.Type}, {"Status", type text}, {"Prioritet", type text}, {"Sannsynlighet", type number}})
+\t\t\t\t    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"TiltakID", type text}, {"Organisasjonsnokkel", type text}, {"Prosjekt", type text}, {"Konto", Int64.Type}, {"Avviksarsak", type text}, {"Tiltaksbeskrivelse", type text}, {"AnsvarligRolle", type text}, {"StartDatoNokkel", Int64.Type}, {"FristDatoNokkel", Int64.Type}, {"ForventetEffekt", Currency.Type}, {"RealisertEffekt", Currency.Type}, {"Status", type text}, {"Prioritet", type text}, {"Sannsynlighet", type number}}, "en-US")
 \t\t\t\tin
 \t\t\t\t    #"Changed Type"
 """

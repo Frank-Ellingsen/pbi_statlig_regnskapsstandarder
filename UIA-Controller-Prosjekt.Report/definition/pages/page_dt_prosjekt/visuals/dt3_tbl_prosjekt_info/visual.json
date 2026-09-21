@@ -79,25 +79,11 @@
                       "Entity": "DimProject"
                     }
                   },
-                  "Property": "Startaar"
+                  "Property": "Prosjektkategori"
                 }
               },
-              "queryRef": "DimProject.Startaar",
-              "nativeQueryRef": "Startaar"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "DimProject"
-                    }
-                  },
-                  "Property": "Sluttaar"
-                }
-              },
-              "queryRef": "DimProject.Sluttaar",
-              "nativeQueryRef": "Sluttaar"
+              "queryRef": "DimProject.Prosjektkategori",
+              "nativeQueryRef": "Prosjektkategori"
             },
             {
               "field": {

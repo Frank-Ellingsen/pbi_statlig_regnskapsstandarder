@@ -95,7 +95,6 @@ table FactAction
 				let
 				    Source = Csv.Document(File.Contents(DataFolder & "FactAction.csv"), [Delimiter=";", Columns=14, Encoding=65001, QuoteStyle=QuoteStyle.None]),
 				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
-				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"TiltakID", type text}, {"Organisasjonsnokkel", type text}, {"Prosjekt", type text}, {"Konto", Int64.Type}, {"Avviksarsak", type text}, {"Tiltaksbeskrivelse", type text}, {"AnsvarligRolle", type text}, {"StartDatoNokkel", Int64.Type}, {"FristDatoNokkel", Int64.Type}, {"ForventetEffekt", Currency.Type}, {"RealisertEffekt", Currency.Type}, {"Status", type text}, {"Prioritet", type text}, {"Sannsynlighet", type number}})
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"TiltakID", type text}, {"Organisasjonsnokkel", type text}, {"Prosjekt", type text}, {"Konto", Int64.Type}, {"Avviksarsak", type text}, {"Tiltaksbeskrivelse", type text}, {"AnsvarligRolle", type text}, {"StartDatoNokkel", Int64.Type}, {"FristDatoNokkel", Int64.Type}, {"ForventetEffekt", Currency.Type}, {"RealisertEffekt", Currency.Type}, {"Status", type text}, {"Prioritet", type text}, {"Sannsynlighet", type number}}, "en-US")
 				in
 				    #"Changed Type"
-
