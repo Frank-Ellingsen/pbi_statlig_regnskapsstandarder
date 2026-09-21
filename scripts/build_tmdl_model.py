@@ -290,7 +290,7 @@ relationship 00000001-0000-0000-0000-000000000022
 \t\tsummarizeBy: none
 \t\tsourceColumn: Koststedtype
 
-\thierarchy 'UiA organisasjon'
+\thierarchy 'Organisasjonshierarki'
 \t\tlineageTag: d0000002-0000-0000-0000-000000000010
 
 \t\tlevel Fakultetsnavn

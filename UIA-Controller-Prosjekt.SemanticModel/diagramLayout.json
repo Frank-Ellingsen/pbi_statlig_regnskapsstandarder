@@ -4,8 +4,8 @@
     {
       "ordinal": 0,
       "scrollPosition": {
-        "x": 676.66668701171875,
-        "y": 301.33334350585938
+        "x": 677,
+        "y": 301
       },
       "nodes": [
         {
@@ -173,6 +173,16 @@
           "nodeLineageTag": "f0000005-0000-0000-0000-000000000001",
           "size": {
             "height": 272,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {},
+          "nodeIndex": "FactAction",
+          "nodeLineageTag": "f0000006-0000-0000-0000-000000000001",
+          "size": {
+            "height": 300,
             "width": 234
           },
           "zIndex": 0

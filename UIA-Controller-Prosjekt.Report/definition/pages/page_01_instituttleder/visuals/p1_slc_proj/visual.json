@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "p1_slc_proj",
   "position": {
     "x": 1000,
     "y": 15,
     "z": 4,
-    "width": 340,
     "height": 65,
+    "width": 340,
     "tabOrder": 4
   },
   "visual": {
@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "DimProject.Prosjektnavn",
-              "nativeQueryRef": "Prosjektnavn"
+              "nativeQueryRef": "Prosjektnavn",
+              "active": true
             }
           ]
         }

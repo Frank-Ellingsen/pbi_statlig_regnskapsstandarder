@@ -131,7 +131,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Hovedtall per fakultet og fellesomr\u00e5de'"
+                  "Value": "'Hovedtall per fakultet og fellesområde'"
                 }
               }
             }

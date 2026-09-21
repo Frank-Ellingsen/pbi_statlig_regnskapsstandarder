@@ -85,3 +85,4 @@ relationship 00000001-0000-0000-0000-000000000021
 relationship 00000001-0000-0000-0000-000000000022
 	fromColumn: FactAction.Prosjekt
 	toColumn: DimProject.Prosjekt
+

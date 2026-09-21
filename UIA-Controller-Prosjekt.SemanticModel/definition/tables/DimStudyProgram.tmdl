@@ -58,3 +58,4 @@ table DimStudyProgram
 				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Studieprogram", type text}, {"Studieprogramnavn", type text}, {"Studienivaa", type text}, {"NormerteStudiepoeng", Int64.Type}, {"Institutt", type text}, {"Fakultet", type text}}, "en-US")
 				in
 				    #"Changed Type"
+

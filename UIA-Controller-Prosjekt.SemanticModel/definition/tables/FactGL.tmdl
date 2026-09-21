@@ -31,18 +31,18 @@ table FactGL
 		summarizeBy: none
 		sourceColumn: Prosjekt
 
+	column Tekst
+		dataType: string
+		lineageTag: f0000001-0000-0000-0000-000000000008
+		summarizeBy: none
+		sourceColumn: Tekst
+
 	column Belop_signert
 		dataType: decimal
 		formatString: #,##0.00
 		lineageTag: f0000001-0000-0000-0000-000000000007
 		summarizeBy: sum
 		sourceColumn: Belop_signert
-
-	column Tekst
-		dataType: string
-		lineageTag: f0000001-0000-0000-0000-000000000008
-		summarizeBy: none
-		sourceColumn: Tekst
 
 	column Datakilde
 		dataType: string
@@ -59,3 +59,4 @@ table FactGL
 				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Bilag", type text}, {"DatoNokkel", Int64.Type}, {"Organisasjonsnokkel", type text}, {"Konto", Int64.Type}, {"Prosjekt", type text}, {"Belop_signert", Currency.Type}, {"Tekst", type text}, {"Datakilde", type text}}, "en-US")
 				in
 				    #"Changed Type"
+

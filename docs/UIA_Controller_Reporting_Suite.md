@@ -1,15 +1,15 @@
-# UiA Handelshøyskolen - Power BI Controller Rapportsuite
+# institusjonen Handelshøyskolen - Power BI Controller Rapportsuite
 **Dokument-ID**: `UIA-FIN-2026-REP01`  
 **Forfatter**: Frank Ellingsen (Financial Controller / Project Controller)  
-**Virksomhet**: Universitetet i Agder (UiA) / Handelshøyskolen  
+**Virksomhet**: Statlig utdanningsinstitusjon / Handelshøyskolen  
 **Teknisk Modell**: `UIA-Controller-Prosjekt.pbip` (Microsoft Fabric DevMode / TMDL / PBIR)  
 **Standard**: Statlige regnskapsstandarder (SRS) & Edward Tufte Data-Ink Ratio
 
 ---
 
-## 1. Kontekst & Formål for Controller-rollen ved UiA
+## 1. Kontekst & Formål for Controller-rollen ved Institusjonen
 
-Handelshøyskolen ved Universitetet i Agder er AACSB-akkreditert, har om lag 2 000 studenter, 120 ansatte og er organisert i tre institutter samt fakultetsadministrasjon:
+Handelshøyskolen ved Statlig utdanningsinstitusjon er AACSB-akkreditert, har om lag 2 000 studenter, 120 ansatte og er organisert i tre institutter samt fakultetsadministrasjon:
 1. **Institutt for økonomi** (Samfunnsøkonomi, Finans, Regnskap)
 2. **Institutt for strategi og ledelse**
 3. **Institutt for rettsvitenskap**
@@ -71,12 +71,12 @@ UIA-Controller-Prosjekt.Report/definition/pages/
 
 ```text
 +---------------------------------------------------------------------------------------------------+
-|  UiA Handelshøyskolen - Ledelsesstatus (2026)             [ Kvartal Slicer ]  [ Måned Slicer ]     |
+|  institusjonen Handelshøyskolen - Ledelsesstatus (2026)             [ Kvartal Slicer ]  [ Måned Slicer ]     |
 +---------------------------------------------------------------------------------------------------+
 |  [ KPI 1: Regnskap ]   [ KPI 2: Budsjett ]   [ KPI 3: Avvik % ]   [ KPI 4: LE ]   [ KPI 5: VAC ]  |
 |    10,62 MNOK            10,75 MNOK            -1,22 %              36,79 MNOK     -26,05 MNOK    |
 +-------------------------------------------------------------------+-------------------------------+
-|  HOVEDMATRISE (Drill-down i UiA Organisasjon)                     |  SRS KOSTNADSFORDELING        |
+|  HOVEDMATRISE (Drill-down i institusjonen Organisasjon)                     |  SRS KOSTNADSFORDELING        |
 |  - Fakultetsadministrasjon                                        |  - Lønnskostnader: 69,0 %     |
 |  - Institutt for økonomi                                          |  - Driftskostnader: 26,0 %    |
 |  - Institutt for strategi og ledelse                              |  - Avskrivninger: 5,0 %       |
@@ -168,7 +168,7 @@ UIA-Controller-Prosjekt.Report/definition/pages/
     *   `[BOA inntekter]` (25 678 288,24 kr).
     *   `[NFR inntekter]` (12 901 569,82 kr).
     *   `[EU inntekter]` (7 430 967,28 kr).
-    *   `[BOA andel %]` (1,20 % av UiAs totale inntekter).
+    *   `[BOA andel %]` (1,20 % av institusjonens totale inntekter).
 3.  **Prosjektmatrise (Matrix)**:
     *   **Rader**: `DimProject[Prosjekthierarki]` (`Finansieringstype` > `Finansieringskilde` > `Prosjektkategori` > `Prosjektnavn`).
     *   **Verdier**: `[Kostnader]`, `[Inntekter]`, `[Regnskap]`, `[Budsjett]`, `[Gjeldende forecast]`, `[Avvik]`.
@@ -259,7 +259,7 @@ UIA-Controller-Prosjekt.Report/definition/pages/
 
 ---
 
-## 4. Årshjul for Controlleren ved UiA Handelshøyskolen
+## 4. Årshjul for Controlleren ved institusjonen Handelshøyskolen
 
 | Periode | Aktivitet | Fokus i Power BI Modellen |
 |---|---|---|

@@ -47,7 +47,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'\u00c5rsbudsjett UiA'"
+                  "Value": "'Årsbudsjett (Institusjonen)'"
                 }
               }
             }

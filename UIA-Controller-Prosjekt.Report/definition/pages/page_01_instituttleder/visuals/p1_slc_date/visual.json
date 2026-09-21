@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "p1_slc_date",
   "position": {
     "x": 400,
     "y": 15,
     "z": 2,
-    "width": 280,
     "height": 65,
+    "width": 280,
     "tabOrder": 2
   },
   "visual": {
@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "DimDate.AarMaaned",
-              "nativeQueryRef": "AarMaaned"
+              "nativeQueryRef": "AarMaaned",
+              "active": true
             }
           ]
         }

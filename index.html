@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>UiA Controller & Forecast Portal | Power BI Reporting Suite</title>
-  <meta name="description" content="Universitetet i Agder (UiA) - Helhetlig virksomhetsstyring, rullende prognoser (LE/EAC), prosjektcontrolling (BOA/EVM) og bemanningsstyring iht. DFØ SRS og Edward Tufte Data-Ink standarder.">
+  <title>Statlig Utdanningsinstitusjon - Controller & Forecast Portal | Power BI Reporting Suite</title>
+  <meta name="description" content="Statlig utdanningsinstitusjon - Helhetlig virksomhetsstyring, rullende prognoser (LE/EAC), prosjektcontrolling (BOA/EVM) og bemanningsstyring iht. DFØ SRS og Edward Tufte Data-Ink standarder.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -119,7 +119,7 @@
       gap: 14px;
     }
 
-    .uia-logo-badge {
+    .inst-logo-badge {
       width: 40px;
       height: 40px;
       border-radius: var(--radius-md);
@@ -844,9 +844,9 @@
        ======================================================================== -->
   <header class="top-header">
     <div class="brand-section">
-      <div class="uia-logo-badge">UiA</div>
+      <div class="inst-logo-badge">SUI</div>
       <div class="brand-text">
-        <h1>UiA Controller & Forecast Portal <span class="badge badge-live">Fabric PBIP Live</span></h1>
+        <h1>Statlig Utdanningsinstitusjon - Controller & Forecast Portal <span class="badge badge-live">Fabric PBIP Live</span></h1>
         <p>Helhetlig Virksomhets- og Prosjektstyring | DFØ SRS R-102 | Edward Tufte Data-Ink</p>
       </div>
     </div>
@@ -917,7 +917,7 @@
 <aside class="drawer-panel" id="drawerPanel">
   <div class="drawer-header">
     <div>
-      <h3>UiA Controller Datamodell & DAX-katalog</h3>
+      <h3>Controller Datamodell & DAX-katalog</h3>
       <p style="font-size: 12px; color: var(--text-secondary); margin-top: 2px;">TMDL Semantisk Modell | 14 Tabeller | 22 Relasjoner | 60+ Mål</p>
     </div>
     <button class="close-btn" onclick="toggleDrawer()">&times;</button>
@@ -1263,7 +1263,7 @@ const dashboards = {
     role: "Dekan / Fakultetsdirektør",
     desc: "Strategisk fakultetsoversikt over instituttenes prestasjoner, produktivitet, BOA-eksternfinansiering og samlet omstillingskraft.",
     slicers: [
-      { label: "Fakultet", options: ["Alle fakulteter", "Handelshøyskolen ved UiA", "Fakultet for teknologi og realfag", "Fakultet for samfunnsvitenskap", "Fakultet for helse- og idrettsvitenskap"] },
+      { label: "Fakultet", options: ["Alle fakulteter", "Handelshøyskolen", "Fakultet for teknologi og realfag", "Fakultet for samfunnsvitenskap", "Fakultet for helse- og idrettsvitenskap"] },
       { label: "Periode", options: ["2026-12 (YTD)", "2026-10", "2026-08", "2026-06"] },
       { label: "Prognoseversjon", options: ["LE_2026", "FC2_2026", "FC1_2026"] }
     ],
@@ -1286,7 +1286,7 @@ const dashboards = {
           </div>
           <div class="chart-container">
             ${generateBarChartSVG([
-              { label: "Handelshøyskolen UiA", val: 8.4, color: "#ef4444" },
+              { label: "Handelshøyskolen", val: 8.4, color: "#ef4444" },
               { label: "Fakultet for teknologi", val: 9.8, color: "#ef4444" },
               { label: "Fakultet for samfunnsvitenskap", val: 4.2, color: "#f59e0b" },
               { label: "Fakultet for humaniora", val: 2.1, color: "#f59e0b" },
@@ -1333,7 +1333,7 @@ const dashboards = {
               </thead>
               <tbody>
                 <tr>
-                  <td>Handelshøyskolen ved UiA</td>
+                  <td>Handelshøyskolen</td>
                   <td class="num">84 100 kr</td>
                   <td class="num">11,8</td>
                   <td class="num">10,2</td>
@@ -1387,7 +1387,7 @@ const dashboards = {
               </thead>
               <tbody>
                 <tr>
-                  <td>Handelshøyskolen UiA</td>
+                  <td>Handelshøyskolen</td>
                   <td class="num">5</td>
                   <td class="num">4</td>
                   <td class="num">1</td>
@@ -1434,16 +1434,16 @@ const dashboards = {
     id: "page_03_executive",
     title: "03 Universitetsdirektør & Ledelse",
     role: "Universitetsdirektør / Rektorat",
-    desc: "Helhetlig topplederoversikt for hele UiA. Prognoseutvikling over runder (Budsjett -> FC1 -> FC2 -> LE), fakultetsvise avvik og strategiske styringsparametere.",
+    desc: "Helhetlig topplederoversikt for hele institusjonen. Prognoseutvikling over runder (Budsjett -> FC1 -> FC2 -> LE), fakultetsvise avvik og strategiske styringsparametere.",
     slicers: [
       { label: "Periode", options: ["2026-12 (Helår)", "2026-08 (T2)", "2026-04 (T1)"] },
       { label: "Forecastversjon", options: ["LE_2026", "FC2_2026", "FC1_2026"] }
     ],
     kpis: [
-      { title: "Årsbudsjett UiA", val: "10,75 M", unit: "NOK", badge: "BAC Ramme", badgeCls: "variance-info", sub: "Netto bevilgningsramme" },
+      { title: "Årsbudsjett (Institusjonen)", val: "10,75 M", unit: "NOK", badge: "BAC Ramme", badgeCls: "variance-info", sub: "Netto bevilgningsramme" },
       { title: "Helårsprognose (LE)", val: "36,79 M", unit: "NOK", badge: "EAC Slutt", badgeCls: "variance-unfavorable", sub: "Gjeldende helårsestimat" },
       { title: "Prognoseavvik", val: "+26,05 M", unit: "NOK", badge: "Risikogap", badgeCls: "variance-unfavorable", sub: "Forventet merforbruk før tiltak" },
-      { title: "Årsverk totalt", val: "1 285,9", unit: "FTE", badge: "Hele UiA", badgeCls: "variance-info", sub: "UF: 661,8 | TA: 624,1" },
+      { title: "Årsverk totalt", val: "1 285,9", unit: "FTE", badge: "Hele institusjonen", badgeCls: "variance-info", sub: "UF: 661,8 | TA: 624,1" },
       { title: "BOA-finansieringsandel", val: "1,20%", unit: "Andel", badge: "Mål: 2,5%", badgeCls: "variance-neutral", sub: "BOA inntekter: 25,68 M" }
     ],
     renderContent: () => `
@@ -1473,7 +1473,7 @@ const dashboards = {
           <div class="chart-container">
             ${generateBarChartSVG([
               { label: "Fak. for teknologi og realfag", val: 9.8, color: "#ef4444" },
-              { label: "Handelshøyskolen ved UiA", val: 8.4, color: "#ef4444" },
+              { label: "Handelshøyskolen", val: 8.4, color: "#ef4444" },
               { label: "Fak. for samfunnsvitenskap", val: 4.2, color: "#f59e0b" },
               { label: "Fak. for humaniora og ped.", val: 2.1, color: "#f59e0b" },
               { label: "Fellesområde & administrasjon", val: 1.55, color: "#10b981" }
@@ -1505,7 +1505,7 @@ const dashboards = {
             </thead>
             <tbody>
               <tr>
-                <td>Handelshøyskolen ved UiA</td>
+                <td>Handelshøyskolen</td>
                 <td class="num">3 240 000</td>
                 <td class="num">3 180 000</td>
                 <td class="num">11 640 000</td>
@@ -1547,7 +1547,7 @@ const dashboards = {
             </tbody>
             <tfoot>
               <tr>
-                <td>Totalt UiA</td>
+                <td>Totalt institusjonen</td>
                 <td class="num">10 747 733 kr</td>
                 <td class="num">10 617 128 kr</td>
                 <td class="num">36 793 524 kr</td>
@@ -1601,7 +1601,7 @@ const dashboards = {
               </thead>
               <tbody>
                 <tr>
-                  <td>Handelshøyskolen ved UiA</td>
+                  <td>Handelshøyskolen</td>
                   <td class="num">2 410</td>
                   <td class="num">128 430</td>
                   <td class="num">2 140,5</td>
@@ -1660,7 +1660,7 @@ const dashboards = {
                   <td><span class="status-pill forsinket">Høy</span></td>
                 </tr>
                 <tr>
-                  <td>Handelshøyskolen ved UiA</td>
+                  <td>Handelshøyskolen</td>
                   <td class="num" style="color:#ef4444;">+8 400 000</td>
                   <td class="num" style="color:#10b981;">-3 400 000</td>
                   <td class="num" style="color:#f59e0b;">+5 000 000</td>
@@ -1727,7 +1727,7 @@ const dashboards = {
               </tr>
               <tr>
                 <td><code>T-08</code></td>
-                <td>Nedskalering av arealleie Campus Kristiansand</td>
+                <td>Nedskalering av arealleie Campus Hoved</td>
                 <td>Høye leiekostnader</td>
                 <td>Eiendomsdirektør</td>
                 <td class="num">-2 000 000</td>
@@ -1756,7 +1756,7 @@ const dashboards = {
     role: "Prorektor Forskning / Forskningsutvalg",
     desc: "Oppfølging av eksternfinansiert forskning (Bidrag og Oppdrag). NFR, EU Horisont Europa, prosjektmarginer og indirekte kostnadsdekning (TDI/overhead).",
     slicers: [
-      { label: "Fakultet", options: ["Alle fakulteter", "Handelshøyskolen UiA", "Fakultet for teknologi"] },
+      { label: "Fakultet", options: ["Alle fakulteter", "Handelshøyskolen", "Fakultet for teknologi"] },
       { label: "Finansieringskilde", options: ["Alle kilder", "NFR", "EU", "Oppdrag", "Ekstern"] }
     ],
     kpis: [
@@ -1847,7 +1847,7 @@ const dashboards = {
               </tr>
               <tr>
                 <td><code>NFR002</code></td>
-                <td>Sustainable Business Models Agder</td>
+                <td>Sustainable Business Models Regional Case</td>
                 <td>NFR</td>
                 <td>Bidrag</td>
                 <td>Kompetanseprosjekt</td>
@@ -1880,7 +1880,7 @@ const dashboards = {
     role: "Prorektor Utdanning / Studiedirektør",
     desc: "Oppfølging av studentopptak, avlagte studiepoeng, SPE60 og enhetskostnader per studieprogram og studienivå.",
     slicers: [
-      { label: "Fakultet", options: ["Alle fakulteter", "Handelshøyskolen UiA", "Fakultet for teknologi"] },
+      { label: "Fakultet", options: ["Alle fakulteter", "Handelshøyskolen", "Fakultet for teknologi"] },
       { label: "Studienivå", options: ["Alle nivåer", "Bachelor", "Master", "PhD"] }
     ],
     kpis: [
@@ -1888,7 +1888,7 @@ const dashboards = {
       { title: "Avlagte studiepoeng", val: "336 945", unit: "SP", badge: "86,4% måloppnåelse", badgeCls: "variance-neutral", sub: "Planlagt: 390 095 SP" },
       { title: "SPE60 Ekvivalenter", val: "5 615,7", unit: "SPE", badge: "Helårsstudenter", badgeCls: "variance-info", sub: "SP / 60" },
       { title: "Måloppnåelse %", val: "86,38%", unit: "Krav", badge: "Mål: > 90%", badgeCls: "variance-neutral", sub: "Avvik: -13,62%" },
-      { title: "Kostnad per SPE60", val: "94 200", unit: "kr/SPE", badge: "Gj.snitt UiA", badgeCls: "variance-info", sub: "Kostnadseffektivitet" }
+      { title: "Kostnad per SPE60", val: "94 200", unit: "kr/SPE", badge: "Gj.snitt institusjonen", badgeCls: "variance-info", sub: "Kostnadseffektivitet" }
     ],
     renderContent: () => `
       <div class="dash-grid-two-col">
@@ -2005,7 +2005,7 @@ const dashboards = {
     id: "page_07_action_tracker",
     title: "07 Action Tracker (Tiltak)",
     role: "Omstillingsutvalg / Prosjektleder",
-    desc: "Oppfølging av UiAs omstillingsprogram (FactAction). 16 definerte tiltak, fremdriftsstatus, realiserte gevinster mot forventet effekt og restgap.",
+    desc: "Oppfølging av institusjonens omstillingsprogram (FactAction). 16 definerte tiltak, fremdriftsstatus, realiserte gevinster mot forventet effekt og restgap.",
     slicers: [
       { label: "Ansvarlig lederrolle", options: ["Alle roller", "Instituttleder", "Dekan", "HR-direktør", "Eiendomsdirektør", "IT-direktør"] },
       { label: "Status", options: ["Alle statuser", "Gjennomført", "Pågår", "Forsinket", "Planlagt"] },
@@ -2125,7 +2125,7 @@ const dashboards = {
               </tr>
               <tr>
                 <td><code>T-08</code></td>
-                <td>Nedskalering av arealleie Kristiansand</td>
+                <td>Nedskalering av arealleie Campus Hoved</td>
                 <td>Tomme kontorer / hybridarbeid</td>
                 <td>Eiendomsdirektør</td>
                 <td>2026-09-01</td>
@@ -2147,7 +2147,7 @@ const dashboards = {
     role: "Senior Controller / Økonomisjef",
     desc: "Dybdeanalyse, kontrolltårn og avstemmingsmatrise for controllere. Avviksdrivere på kontonavn, forecast confidence % og hierarkisk drilldown.",
     slicers: [
-      { label: "Fakultet", options: ["Alle fakulteter", "Handelshøyskolen UiA", "Fakultet for teknologi"] },
+      { label: "Fakultet", options: ["Alle fakulteter", "Handelshøyskolen", "Fakultet for teknologi"] },
       { label: "Institutt", options: ["Alle institutter", "Inst. for økonomi", "Inst. for IKT"] },
       { label: "SRS Regnskapslinje", options: ["Alle linjer", "Lønnskostnader", "Andre driftskostnader", "Avskrivninger"] }
     ],
@@ -2219,7 +2219,7 @@ const dashboards = {
             </thead>
             <tbody>
               <tr>
-                <td>Handelshøyskolen UiA</td>
+                <td>Handelshøyskolen</td>
                 <td>Inst. for økonomi</td>
                 <td>Lønnskostnader</td>
                 <td>5000 Fast lønn</td>
@@ -2230,7 +2230,7 @@ const dashboards = {
                 <td class="num" style="color:#ef4444;">+1 420 000</td>
               </tr>
               <tr>
-                <td>Handelshøyskolen UiA</td>
+                <td>Handelshøyskolen</td>
                 <td>Inst. for økonomi</td>
                 <td>Lønnskostnader</td>
                 <td>5010 Sensorer</td>
@@ -2241,7 +2241,7 @@ const dashboards = {
                 <td class="num" style="color:#ef4444;">+290 000</td>
               </tr>
               <tr>
-                <td>Handelshøyskolen UiA</td>
+                <td>Handelshøyskolen</td>
                 <td>Inst. for rettsvitenskap</td>
                 <td>Andre driftskostnader</td>
                 <td>6700 Konsulenter</td>
@@ -2353,7 +2353,7 @@ const dashboards = {
                 <td>I003K1</td>
                 <td>6300 (Husleie)</td>
                 <td>DRIFT</td>
-                <td>Husleie Campus Grimstad mnd 12</td>
+                <td>Husleie Campus Nord mnd 12</td>
                 <td class="num">145 000,00 kr</td>
                 <td>Statsbygg</td>
               </tr>
@@ -2371,7 +2371,7 @@ const dashboards = {
     desc: "Dybdevisning av årsverk, stillingskategorier (vitenskapelig UF vs. administrativ TA), personalkostnader og snittlønn per årsverk.",
     slicers: [
       { label: "Stillingskategori", options: ["Alle kategorier", "Vitenskapelig (UF)", "Administrativ (TA)"] },
-      { label: "Fakultet", options: ["Alle fakulteter", "Handelshøyskolen UiA", "Fakultet for teknologi"] }
+      { label: "Fakultet", options: ["Alle fakulteter", "Handelshøyskolen", "Fakultet for teknologi"] }
     ],
     kpis: [
       { title: "Årsverk totalt", val: "1 285,9", unit: "FTE", badge: "Siste måned", badgeCls: "variance-info", sub: "1 440 måledatapunkter" },
@@ -2541,7 +2541,7 @@ const dashboards = {
               </tr>
               <tr>
                 <td><code>NFR002</code></td>
-                <td>Sustainable Business Models Agder</td>
+                <td>Sustainable Business Models Regional Case</td>
                 <td>NFR</td>
                 <td>Bidrag</td>
                 <td class="num">3 600 000 kr</td>
@@ -2687,7 +2687,7 @@ const dashboards = {
     desc: "Produksjon på studieprogramnivå fra FactStudyPoints. Studenttall, planlagte og avlagte studiepoeng, samt beståttandel per program.",
     slicers: [
       { label: "Studienivå", options: ["Alle", "Bachelor", "Master", "PhD"] },
-      { label: "Fakultet", options: ["Alle", "Handelshøyskolen UiA", "Fakultet for teknologi"] }
+      { label: "Fakultet", options: ["Alle", "Handelshøyskolen", "Fakultet for teknologi"] }
     ],
     kpis: [
       { title: "Registrerte studenter", val: "6 490", unit: "Stud", badge: "22 studieprogrammer", badgeCls: "variance-info", sub: "Aktiv studentmasse" },

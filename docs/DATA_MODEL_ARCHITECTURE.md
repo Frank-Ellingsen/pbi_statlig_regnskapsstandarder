@@ -1,9 +1,9 @@
-# UiA Controller Data Model Architecture & Governance (Full-Scale Package)
+# Controller Data Model Architecture & Governance (Full-Scale Package)
 
 ## 1. Executive Summary
-Dette dokumentet beskriver den helhetlige arkitekturen, datagrunnlaget og modelleringsprinsippene for UiA Controller-modellen (`UIA-Controller-Prosjekt`). Modellen er implementert som et **stjerneskjema med flere faktatabeller (Fact Constellation)** i Microsoft Fabric / Power BI Project-formatet (`.pbip` / TMDL).
+Dette dokumentet beskriver den helhetlige arkitekturen, datagrunnlaget og modelleringsprinsippene for Controller-modellen (`UIA-Controller-Prosjekt`). Modellen er implementert som et **stjerneskjema med flere faktatabeller (Fact Constellation)** i Microsoft Fabric / Power BI Project-formatet (`.pbip` / TMDL).
 
-Modellen representerer en komplett virksomhets- og økonomimodell for Universitetet i Agder (UiA) i henhold til DFØs statlige regnskapsstandarder (SRS) og KDs bevilgnings- og BOA-retningslinjer:
+Modellen representerer en komplett virksomhets- og økonomimodell for Statlig utdanningsinstitusjon i henhold til DFØs statlige regnskapsstandarder (SRS) og KDs bevilgnings- og BOA-retningslinjer:
 *   **Finans (Hovedbok / SRS)**: Faktiske regnskapsposteringer på 46 DFØ-standardkontoer og KD/BOA-prosjekter (`FactGL`, 35 760 rader).
 *   **Budsjett**: Årsbudsjett periodisert per måned, koststed, konto og prosjekt (`FactBudget`, 17 760 rader).
 *   **Forecast (Prognoser)**: Rullende prognoseversjoner (`FC1_2026`, `FC2_2026`, `LE_2026`) med sannsynlighetsvekting (`FactForecast`, 53 280 rader).
@@ -74,7 +74,7 @@ erDiagram
     *   Attributter: `Studieprogramnavn`, `Studienivaa` (`Bachelor`, `Master`, `PhD`), `NormerteStudiepoeng`, `Institutt`, `OrgEnhet`, `Status`, `Rapporteringsaar`.
 
 ### 2.2 Faktatabeller (*-siden)
-1.  **`FactGL`** (35 760 rader): Hovedbokstransaksjoner for hele UiA.
+1.  **`FactGL`** (35 760 rader): Hovedbokstransaksjoner for hele institusjonen.
     *   Korn: Bilagsrad per dato, organisasjonsnøkkel, konto, prosjekt.
     *   Måltall: `Belop_signert` (inntekter med negativt fortegn, kostnader med positivt fortegn).
     *   Total volum: 2,138 mrd kr inntekter, 2,149 mrd kr kostnader, 10,62 mill kr netto.

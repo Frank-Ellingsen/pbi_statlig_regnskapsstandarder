@@ -47,7 +47,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'L\u00f8nnskostnader'"
+                  "Value": "'Lønnskostnader'"
                 }
               }
             }

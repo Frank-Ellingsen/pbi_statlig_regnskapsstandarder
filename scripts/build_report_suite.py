@@ -393,7 +393,7 @@ def build_all_pages():
         create_slicer("p3_slc_date", 20, 15, 350, 65, 1, "DimDate", "AarMaaned", "Rapporteringsperiode"),
         create_slicer("p3_slc_fc", 390, 15, 350, 65, 2, "DimForecastVersion", "Versjonsnavn", "Forecastversjon"),
         # KPI Strip (5 cards)
-        create_card("p3_kpi_budsjett", 20, 95, 360, 105, 3, "Aarsbudsjett", "Årsbudsjett UiA"),
+        create_card("p3_kpi_budsjett", 20, 95, 360, 105, 3, "Aarsbudsjett", "Årsbudsjett (Institusjonen)"),
         create_card("p3_kpi_forecast", 400, 95, 360, 105, 4, "Forecast aarsbelop", "Helårsprognose (LE)"),
         create_card("p3_kpi_avvik", 780, 95, 360, 105, 5, "Forecastavvik", "Prognoseavvik mot budsjett"),
         create_card("p3_kpi_aarsverk", 1160, 95, 360, 105, 6, "Aarsverk", "Årsverk totalt"),

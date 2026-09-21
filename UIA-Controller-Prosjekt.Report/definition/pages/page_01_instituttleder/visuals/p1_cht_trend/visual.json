@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "p1_cht_trend",
   "position": {
     "x": 20,
     "y": 215,
     "z": 10,
-    "width": 1120,
     "height": 390,
+    "width": 1120,
     "tabOrder": 10
   },
   "visual": {
@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "DimDate.AarMaaned",
-              "nativeQueryRef": "AarMaaned"
+              "nativeQueryRef": "AarMaaned",
+              "active": true
             }
           ]
         },
@@ -93,7 +94,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'M\u00e5nedlig faktisk / budsjett / prognosetrend'"
+                  "Value": "'Månedlig faktisk / budsjett / prognosetrend'"
                 }
               }
             }

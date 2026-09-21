@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "p6_slc_nivaa",
   "position": {
     "x": 780,
     "y": 15,
     "z": 3,
-    "width": 360,
     "height": 65,
+    "width": 360,
     "tabOrder": 3
   },
   "visual": {
@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "DimStudyProgram.Studienivaa",
-              "nativeQueryRef": "Studienivaa"
+              "nativeQueryRef": "Studienivaa",
+              "active": true
             }
           ]
         }
@@ -47,7 +48,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Studieniv\u00e5'"
+                  "Value": "'Studienivå'"
                 }
               }
             }

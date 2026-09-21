@@ -61,7 +61,7 @@ Forecast- og scenarioanalyse
 Datakvalitet og avstemmingskontroller
 Eksempel:
 Power BI, avansert: utvikling av datamodeller og økonomiske dashboards, stjernemodellering, Power Query, DAX, KPI-er, Actual/Budget/Forecast, avviksanalyse, Time Intelligence og drill-down rapportering.
-Kompetanse som er særlig relevant for UiA
+Kompetanse som er særlig relevant for Institusjonen
 Her ville jeg i tillegg fremhevet:
 analyse av student- og aktivitetsdata
 studiepoengproduksjon og kapasitetsanalyse
@@ -80,4 +80,4 @@ Min anbefalte CV-versjon
 Excel: Avansert økonomisk modellering, Power Query, Power Pivot, pivottabeller, dynamiske formler, scenario- og sensitivitetsanalyse, Actual/Budget/Forecast-modeller og automatisert økonomirapportering.
 Power BI: Datamodellering og stjerneskjema, Power Query, DAX, Time Intelligence, KPI-er, Actual/Budget/Forecast, avviksanalyse, drill-down rapportering og utvikling av interaktive økonomi- og virksomhetsdashboards.
 Data og analyse: Driverbasert analyse, datakvalitet, sammenstilling av økonomi-, bemannings- og aktivitetsdata, KPI-utvikling og visualisering av komplekse sammenhenger for ledelsesbeslutninger.
-Det viktigste for denne typen controllerstilling er etter min vurdering ikke å fremstille deg som bare "god i Excel og Power BI". Den sterkere profilen er at du bruker Excel og Power BI til å gå fra data → analyse → prognose → risiko → tiltak → beslutningsstøtte. Det er nettopp den controllerprofilen vi har bygget UiA-caset rundt.
+Det viktigste for denne typen controllerstilling er etter min vurdering ikke å fremstille deg som bare "god i Excel og Power BI". Den sterkere profilen er at du bruker Excel og Power BI til å gå fra data → analyse → prognose → risiko → tiltak → beslutningsstøtte. Det er nettopp den controllerprofilen vi har bygget Institusjonen-caset rundt.

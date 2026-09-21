@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "p1_cht_driver",
   "position": {
     "x": 1160,
     "y": 215,
     "z": 11,
-    "width": 740,
     "height": 390,
+    "width": 740,
     "tabOrder": 11
   },
   "visual": {
@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "DimAccount.SRS_regnskapslinje",
-              "nativeQueryRef": "SRS_regnskapslinje"
+              "nativeQueryRef": "SRS_regnskapslinje",
+              "active": true
             }
           ]
         },

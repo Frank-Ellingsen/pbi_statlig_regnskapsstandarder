@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "p2_cht_boa_kilde",
   "position": {
     "x": 970,
     "y": 215,
     "z": 11,
-    "width": 930,
     "height": 420,
+    "width": 930,
     "tabOrder": 11
   },
   "visual": {
@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "DimProject.Finansieringskilde",
-              "nativeQueryRef": "Finansieringskilde"
+              "nativeQueryRef": "Finansieringskilde",
+              "active": true
             }
           ]
         },

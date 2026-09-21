@@ -1,4 +1,4 @@
-# UiA Controller - Helhetlig Virksomhetsstyring & Forecast Datamodell (Power BI / PBIP)
+# Statlig Utdanningsinstitusjon - Helhetlig Virksomhetsstyring & Forecast Datamodell (Power BI / PBIP)
 
 [![Power BI](https://img.shields.io/badge/Power_BI-PBIP_%2F_TMDL-F2C811?logo=powerbi&logoColor=black)](https://powerbi.microsoft.com/)
 [![Fabric DevMode](https://img.shields.io/badge/Microsoft_Fabric-Git_Integrated-0078D4?logo=microsoft)](https://learn.microsoft.com/power-bi/developer/projects/projects-overview)
@@ -7,7 +7,7 @@
 [![QA Tests](https://img.shields.io/badge/QA_Validation-43%2F43_Passed-success)](scripts/test_dax_measures.py)
 [![Dashboards](https://img.shields.io/badge/Report_Suite-13_Dashboards-blueviolet)](index.html)
 
-Dette prosjektet representerer en **produksjonsklar virksomhetsstyrings- og prosjektcontroller-løsning** for **Universitetet i Agder (UiA)**. Løsningen er bygget fra grunnen av på **Microsoft Fabric / Power BI Project-formatet (`.pbip` med TMDL)**, og integrerer regnskap (DFØ SRS), periodiserte budsjetter, rullende tertialprognoser (EAC/ETC), omstillingstiltak (gevinstrealisering), bemanningsutvikling (årsverk) og student- og studieproduksjon (SPE60).
+Dette prosjektet representerer en **produksjonsklar virksomhetsstyrings- og prosjektcontroller-løsning** for **Statlig utdanningsinstitusjon**. Løsningen er bygget fra grunnen av på **Microsoft Fabric / Power BI Project-formatet (`.pbip` med TMDL)**, og integrerer regnskap (DFØ SRS), periodiserte budsjetter, rullende tertialprognoser (EAC/ETC), omstillingstiltak (gevinstrealisering), bemanningsutvikling (årsverk) og student- og studieproduksjon (SPE60).
 
 Rapporteringssuiten består av **13 spesialtilpassede dashboards** (8 rollebaserte styringspaneler og 5 drill-through dybdeanalyser) utformet strengt etter **Edward Tuftes prinsipper for Data-Ink Ratio**.
 
@@ -34,7 +34,7 @@ Et interaktivt visuelt overblikk over alle 13 rapporter og dashboards er tilgjen
 Universitets- og høyskolesektoren (UH-sektoren) er gjenstand for betydelige strukturelle endringer:
 * **Bevilgningsmodell under press**: Kunnskapsdepartementets (KD) finansieringssystem kombinerer en fast grunnbevilgning med resultatbasert uttelling for studiepoengproduksjon (SPE60/kandidater) og ekstern forskningsfinansiering (BOA).
 * **Demografiske endringer & omstilling**: Lavere studentkull fordrer streng dimensjonering av studieporteføljen, optimalisering av bemanningsforhold (studenter per vitenskapelig årsverk) og stram kostnadskontroll.
-* **Statlige Regnskapsstandarder (DFØ SRS)**: UiA fører regnskap etter SRS (opptjeningsprinsippet), hvor inntekter fra bevilgning periodiseres i takt med påløpte kostnader, mens BOA-prosjekter inntektsføres etter fullført kontrakt eller påløpt fremdrift.
+* **Statlige Regnskapsstandarder (DFØ SRS)**: institusjonen fører regnskap etter SRS (opptjeningsprinsippet), hvor inntekter fra bevilgning periodiseres i takt med påløpte kostnader, mens BOA-prosjekter inntektsføres etter fullført kontrakt eller påløpt fremdrift.
 
 ### Formål med Controller-modellen:
 1. **Helhetlig styringsinformasjon i sanntid**: Koble finansielle regnskapstall sammen med ikke-finansielle styringsparametere (årsverk, studenttall, studiepoeng, gjennomføringsgrad).
@@ -52,7 +52,7 @@ uia_powerbi_complete_forecast_model/
 │   ├── DimAccount.csv                  # Kontoplan iht. DFØ R-102/2025 (46 kontoer)
 │   ├── DimDate.csv                     # Kalender 2026-2027 (730 dager)
 │   ├── DimForecastVersion.csv          # Prognoseversjoner: BUD2026, FC1, FC2, LE (4 rader)
-│   ├── DimOrganization.csv             # Organisasjonsstruktur for hele UiA (74 koststeder)
+│   ├── DimOrganization.csv             # Organisasjonsstruktur for hele institusjonen (74 koststeder)
 │   ├── DimPositionGroup.csv            # Stillingsgrupper: vitenskapelig/administrativ (5 rader)
 │   ├── DimProject.csv                  # Prosjekter, BOA-typer og finansieringskilder (8 rader)
 │   ├── DimStudyProgram.csv             # Studieprogrammer og studienivåer (22 rader)
@@ -67,7 +67,7 @@ uia_powerbi_complete_forecast_model/
 │   ├── Complete_Measures.dax           # Komplett master DAX-katalog med kommentarer
 │   └── All_Measures_Combined.dax       # Formaterte DAX-mål for Excel og DAX Studio
 ├── docs/                               # Dokumentasjon og faglige spesifikasjoner
-│   ├── Controller - UIA.pdf            # Stillings- og casebeskrivelse for UiA Controller
+│   ├── Controller - UIA.pdf            # Stillings- og casebeskrivelse for Controller
 │   ├── DATA_MODEL_ARCHITECTURE.md      # Detaljert datamodell, tabellkorn og relasjonsdefinisjoner
 │   ├── Forecast_Model_Setup.md         # Regler for prognose- og versjonsmodellering
 │   ├── PowerBI_Model_Setup.md          # Tekniske oppsettregler og hierarkier
@@ -131,7 +131,7 @@ erDiagram
 | Tabellnavn | Type | Rader | Korn (Granularitet) | Primærnøkkel / Nøkkelfelt | Formål & Beskrivelse |
 |---|---|---|---|---|---|
 | **`DimDate`** | Dimensjon | 730 | Dagsnivå (2026-01-01 til 2027-12-31) | `DatoNokkel` (`YYYYMMDD`) | Felles tidskalender med måned-, kvartal- og årsattributter. |
-| **`DimOrganization`** | Dimensjon | 74 | Koststedsnivå (UiA-struktur) | `Organisasjonsnokkel` | Organisasjonshierarki: Fakultet → Institutt → Koststed. |
+| **`DimOrganization`** | Dimensjon | 74 | Koststedsnivå (organisasjonsstruktur) | `Organisasjonsnokkel` | Organisasjonshierarki: Fakultet → Institutt → Koststed. |
 | **`DimAccount`** | Dimensjon | 46 | Kontonivå (DFØ SRS R-102/2025) | `Konto` (heltall) | Statlig kontoplan med SRS-regnskapslinjer og kontotyper. |
 | **`DimProject`** | Dimensjon | 8 | Prosjektkode | `Prosjekt` | Prosjekthierarki for grunnbevilgning og BOA (NFR, EU, Oppdrag). |
 | **`DimForecastVersion`** | Dimensjon | 4 | Versjonsnivå | `Versjon` | Prognoserunder: `BUD2026`, `FC1_2026`, `FC2_2026`, `LE_2026`. |
@@ -288,8 +288,8 @@ graph TD
 
 #### 3. `03 Universitetsdirektør & Ledelse` (`page_03_executive`)
 * **Målgruppe**: Universitetsdirektør, økonomidirektør og rektorat.
-* **Hovedspørsmål**: *Hvordan utvikler UiAs samlede rammer seg gjennom prognoserundene, og hvilke fakulteter bærer størst risiko?*
-* **KPI-stripe**: Årsbudsjett UiA (10,75M) | Helårsprognose LE (36,79M) | Prognoseavvik (+26,05M) | Årsverk totalt (1 285,93) | BOA-finansieringsandel (1,20%).
+* **Hovedspørsmål**: *Hvordan utvikler institusjonens samlede rammer seg gjennom prognoserundene, og hvilke fakulteter bærer størst risiko?*
+* **KPI-stripe**: Årsbudsjett (Institusjonen) (10,75M) | Helårsprognose LE (36,79M) | Prognoseavvik (+26,05M) | Årsverk totalt (1 285,93) | BOA-finansieringsandel (1,20%).
 * **Visuelle elementer**:
   * *Prognoseutvikling over runder (Line Chart)*: Historisk vandring fra Årsbudsjett → FC1 → FC2 → Latest Estimate.
   * *Prognoseavvik per fakultet (Bar Chart)*: Fakultetsvis fordeling av mer-/mindreforbruk.
@@ -298,7 +298,7 @@ graph TD
 
 #### 4. `04 Universitetsstyret` (`page_04_styret`)
 * **Målgruppe**: Universitetsstyret.
-* **Hovedspørsmål**: *Når UiA sine strategiske måltall innen utdanning og forskning, og er økonomisk bærekraft sikret?*
+* **Hovedspørsmål**: *Når institusjonen sine strategiske måltall innen utdanning og forskning, og er økonomisk bærekraft sikret?*
 * **KPI-stripe**: Totalbudsjett | Forventet årsresultat | Forventet avvik % | Studiepoeng måloppnåelse % | Eksternfinansiering (BOA).
 * **Visuelle elementer**:
   * *Strategisk måloppnåelse studieaktivitet*: Registrerte studenter (6 490), avlagte SP (336 945), SPE60 (5 615,74) og måloppnåelse (86,38%).
@@ -354,7 +354,7 @@ graph TD
 
 I tråd med **Edward Tuftes prinsipper for Data-Ink Ratio** er rapportene renset for all visuell støy for å maksimere informasjonsverdien:
 
-| Tufte-prinsipp | Implementering i UiA Controller-modellen | Hvorfor dette er overlegent for ledelsen |
+| Tufte-prinsipp | Implementering i Controller-modellen | Hvorfor dette er overlegent for ledelsen |
 |---|---|---|
 | **Fjern unødvendig blekk (Chartjunk)** | Ingen 3D-grafer, ingen tunge skygger (drop shadows), ingen dekorative ikoner eller fargebannere. | Reduserer kognitiv belastning og holder fokus på tallene og årsakene. |
 | **Tabeller uten vertikale streker** | Ingen vertikale linjer mellom kolonner. Kun diskrete horisontale linjer for rader og totalsummer. | Tabeller blir vesentlig lettere å skanne horisontalt langs regnskapslinjene. |
@@ -366,11 +366,11 @@ I tråd med **Edward Tuftes prinsipper for Data-Ink Ratio** er rapportene renset
 
 ## 7. Controller-metodikk & Styringshjul
 
-Løsningen speiler UiAs faktiske økonomiske styringshjul og rapporteringskadens:
+Løsningen speiler institusjonens faktiske økonomiske styringshjul og rapporteringskadens:
 
 ```mermaid
 timeline
-    title UiA Årlig & Tertialvis Controller-kadens
+    title institusjonen Årlig & Tertialvis Controller-kadens
     Januar : Årsbudsjett (BAC) aktiveres : Tildelingsbrev fra KD
     April - Mai : Tertial 1 (T1) : Regnskap T1 lukkes : Rullende prognose FC1 : Dialogmøter dekan/institutt
     August - September : Tertial 2 (T2) : Regnskap T2 lukkes : Rullende prognose FC2 : Studieopptak & studenttall

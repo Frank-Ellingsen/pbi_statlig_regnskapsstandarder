@@ -159,7 +159,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Hierarkisk avstemmingsmatrise (Fakultet \u2192 Institutt \u2192 Regnskapslinje \u2192 Konto)'"
+                  "Value": "'Hierarkisk avstemmingsmatrise (Fakultet → Institutt → Regnskapslinje → Konto)'"
                 }
               }
             }
