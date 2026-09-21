@@ -4,54 +4,77 @@ table DimAccount
 	column Konto
 		dataType: int64
 		isKey
-		lineageTag: a27d2ac7-9b21-4c9c-ba94-99faae4983b7
+		lineageTag: d0000003-0000-0000-0000-000000000002
 		summarizeBy: none
 		sourceColumn: Konto
 
+	column StandardKonto3
+		dataType: int64
+		lineageTag: d0000003-0000-0000-0000-000000000003
+		summarizeBy: none
+		sourceColumn: StandardKonto3
+
 	column Kontonavn
 		dataType: string
-		lineageTag: 8f076926-987f-4681-bcea-5d3e607e54a9
+		lineageTag: d0000003-0000-0000-0000-000000000004
 		summarizeBy: none
 		sourceColumn: Kontonavn
 
+	column Kontoklasse
+		dataType: int64
+		lineageTag: d0000003-0000-0000-0000-000000000005
+		summarizeBy: none
+		sourceColumn: Kontoklasse
+
+	column Kontogruppe
+		dataType: int64
+		lineageTag: d0000003-0000-0000-0000-000000000006
+		summarizeBy: none
+		sourceColumn: Kontogruppe
+
 	column Kontotype
 		dataType: string
-		lineageTag: 5f8250dd-1c9d-4030-b783-b6b6d9aad378
+		lineageTag: d0000003-0000-0000-0000-000000000007
 		summarizeBy: none
 		sourceColumn: Kontotype
 
 	column SRS_regnskapslinje
 		dataType: string
-		lineageTag: 56d278ab-e949-419f-a1f7-57d8e0088f26
+		lineageTag: d0000003-0000-0000-0000-000000000008
 		summarizeBy: none
 		sourceColumn: SRS_regnskapslinje
 
+	column AktuellFor
+		dataType: string
+		lineageTag: d0000003-0000-0000-0000-000000000009
+		summarizeBy: none
+		sourceColumn: AktuellFor
+
 	hierarchy Kontohierarki
-		lineageTag: d0000003-0000-0000-0000-000000000002
+		lineageTag: d0000003-0000-0000-0000-000000000010
 
 		level SRS_regnskapslinje
-			lineageTag: d0000003-0000-0000-0000-000000000003
+			lineageTag: d0000003-0000-0000-0000-000000000011
 			column: SRS_regnskapslinje
 
 		level Kontotype
-			lineageTag: d0000003-0000-0000-0000-000000000004
+			lineageTag: d0000003-0000-0000-0000-000000000012
 			column: Kontotype
 
 		level Kontonavn
-			lineageTag: d0000003-0000-0000-0000-000000000005
+			lineageTag: d0000003-0000-0000-0000-000000000013
 			column: Kontonavn
 
 		level Konto
-			lineageTag: d0000003-0000-0000-0000-000000000006
+			lineageTag: d0000003-0000-0000-0000-000000000014
 			column: Konto
 
 	partition DimAccount = m
 		mode: import
 		source =
 				let
-				    Source = Csv.Document(File.Contents(DataFolder & "DimAccount.csv"), [Delimiter=";", Columns=4, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    Source = Csv.Document(File.Contents(DataFolder & "DimAccount.csv"), [Delimiter=";", Columns=8, Encoding=65001, QuoteStyle=QuoteStyle.None]),
 				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
-				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Konto", Int64.Type}, {"Kontonavn", type text}, {"Kontotype", type text}, {"SRS_regnskapslinje", type text}})
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Konto", Int64.Type}, {"StandardKonto3", Int64.Type}, {"Kontonavn", type text}, {"Kontoklasse", Int64.Type}, {"Kontogruppe", Int64.Type}, {"Kontotype", type text}, {"SRS_regnskapslinje", type text}, {"AktuellFor", type text}})
 				in
 				    #"Changed Type"
-

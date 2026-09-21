@@ -3,38 +3,38 @@ table FactBudget
 
 	column DatoNokkel
 		dataType: int64
-		lineageTag: 77ad79ef-472b-4de6-92a2-41aaaba209db
+		lineageTag: f0000002-0000-0000-0000-000000000002
 		summarizeBy: none
 		sourceColumn: DatoNokkel
 
 	column Organisasjonsnokkel
-		dataType: int64
-		lineageTag: 0a76a4a3-c850-4e5f-9bf1-5653d98b18c4
+		dataType: string
+		lineageTag: f0000002-0000-0000-0000-000000000003
 		summarizeBy: none
 		sourceColumn: Organisasjonsnokkel
 
 	column Konto
 		dataType: int64
-		lineageTag: 12dde605-bb93-4b13-adfe-5960f31f2d37
+		lineageTag: f0000002-0000-0000-0000-000000000004
 		summarizeBy: none
 		sourceColumn: Konto
 
 	column Prosjekt
 		dataType: string
-		lineageTag: 60a523d4-d77d-4159-9981-b2b0de2d92d1
+		lineageTag: f0000002-0000-0000-0000-000000000005
 		summarizeBy: none
 		sourceColumn: Prosjekt
 
 	column BudsjettBelop
-		dataType: double
+		dataType: decimal
 		formatString: #,##0.00
-		lineageTag: b02fe2ee-ce66-449c-8b6f-6c1258c852b5
+		lineageTag: f0000002-0000-0000-0000-000000000006
 		summarizeBy: sum
 		sourceColumn: BudsjettBelop
 
 	column Scenario
 		dataType: string
-		lineageTag: e93c8dd3-9156-414b-9ea1-1ba17053c96a
+		lineageTag: f0000002-0000-0000-0000-000000000007
 		summarizeBy: none
 		sourceColumn: Scenario
 
@@ -44,7 +44,6 @@ table FactBudget
 				let
 				    Source = Csv.Document(File.Contents(DataFolder & "FactBudget.csv"), [Delimiter=";", Columns=6, Encoding=65001, QuoteStyle=QuoteStyle.None]),
 				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
-				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"DatoNokkel", Int64.Type}, {"Organisasjonsnokkel", Int64.Type}, {"Konto", Int64.Type}, {"Prosjekt", type text}, {"BudsjettBelop", type number}, {"Scenario", type text}})
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"DatoNokkel", Int64.Type}, {"Organisasjonsnokkel", type text}, {"Konto", Int64.Type}, {"Prosjekt", type text}, {"BudsjettBelop", Currency.Type}, {"Scenario", type text}})
 				in
 				    #"Changed Type"
-

@@ -2,82 +2,75 @@ table DimOrganization
 	lineageTag: d0000002-0000-0000-0000-000000000001
 
 	column Organisasjonsnokkel
-		dataType: int64
+		dataType: string
 		isKey
-		lineageTag: fdcd7c6e-35d3-4c06-8372-276cec4b4206
+		lineageTag: d0000002-0000-0000-0000-000000000002
 		summarizeBy: none
 		sourceColumn: Organisasjonsnokkel
 
-	column OrgEnhet
-		dataType: int64
-		lineageTag: 3c5910cd-039a-4ed7-a19d-fed6736e2a8c
-		summarizeBy: none
-		sourceColumn: OrgEnhet
-
-	column OrgNavn
+	column Fakultet
 		dataType: string
-		lineageTag: c902641f-f1ff-4683-bdea-5514f20138ac
+		lineageTag: d0000002-0000-0000-0000-000000000003
 		summarizeBy: none
-		sourceColumn: OrgNavn
+		sourceColumn: Fakultet
+
+	column Fakultetsnavn
+		dataType: string
+		lineageTag: d0000002-0000-0000-0000-000000000004
+		summarizeBy: none
+		sourceColumn: Fakultetsnavn
 
 	column Institutt
-		dataType: int64
-		lineageTag: 2cfc046f-76ba-4bd5-82f3-9bedd44ad2a2
+		dataType: string
+		lineageTag: d0000002-0000-0000-0000-000000000005
 		summarizeBy: none
 		sourceColumn: Institutt
 
 	column Instituttnavn
 		dataType: string
-		lineageTag: f03b4f76-98e5-44fa-91f1-48a1975aab32
+		lineageTag: d0000002-0000-0000-0000-000000000006
 		summarizeBy: none
 		sourceColumn: Instituttnavn
 
 	column Koststed
-		dataType: int64
-		lineageTag: 1437529d-d010-4788-abaf-d70ea7600f47
+		dataType: string
+		lineageTag: d0000002-0000-0000-0000-000000000007
 		summarizeBy: none
 		sourceColumn: Koststed
 
 	column Koststednavn
 		dataType: string
-		lineageTag: 380381c2-0991-4f2d-95ff-3c5320f403e8
+		lineageTag: d0000002-0000-0000-0000-000000000008
 		summarizeBy: none
 		sourceColumn: Koststednavn
 
 	column Koststedtype
 		dataType: string
-		lineageTag: 4a22e84e-451f-47f6-8135-6b566389be63
+		lineageTag: d0000002-0000-0000-0000-000000000009
 		summarizeBy: none
 		sourceColumn: Koststedtype
 
-	column Organisasjonsnivaa
-		dataType: string
-		lineageTag: 33194f69-66b7-4f03-8a38-f0cc23ca42c5
-		summarizeBy: none
-		sourceColumn: Organisasjonsnivaa
-
 	hierarchy 'UiA organisasjon'
-		lineageTag: d0000002-0000-0000-0000-000000000002
+		lineageTag: d0000002-0000-0000-0000-000000000010
 
-		level OrgNavn
-			lineageTag: d0000002-0000-0000-0000-000000000003
-			column: OrgNavn
+		level Fakultetsnavn
+			lineageTag: d0000002-0000-0000-0000-000000000011
+			column: Fakultetsnavn
 
 		level Instituttnavn
-			lineageTag: d0000002-0000-0000-0000-000000000004
+			lineageTag: d0000002-0000-0000-0000-000000000012
 			column: Instituttnavn
 
 		level Koststednavn
-			lineageTag: d0000002-0000-0000-0000-000000000005
+			lineageTag: d0000002-0000-0000-0000-000000000013
 			column: Koststednavn
 
 	partition DimOrganization = m
 		mode: import
 		source =
 				let
-				    Source = Csv.Document(File.Contents(DataFolder & "DimOrganization.csv"), [Delimiter=";", Columns=9, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    Source = Csv.Document(File.Contents(DataFolder & "DimOrganization.csv"), [Delimiter=";", Columns=8, Encoding=65001, QuoteStyle=QuoteStyle.None]),
 				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
-				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Organisasjonsnokkel", Int64.Type}, {"OrgEnhet", Int64.Type}, {"OrgNavn", type text}, {"Institutt", Int64.Type}, {"Instituttnavn", type text}, {"Koststed", Int64.Type}, {"Koststednavn", type text}, {"Koststedtype", type text}, {"Organisasjonsnivaa", type text}})
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Organisasjonsnokkel", type text}, {"Fakultet", type text}, {"Fakultetsnavn", type text}, {"Institutt", type text}, {"Instituttnavn", type text}, {"Koststed", type text}, {"Koststednavn", type text}, {"Koststedtype", type text}})
 				in
 				    #"Changed Type"
-

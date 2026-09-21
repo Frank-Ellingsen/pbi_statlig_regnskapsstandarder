@@ -4,72 +4,59 @@ table DimProject
 	column Prosjekt
 		dataType: string
 		isKey
-		lineageTag: cf9d8a89-6a77-425d-a73b-7e461976c934
+		lineageTag: d0000004-0000-0000-0000-000000000002
 		summarizeBy: none
 		sourceColumn: Prosjekt
 
 	column Prosjektnavn
 		dataType: string
-		lineageTag: 3e44e534-9c7c-444a-93ed-531ec635ca9b
+		lineageTag: d0000004-0000-0000-0000-000000000003
 		summarizeBy: none
 		sourceColumn: Prosjektnavn
 
 	column Finansieringstype
 		dataType: string
-		lineageTag: eb66b8dd-f50d-4917-8255-faad12691883
+		lineageTag: d0000004-0000-0000-0000-000000000004
 		summarizeBy: none
 		sourceColumn: Finansieringstype
 
 	column Finansieringskilde
 		dataType: string
-		lineageTag: e46cbadf-e020-4ca4-8bcd-4cafcd1b83ef
+		lineageTag: d0000004-0000-0000-0000-000000000005
 		summarizeBy: none
 		sourceColumn: Finansieringskilde
 
 	column Prosjektkategori
 		dataType: string
-		lineageTag: 2afcd3ae-81d2-4b85-add8-b2c3fea5b93d
+		lineageTag: d0000004-0000-0000-0000-000000000006
 		summarizeBy: none
 		sourceColumn: Prosjektkategori
 
-	column Startaar
-		dataType: int64
-		lineageTag: 47cc7eee-9d59-428b-a22a-b02592a991ae
-		summarizeBy: none
-		sourceColumn: Startaar
-
-	column Sluttaar
-		dataType: int64
-		lineageTag: 578b9b69-ffb5-4c4c-9bdd-bf1f936ff7d1
-		summarizeBy: none
-		sourceColumn: Sluttaar
-
 	hierarchy Prosjekthierarki
-		lineageTag: d0000004-0000-0000-0000-000000000002
+		lineageTag: d0000004-0000-0000-0000-000000000007
 
 		level Finansieringstype
-			lineageTag: d0000004-0000-0000-0000-000000000003
+			lineageTag: d0000004-0000-0000-0000-000000000008
 			column: Finansieringstype
 
 		level Finansieringskilde
-			lineageTag: d0000004-0000-0000-0000-000000000004
+			lineageTag: d0000004-0000-0000-0000-000000000009
 			column: Finansieringskilde
 
 		level Prosjektkategori
-			lineageTag: d0000004-0000-0000-0000-000000000005
+			lineageTag: d0000004-0000-0000-0000-000000000010
 			column: Prosjektkategori
 
 		level Prosjektnavn
-			lineageTag: d0000004-0000-0000-0000-000000000006
+			lineageTag: d0000004-0000-0000-0000-000000000011
 			column: Prosjektnavn
 
 	partition DimProject = m
 		mode: import
 		source =
 				let
-				    Source = Csv.Document(File.Contents(DataFolder & "DimProject.csv"), [Delimiter=";", Columns=7, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    Source = Csv.Document(File.Contents(DataFolder & "DimProject.csv"), [Delimiter=";", Columns=5, Encoding=65001, QuoteStyle=QuoteStyle.None]),
 				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
-				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Prosjekt", type text}, {"Prosjektnavn", type text}, {"Finansieringstype", type text}, {"Finansieringskilde", type text}, {"Prosjektkategori", type text}, {"Startaar", Int64.Type}, {"Sluttaar", Int64.Type}})
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Prosjekt", type text}, {"Prosjektnavn", type text}, {"Finansieringstype", type text}, {"Finansieringskilde", type text}, {"Prosjektkategori", type text}})
 				in
 				    #"Changed Type"
-

@@ -20,3 +20,6 @@ venv/
 Thumbs.db
 [Dd]esktop.ini
 .DS_Store
+
+# Raw incoming package archive
+uia_complete_controller_powerbi_excel_package/

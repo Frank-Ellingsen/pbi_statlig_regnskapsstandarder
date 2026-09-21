@@ -1,503 +1,355 @@
 table _Measures
 	lineageTag: m0000000-0000-0000-0000-000000000001
 
-	measure 'Faktisk belop' = SUM ( FactGL[Belop_signert] )
-		formatString: #,##0
-		displayFolder: 01 Faktisk
-		lineageTag: cb9c2e03-be35-48ad-9ba9-92d13bfe2690
-
-	measure 'Faktisk debet' = SUM ( FactGL[Debet] )
-		formatString: #,##0
-		displayFolder: 01 Faktisk
-		lineageTag: 8e9f470b-f118-4cd5-987b-aa7c76a7d2ec
-
-	measure 'Faktisk kredit' = SUM ( FactGL[Kredit] )
-		formatString: #,##0
-		displayFolder: 01 Faktisk
-		lineageTag: 4b79bcae-f133-46b8-8a9a-3ce44880d1ad
-
-	measure 'Faktisk inntekter' =
-			CALCULATE (
-			    -[Faktisk belop],
-			    DimAccount[Kontotype] = "Inntekt"
-			)
-		formatString: #,##0
-		displayFolder: 01 Faktisk
-		lineageTag: 06afbc77-1ea2-40ea-b6c5-2664c5ed3147
-
-	measure 'Faktisk kostnader' =
-			CALCULATE (
-			    [Faktisk belop],
-			    DimAccount[Kontotype] = "Kostnad"
-			)
-		formatString: #,##0
-		displayFolder: 01 Faktisk
-		lineageTag: 67224b6b-82e5-419b-8346-91b1dfc69d63
-
-	measure 'Faktisk lonnskostnader' =
-			CALCULATE (
-			    [Faktisk belop],
-			    DimAccount[SRS_regnskapslinje] = "Lonnskostnader"
-			)
-		formatString: #,##0
-		displayFolder: 01 Faktisk
-		lineageTag: b3f43389-384a-4ac5-ba3d-478349b821f5
-
-	measure 'Faktisk driftskostnader' =
-			CALCULATE (
-			    [Faktisk belop],
-			    DimAccount[SRS_regnskapslinje] = "Andre driftskostnader"
-			)
-		formatString: #,##0
-		displayFolder: 01 Faktisk
-		lineageTag: 68b55b15-6b34-4dc5-8a48-b5a35ec3e351
-
-	measure 'Faktisk avskrivninger' =
-			CALCULATE (
-			    [Faktisk belop],
-			    DimAccount[SRS_regnskapslinje] = "Avskrivninger"
-			)
-		formatString: #,##0
-		displayFolder: 01 Faktisk
-		lineageTag: bc1efee4-42d2-4335-8245-b254e5ebae1d
-
-	measure 'Faktisk BOA inntekter' =
-			CALCULATE (
-			    [Faktisk inntekter],
-			    DimProject[Finansieringstype] IN { "Bidrag", "Oppdrag" }
-			)
-		formatString: #,##0
-		displayFolder: 01 Faktisk
-		lineageTag: eff98fe8-7aaa-4d09-a827-6a532cc08827
-
-	measure 'Faktisk BOA andel %' = DIVIDE ( [Faktisk BOA inntekter], [Faktisk inntekter] )
-		formatString: 0.0%
-		displayFolder: 01 Faktisk
-		lineageTag: ddb0175b-ba93-42a0-86fd-666c3a7de39f
-
-	measure 'Faktisk lonn per aarsverk' = DIVIDE ( [Faktisk lonnskostnader], [Aarsverk] )
-		formatString: #,##0
-		displayFolder: 01 Faktisk
-		lineageTag: 4ee62486-08e1-4660-aa62-9a15a9988dfd
-
-	measure 'Faktisk kostnad per SPE60' = DIVIDE ( [Faktisk kostnader], [SPE 60] )
-		formatString: #,##0
-		displayFolder: 01 Faktisk
-		lineageTag: 2f4c1d8b-d10a-4fae-b73e-9455ccdb371a
-
-	measure 'Faktisk YTD' = TOTALYTD ( [Faktisk belop], DimDate[Dato] )
-		formatString: #,##0
-		displayFolder: 01 Faktisk
-		lineageTag: 994c8030-c10f-4796-b8ef-c89378040c90
-
-	measure 'Faktisk inntekter YTD' = TOTALYTD ( [Faktisk inntekter], DimDate[Dato] )
-		formatString: #,##0
-		displayFolder: 01 Faktisk
-		lineageTag: e8934b87-7895-4d80-81f2-6ed60530db79
-
-	measure 'Faktisk kostnader YTD' = TOTALYTD ( [Faktisk kostnader], DimDate[Dato] )
-		formatString: #,##0
-		displayFolder: 01 Faktisk
-		lineageTag: ebbbe8a3-0bd9-4653-a225-c6e35bc74e39
+	// 01 OKONOMI
+	measure Regnskap = SUM ( FactGL[Belop_signert] )
+		formatString: #,##0.00
+		displayFolder: 01 Okonomi
 
 	measure Budsjett = SUM ( FactBudget[BudsjettBelop] )
-		formatString: #,##0
-		displayFolder: 02 Budsjett
-		lineageTag: 5142509c-022d-4580-99d2-bfa585c7e090
+		formatString: #,##0.00
+		displayFolder: 01 Okonomi
 
-	measure 'Budsjett inntekter' =
-			CALCULATE (
-			    -[Budsjett],
-			    DimAccount[Kontotype] = "Inntekt"
-			)
-		formatString: #,##0
-		displayFolder: 02 Budsjett
-		lineageTag: a5368926-0675-40a3-b6da-8cf602021462
+	measure Avvik = [Regnskap] - [Budsjett]
+		formatString: #,##0.00
+		displayFolder: 01 Okonomi
 
-	measure 'Budsjett kostnader' =
-			CALCULATE (
-			    [Budsjett],
-			    DimAccount[Kontotype] = "Kostnad"
-			)
-		formatString: #,##0
-		displayFolder: 02 Budsjett
-		lineageTag: 5b361940-6b3b-42fb-abc5-602bddaefe82
+	measure 'Avvik %' = DIVIDE ( [Avvik], ABS ( [Budsjett] ) )
+		formatString: 0.0%
+		displayFolder: 01 Okonomi
 
-	measure 'Budsjett lonnskostnader' =
-			CALCULATE (
-			    [Budsjett],
-			    DimAccount[SRS_regnskapslinje] = "Lonnskostnader"
-			)
-		formatString: #,##0
-		displayFolder: 02 Budsjett
-		lineageTag: 2107fa6b-72e5-4a86-b6ae-63d69698f110
-
-	measure 'Budsjett lonn per aarsverk' = DIVIDE ( [Budsjett lonnskostnader], [Aarsverk] )
-		formatString: #,##0
-		displayFolder: 02 Budsjett
-		lineageTag: d2902bbb-7834-4f51-b5d6-67e1b90614c2
+	measure 'Regnskap YTD' = TOTALYTD ( [Regnskap], DimDate[Dato] )
+		formatString: #,##0.00
+		displayFolder: 01 Okonomi
 
 	measure 'Budsjett YTD' = TOTALYTD ( [Budsjett], DimDate[Dato] )
-		formatString: #,##0
-		displayFolder: 02 Budsjett
-		lineageTag: df4cd28d-4f5e-4137-818f-f14a814da849
+		formatString: #,##0.00
+		displayFolder: 01 Okonomi
 
-	measure Aarsbudsjett =
-			CALCULATE (
-			    [Budsjett],
-			    REMOVEFILTERS ( DimDate[MaanedNr], DimDate[Maaned], DimDate[AarMaaned], DimDate[Dato], DimDate[DatoNokkel] )
-			)
-		formatString: #,##0
-		displayFolder: 02 Budsjett
-		lineageTag: 5c7c8147-cd07-433e-8962-2e12947c8b04
+	measure 'Avvik YTD' = [Regnskap YTD] - [Budsjett YTD]
+		formatString: #,##0.00
+		displayFolder: 01 Okonomi
 
-	measure 'BAC (Budget at Completion)' = [Aarsbudsjett]
-		formatString: #,##0
-		displayFolder: 02 Budsjett
-		lineageTag: 4333ea29-a465-4128-bba9-6e3cb8ead100
+	measure Inntekter = ```
+		CALCULATE (
+		    -[Regnskap],
+		    DimAccount[Kontotype] = "Inntekt"
+		)
+		```
+		formatString: #,##0.00
+		displayFolder: 01 Okonomi
 
-	measure 'Forecast belop' = SUM ( FactForecast[ForecastBelop] )
-		formatString: #,##0
-		displayFolder: 03 Forecast & LE
-		lineageTag: e6be9bda-8a5d-4bb4-b5f3-b4af15eda16e
+	measure Kostnader = ```
+		CALCULATE (
+		    [Regnskap],
+		    DimAccount[Kontotype] = "Kostnad"
+		)
+		```
+		formatString: #,##0.00
+		displayFolder: 01 Okonomi
 
-	measure Tiltakseffekt = SUM ( FactForecast[Tiltakseffekt] )
-		formatString: #,##0
-		displayFolder: 03 Forecast & LE
-		lineageTag: 898638f9-8344-4dcf-bbbf-8d63cf1766b0
+	measure Lonnskostnader = ```
+		CALCULATE (
+		    [Regnskap],
+		    DimAccount[SRS_regnskapslinje] = "Lonnskostnader"
+		)
+		```
+		formatString: #,##0.00
+		displayFolder: 01 Okonomi
 
-	measure 'Forecast etter tiltak' = [Forecast belop] + [Tiltakseffekt]
-		formatString: #,##0
-		displayFolder: 03 Forecast & LE
-		lineageTag: 4694e4f9-d8b0-4632-8f92-e6571e580f7e
+	measure 'Lonnandel %' = DIVIDE ( [Lonnskostnader], [Kostnader] )
+		formatString: 0.0%
+		displayFolder: 01 Okonomi
+
+	// 02 FORECAST
+	measure Forecast = SUM ( FactForecast[ForecastBelop] )
+		formatString: #,##0.00
+		displayFolder: 02 Forecast
 
 	measure 'Valgt forecastversjon' = SELECTEDVALUE ( DimForecastVersion[Versjon], "LE_2026" )
-		displayFolder: 03 Forecast & LE
-		lineageTag: 11b65516-fcb6-40f6-9bb7-7369b104f9fd
+		displayFolder: 02 Forecast
 
-	measure 'Gjeldende forecast' =
-			VAR ValgtVersjon = [Valgt forecastversjon]
-			RETURN
-			    CALCULATE (
-			        [Forecast belop],
-			        KEEPFILTERS ( DimForecastVersion[Versjon] = ValgtVersjon )
-			    )
-		formatString: #,##0
-		displayFolder: 03 Forecast & LE
-		lineageTag: 8b28089b-b1fe-4d2c-a558-ea30da5c898e
-
-	measure 'Gjeldende forecast etter tiltak' =
-			VAR ValgtVersjon = [Valgt forecastversjon]
-			RETURN
-			    CALCULATE (
-			        [Forecast etter tiltak],
-			        KEEPFILTERS ( DimForecastVersion[Versjon] = ValgtVersjon )
-			    )
-		formatString: #,##0
-		displayFolder: 03 Forecast & LE
-		lineageTag: 1d042909-db13-4f42-a100-245d8c64cf2f
-
-	measure 'Forecast aarsbelop' =
-			CALCULATE (
-			    [Gjeldende forecast],
-			    REMOVEFILTERS ( DimDate[MaanedNr], DimDate[Maaned], DimDate[AarMaaned], DimDate[Dato], DimDate[DatoNokkel] )
-			)
-		formatString: #,##0
-		displayFolder: 03 Forecast & LE
-		lineageTag: 19e6d44c-5cae-4f41-aa05-59db83c4ad9f
-
-	measure 'EAC (Estimate at Completion)' = [Forecast aarsbelop]
-		formatString: #,##0
-		displayFolder: 03 Forecast & LE
-		lineageTag: 71e01e55-c35c-41de-b7c0-b9e61d741425
-
-	measure 'Forecast YTD' = TOTALYTD ( [Gjeldende forecast], DimDate[Dato] )
-		formatString: #,##0
-		displayFolder: 03 Forecast & LE
-		lineageTag: 80aef849-998d-4de3-af06-92d0e9a117de
-
-	measure 'Forecast restaar' = [Forecast aarsbelop] - [Forecast YTD]
-		formatString: #,##0
-		displayFolder: 03 Forecast & LE
-		lineageTag: ae446040-3c48-4617-9ae5-998fa8f87654
-
-	measure 'ETC (Estimate to Complete)' = [Forecast restaar]
-		formatString: #,##0
-		displayFolder: 03 Forecast & LE
-		lineageTag: 49f20da8-0686-43f1-8bd2-d3b51aca5641
-
-	measure 'Latest Estimate' =
-			CALCULATE (
-			    [Forecast belop],
-			    DimForecastVersion[Versjon] = "LE_2026"
-			)
-		formatString: #,##0
-		displayFolder: 03 Forecast & LE
-		lineageTag: 72575afe-47f0-4769-bdd4-89e0efd2008c
-
-	measure 'Latest Estimate aarsbelop' = CALCULATE ( [Latest Estimate], REMOVEFILTERS ( DimDate ) )
-		formatString: #,##0
-		displayFolder: 03 Forecast & LE
-		lineageTag: 654e50f9-3a97-422e-8483-18d761262798
-
-	measure 'Forecast inntekter' =
-			CALCULATE (
-			    -[Gjeldende forecast],
-			    DimAccount[Kontotype] = "Inntekt"
-			)
-		formatString: #,##0
-		displayFolder: 03 Forecast & LE
-		lineageTag: 33ebd19f-b6ae-4f81-bc03-6ff245bde8b6
-
-	measure 'Forecast kostnader' =
-			CALCULATE (
-			    [Gjeldende forecast],
-			    DimAccount[Kontotype] = "Kostnad"
-			)
-		formatString: #,##0
-		displayFolder: 03 Forecast & LE
-		lineageTag: b1df2530-bb46-4329-a5f8-62ea14cef1ba
-
-	measure 'Forecast lonnskostnader' =
-			CALCULATE (
-			    [Gjeldende forecast],
-			    DimAccount[SRS_regnskapslinje] = "Lonnskostnader"
-			)
-		formatString: #,##0
-		displayFolder: 03 Forecast & LE
-		lineageTag: 622492e9-2a5d-4f37-a09c-8b5ce5144163
-
-	measure 'Forecast BOA inntekter' =
-			CALCULATE (
-			    [Forecast inntekter],
-			    DimProject[Finansieringstype] IN { "Bidrag", "Oppdrag" }
-			)
-		formatString: #,##0
-		displayFolder: 03 Forecast & LE
-		lineageTag: f39412a8-09de-44f3-aff2-dbe960533276
-
-	measure 'Forecast BOA andel %' = DIVIDE ( [Forecast BOA inntekter], [Forecast inntekter] )
-		formatString: 0.0%
-		displayFolder: 03 Forecast & LE
-		lineageTag: efb54407-3d95-4880-bfce-dbbe59781232
-
-	measure 'Forecast lonn per aarsverk' = DIVIDE ( [Forecast lonnskostnader], [Aarsverk] )
-		formatString: #,##0
-		displayFolder: 03 Forecast & LE
-		lineageTag: a0c52583-8ceb-4667-8eb4-889a43b9d7de
-
-	measure 'Forecast kostnad per SPE60' = DIVIDE ( [Forecast kostnader], [SPE 60] )
-		formatString: #,##0
-		displayFolder: 03 Forecast & LE
-		lineageTag: ea946180-47f7-43b7-a2d4-7c0aee759156
-
-	measure 'Avvik mot budsjett' = [Faktisk belop] - [Budsjett]
-		formatString: #,##0
-		displayFolder: 04 Avvik & Analyse
-		lineageTag: cf2306f3-0dec-4302-a188-9aec6eab9b4e
-
-	measure 'Avvik mot budsjett %' = DIVIDE ( [Avvik mot budsjett], ABS ( [Budsjett] ) )
-		formatString: 0.0%
-		displayFolder: 04 Avvik & Analyse
-		lineageTag: a35b6b9c-fc20-449b-a9b2-fcfa3b776df0
-
-	measure 'Avvik inntekter' = [Faktisk inntekter] - [Budsjett inntekter]
-		formatString: #,##0
-		displayFolder: 04 Avvik & Analyse
-		lineageTag: be9c9357-6b69-4117-8aab-8b15c0e4a93b
-
-	measure 'Avvik kostnader' = [Faktisk kostnader] - [Budsjett kostnader]
-		formatString: #,##0
-		displayFolder: 04 Avvik & Analyse
-		lineageTag: 39caf4be-7442-42af-89a9-7e801a8533ba
-
-	measure 'Avvik lonnskostnader' = [Faktisk lonnskostnader] - [Budsjett lonnskostnader]
-		formatString: #,##0
-		displayFolder: 04 Avvik & Analyse
-		lineageTag: 053c8feb-da6c-4c13-8186-c8e31f30250f
-
-	measure 'Forecast mot budsjett' = [Forecast aarsbelop] - [Aarsbudsjett]
-		formatString: #,##0
-		displayFolder: 04 Avvik & Analyse
-		lineageTag: 1718df3e-8670-4d0b-af23-fe9ff3546593
-
-	measure 'Forecast mot budsjett %' = DIVIDE ( [Forecast mot budsjett], ABS ( [Aarsbudsjett] ) )
-		formatString: 0.0%
-		displayFolder: 04 Avvik & Analyse
-		lineageTag: 4388b548-36bb-4ecd-bedc-34ec6124ffc4
-
-	measure 'VAC (Variance at Completion)' = [BAC (Budget at Completion)] - [EAC (Estimate at Completion)]
-		formatString: #,##0
-		displayFolder: 04 Avvik & Analyse
-		lineageTag: 3ffba5b2-147f-4832-8185-3025427bd148
-
-	measure 'VAC %' = DIVIDE ( [VAC (Variance at Completion)], [BAC (Budget at Completion)] )
-		formatString: 0.0%
-		displayFolder: 04 Avvik & Analyse
-		lineageTag: d5179e0e-78c7-4763-8daf-fb6dfb43c8dc
-
-	measure 'Forecast etter tiltak mot budsjett' =
-			CALCULATE (
-			    [Gjeldende forecast etter tiltak],
-			    REMOVEFILTERS ( DimDate[MaanedNr], DimDate[Maaned], DimDate[AarMaaned], DimDate[Dato], DimDate[DatoNokkel] )
-			) - [Aarsbudsjett]
-		formatString: #,##0
-		displayFolder: 04 Avvik & Analyse
-		lineageTag: aab5df70-4e1c-4823-8df8-ebcf32dcc069
-
-	measure 'Forecast endring fra FC1' =
-			[Forecast aarsbelop]
-			    - CALCULATE (
-			        [Forecast belop],
-			        DimForecastVersion[Versjon] = "FC1_2026",
-			        REMOVEFILTERS ( DimDate )
-			    )
-		formatString: #,##0
-		displayFolder: 04 Avvik & Analyse
-		lineageTag: df5e229f-d019-4eac-8bcd-42f3c0a40812
-
-	measure 'Forecast endring fra FC2' =
-			[Forecast aarsbelop]
-			    - CALCULATE (
-			        [Forecast belop],
-			        DimForecastVersion[Versjon] = "FC2_2026",
-			        REMOVEFILTERS ( DimDate )
-			    )
-		formatString: #,##0
-		displayFolder: 04 Avvik & Analyse
-		lineageTag: dff78d97-fab4-4480-ad4f-a4eb288f96e5
-
-	measure 'LE mot budsjett' = [Latest Estimate aarsbelop] - [Aarsbudsjett]
-		formatString: #,##0
-		displayFolder: 04 Avvik & Analyse
-		lineageTag: 38db6c81-e6cb-4e5f-ad36-43375f0c8fce
-
-	measure 'LE mot budsjett %' = DIVIDE ( [LE mot budsjett], ABS ( [Aarsbudsjett] ) )
-		formatString: 0.0%
-		displayFolder: 04 Avvik & Analyse
-		lineageTag: ce112184-c222-4405-af71-717d311a5f7f
-
-	measure Aarsverk = SUM ( FactFTE[Aarsverk] )
+	measure 'Gjeldende forecast' = ```
+		VAR V = [Valgt forecastversjon]
+		RETURN
+		    CALCULATE (
+		        [Forecast],
+		        KEEPFILTERS ( DimForecastVersion[Versjon] = V )
+		    )
+		```
 		formatString: #,##0.00
-		displayFolder: 05 Bemanning
-		lineageTag: c1e9336e-d779-4d31-88b4-115da45c3831
+		displayFolder: 02 Forecast
 
-	measure 'Faglige aarsverk' = SUM ( FactFTE[FagligeAarsverk] )
+	measure Aarsbudsjett = CALCULATE ( [Budsjett], REMOVEFILTERS ( DimDate ) )
 		formatString: #,##0.00
-		displayFolder: 05 Bemanning
-		lineageTag: e1052e10-3a89-476e-bb0d-d7565ca96881
+		displayFolder: 02 Forecast
 
-	measure 'Administrative aarsverk' =
-			CALCULATE (
-			    [Aarsverk],
-			    DimPositionGroup[Stillingskategori] = "Teknisk-administrativ"
-			)
+	measure 'Forecast aarsbelop' = CALCULATE ( [Gjeldende forecast], REMOVEFILTERS ( DimDate ) )
 		formatString: #,##0.00
-		displayFolder: 05 Bemanning
-		lineageTag: 23365294-7a10-4e69-b0ab-580afed9f052
+		displayFolder: 02 Forecast
 
-	measure 'Faglig andel %' = DIVIDE ( [Faglige aarsverk], [Aarsverk] )
+	measure Forecastavvik = [Forecast aarsbelop] - [Aarsbudsjett]
+		formatString: #,##0.00
+		displayFolder: 02 Forecast
+
+	measure 'Forecastavvik %' = DIVIDE ( [Forecastavvik], ABS ( [Aarsbudsjett] ) )
 		formatString: 0.0%
-		displayFolder: 05 Bemanning
-		lineageTag: 5c17a5cf-7bad-45de-bb22-572f843d7002
+		displayFolder: 02 Forecast
 
-	measure 'Aarsverk snitt' =
-			AVERAGEX (
-			    VALUES ( DimDate[AarMaaned] ),
-			    [Aarsverk]
-			)
+	measure 'Forecast confidence %' = AVERAGE ( FactForecast[Sannsynlighet] )
+		formatString: 0.0%
+		displayFolder: 02 Forecast
+
+	measure FC1 = ```
+		CALCULATE (
+		    [Forecast],
+		    REMOVEFILTERS ( DimForecastVersion ),
+		    DimForecastVersion[Versjon] = "FC1_2026",
+		    REMOVEFILTERS ( DimDate )
+		)
+		```
 		formatString: #,##0.00
-		displayFolder: 05 Bemanning
-		lineageTag: be3d3f6b-66c1-4192-8973-51c7af598026
+		displayFolder: 02 Forecast
+
+	measure FC2 = ```
+		CALCULATE (
+		    [Forecast],
+		    REMOVEFILTERS ( DimForecastVersion ),
+		    DimForecastVersion[Versjon] = "FC2_2026",
+		    REMOVEFILTERS ( DimDate )
+		)
+		```
+		formatString: #,##0.00
+		displayFolder: 02 Forecast
+
+	measure 'Latest Estimate' = ```
+		CALCULATE (
+		    [Forecast],
+		    REMOVEFILTERS ( DimForecastVersion ),
+		    DimForecastVersion[Versjon] = "LE_2026",
+		    REMOVEFILTERS ( DimDate )
+		)
+		```
+		formatString: #,##0.00
+		displayFolder: 02 Forecast
+
+	measure 'Endring FC2 til LE' = [Latest Estimate] - [FC2]
+		formatString: #,##0.00
+		displayFolder: 02 Forecast
+
+	measure 'Forecast lonn' = ```
+		CALCULATE (
+		    [Gjeldende forecast],
+		    DimAccount[SRS_regnskapslinje] = "Lonnskostnader"
+		)
+		```
+		formatString: #,##0.00
+		displayFolder: 02 Forecast
+
+	// 03 BEMANNING OG STUDIER
+	measure Aarsverk = ```
+		VAR D =
+		    MAXX (
+		        FILTER ( ALLSELECTED ( DimDate ), CALCULATE ( COUNTROWS ( FactFTE ) ) > 0 ),
+		        DimDate[DatoNokkel]
+		    )
+		RETURN
+		    CALCULATE ( SUM ( FactFTE[Aarsverk] ), DimDate[DatoNokkel] = D )
+		```
+		formatString: #,##0.00
+		displayFolder: 03 Bemanning & Studier
+
+	measure 'Faglige aarsverk' = ```
+		VAR D =
+		    MAXX (
+		        FILTER ( ALLSELECTED ( DimDate ), CALCULATE ( COUNTROWS ( FactFTE ) ) > 0 ),
+		        DimDate[DatoNokkel]
+		    )
+		RETURN
+		    CALCULATE ( SUM ( FactFTE[FagligeAarsverk] ), DimDate[DatoNokkel] = D )
+		```
+		formatString: #,##0.00
+		displayFolder: 03 Bemanning & Studier
+
+	measure 'Registrerte studenter' = ```
+		VAR D =
+		    MAXX (
+		        FILTER ( ALLSELECTED ( DimDate ), CALCULATE ( COUNTROWS ( FactStudyPoints ) ) > 0 ),
+		        DimDate[DatoNokkel]
+		    )
+		RETURN
+		    CALCULATE ( SUM ( FactStudyPoints[RegistrerteStudenter] ), DimDate[DatoNokkel] = D )
+		```
+		formatString: #,##0
+		displayFolder: 03 Bemanning & Studier
 
 	measure 'Avlagte studiepoeng' = SUM ( FactStudyPoints[AvlagteStudiepoeng] )
 		formatString: #,##0.0
-		displayFolder: 06 Studiepoeng
-		lineageTag: 666571b4-ab26-4809-9519-7d0939b65a1d
+		displayFolder: 03 Bemanning & Studier
 
-	measure 'Planlagte studiepoeng' = SUM ( FactStudyPoints[PlanlagteStudiepoeng] )
-		formatString: #,##0.0
-		displayFolder: 06 Studiepoeng
-		lineageTag: 4d0e2603-918b-4e3b-a4f9-d0cb4dd1522c
-
-	measure 'SPE 60' = SUM ( FactStudyPoints[SPE60] )
+	measure SPE60 = SUM ( FactStudyPoints[SPE60] )
 		formatString: #,##0.00
-		displayFolder: 06 Studiepoeng
-		lineageTag: 9d3dd472-d344-445e-8fa9-d32b78d864ee
+		displayFolder: 03 Bemanning & Studier
 
-	measure 'Registrerte studenter' = SUM ( FactStudyPoints[RegistrerteStudenter] )
+	measure 'Studiepoeng maaloppnaelse %' = DIVIDE ( [Avlagte studiepoeng], SUM ( FactStudyPoints[PlanlagteStudiepoeng] ) )
+		formatString: 0.0%
+		displayFolder: 03 Bemanning & Studier
+
+	measure 'Studenter per faglig aarsverk' = DIVIDE ( [Registrerte studenter], [Faglige aarsverk] )
+		formatString: #,##0.0
+		displayFolder: 03 Bemanning & Studier
+
+	measure 'SPE60 per faglig aarsverk' = DIVIDE ( [SPE60], [Faglige aarsverk] )
+		formatString: #,##0.00
+		displayFolder: 03 Bemanning & Studier
+
+	measure 'Kostnad per student' = DIVIDE ( [Kostnader], [Registrerte studenter] )
+		formatString: #,##0.00
+		displayFolder: 03 Bemanning & Studier
+
+	measure 'Kostnad per SPE60' = DIVIDE ( [Kostnader], [SPE60] )
+		formatString: #,##0.00
+		displayFolder: 03 Bemanning & Studier
+
+	measure 'Lonn per aarsverk' = DIVIDE ( [Lonnskostnader], [Aarsverk] )
+		formatString: #,##0.00
+		displayFolder: 03 Bemanning & Studier
+
+	// 04 BOA
+	measure 'BOA inntekter' = ```
+		CALCULATE (
+		    [Inntekter],
+		    DimProject[Finansieringstype] IN { "Bidrag", "Oppdrag" }
+		)
+		```
+		formatString: #,##0.00
+		displayFolder: 04 BOA
+
+	measure 'NFR inntekter' = ```
+		CALCULATE (
+		    [Inntekter],
+		    DimProject[Finansieringskilde] = "NFR"
+		)
+		```
+		formatString: #,##0.00
+		displayFolder: 04 BOA
+
+	measure 'EU inntekter' = ```
+		CALCULATE (
+		    [Inntekter],
+		    DimProject[Finansieringskilde] = "EU"
+		)
+		```
+		formatString: #,##0.00
+		displayFolder: 04 BOA
+
+	measure 'BOA andel %' = DIVIDE ( [BOA inntekter], [Inntekter] )
+		formatString: 0.0%
+		displayFolder: 04 BOA
+
+	measure 'BOA per faglig aarsverk' = DIVIDE ( [BOA inntekter], [Faglige aarsverk] )
+		formatString: #,##0.00
+		displayFolder: 04 BOA
+
+	// 05 TILTAK
+	measure 'Antall tiltak' = DISTINCTCOUNT ( FactAction[TiltakID] )
 		formatString: #,##0
-		displayFolder: 06 Studiepoeng
-		lineageTag: eba9ec2c-6a73-4da9-8646-81acdbe5df77
+		displayFolder: 05 Tiltak
 
-	measure 'Gjennomforingsgrad %' = DIVIDE ( [Avlagte studiepoeng], [Planlagte studiepoeng] )
-		formatString: 0.0%
-		displayFolder: 06 Studiepoeng
-		lineageTag: da51a894-31f2-4170-911d-28b761299243
-
-	measure 'Studiepoeng per faglige aarsverk' = DIVIDE ( [Avlagte studiepoeng], [Faglige aarsverk] )
-		formatString: #,##0.0
-		displayFolder: 06 Studiepoeng
-		lineageTag: 7db18b5f-7893-4ccd-9095-3071bb71736a
-
-	measure 'SPE60 per faglige aarsverk' = DIVIDE ( [SPE 60], [Faglige aarsverk] )
+	measure 'Forventet tiltakseffekt' = SUM ( FactAction[ForventetEffekt] )
 		formatString: #,##0.00
-		displayFolder: 06 Studiepoeng
-		lineageTag: 97ac2e00-eeb9-4202-9d63-c4df85a3a103
+		displayFolder: 05 Tiltak
 
-	measure 'Forecast datakvalitet %' = AVERAGE ( FactForecast[Sannsynlighet] )
+	measure 'Realisert tiltakseffekt' = SUM ( FactAction[RealisertEffekt] )
+		formatString: #,##0.00
+		displayFolder: 05 Tiltak
+
+	measure 'Tiltak realiseringsgrad %' = DIVIDE ( [Realisert tiltakseffekt], [Forventet tiltakseffekt] )
 		formatString: 0.0%
-		displayFolder: 07 Datakvalitet
-		lineageTag: e2c80d66-d057-49a2-83e4-957d6f3d9a76
+		displayFolder: 05 Tiltak
 
-	measure 'Forecast faktisk andel %' =
-			DIVIDE (
-			    CALCULATE ( [Forecast belop], FactForecast[Datastatus] = "Faktisk hittil" ),
-			    [Forecast belop]
-			)
+	measure 'Aapne tiltak' = ```
+		CALCULATE (
+		    [Antall tiltak],
+		    FactAction[Status] <> "Gjennomfort"
+		)
+		```
+		formatString: #,##0
+		displayFolder: 05 Tiltak
+
+	measure 'Forsinkede tiltak' = ```
+		CALCULATE (
+		    [Antall tiltak],
+		    FactAction[Status] = "Forsinket"
+		)
+		```
+		formatString: #,##0
+		displayFolder: 05 Tiltak
+
+	measure 'Forecast etter tiltak' = [Forecast aarsbelop] + [Forventet tiltakseffekt]
+		formatString: #,##0.00
+		displayFolder: 05 Tiltak
+
+	measure 'Restavvik etter tiltak' = [Forecast etter tiltak] - [Aarsbudsjett]
+		formatString: #,##0.00
+		displayFolder: 05 Tiltak
+
+	measure 'Tiltaksdekning av avvik %' = DIVIDE ( ABS ( [Forventet tiltakseffekt] ), ABS ( [Forecastavvik] ) )
 		formatString: 0.0%
-		displayFolder: 07 Datakvalitet
-		lineageTag: 030310ab-ffea-427f-a4f4-9539ba265b83
+		displayFolder: 05 Tiltak
 
-	measure 'Forecast estimert andel %' =
-			DIVIDE (
-			    CALCULATE ( [Forecast belop], FactForecast[Datastatus] = "Estimert restaar" ),
-			    [Forecast belop]
-			)
+	// 06 EVM PROSJEKT
+	measure 'BAC (Budget at Completion)' = [Aarsbudsjett]
+		formatString: #,##0.00
+		displayFolder: 06 EVM Prosjekt
+
+	measure 'EAC (Estimate at Completion)' = [Forecast aarsbelop]
+		formatString: #,##0.00
+		displayFolder: 06 EVM Prosjekt
+
+	measure 'ETC (Estimate to Complete)' = [Forecast aarsbelop] - TOTALYTD ( [Gjeldende forecast], DimDate[Dato] )
+		formatString: #,##0.00
+		displayFolder: 06 EVM Prosjekt
+
+	measure 'VAC (Variance at Completion)' = [BAC (Budget at Completion)] - [EAC (Estimate at Completion)]
+		formatString: #,##0.00
+		displayFolder: 06 EVM Prosjekt
+
+	measure 'VAC %' = DIVIDE ( [VAC (Variance at Completion)], [BAC (Budget at Completion)] )
 		formatString: 0.0%
-		displayFolder: 07 Datakvalitet
-		lineageTag: ac9f35fc-f6b2-4f00-a963-d83706df7e96
+		displayFolder: 06 EVM Prosjekt
 
-	measure Forecaststatus =
-			VAR AvvikPct = [Forecast mot budsjett %]
-			RETURN
-			    SWITCH (
-			        TRUE (),
-			        ISBLANK ( AvvikPct ), BLANK (),
-			        AvvikPct > 0.05, "Rod",
-			        AvvikPct > 0.02, "Gul",
-			        AvvikPct < -0.05, "Bla",
-			        "Gronn"
-			    )
-		displayFolder: 08 Status & Farger
-		lineageTag: 299243f9-c73f-46a0-8df8-19acd20ff48d
+	// 07 STATUS OG FARGER
+	measure Forecaststatus = ```
+		VAR AvvikPct = [Forecastavvik %]
+		RETURN
+		    SWITCH (
+		        TRUE (),
+		        ISBLANK ( AvvikPct ), BLANK (),
+		        AvvikPct > 0.05, "Rod",
+		        AvvikPct > 0.02, "Gul",
+		        AvvikPct < -0.05, "Bla",
+		        "Gronn"
+		    )
+		```
+		displayFolder: 07 Status & Farger
 
-	measure 'Forecaststatus farge' =
-			SWITCH (
-			    [Forecaststatus],
-			    "Rod", "#C00000",
-			    "Gul", "#FFC000",
-			    "Bla", "#5B9BD5",
-			    "Gronn", "#70AD47",
-			    "#A6A6A6"
-			)
-		displayFolder: 08 Status & Farger
-		lineageTag: 868241d5-a2d6-44c3-8c7a-59e62c13d847
+	measure 'Forecaststatus farge' = ```
+		SWITCH (
+		    [Forecaststatus],
+		    "Rod", "#C00000",
+		    "Gul", "#FFC000",
+		    "Bla", "#5B9BD5",
+		    "Gronn", "#70AD47",
+		    "#A6A6A6"
+		)
+		```
+		displayFolder: 07 Status & Farger
 
 	column Placeholder
 		dataType: string
 		isHidden
-		lineageTag: acd4ebe8-dcc7-4417-b10c-f6e5ac84b559
+		lineageTag: m0000000-0000-0000-0000-000000000099
 		summarizeBy: none
 		sourceColumn: Placeholder
 
@@ -508,4 +360,3 @@ table _Measures
 				    Source = #table(type table [Placeholder = text], {{"Placeholder"}})
 				in
 				    Source
-

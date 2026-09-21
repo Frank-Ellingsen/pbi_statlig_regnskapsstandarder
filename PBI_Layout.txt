@@ -1,0 +1,2987 @@
+For en controller ved Universitetet i Agder vil rapporteringen typisk være en kombinasjon av fast økonomirapportering, prognoser, virksomhetsstyring og ad hoc-analyser. Årsrapporten viser konkret at enhetenes regnskap og budsjett behandles i dialogmøter hvert tertial, at vesentlige avvik rapporteres, og at virksomhetsplanen følges opp halvårlig.
+Typiske rapporter og mottakere
+Rapport	Typisk innhold	Til hvem	FrekvensØkonomirapport	Regnskap, budsjett, avvik, kommentarer	Dekan, fakultetsledelse	Måned/tertial
+Forecast/prognose	Forventet årsresultat, restårsprognose, risiko	Dekan, økonomiledelse	Måned/tertial
+Avviksrapport	Vesentlige avvik, årsaker, tiltak	Dekan/instituttledere	Måned/tertial
+Bemanningsrapport	Årsverk, lønn, vakante stillinger, nyansettelser	Dekan, instituttledere, HR	Måned/kvartal
+Prosjektrapport	Budsjett, forbruk, finansiering, gjenstående midler	Prosjektleder/forskningsledelse	Måned/kvartal
+BOA/FoU-rapport	NFR, EU, bidrag/oppdrag, prosjektportefølje	Dekan/forskningsledelse	Kvartal/tertial
+Aktivitetsrapport	Studenter, studiepoeng, kandidater, gjennomføring	Fakultetsledelse	Semester/tertial
+Investeringsrapport	Investeringer, fremdrift, avsetninger	Ledelse/økonomiavdeling	Tertial
+Virksomhetsrapport	Økonomi + aktivitet + mål + risiko	Universitetsledelse/styret	Halvår/tertial
+Ad hoc-analyse	Business case, scenario, tiltak	Leder etter behov	Ved behov
+Dette passer godt med UiAs faktiske styringsmodell: fakultetene har budsjettansvar, enhetenes økonomi følges i tertialvise dialogmøter, og universitetet arbeider eksplisitt med styringsdata og dashboards for bedre beslutningsstøtte.
+1. Den viktigste: økonomi- og forecastrapporten
+Jeg ville forventet noe omtrent som:
+MNOK	Budsjett YTD	Regnskap YTD	Avvik	Forecast	Årsbudsjett	Forecast-avvikInntekter	150	147	-3	205	208	-3
+Lønn	110	114	+4	158	152	+6
+Andre kostnader	35	33	-2	46	48	-2
+Resultat	5	0	-5	1	8	-7
+Men controllerens verdi ligger særlig i kolonnen ved siden av tallene:
+Forecast er 7 mill. svakere enn budsjett. 4 mill. skyldes høyere permanent bemanning, 2 mill. lavere prosjektinntekter og 1 mill. øvrige forhold. Dersom bemanningen videreføres, får dette ytterligere helårseffekt neste år.
+Det er denne typen forklaring ledelsen trenger.
+2. Rapporter til dekan/fakultetsledelsen
+Her ville jeg fokusert på beslutningsrelevant informasjon, ikke regnskapsdetaljer.
+Typisk:
+Økonomi
+årsbudsjett
+regnskap YTD
+forecast
+avvik
+resultat/handlingsrom
+Bemanning
+årsverk
+lønnskostnader
+vakante stillinger
+planlagte ansettelser
+helårseffekt neste år
+Aktivitet
+studenter
+studiepoengproduksjon
+gjennomføring
+kapasitet
+Eksternfinansiering
+NFR
+EU
+BOA
+prosjektportefølje
+Risiko
+3 til 5 største økonomiske risikoer
+tiltak
+ansvarlig
+forventet effekt
+Dette harmonerer godt med UiAs egen risikotilnærming, hvor blant annet økonomisk handlingsrom, både rammefinansiering og eksternfinansiering, er identifisert som et sentralt risikoområde.
+3. Rapporter til instituttledere
+Her går du ett nivå dypere.
+Eksempel:
+Plain Text
+1
+Institutt for X
+2
+ 
+3
+Budsjett Forecast Avvik
+4
+Lønn 42,0 45,2 +3,2
+5
+Reise 2,0 1,4 -0,6
+6
+Prosjekter 10,0 8,5 -1,5
+7
+Andre kostnader 8,0 8,2 +0,2
+Show more lines
+Deretter:
+Hvorfor har dette skjedd?
+Og viktigere:
+Hva kan instituttlederen påvirke?
+Det siste er viktig. En leder trenger normalt ikke 50 regnskapskontoer på førstesiden.
+4. Prosjektlederrapportering
+For NFR/EU/andre prosjekter:
+Plain Text
+1
+Prosjektbudsjett
+2
+− kostnader hittil
+3
+− commitments
+4
+− forventede fremtidige kostnader
+5
+= forventet rest
+6
+ 
+7
++ finansiering
+8
+− egenandel
+9
+= økonomisk
+Show more lines
+Så ville jeg vist:
+prosjektperiode
+forbruk %
+tidsforløp %
+bemanning
+forventet sluttresultat
+finansieringsgrad
+UiAs egenfinansiering
+økonomisk risiko
+Dette er særlig relevant fordi UiA har strategiske ambisjoner om mer ekstern forskningsfinansiering og økte inntekter fra Forskningsrådet og Horisont Europa.
+5. Rapportering til universitetsledelsen/styret
+Her skal informasjonen aggregeres kraftig.
+Ikke:
+Konto 6540 ligger 826 000 over budsjett.
+Men:
+Kostnadsprognosen er 18 mill. over budsjett, primært drevet av bemanning ved tre fakulteter.
+Rapporten vil være mer:
+Plain Text
+1
+UiA TOTAL
+2
+↓
+3
+Økonomisk status
+4
+↓
+5
+Forecast
+6
+↓
+7
+Aktivitet/måloppnåelse
+8
+↓
+9
+Vesentlige avvik
+10
+↓
+11
+Risiko
+12
+↓
+13
+Tiltak
+Show more lines
+Dette passer også godt med den dokumenterte styringen ved UiA, hvor rapporter fra enhetene inngår i rapporteringen til universitetsstyret.
+6. Ad hoc-analyser er sannsynligvis viktigere enn man tror
+Eksempel:
+Dekanen spør:
+"Hva skjer med økonomien dersom vi ansetter fem personer til?"
+Controlleren bør kunne modellere:
+Plain Text
+1
+År 1 +2,5 mill.
+2
+År 2 +6,2 mill.
+3
+År 3 +6,5
+Show more lines
+Eller:
+"Kan vi opprettholde dette studietilbudet med fallende studenttall?"
+Da analyserer du:
+studenter → studiepoeng → kapasitet → årsverk → kostnad → økonomisk bærekraft
+Denne typen rapportering er ofte mindre "rapport" og mer beslutningsnotat/business case.
+Excel versus Power BI
+Jeg ville forventet at verktøyene har litt forskjellige roller.
+Power BI
+Best til den standardiserte, repeterende rapporteringen:
+økonomidashboard
+Actual/Budget/Forecast
+fakultet → institutt → koststed
+måned/YTD
+bemanning
+prosjektportefølje
+studieaktivitet
+KPI-er
+drill-down
+Excel
+Best til analyse og modellering:
+forecastarbeid
+scenarioanalyse
+bemanningsmodell
+investeringsanalyse
+prosjektberegninger
+business cases
+sensitivitet
+kvalitetssikring/avstemming
+spesialanalyser
+Altså:
+Power BI forteller ledelsen hvor vi er. Excel hjelper ofte controlleren med å analysere hvorfor og hva som skjer hvis vi gjør noe annerledes.
+Det viktigste skillet er egentlig mottakeren
+Instituttleder
+"Hva må jeg gjøre?"
+Dekan
+"Hvordan ser fakultetet ut, hvor er risikoen og hvilke beslutninger må vi ta?"
+Økonomidirektør/universitetsdirektør
+"Hvordan utvikler UiA seg samlet, og hvor ligger de vesentlige risikoene?"
+Styret
+"Er virksomheten under kontroll, når vi målene, og er ressursbruken forsvarlig?"
+Controlleren
+må derfor kunne ta samme underliggende datasett og presentere det på helt forskjellige detaljeringsnivåer.
+Det er faktisk akkurat her Power BI-modellen vi har bygget blir relevant: bilag → konto → prosjekt → koststed → institutt → fakultet → UiA, mens controlleren bestemmer hvor i hierarkiet mottakeren skal møte informasjonen.Jo høyere opp i organisasjonen rapporten går, desto færre KPI-er bør vises, og desto mer bør de handle om prognose, risiko, måloppnåelse og økonomisk bærekraft.
+1. Instituttleder
+Instituttlederen trenger KPI-er som er konkrete og påvirkbare.
+KPI	Hva den fortellerRegnskap YTD vs. budsjett	Hvor står instituttet nå?
+Avvik YTD, kr og %	Hvor stort er avviket?
+Årsprognose	Hvor forventer vi å ende?
+Prognoseavvik mot årsbudsjett	Må tiltak vurderes?
+Lønnskostnader vs. budsjett	Viktigste kostnadsdriver
+Årsverk	Bemanningsnivå
+Vakante/planlagte stillinger	Framtidig lønnseffekt
+Andre driftskostnader	Kontrollerbare kostnader
+BOA/prosjektinntekter	Eksternfinansiert aktivitet
+Prosjekter med økonomisk risiko	Hvor må leder følge opp?
+Registrerte studenter	Aktivitetsnivå
+Studiepoengproduksjon	Faktisk utdanningsaktivitet
+Studiepoeng per faglig årsverk	Kapasitets-/produktivitetsindikator
+Forside: Jeg ville begrenset instituttlederen til ca. 8 KPI-kort, og så gitt drill-down.
+2. Dekan / fakultetsledelse
+Her løfter vi perspektivet fra enkeltkostnader til fakultetets økonomiske bærekraft.
+Økonomi
+årsbudsjett
+regnskap YTD
+forecast
+forecastavvik, kr
+forecastavvik, %
+lønnsandel av totale kostnader
+tilgjengelig økonomisk handlingsrom
+Bemanning
+totale årsverk
+faglige årsverk
+utvikling i årsverk siste 12 måneder
+forecast lønn
+lønn per årsverk
+Utdanning
+registrerte studenter
+studiepoengproduksjon
+studiepoeng mot plan
+studenter per faglig årsverk
+studiepoeng per faglig årsverk
+kostnad per 60-SPE
+Eksternfinansiering
+BOA-inntekter
+BOA-andel
+NFR-inntekter
+EU-inntekter
+BOA per faglig årsverk
+Jeg ville også hatt:
+Antall institutter med rød forecaststatus
+Eksempel:
+2 av 6 institutter forventer merforbruk >5 %.
+Det forteller dekanen mye raskere hvor oppmerksomheten bør rettes.
+3. Prosjektleder / forskningsleder
+Her bør KPI-ene være helt annerledes.
+Prosjektleder
+total prosjektfinansiering
+prosjektbudsjett
+kostnader hittil
+% av budsjett brukt
+% av prosjektperiode gått
+forecast sluttkostnad
+forventet restbeløp
+årsverk brukt
+gjenstående finansierte årsverk
+egenfinansiering
+overhead/indirekte kostnader
+økonomisk sluttavvik
+En spesielt god KPI er:
+Forbruk versus fremdrift
+Plain Text
+1
+Prosjektperiode gått 70 %
+2
+Budsjett brukt 42 %
+Show more lines
+Det bør utløse et spørsmål:
+Hvorfor ligger økonomisk aktivitet så langt etter prosjektets tidsmessige fremdrift?
+Eller motsatt:
+Plain Text
+1
+Prosjektperiode gått 50 %
+2
+Budsjett brukt 82 %
+Show more lines
+Da har controlleren et tydelig risikosignal.
+4. Forskningsledelse
+Forskningsledelsen vil i tillegg være interessert i porteføljen:
+totale NFR-inntekter
+totale EU-inntekter
+BOA-inntekter
+BOA-andel
+antall aktive eksternt finansierte prosjekter
+ekstern finansiering per faglig årsverk
+prosjektportefølje per fakultet
+forventet prosjektinntekt neste 2 til 3 år
+prosjekter som avsluttes kommende 12 måneder
+økonomisk eksponering/egenfinansiering
+Her blir det viktig å kombinere historiske inntekter med framtidig prosjektpipeline.
+5. Økonomidirektør / universitetsdirektør
+Her bør kontodetaljene nesten forsvinne.
+Jeg ville laget en "executive controller page" med omtrent:
+Økonomisk status
+1. Forecast årsresultat
+2. Forecastavvik mot budsjett
+3. Endring forecast siden forrige rapportering
+Dette siste er ekstremt nyttig:
+Plain Text
+1
+Budsjett 0 mill.
+2
+FC1 -12 mill.
+3
+FC2 -19 mill.
+4
+Latest Estimate -27 mill.
+Show more lines
+Spørsmålet blir:
+Hvorfor svekkes prognosen?
+Økonomiske drivere
+lønnskostnader
+årsverk
+lønnsandel
+BOA
+investeringer
+avsetninger
+økonomisk handlingsrom
+Aktivitet
+studenter
+studiepoengproduksjon
+kandidater
+faglige årsverk
+Effektivitet
+kostnad per student
+kostnad per SPE60
+studiepoeng per faglig årsverk
+BOA per faglig årsverk
+6. Universitetsstyret
+Styret bør etter min vurdering ikke få et controller-dashboard med 40 KPI-er.
+Jeg ville valgt kanskje 10 til 15.
+Økonomi
+Årsbudsjett
+Forecast årsresultat
+Forecastavvik
+Forecastutvikling siden forrige rapportering
+Avsetninger
+Investeringsgjennomføring
+Aktivitet/måloppnåelse
+Studentutvikling
+Studiepoengproduksjon
+Gjennomføring
+Ekstern forskningsfinansiering
+BOA-utvikling
+Årsverksutvikling
+Risiko
+Antall vesentlige økonomiske risikoområder
+Tiltak under gjennomføring
+Samlet vurdering av økonomisk handlingsrom
+Styret trenger først og fremst svar på:
+Er virksomheten under kontroll, forventer vi å holde økonomiske rammer, når vi målene, hvilke vesentlige risikoer eksisterer, og gjør ledelsen noe med dem?
+7. Controllerens egne KPI-er
+Dette er faktisk en egen kategori.
+Controlleren trenger mer detalj enn mottakerne:
+Forecastkvalitet
+forecastfeil forrige måned
+forecastfeil per institutt
+forecastfeil per konto
+forecastfeil lønn
+forecastfeil BOA
+forecastendring siden FC1/FC2
+andel forecast basert på faktisk vs. estimert
+Datakvalitet
+uperiodiserte poster
+gamle åpne poster
+prosjektavvik
+manglende forecast
+uvanlige posteringer
+koststeder uten budsjett
+kontoer uten mapping
+prosjekter som nærmer seg sluttdato med store restmidler
+Dette er mer et kontrolltårn for controlleren enn ledelsesrapportering.
+Min anbefalte rapportarkitektur
+Jeg ville faktisk laget rapporten som én samlet Power BI-løsning med ulike sider:
+Side 1: Executive Overview
+Universitetsledelse/styre
+Plain Text
+1
+Forecast | Budsjett | Avvik | Årsverk
+2
+BOA | Studenter | SPE | Risiko
+Show more lines
+Side 2: Faculty Performance
+Dekan
+Plain Text
+1
+Økonomi + aktivitet + bemanning + produktivitet
+Show more lines
+Side 3: Institute Performance
+Instituttleder
+Plain Text
+1
+Budsjett + regnskap + forecast + bemanning + aktivitet
+Show more lines
+Side 4: Forecast
+Controller/dekan/økonomiledelse
+Plain Text
+1
+Actual
+2
+Budget
+3
+FC1
+4
+FC2
+5
+Latest Estimate
+6
+Tiltak
+Show more lines
+Side 5: Research & BOA
+Forskningsledelse
+Plain Text
+1
+NFR | EU | BOA | prosjektportefølje
+Show more lines
+Side 6: Study Portfolio
+Utdannings-/fakultetsledelse
+Plain Text
+1
+Studenter
+2
+SPE
+3
+Årsverk
+4
+Kostnad/student
+5
+Kostnad/SPE
+Show more lines
+Side 7: Controller Cockpit
+Controller
+Plain Text
+1
+Forecastfeil
+2
+Datakvalitet
+3
+Risiko
+4
+Periodisering
+5
+Prosjekter
+6
+Avvik
+Show more lines
+Og så lar du samtlige sider bruke samme drillstruktur:
+UiA → fakultet → institutt → koststed → prosjekt → konto → bilag.
+Det viktigste designprinsippet er: Controlleren skal ha flest KPI-er. Styret skal ha færrest. Når informasjon beveger seg oppover i organisasjonen, bør detaljnivået falle mens fokuset på forecast, risiko, måloppnåelse og tiltak øker.
+1. Økonomi og forecast
+KPI	Definisjon	Formel / logikk	DatakildeRegnskap YTD	Faktiske inntekter og kostnader hittil i året	SUM(Belop_signert) YTD	FactGL
+6.csv
+Budsjett YTD	Periodisert budsjett hittil i året	SUM(BudsjettBelop) YTD	FactBudget
+3.csv
+Budsjettavvik YTD	Forskjell mellom faktisk og budsjett	Regnskap YTD - Budsjett YTD	FactGL + FactBudget
+Budsjettavvik %	Relativ størrelse på budsjettavviket	Avvik / ABS(Budsjett)	FactGL + FactBudget
+Årsbudsjett	Samlet budsjett for hele året	SUM budsjett uten månedsfilter	FactBudget
+3.csv
+Forecast årsbeløp	Siste forventning til årsresultatet	Faktisk hittil + estimert restår	FactForecast[ForecastBelop]
+4.csv
+Forecastavvik	Forventet avvik fra årsbudsjett	Forecast - Årsbudsjett	FactForecast + FactBudget
+Forecastavvik %	Forecastavvik relativt til budsjett	Forecastavvik / ABS(Årsbudsjett)	FactForecast + FactBudget
+Forecastendring	Endring i forventet årsresultat siden forrige forecast	FC2 - FC1, eventuelt LE - FC2	FactForecast
+Tiltakseffekt	Estimert økonomisk effekt av vedtatte tiltak	SUM(Tiltakseffekt)	FactForecast[Tiltakseffekt]
+4.csv
+Forecast etter tiltak	Forventet resultat etter identifiserte tiltak	Forecast + Tiltakseffekt	FactForecast
+Forecast datakvalitet	Indikasjon på sikkerheten i forecastgrunnlaget	Gj.snitt Sannsynlighet	FactForecast[Sannsynlighet]
+4.csv
+2. Kostnader og bemanning
+KPI	Definisjon	Formel / logikk	DatakildeTotale kostnader	Samlede kostnader i perioden	Regnskap filtrert på Kontotype = Kostnad	FactGL + DimAccount
+1.csv
+6.csv
+Lønnskostnader	Samlede lønnsrelaterte kostnader	Regnskap filtrert på SRS_regnskapslinje = Lonnskostnader	FactGL + DimAccount
+Lønnsandel %	Andel av totale kostnader som er lønn	Lønnskostnader / Totale kostnader	FactGL + DimAccount
+Andre driftskostnader	Ordinære driftskostnader ekskl. lønn og avskrivning	Filter på aktuell SRS-regnskapslinje	FactGL + DimAccount
+Årsverk	Bemanningsnivå på valgt tidspunkt	SUM årsverk siste tilgjengelige periode	FactFTE[Aarsverk]
+5.csv
+Faglige årsverk	Årsverk knyttet til faglig aktivitet	SUM faglige årsverk siste periode	FactFTE[FagligeAarsverk]
+5.csv
+Andel faglige årsverk	Faglige årsverk som andel av total bemanning	Faglige årsverk / Årsverk	FactFTE
+Lønn per årsverk	Gjennomsnittlig lønnskostnad relativt til bemanning	Lønnskostnader / Årsverk	FactGL + FactFTE
+Forecast lønn	Forventede lønnskostnader for hele året	Forecast filtrert på lønnskontoer	FactForecast + DimAccount
+Årsverksutvikling	Endring i bemanning over tid	Årsverk nå - Årsverk tidligere	FactFTE
+Viktig: Årsverk er et beholdningsmål i modellen, ikke noe jeg ville summert over årets 12 måneder. FactFTE inneholder periodiserte årsverksobservasjoner.
+5.csv
+3. Utdanning og aktivitet
+KPI	Definisjon	Formel / logikk	DatakildeRegistrerte studenter	Antall registrerte studenter på valgt tidspunkt	SUM siste tilgjengelige periode	FactStudyPoints[RegistrerteStudenter]
+7.csv
+Planlagte studiepoeng	Forventet studiepoengproduksjon	SUM(PlanlagteStudiepoeng)	FactStudyPoints
+Avlagte studiepoeng	Faktisk produsert antall studiepoeng	SUM(AvlagteStudiepoeng)	FactStudyPoints
+SPE60	Studiepoengproduksjon uttrykt som 60-studiepoengsenheter	Avlagte studiepoeng / 60	FactStudyPoints[SPE60]
+7.csv
+Studiepoeng måloppnåelse %	Produksjon sammenlignet med plan	Avlagte / Planlagte studiepoeng	FactStudyPoints
+Beståttandel	Andel planlagt studiepoengvolum som faktisk er oppnådd	Avlagte / Planlagte studiepoeng	FactStudyPoints
+Studenter per faglig årsverk	Studentvolum relativt til faglig kapasitet	Studenter / Faglige årsverk	FactStudyPoints + FactFTE
+Studiepoeng per faglig årsverk	Utdanningsproduksjon relativt til faglig kapasitet	Avlagte studiepoeng / Faglige årsverk	FactStudyPoints + FactFTE
+SPE60 per faglig årsverk	Normalisert produksjon per faglig årsverk	SPE60 / Faglige årsverk	FactStudyPoints + FactFTE
+Kostnad per student	Ressursbruk relativt til antall studenter	Totale kostnader / Registrerte studenter	FactGL + FactStudyPoints
+Kostnad per SPE60	Kostnad per produsert 60-studiepoengsenhet	Totale kostnader / SPE60	FactGL + FactStudyPoints
+Her kan KPI-ene analyseres videre på studieprogram gjennom DimStudyProgram.
+8.csv
+4. BOA, prosjekt og eksternfinansiering
+Prosjektdimensjonen skiller blant annet mellom finansieringstype, finansieringskilde og prosjektkategori.
+2.csv
+KPI	Definisjon	Formel / logikk	DatakildeBOA-inntekter	Inntekter fra bidrags- og oppdragsfinansiert aktivitet	Inntekter der finansieringstype = Bidrag eller Oppdrag	FactGL + DimProject
+BOA-andel %	BOA relativt til totale relevante inntekter	BOA-inntekter / Totale inntekter	FactGL + DimProject
+NFR-inntekter	Inntekter knyttet til NFR-finansierte prosjekter	Filter Finansieringskilde = NFR	FactGL + DimProject
+EU-inntekter	Inntekter knyttet til EU-finansiering	Filter Finansieringskilde = EU	FactGL + DimProject
+Oppdragsinntekter	Inntekter fra oppdragsfinansiert aktivitet	Filter Finansieringstype = Oppdrag	FactGL + DimProject
+BOA per faglig årsverk	Eksternfinansiert aktivitet relativt til faglig kapasitet	BOA-inntekter / Faglige årsverk	FactGL + FactFTE
+Forecast BOA	Forventede BOA-inntekter for året	Forecast filtrert på Bidrag + Oppdrag	FactForecast + DimProject
+Prosjektets budsjettavvik	Faktiske prosjektkostnader mot prosjektbudsjett	Regnskap prosjekt - Budsjett prosjekt	FactGL + FactBudget + DimProject
+Forecast prosjektavvik	Forventet økonomisk sluttavvik for prosjekt	Forecast - prosjektbudsjett	FactForecast + FactBudget
+5. Controllerens kontroll-KPI-er
+Dette er KPI-ene jeg primært ville brukt på Controller Cockpit, ikke nødvendigvis vist til ledelsen.
+KPI	Definisjon	Formel / logikk	DatakildeForecast accuracy	Hvor presis forrige prognose var	ABS(Forecast - Actual) / ABS(Actual)	FactForecast + FactGL
+Forecast bias	Om vi systematisk over-/underestimerer	(Forecast - Actual) / ABS(Actual)	FactForecast + FactGL
+Forecastendring FC1→FC2	Hvor mye prognosen har flyttet seg	FC2 - FC1	FactForecast
+Forecastendring FC2→LE	Endring i siste prognoserunde	LE - FC2	FactForecast
+Andel faktisk i forecast	Hvor stor del av forecast som er realiserte tall	Faktisk del / total forecast	FactForecast[Datastatus]
+4.csv
+Andel estimert restår	Hvor mye som fortsatt bygger på estimater	Estimert del / total forecast	FactForecast
+Lav-confidence forecast	Forecastbeløp med lav sikkerhet	Forecast der sannsynlighet < valgt grense	FactForecast
+Tiltak uten effekt	Registrerte tiltak uten estimert økonomisk effekt	Count der tiltakseffekt = 0	FactForecast
+Røde enheter	Enheter med vesentlig negativt forecastavvik	Antall enheter hvor avvik > eksempelvis 5 %	FactForecast + FactBudget + DimOrganization
+6. KPI-er per mottaker
+Jeg ville deretter merke KPI-katalogen etter målgruppe:
+KPI	Instituttleder	Dekan	Økonomiledelse	Styret	ControllerRegnskap YTD	✓	✓	✓		✓
+Budsjettavvik	✓	✓	✓		✓
+Forecast årsresultat	✓	✓	✓	✓	✓
+Forecastavvik	✓	✓	✓	✓	✓
+Forecastendring		✓	✓	✓	✓
+Lønnskostnader	✓	✓	✓		✓
+Årsverk	✓	✓	✓	✓	✓
+Studenttall	✓	✓	✓	✓	✓
+Studiepoeng	✓	✓	✓	✓	✓
+Kostnad per SPE60	✓	✓	✓		✓
+BOA	✓	✓	✓	✓	✓
+BOA/faglig årsverk		✓	✓		✓
+Forecast accuracy			✓		✓
+Tiltakseffekt	✓	✓	✓	✓	✓
+Datakvalitet					✓
+Én viktig faglig nyanse
+Jeg ville skilt KPI-ene i fire kategorier:
+1. Outcome
+Hva ble resultatet?
+Eksempel: årsresultat, studiepoeng.
+2. Driver
+Hva forklarer resultatet?
+Eksempel: årsverk, studenttall, lønn.
+3. Leading indicator
+Hva forteller oss hva som sannsynligvis vil skje?
+Eksempel: forecast, søkertall, planlagte ansettelser.
+4. Control indicator
+Kan vi stole på tallene og styringen?
+Eksempel: forecast accuracy, datakvalitet, manglende periodisering.
+En sterk controller-rapport bør ha alle fire, ikke bare økonomiske resultat-KPI-er. Det er dette som gjør rapporten til beslutningsstøtte i stedet for bare regnskapsrapportering.Ny FactAction
+FactAction.csv inneholder 18 syntetiske controllertiltak med blant annet:
+1.csv
+TiltakID
+Organisasjonsnokkel
+Prosjekt
+Konto
+Avviksarsak
+Tiltakstype
+Tiltaksbeskrivelse
+AnsvarligRolle
+StartDatoNokkel
+FristDatoNokkel
+ForventetEffekt
+RealisertEffekt
+Status
+Prioritet
+Sannsynlighet
+SistOppdatert
+Kommentar
+Jeg har også lagt til DimActionStatus.csv med statusene Planlagt, Pågår, Forsinket, Gjennomført og Kansellert.
+2.csv
+Nye DAX-målinger
+Action_Measures.dax inneholder ferdige mål for blant annet:
+3.dax
+DAX
+1
+Forventet tiltakseffekt =
+2
+SUM ( FactAction[ForventetEffekt] )
+3
+ 
+4
+ 
+5
+Realisert tiltakseffekt =
+6
+SUM ( FactAction[RealisertEffekt] )
+7
+ 
+8
+ 
+9
+Tiltak realiseringsgrad % =
+10
+DIVIDE (
+11
+[Realisert tiltakseffekt],
+12
+[Forventet tiltakseffekt]
+13
+)
+14
+ 
+15
+ 
+16
+Antall tiltak =
+17
+DISTINCTCOUNT ( FactAction[TiltakID] )
+18
+ 
+19
+ 
+20
+Åpne tiltak =
+21
+CALCULATE (
+22
+[Antall tiltak],
+23
+DimActionStatus[ErLukket] = 0
+24
+)
+25
+ 
+26
+ 
+27
+Gjennomførte tiltak =
+28
+CALCULATE (
+29
+[Antall tiltak],
+30
+FactAction[Status] = "Gjennomført"
+31
+)
+32
+ 
+33
+ 
+34
+Forsinkede tiltak =
+35
+CALCULATE (
+36
+[Antall tiltak],
+37
+FactAction[Status] = "Forsinket"
+38
+)
+39
+ 
+40
+ 
+41
+Vektet forventet effekt =
+42
+SUMX (
+43
+FactAction,
+44
+FactAction[ForventetEffekt]
+45
+* FactAction[Sannsynlighet]
+46
+)
+47
+ 
+48
+ 
+49
+Gjenstående tiltakseffekt =
+50
+[Forventet tiltakseffekt]
+51
+- [Realisert tiltakseffekt]
+52
+ 
+53
+ 
+54
+Forecast etter controller-tiltak =
+55
+[Forecast årsbeløp]
+56
++ [Forventet tiltakseffekt]
+57
+ 
+58
+ 
+59
+Forecast etter realiserte tiltak =
+60
+[Forecast årsbeløp]
+61
++ [Realisert tiltakseffekt]
+62
+ 
+63
+ 
+64
+Restavvik etter tiltak =
+65
+[Forecast etter controller-tiltak]
+66
+- [Årsbudsjett]
+67
+ 
+68
+ 
+69
+Tiltaksdekning av avvik % =
+70
+DIVIDE (
+71
+ABS ( [Forventet tiltakseffekt] ),
+72
+ABS ( [Forecastavvik] )
+73
+)
+Show more lines
+Hele styringskjeden blir nå
+Plain Text
+1
+REGNSKAP
+2
+↓
+3
+BUDSJETTAVVIK
+4
+↓
+5
+FORECAST
+6
+↓
+7
+FORECASTAVVIK
+8
+↓
+9
+ÅRSAK
+10
+↓
+11
+TILTAK
+12
+↓
+13
+ANSVARLIG
+14
+↓
+15
+FORVENTET EFFEKT
+16
+↓
+17
+REALISERT EFFEKT
+18
+↓
+19
+RESTAVVIK
+20
+↓
+21
+NY FORECAST
+Show more lines
+Dette er etter min vurdering vesentlig mer controller-realistisk enn et dashboard som bare viser røde og grønne budsjettavvik.
+Eksempel på rapportering til dekan
+Institutt	Forecastavvik	Tiltak	Forventet effekt	Realisert	RestavvikInstitutt A	+4,8m	3	−3,2m	−1,5m	+1,6m
+Institutt B	+2,1m	2	−1,8m	−0,6m	+0,3m
+Institutt C	−0,5m	0	-	-	−0,5m
+Nå kan dekanen gå fra:
+"Institutt A forventer 4,8 mill. i merforbruk."
+til det langt mer interessante:
+"Institutt A forventer 4,8 mill. i merforbruk. Ledelsen har identifisert tre tiltak med forventet effekt på 3,2 mill. Så langt er 1,5 mill. realisert. Forventet restavvik etter tiltak er 1,6 mill."
+Det er nettopp slik jeg ville tenkt på controlleren som aktiv beslutningsstøtte, ikke bare rapportprodusent.
+Alle tiltak, ansvarlige roller og detaljerte tall i FactAction.csv er syntetiske treningsdata. Relasjonsfilen er samtidig utvidet til totalt 23 relasjoner slik at tiltak kan analyseres mot organisasjon, prosjekt og konto.
+1.csv
+4.csv
+Provide your feedback on BizChat
+You said:
+Controller UIA
+kan du vise dashboard/layout for de ulike rapport mottakerne?
+Controller UIA said:
+Copilot
+Ja. Med modellen vi har bygget ville jeg lage én Power BI-app med ulike rapportsider per mottaker, heller enn ett stort dashboard for alle. Prinsippet er at detaljnivået faller oppover i organisasjonen, mens fokus på forecast, risiko, tiltak og måloppnåelse øker.
+1. Instituttleder: "Hva må jeg gjøre?"
+Formål: operativ økonomistyring.
+Plain Text
+1
+┌──────────────────────────────────────────────────────────────┐
+2
+│ INSTITUTT: ØKONOMI OG VIRKSOMHETSSTYRING Periode: Aug 26 │
+3
+├───────────┬───────────┬───────────┬───────────┬──────────────┤
+4
+│ Regnskap │ Budsjett │ Avvik │ Forecast │ FC avvik │
+5
+│ 42,1m │ 40,0m │ +2,1m 🔴 │ 64,8m │ +4,8m 🔴 │
+6
+├───────────┴───────────┴───────────┴───────────┴──────────────┤
+7
+│ │
+8
+│ Månedlig Actual / Budget / Forecast │
+9
+│ 8m ┤ ╭──── Forecast │
+10
+│ 6m ┤ ╭──────────╯ │
+11
+│ 4m ┤────Actual─────╯ │
+12
+│ └────────────────────────────── Jan → Des │
+13
+│ │
+14
+├───────────────────────────────┬──────────────────────────────┤
+15
+│ KOSTNADSDRIVERE │ BEMANNING / AKTIVITET │
+16
+│ Lønn +3,2m │ Årsverk 48,2 │
+17
+│ BOA-inntekter -1,4m │ Faglige ÅV 34,1 │
+18
+│ Reise -0,3m │ Studenter 620 │
+19
+│ Andre 0,6m │ SPE60 410 │
+20
+│ │ SPE / faglig ÅV 12,0 │
+21
+├───────────────────────────────┴──────────────────────────────┤
+22
+│ TILTAKSOPPFØLGING │
+23
+│ Tiltak Ansvar Effekt Realisert Status │
+24
+│ Vakansestyring Instituttleder -1,8m -0,8m 🟡 │
+25
+│ Prosjektoppfølging Prosjektleder -1,2m -0,4m 🟢 │
+26
+│ Kostnadskutt Instituttleder -0,6m 0 🔴 │
+27
+└──────────────────────────────────────────────────────────────┘
+Show more lines
+Viktigste KPI-er:
+Actual vs Budget YTD
+Forecast mot årsbudsjett
+lønn og årsverk
+BOA
+studenter og studiepoeng
+kostnad/SPE60
+åpne tiltak
+restavvik etter tiltak
+2. Dekan: "Hvor på fakultetet har vi problemer?"
+Her ville jeg gått mindre inn på bilag/konto og mer på sammenligning mellom instituttene.
+Plain Text
+1
+┌─────────────────────────────────────────────────────────────────┐
+2
+│ FAKULTET PERFORMANCE Forecast: Latest Estimate│
+3
+├──────────┬──────────┬──────────┬──────────┬──────────┬──────────┤
+4
+│ Forecast │ FC avvik │ Årsverk │ Studenter│ BOA │ Tiltak │
+5
+│ 204,8m │ +8,4m 🔴│ 214 │ 3 180 │ 23,4m │ -5,8m │
+6
+├──────────┴──────────┴──────────┴──────────┴──────────┴──────────┤
+7
+│ INSTITUTTENES FORECAST │
+8
+│ │
+9
+│ Inst A ██████████████████████ +5,2m 🔴 │
+10
+│ Inst B ███████████████ +2,3m 🟡 │
+11
+│ Inst C ████████████ +0,9m 🟢 │
+12
+│ Inst D █████████ -0,8m 🔵 │
+13
+│ │
+14
+├───────────────────────────────┬─────────────────────────────────┤
+15
+│ RESSURS / AKTIVITET │ EKSTERN FINANSIERING │
+16
+│ │ │
+17
+│ Kostnad / SPE60 82 400 │ BOA 23,4m │
+18
+│ Studenter / faglig ÅV 18,2 │ NFR 11,2m │
+19
+│ SPE / faglig ÅV 13,4 │ EU 7,8m │
+20
+│ Lønnsandel 72 % │ Oppdrag 4,4m │
+21
+├───────────────────────────────┴─────────────────────────────────┤
+22
+│ RISIKO / TILTAK │
+23
+│ 🔴 2 institutter med >5 % forecastavvik │
+24
+│ 🟡 4 forsinkede tiltak │
+25
+│ 💰 Identifisert tiltakseffekt 5,8m / realisert 2,2m │
+26
+└─────────────────────────────────────────────────────────────────┘
+Show more lines
+Her ville jeg gjort Institutt klikkbart slik at dekanen kan drill-through til instituttsiden.
+3. Universitetsdirektør / økonomiledelse: Executive overview
+Nå bør antall detaljer reduseres betydelig.
+Plain Text
+1
+┌────────────────────────────────────────────────────────────────┐
+2
+│ UiA EXECUTIVE MANAGEMENT Oktober 2026 │
+3
+├──────────┬───────────┬───────────┬──────────┬──────────────────┤
+4
+│ Budsjett │ Forecast │ Avvik │ Årsverk │ BOA │
+5
+│ 2 049m │ 2 073m │ +24m 🔴 │ 1 525 │ 14,2 % │
+6
+├──────────┴───────────┴───────────┴──────────┴──────────────────┤
+7
+│ FORECAST DEVELOPMENT │
+8
+│ │
+9
+│ Budsjett FC1 FC2 Latest Estimate │
+10
+│ 0 +8m +17m +24m │
+11
+│ ●───────────────●────────────●────────────────● │
+12
+│ │
+13
+├────────────────────────────────┬───────────────────────────────┤
+14
+│ FAKULTETER │ VIKTIGSTE DRIVERE │
+15
+│ │ │
+16
+│ Teknologi +9,2m 🔴 │ Lønn +18,3m │
+17
+│ Helse +6,4m 🔴 │ Prosjektinntekt -6,7m │
+18
+│ Samfunn +4,1m 🟡 │ Drift +5,4m │
+19
+│ HH +2,8m 🟡 │ Andre +7,0m │
+20
+├────────────────────────────────┼───────────────────────────────┤
+21
+│ AKTIVITET │ TILTAK │
+22
+│ Studenter 14 636 │ Forventet effekt -17,5m │
+23
+│ SPE x xxx │ Realisert -8,4m │
+24
+│ Faglige årsverk x xxx │ Restavvik +6,5m │
+25
+│ Kostnad/SPE xx xxx │ Forsinkede tiltak 7 │
+26
+└────────────────────────────────┴───────────────────────────────┘
+Show more lines
+Kjernen er nå:
+Hvor ender vi? Hvorfor? Hvor er risikoen? Hva gjør organisasjonen med det?
+4. Universitetsstyret: "Er virksomheten under kontroll?"
+Denne siden bør være enda renere.
+Jeg ville ikke vist tabeller med 50 regnskapslinjer.
+Plain Text
+1
+┌───────────────────────────────────────────────────────────────┐
+2
+│ UiA STRATEGISK VIRKSOMHETSOVERSIKT │
+3
+├────────────┬────────────┬────────────┬────────────┬────────────┤
+4
+│ Forecast │ Budsjett │ Avvik │ Studenter │ Årsverk │
+5
+│ 2 073m │ 2 049m │ +1,2 % 🟡 │ 14 636 │ 1 525 │
+6
+├────────────┴────────────┴────────────┴────────────┴────────────┤
+7
+│ │
+8
+│ ØKONOMISK UTVIKLING RISIKOBILDE │
+9
+│ │
+10
+│ Budsjett ─────────────── Økonomi 🟠 │
+11
+│ FC1 ────────────────── Studieportf. 🟡 │
+12
+│ FC2 ───────────────────── Kompetanse 🟢 │
+13
+│ LE ─────────────────────── Eksternfin. 🟠 │
+14
+│ │
+15
+├──────────────────────────────┬────────────────────────────────┤
+16
+│ MÅLOPPNÅELSE │ ØKONOMISKE TILTAK │
+17
+│ │ │
+18
+│ Studenter ↑ │ Identifisert 17,5m │
+19
+│ Studiepoeng → │ Realisert 8,4m │
+20
+│ Gjennomføring ↑ │ Realiseringsgrad 48 % │
+21
+│ Ekstern finansiering ↑ │ Forsinkede tiltak 7 │
+22
+├──────────────────────────────┴────────────────────────────────┤
+23
+│ LEDELSESVURDERING │
+24
+│ "Økonomisk situasjon vurderes som håndterbar, men..." │
+25
+└───────────────────────────────────────────────────────────────┘
+Show more lines
+Her får tekstfeltet Ledelsesvurdering stor betydning. Styret bør ikke måtte tolke dashboardet selv.
+5. Forskningsledelse: NFR / EU / BOA
+Denne siden blir prosjektorientert.
+Plain Text
+1
+┌───────────────────────────────────────────────────────────────┐
+2
+│ FORSKNING OG EKSTERNFINANSIERING │
+3
+├───────────┬──────────┬──────────┬──────────┬──────────────────┤
+4
+│ BOA │ NFR │ EU │ Forecast │ BOA/faglig ÅV │
+5
+│ xx,xm │ xx,xm │ xx,xm │ xx,xm │ xxx xxx │
+6
+├───────────┴──────────┴──────────┴──────────┴──────────────────┤
+7
+│ EKSTERNFINANSIERING OVER TID │
+8
+│ │
+9
+│ NFR ████████████████ │
+10
+│ EU ███████████ │
+11
+│ EVU ██████ │
+12
+├────────────────────────────────┬──────────────────────────────┤
+13
+│ PROSJEKTPORTEFØLJE │ ØKONOMISK RISIKO │
+14
+│ │ │
+15
+│ NFR001 ██████████ 78 % │ 3 prosjekter 🔴 │
+16
+│ EU001 ██████ 54 % │ 4 prosjekter 🟡 │
+17
+│ NFR002 ███ 31 % │ Egenfinansiering xx,xm │
+18
+│ │ │
+19
+├────────────────────────────────┴──────────────────────────────┤
+20
+│ Prosjekt | Budsjett | Actual | Forecast | Rest | Sluttdato │
+21
+└───────────────────────────────────────────────────────────────┘
+Show more lines
+Viktig visual her:
+% prosjektperiode gått vs % budsjett brukt.
+Det er en veldig intuitiv prosjekt-KPI.
+6. Controller Cockpit
+Dette blir den klart mest detaljerte siden.
+Plain Text
+1
+┌────────────────────────────────────────────────────────────────┐
+2
+│ CONTROLLER COCKPIT Latest Estimate │
+3
+├─────────┬─────────┬─────────┬──────────┬─────────┬──────────────┤
+4
+│ FC avvik│ FC feil │ FC conf.│ Røde enh.│ Tiltak │ Forsinket │
+5
+│ +24m │ 3,2 % │ 91 % │ 6 │ 18 │ 4 │
+6
+├─────────┴─────────┴─────────┴──────────┴─────────┴──────────────┤
+7
+│ FORECAST WATERFALL │
+8
+│ │
+9
+│ Actual YTD → Restår FC → Latest Estimate → Tiltak → Restavvik │
+10
+│ │
+11
+├───────────────────────────────┬────────────────────────────────┤
+12
+│ FORECAST ACCURACY │ AVVIKSDRIVERE │
+13
+│ │ │
+14
+│ Fakultet A 98 % 🟢 │ Lønn ██████████ │
+15
+│ Fakultet B 92 % 🟢 │ Prosjekt ██████ │
+16
+│ Fakultet C 81 % 🟠 │ Investering ████ │
+17
+│ Fakultet D 68 % 🔴 │ Drift ███ │
+18
+├───────────────────────────────┴────────────────────────────────┤
+19
+│ ACTION TRACKER │
+20
+│ │
+21
+│ ID Årsak Tiltak Ansvar Effekt Realisert Status │
+22
+│ T01 Bemanning Vakansestyr. Leder -1,8m -0,8m 🟡 │
+23
+│ T02 BOA Oppfølging Leder -1,2m -1,0m 🟢 │
+24
+│ T03 Drift Reduksjon Leder -0,8m 0 🔴 │
+25
+├────────────────────────────────────────────────────────────────┤
+26
+│ DETALJ: Fakultet → Institutt → Koststed → Prosjekt → Konto │
+27
+└────────────────────────────────────────────────────────────────┘
+Show more lines
+Dette er siden du som controller jobber i. De andre sidene er mer det du leverer ut av modellen.
+7. Jeg ville laget denne navigasjonen
+Plain Text
+1
+┌─────────────────────────────────────────────────────────────┐
+2
+│ UiA CONTROLLER │
+3
+│ │
+4
+│ [Executive] [Fakultet] [Institutt] [Forecast] [BOA] │
+5
+│ [Studier] [Tiltak] [Controller Cockpit] │
+6
+└─────────────────────────────────────────────────────────────┘
+Show more lines
+Og globale slicere:
+Plain Text
+1
+År
+2
+Periode
+3
+Forecastversjon
+4
+Fakultet
+5
+Institutt
+Show more lines
+Ikke 15 slicere på hver side. Det gjør dashboardet vanskeligere å bruke.
+Rapporthierarkiet jeg ville valgt
+Side	Primær mottaker	HovedspørsmålExecutive	Universitetsdirektør/rektor	Hvor ender vi og hvorfor?
+Styreoversikt	Styret	Er virksomheten under kontroll?
+Faculty Performance	Dekan	Hvor ligger risiko og muligheter?
+Institute Performance	Instituttleder	Hva må jeg gjøre?
+Forecast	Dekan/controller/økonomiledelse	Hvordan utvikler årsresultatet seg?
+Research & BOA	Forskningsledelse	Hvordan utvikler eksternfinansieringen seg?
+Study Portfolio	Utdannings-/fakultetsledelse	Er aktivitet og ressursbruk bærekraftig?
+Action Tracker	Ledere/controller	Blir tiltakene faktisk gjennomført?
+Controller Cockpit	Controller	Hvor må jeg undersøke nærmere?
+Det fine er at alle disse rapportene kan ligge oppå nøyaktig samme semantic model vi har laget. FactAction gjør at rapporteringen nå også kan følge tiltak fra identifisert avvik til realisert effekt.
+1.csv
+2.csv
+Den samlede modellen med økonomi, budsjett, forecast, bemanning, studieaktivitet og tiltak ligger her: 
+Power BI controller-modell med tiltak.
+Jeg ville særlig prioritert Instituttleder → Dekan → Executive → Controller Cockpit først. De fire sidene dekker etter min vurdering størstedelen av det realistiske controllerbehovet.Ny FactAction
+FactAction.csv inneholder 18 syntetiske controllertiltak med blant annet:
+1.csv
+TiltakID
+Organisasjonsnokkel
+Prosjekt
+Konto
+Avviksarsak
+Tiltakstype
+Tiltaksbeskrivelse
+AnsvarligRolle
+StartDatoNokkel
+FristDatoNokkel
+ForventetEffekt
+RealisertEffekt
+Status
+Prioritet
+Sannsynlighet
+SistOppdatert
+Kommentar
+Jeg har også lagt til DimActionStatus.csv med statusene Planlagt, Pågår, Forsinket, Gjennomført og Kansellert.
+2.csv
+Nye DAX-målinger
+Action_Measures.dax inneholder ferdige mål for blant annet:
+3.dax
+DAX
+1
+Forventet tiltakseffekt =
+2
+SUM ( FactAction[ForventetEffekt] )
+3
+ 
+4
+ 
+5
+Realisert tiltakseffekt =
+6
+SUM ( FactAction[RealisertEffekt] )
+7
+ 
+8
+ 
+9
+Tiltak realiseringsgrad % =
+10
+DIVIDE (
+11
+[Realisert tiltakseffekt],
+12
+[Forventet tiltakseffekt]
+13
+)
+14
+ 
+15
+ 
+16
+Antall tiltak =
+17
+DISTINCTCOUNT ( FactAction[TiltakID] )
+18
+ 
+19
+ 
+20
+Åpne tiltak =
+21
+CALCULATE (
+22
+[Antall tiltak],
+23
+DimActionStatus[ErLukket] = 0
+24
+)
+25
+ 
+26
+ 
+27
+Gjennomførte tiltak =
+28
+CALCULATE (
+29
+[Antall tiltak],
+30
+FactAction[Status] = "Gjennomført"
+31
+)
+32
+ 
+33
+ 
+34
+Forsinkede tiltak =
+35
+CALCULATE (
+36
+[Antall tiltak],
+37
+FactAction[Status] = "Forsinket"
+38
+)
+39
+ 
+40
+ 
+41
+Vektet forventet effekt =
+42
+SUMX (
+43
+FactAction,
+44
+FactAction[ForventetEffekt]
+45
+* FactAction[Sannsynlighet]
+46
+)
+47
+ 
+48
+ 
+49
+Gjenstående tiltakseffekt =
+50
+[Forventet tiltakseffekt]
+51
+- [Realisert tiltakseffekt]
+52
+ 
+53
+ 
+54
+Forecast etter controller-tiltak =
+55
+[Forecast årsbeløp]
+56
++ [Forventet tiltakseffekt]
+57
+ 
+58
+ 
+59
+Forecast etter realiserte tiltak =
+60
+[Forecast årsbeløp]
+61
++ [Realisert tiltakseffekt]
+62
+ 
+63
+ 
+64
+Restavvik etter tiltak =
+65
+[Forecast etter controller-tiltak]
+66
+- [Årsbudsjett]
+67
+ 
+68
+ 
+69
+Tiltaksdekning av avvik % =
+70
+DIVIDE (
+71
+ABS ( [Forventet tiltakseffekt] ),
+72
+ABS ( [Forecastavvik] )
+73
+)
+Show more lines
+Hele styringskjeden blir nå
+Plain Text
+1
+REGNSKAP
+2
+↓
+3
+BUDSJETTAVVIK
+4
+↓
+5
+FORECAST
+6
+↓
+7
+FORECASTAVVIK
+8
+↓
+9
+ÅRSAK
+10
+↓
+11
+TILTAK
+12
+↓
+13
+ANSVARLIG
+14
+↓
+15
+FORVENTET EFFEKT
+16
+↓
+17
+REALISERT EFFEKT
+18
+↓
+19
+RESTAVVIK
+20
+↓
+21
+NY FORECAST
+Show more lines
+Dette er etter min vurdering vesentlig mer controller-realistisk enn et dashboard som bare viser røde og grønne budsjettavvik.
+Eksempel på rapportering til dekan
+Institutt	Forecastavvik	Tiltak	Forventet effekt	Realisert	RestavvikInstitutt A	+4,8m	3	−3,2m	−1,5m	+1,6m
+Institutt B	+2,1m	2	−1,8m	−0,6m	+0,3m
+Institutt C	−0,5m	0	-	-	−0,5m
+Nå kan dekanen gå fra:
+"Institutt A forventer 4,8 mill. i merforbruk."
+til det langt mer interessante:
+"Institutt A forventer 4,8 mill. i merforbruk. Ledelsen har identifisert tre tiltak med forventet effekt på 3,2 mill. Så langt er 1,5 mill. realisert. Forventet restavvik etter tiltak er 1,6 mill."
+Det er nettopp slik jeg ville tenkt på controlleren som aktiv beslutningsstøtte, ikke bare rapportprodusent.
+Alle tiltak, ansvarlige roller og detaljerte tall i FactAction.csv er syntetiske treningsdata. Relasjonsfilen er samtidig utvidet til totalt 23 relasjoner slik at tiltak kan analyseres mot organisasjon, prosjekt og konto.
+1.csv
+4.csv
+Provide your feedback on BizChat
+You said:
+Controller UIA
+kan du vise dashboard/layout for de ulike rapport mottakerne?
+Controller UIA said:
+Copilot
+Ja. Med modellen vi har bygget ville jeg lage én Power BI-app med ulike rapportsider per mottaker, heller enn ett stort dashboard for alle. Prinsippet er at detaljnivået faller oppover i organisasjonen, mens fokus på forecast, risiko, tiltak og måloppnåelse øker.
+1. Instituttleder: "Hva må jeg gjøre?"
+Formål: operativ økonomistyring.
+Plain Text
+1
+┌──────────────────────────────────────────────────────────────┐
+2
+│ INSTITUTT: ØKONOMI OG VIRKSOMHETSSTYRING Periode: Aug 26 │
+3
+├───────────┬───────────┬───────────┬───────────┬──────────────┤
+4
+│ Regnskap │ Budsjett │ Avvik │ Forecast │ FC avvik │
+5
+│ 42,1m │ 40,0m │ +2,1m 🔴 │ 64,8m │ +4,8m 🔴 │
+6
+├───────────┴───────────┴───────────┴───────────┴──────────────┤
+7
+│ │
+8
+│ Månedlig Actual / Budget / Forecast │
+9
+│ 8m ┤ ╭──── Forecast │
+10
+│ 6m ┤ ╭──────────╯ │
+11
+│ 4m ┤────Actual─────╯ │
+12
+│ └────────────────────────────── Jan → Des │
+13
+│ │
+14
+├───────────────────────────────┬──────────────────────────────┤
+15
+│ KOSTNADSDRIVERE │ BEMANNING / AKTIVITET │
+16
+│ Lønn +3,2m │ Årsverk 48,2 │
+17
+│ BOA-inntekter -1,4m │ Faglige ÅV 34,1 │
+18
+│ Reise -0,3m │ Studenter 620 │
+19
+│ Andre 0,6m │ SPE60 410 │
+20
+│ │ SPE / faglig ÅV 12,0 │
+21
+├───────────────────────────────┴──────────────────────────────┤
+22
+│ TILTAKSOPPFØLGING │
+23
+│ Tiltak Ansvar Effekt Realisert Status │
+24
+│ Vakansestyring Instituttleder -1,8m -0,8m 🟡 │
+25
+│ Prosjektoppfølging Prosjektleder -1,2m -0,4m 🟢 │
+26
+│ Kostnadskutt Instituttleder -0,6m 0 🔴 │
+27
+└──────────────────────────────────────────────────────────────┘
+Show more lines
+Viktigste KPI-er:
+Actual vs Budget YTD
+Forecast mot årsbudsjett
+lønn og årsverk
+BOA
+studenter og studiepoeng
+kostnad/SPE60
+åpne tiltak
+restavvik etter tiltak
+2. Dekan: "Hvor på fakultetet har vi problemer?"
+Her ville jeg gått mindre inn på bilag/konto og mer på sammenligning mellom instituttene.
+Plain Text
+1
+┌─────────────────────────────────────────────────────────────────┐
+2
+│ FAKULTET PERFORMANCE Forecast: Latest Estimate│
+3
+├──────────┬──────────┬──────────┬──────────┬──────────┬──────────┤
+4
+│ Forecast │ FC avvik │ Årsverk │ Studenter│ BOA │ Tiltak │
+5
+│ 204,8m │ +8,4m 🔴│ 214 │ 3 180 │ 23,4m │ -5,8m │
+6
+├──────────┴──────────┴──────────┴──────────┴──────────┴──────────┤
+7
+│ INSTITUTTENES FORECAST │
+8
+│ │
+9
+│ Inst A ██████████████████████ +5,2m 🔴 │
+10
+│ Inst B ███████████████ +2,3m 🟡 │
+11
+│ Inst C ████████████ +0,9m 🟢 │
+12
+│ Inst D █████████ -0,8m 🔵 │
+13
+│ │
+14
+├───────────────────────────────┬─────────────────────────────────┤
+15
+│ RESSURS / AKTIVITET │ EKSTERN FINANSIERING │
+16
+│ │ │
+17
+│ Kostnad / SPE60 82 400 │ BOA 23,4m │
+18
+│ Studenter / faglig ÅV 18,2 │ NFR 11,2m │
+19
+│ SPE / faglig ÅV 13,4 │ EU 7,8m │
+20
+│ Lønnsandel 72 % │ Oppdrag 4,4m │
+21
+├───────────────────────────────┴─────────────────────────────────┤
+22
+│ RISIKO / TILTAK │
+23
+│ 🔴 2 institutter med >5 % forecastavvik │
+24
+│ 🟡 4 forsinkede tiltak │
+25
+│ 💰 Identifisert tiltakseffekt 5,8m / realisert 2,2m │
+26
+└─────────────────────────────────────────────────────────────────┘
+Show more lines
+Her ville jeg gjort Institutt klikkbart slik at dekanen kan drill-through til instituttsiden.
+3. Universitetsdirektør / økonomiledelse: Executive overview
+Nå bør antall detaljer reduseres betydelig.
+Plain Text
+1
+┌────────────────────────────────────────────────────────────────┐
+2
+│ UiA EXECUTIVE MANAGEMENT Oktober 2026 │
+3
+├──────────┬───────────┬───────────┬──────────┬──────────────────┤
+4
+│ Budsjett │ Forecast │ Avvik │ Årsverk │ BOA │
+5
+│ 2 049m │ 2 073m │ +24m 🔴 │ 1 525 │ 14,2 % │
+6
+├──────────┴───────────┴───────────┴──────────┴──────────────────┤
+7
+│ FORECAST DEVELOPMENT │
+8
+│ │
+9
+│ Budsjett FC1 FC2 Latest Estimate │
+10
+│ 0 +8m +17m +24m │
+11
+│ ●───────────────●────────────●────────────────● │
+12
+│ │
+13
+├────────────────────────────────┬───────────────────────────────┤
+14
+│ FAKULTETER │ VIKTIGSTE DRIVERE │
+15
+│ │ │
+16
+│ Teknologi +9,2m 🔴 │ Lønn +18,3m │
+17
+│ Helse +6,4m 🔴 │ Prosjektinntekt -6,7m │
+18
+│ Samfunn +4,1m 🟡 │ Drift +5,4m │
+19
+│ HH +2,8m 🟡 │ Andre +7,0m │
+20
+├────────────────────────────────┼───────────────────────────────┤
+21
+│ AKTIVITET │ TILTAK │
+22
+│ Studenter 14 636 │ Forventet effekt -17,5m │
+23
+│ SPE x xxx │ Realisert -8,4m │
+24
+│ Faglige årsverk x xxx │ Restavvik +6,5m │
+25
+│ Kostnad/SPE xx xxx │ Forsinkede tiltak 7 │
+26
+└────────────────────────────────┴───────────────────────────────┘
+Show more lines
+Kjernen er nå:
+Hvor ender vi? Hvorfor? Hvor er risikoen? Hva gjør organisasjonen med det?
+4. Universitetsstyret: "Er virksomheten under kontroll?"
+Denne siden bør være enda renere.
+Jeg ville ikke vist tabeller med 50 regnskapslinjer.
+Plain Text
+1
+┌───────────────────────────────────────────────────────────────┐
+2
+│ UiA STRATEGISK VIRKSOMHETSOVERSIKT │
+3
+├────────────┬────────────┬────────────┬────────────┬────────────┤
+4
+│ Forecast │ Budsjett │ Avvik │ Studenter │ Årsverk │
+5
+│ 2 073m │ 2 049m │ +1,2 % 🟡 │ 14 636 │ 1 525 │
+6
+├────────────┴────────────┴────────────┴────────────┴────────────┤
+7
+│ │
+8
+│ ØKONOMISK UTVIKLING RISIKOBILDE │
+9
+│ │
+10
+│ Budsjett ─────────────── Økonomi 🟠 │
+11
+│ FC1 ────────────────── Studieportf. 🟡 │
+12
+│ FC2 ───────────────────── Kompetanse 🟢 │
+13
+│ LE ─────────────────────── Eksternfin. 🟠 │
+14
+│ │
+15
+├──────────────────────────────┬────────────────────────────────┤
+16
+│ MÅLOPPNÅELSE │ ØKONOMISKE TILTAK │
+17
+│ │ │
+18
+│ Studenter ↑ │ Identifisert 17,5m │
+19
+│ Studiepoeng → │ Realisert 8,4m │
+20
+│ Gjennomføring ↑ │ Realiseringsgrad 48 % │
+21
+│ Ekstern finansiering ↑ │ Forsinkede tiltak 7 │
+22
+├──────────────────────────────┴────────────────────────────────┤
+23
+│ LEDELSESVURDERING │
+24
+│ "Økonomisk situasjon vurderes som håndterbar, men..." │
+25
+└───────────────────────────────────────────────────────────────┘
+Show more lines
+Her får tekstfeltet Ledelsesvurdering stor betydning. Styret bør ikke måtte tolke dashboardet selv.
+5. Forskningsledelse: NFR / EU / BOA
+Denne siden blir prosjektorientert.
+Plain Text
+1
+┌───────────────────────────────────────────────────────────────┐
+2
+│ FORSKNING OG EKSTERNFINANSIERING │
+3
+├───────────┬──────────┬──────────┬──────────┬──────────────────┤
+4
+│ BOA │ NFR │ EU │ Forecast │ BOA/faglig ÅV │
+5
+│ xx,xm │ xx,xm │ xx,xm │ xx,xm │ xxx xxx │
+6
+├───────────┴──────────┴──────────┴──────────┴──────────────────┤
+7
+│ EKSTERNFINANSIERING OVER TID │
+8
+│ │
+9
+│ NFR ████████████████ │
+10
+│ EU ███████████ │
+11
+│ EVU ██████ │
+12
+├────────────────────────────────┬──────────────────────────────┤
+13
+│ PROSJEKTPORTEFØLJE │ ØKONOMISK RISIKO │
+14
+│ │ │
+15
+│ NFR001 ██████████ 78 % │ 3 prosjekter 🔴 │
+16
+│ EU001 ██████ 54 % │ 4 prosjekter 🟡 │
+17
+│ NFR002 ███ 31 % │ Egenfinansiering xx,xm │
+18
+│ │ │
+19
+├────────────────────────────────┴──────────────────────────────┤
+20
+│ Prosjekt | Budsjett | Actual | Forecast | Rest | Sluttdato │
+21
+└───────────────────────────────────────────────────────────────┘
+Show more lines
+Viktig visual her:
+% prosjektperiode gått vs % budsjett brukt.
+Det er en veldig intuitiv prosjekt-KPI.
+6. Controller Cockpit
+Dette blir den klart mest detaljerte siden.
+Plain Text
+1
+┌────────────────────────────────────────────────────────────────┐
+2
+│ CONTROLLER COCKPIT Latest Estimate │
+3
+├─────────┬─────────┬─────────┬──────────┬─────────┬──────────────┤
+4
+│ FC avvik│ FC feil │ FC conf.│ Røde enh.│ Tiltak │ Forsinket │
+5
+│ +24m │ 3,2 % │ 91 % │ 6 │ 18 │ 4 │
+6
+├─────────┴─────────┴─────────┴──────────┴─────────┴──────────────┤
+7
+│ FORECAST WATERFALL │
+8
+│ │
+9
+│ Actual YTD → Restår FC → Latest Estimate → Tiltak → Restavvik │
+10
+│ │
+11
+├───────────────────────────────┬────────────────────────────────┤
+12
+│ FORECAST ACCURACY │ AVVIKSDRIVERE │
+13
+│ │ │
+14
+│ Fakultet A 98 % 🟢 │ Lønn ██████████ │
+15
+│ Fakultet B 92 % 🟢 │ Prosjekt ██████ │
+16
+│ Fakultet C 81 % 🟠 │ Investering ████ │
+17
+│ Fakultet D 68 % 🔴 │ Drift ███ │
+18
+├───────────────────────────────┴────────────────────────────────┤
+19
+│ ACTION TRACKER │
+20
+│ │
+21
+│ ID Årsak Tiltak Ansvar Effekt Realisert Status │
+22
+│ T01 Bemanning Vakansestyr. Leder -1,8m -0,8m 🟡 │
+23
+│ T02 BOA Oppfølging Leder -1,2m -1,0m 🟢 │
+24
+│ T03 Drift Reduksjon Leder -0,8m 0 🔴 │
+25
+├────────────────────────────────────────────────────────────────┤
+26
+│ DETALJ: Fakultet → Institutt → Koststed → Prosjekt → Konto │
+27
+└────────────────────────────────────────────────────────────────┘
+Show more lines
+Dette er siden du som controller jobber i. De andre sidene er mer det du leverer ut av modellen.
+7. Jeg ville laget denne navigasjonen
+Plain Text
+1
+┌─────────────────────────────────────────────────────────────┐
+2
+│ UiA CONTROLLER │
+3
+│ │
+4
+│ [Executive] [Fakultet] [Institutt] [Forecast] [BOA] │
+5
+│ [Studier] [Tiltak] [Controller Cockpit] │
+6
+└─────────────────────────────────────────────────────────────┘
+Show more lines
+Og globale slicere:
+Plain Text
+1
+År
+2
+Periode
+3
+Forecastversjon
+4
+Fakultet
+5
+Institutt
+Show more lines
+Ikke 15 slicere på hver side. Det gjør dashboardet vanskeligere å bruke.
+Rapporthierarkiet jeg ville valgt
+Side	Primær mottaker	HovedspørsmålExecutive	Universitetsdirektør/rektor	Hvor ender vi og hvorfor?
+Styreoversikt	Styret	Er virksomheten under kontroll?
+Faculty Performance	Dekan	Hvor ligger risiko og muligheter?
+Institute Performance	Instituttleder	Hva må jeg gjøre?
+Forecast	Dekan/controller/økonomiledelse	Hvordan utvikler årsresultatet seg?
+Research & BOA	Forskningsledelse	Hvordan utvikler eksternfinansieringen seg?
+Study Portfolio	Utdannings-/fakultetsledelse	Er aktivitet og ressursbruk bærekraftig?
+Action Tracker	Ledere/controller	Blir tiltakene faktisk gjennomført?
+Controller Cockpit	Controller	Hvor må jeg undersøke nærmere?
+Det fine er at alle disse rapportene kan ligge oppå nøyaktig samme semantic model vi har laget. FactAction gjør at rapporteringen nå også kan følge tiltak fra identifisert avvik til realisert effekt.
+1.csv
+2.csv
+Den samlede modellen med økonomi, budsjett, forecast, bemanning, studieaktivitet og tiltak ligger her: 
+Power BI controller-modell med tiltak.
+Jeg ville særlig prioritert Instituttleder → Dekan → Executive → Controller Cockpit først. De fire sidene dekker etter min vurdering størstedelen av det realistiske controllerbehovet.
+Provide your feedback on BizChat
+You said:
+Controller UIA
+Lag en wireframe for Instituttleder-siden
+Controller UIA said:
+Copilot
+Ja. For instituttlederen ville jeg laget siden som en operativ styringsside, ikke som et regnskapsdashboard. Den skal kunne besvare fire spørsmål på under ett minutt: Hvor står vi? Hvor ender vi? Hvorfor? Hva gjør vi med det?
+Wireframe: Instituttleder
+Plain Text
+1
+┌──────────────────────────────────────────────────────────────────────────────┐
+2
+│ INSTITUTTSTYRING Oktober 2026 │
+3
+│ Institutt: [ Institutt ▼ ] Forecast: [ Latest Estimate ▼ ] │
+4
+│ Periode: [ Oktober ▼ ] Prosjekt: [ Alle ▼ ] │
+5
+├──────────────────────────────────────────────────────────────────────────────┤
+6
+│ │
+7
+│ REGNSKAP YTD AVVIK YTD FORECAST FC-AVVIK ÅRSVERK │
+8
+│ │
+9
+│ 42,1m +2,1m 64,8m +4,8m 48,2 │
+10
+│ +5,3 % 🔴 +8,0 % 🔴 │
+11
+│ │
+12
+├───────────────────────────────────────────────┬──────────────────────────────┤
+13
+│ ØKONOMISK UTVIKLING │ FORECAST BRIDGE │
+14
+│ │ │
+15
+│ MNOK │ Årsbudsjett 60,0m │
+16
+│ 70 ┤ ┄┄┄ Forecast │ Lønn +3,2m │
+17
+│ 60 ┤ ╭────────────── │ BOA-inntekt +1,4m │
+18
+│ 50 ┤ ╭────╯ │ Drift +0,6m │
+19
+│ 40 ┤ ╭────╯ │ Besparelser -0,4m │
+20
+│ 30 ┤ ╭────╯ │ ───────────────────────── │
+21
+│ 20 ┤ ╭────╯ │ Forecast 64,8m │
+22
+│ └──────────────────────────── Jan → Des │ │
+23
+│ Actual Budget Forecast │ │
+24
+├───────────────────────────────────────────────┼──────────────────────────────┤
+25
+│ HVA DRIVER AVVIKET? │ RESSURSER OG AKTIVITET │
+26
+│ │ │
+27
+│ Lønn +3,2m ████████ │ Registrerte studenter 620 │
+28
+│ Prosjektinntekter +1,4m ████ │ Faglige årsverk 34,1 │
+29
+│ Andre driftskostnader +0,6m ██ │ Studenter / faglig ÅV 18,2 │
+30
+│ Reise -0,3m ░ │ SPE60 410 │
+31
+│ │ SPE60 / faglig ÅV 12,0 │
+32
+│ │ Kostnad / SPE60 82 400 │
+33
+├───────────────────────────────────────────────┴──────────────────────────────┤
+34
+│ TILTAKSOPPFØLGING │
+35
+│ │
+36
+│ Tiltak Ansvar Effekt Realisert Frist Status │
+37
+│ ─────────────────────────────────────────────────────────────────────────── │
+38
+│ Vakansestyring Instituttleder -1,8m -0,8m 31.10 🟡 │
+39
+│ Prosjektoppfølging Prosjektleder -1,2m -1,0m 30.11 🟢 │
+40
+│ Kostnadsreduksjon Instituttleder -0,6m 0,0m 15.12 🔴 │
+41
+│ │
+42
+│ Forventet effekt: -3,6m Realisert: -1,8m Realiseringsgrad: 50 % │
+43
+├──────────────────────────────────────────────────────────────────────────────┤
+44
+│ FORECAST ETTER TILTAK │
+45
+│ │
+46
+│ Forecast Tiltak Etter tiltak Restavvik │
+47
+│ 64,8m + -3,6m = 61,2m +1,2m 🟡 │
+48
+└──────────────────────────────────────────────────────────────────────────────┘
+Show more lines
+1. Øverste rad: kun 5 KPI-er
+Instituttlederen trenger ikke 15 kort.
+Jeg ville prioritert:
+Regnskap YTD
+Avvik YTD
+Forecast
+Forecastavvik
+Årsverk
+Forecastavviket bør være mest visuelt fremtredende, fordi det svarer på det viktigste spørsmålet:
+Hvor forventer vi faktisk å ende ved årsslutt?
+2. Økonomisk utvikling
+Dette ville vært et kombinasjonsdiagram med:
+Actual
+Budget
+Forecast
+X-akse:
+Jan → Des
+Y-akse:
+MNOK
+Actual stopper ved siste regnskapsperiode. Forecast fortsetter derfra.
+Dermed ser instituttlederen intuitivt:
+Plain Text
+1
+Actual ───────────────┐
+2
+└ ┄ ┄ ┄ Forecast
+3
+Budget ───────────────────────────────
+Show more lines
+Det er langt mer informativt enn bare et YTD-avvik.
+3. Forecast Bridge
+Denne visualen forklarer hvorfor prognosen avviker.
+Eksempel:
+Plain Text
+1
+Årsbudsjett 60,0m
+2
+│
+3
+Lønn +3,2m
+4
+│
+5
+Lavere prosjektinntekter +1,4m
+6
+│
+7
+Andre kostnader +0,6m
+8
+│
+9
+Besparelser -0,4m
+10
+▼
+11
+Forecast 64,8m
+12
+ 
+Show more lines
+Jeg ville brukt et waterfall chart til dette.
+Dette er etter min mening en av de viktigste visualene på siden.
+4. Ressurser og aktivitet
+Ikke ha et nytt sett med store KPI-kort her. Bruk heller en kompakt tabell:
+KPI	Nå	Mot planRegistrerte studenter	620	-3,2 %
+Faglige årsverk	34,1	+2,1 %
+Studenter / faglig ÅV	18,2	-5,0 %
+SPE60	410	-4,4 %
+SPE60 / faglig ÅV	12,0	-6,1 %
+Kostnad / SPE60	82 400	+8,3 %
+Her begynner instituttlederen å forstå sammenhengen:
+Studentaktiviteten faller samtidig som bemanningen øker.
+Det er mye mer styringsrelevant enn å se kostnadsavviket isolert.
+5. Avviksdrivere
+Jeg ville laget en horisontal stolpegraf:
+Plain Text
+1
+Lønn +3,2m ███████████████
+2
+Prosjektinntekter +1,4m ███████
+3
+Andre kostnader +0,6m ███
+4
+Reise -0,3m ██
+Show more lines
+Klikk på Lønn bør kunne filtrere resten av siden, eller åpne drill-through til:
+Plain Text
+1
+Lønn
+2
+↓
+3
+Stillingsgruppe
+4
+↓
+5
+Koststed
+6
+↓
+7
+Måned
+8
+↓
+9
+Konto
+Show more lines
+6. Tiltaksoppfølging
+Her bruker vi FactAction som vi nettopp la inn i modellen. Den inneholder blant annet tiltak, årsak, ansvarlig rolle, forventet og realisert effekt, status og prioritet.
+1.csv
+Jeg ville brukt en matrise:
+Plain Text
+1
+Tiltak
+2
+Ansvarlig
+3
+Forventet effekt
+4
+Realisert effekt
+5
+Frist
+6
+Status
+Show more lines
+Og lagt tre KPI-er rett over tabellen:
+Plain Text
+1
+Åpne tiltak Forventet effekt Realisert effekt
+2
+4 -3,6m -1,8m
+Show more lines
+DAX-målingene for dette ligger allerede i Action_Measures.dax.
+2.dax
+7. Den nederste ligningen er viktig
+Jeg ville avsluttet hele siden med:
+Plain Text
+1
+FORECAST
+2
+64,8m
+3
+ 
+4
++
+5
+ 
+6
+IDENTIFISERTE TILTAK
+7
+-3,6m
+8
+ 
+9
+=
+10
+ 
+11
+FORECAST ETTER TILTAK
+12
+61,2m
+13
+ 
+14
+→
+15
+ 
+16
+RESTAVVIK
+17
++1,2m
+Show more lines
+På denne måten ender ikke samtalen med:
+"Vi har et problem på 4,8 millioner."
+Den ender med:
+"Vi har et forecastavvik på 4,8 millioner. Vi har identifisert tiltak for 3,6 millioner, hvorav 1,8 millioner allerede er realisert. Gjenværende forventet avvik etter tiltak er 1,2 millioner."
+Det er en helt annen type lederdialog.
+Drill-through fra siden
+Jeg ville hatt høyreklikk/drill-through til fire undersider:
+Lønn og bemanning
+Institutt → stillingsgruppe → utvikling årsverk → lønn
+Prosjekt
+Institutt → prosjekt → Actual → Budget → Forecast
+Økonomidetalj
+SRS-linje → konto → koststed → bilag
+Tiltak
+Avviksårsak → tiltak → ansvarlig → effekt → status
+Da holder Instituttleder-siden seg enkel, mens detaljene fortsatt bare er ett klikk unna.
+Den komplette datamodellen med FactAction og de 23 definerte relasjonene ligger i modellpakken vi bygget.
+3.csv
+4.zip
+Provide your feedback on BizChat
+You said:
+Controller UIA
+Lag Power BI-spesifikasjon for visualene og detaljert drill-through
+Controller UIA said:
+Copilot
+Ja. For Instituttleder-siden ville jeg spesifisert Power BI-rapporten ganske stramt, slik at den fungerer både i månedlig oppfølging og i dialog mellom controller og instituttleder. Under får du en konkret byggespesifikasjon med visualtype, felter, DAX-mål, interaksjoner og drill-through.
+1. Sideoppsett
+Side: 01 Instituttstyring
+ Format: 16:9, 1280 × 720
+ Primær bruker: Instituttleder
+ Sekundær bruker: Controller, dekan
+Globale slicere
+Øverst:
+Slicer	Felt	InnstillingInstitutt	DimOrganization[Instituttnavn]	Single select
+Periode	DimDate[AarMaaned]	Single select
+Forecast	DimForecastVersion[Versjonsnavn]	Single select
+Prosjekt	DimProject[Prosjektnavn]	Optional
+Jeg ville synkronisert Institutt, Periode og Forecast på de relevante undersidene.
+2. KPI-raden
+Fem Card visuals:
+KPI 1: Regnskap YTD
+Measure
+DAX
+1
+Regnskap YTD
+Show more lines
+Undertittel:
+Plain Text
+1
+Faktisk hittil i år
+Show more lines
+Tooltip:
+Regnskap YTD
+Budsjett YTD
+Avvik YTD
+Avvik YTD %
+KPI 2: Avvik YTD
+Callout:
+DAX
+1
+Avvik YTD
+Show more lines
+Reference label:
+DAX
+1
+Avvik YTD %
+Show more lines
+Betinget farge:
+Plain Text
+1
+> +5 % Rød
+2
++2 til +5 % Gul
+3
+-2 til +2 % Grønn
+4
+< -2 % Blå
+Show more lines
+Dette forutsetter at positivt avvik representerer høyere kostnad enn budsjett i den aktuelle visningen.
+KPI 3: Forecast
+DAX
+1
+Forecast årsbeløp
+Show more lines
+Undertittel:
+Plain Text
+1
+Forventet helår
+Show more lines
+Tooltip:
+Plain Text
+1
+FC1
+2
+FC2
+3
+Latest Estimate
+4
+Endring FC2 → LE
+Show more lines
+KPI 4: Forecastavvik
+DAX
+1
+Forecastavvik
+Show more lines
+Reference label:
+DAX
+1
+Forecastavvik %
+Show more lines
+Farge:
+DAX
+1
+Forecast status farge
+Show more lines
+Dette brukes med conditional formatting → Callout value/color.
+KPI 5: Årsverk
+DAX
+1
+Årsverk
+Show more lines
+Reference label:
+DAX
+1
+Faglige årsverk
+Show more lines
+Tooltip:
+vitenskapelige årsverk
+teknisk/administrative årsverk
+faglige årsverk
+lønn per årsverk
+3. Visual: Actual / Budget / Forecast
+Visualtype: Line chart
+X-axis
+Plain Text
+1
+DimDate[AarMaaned]
+Show more lines
+Values
+DAX
+1
+Regnskap
+2
+Budsjett
+3
+Gjeldende forecast
+Show more lines
+Jeg ville brukt:
+Actual: solid mørk linje
+Budget: grå linje
+Forecast: blå stiplet linje
+Viktig
+Dette bør vise månedstall, ikke YTD-tall.
+Tooltip:
+Plain Text
+1
+Måned
+2
+Actual
+3
+Budget
+4
+Avvik
+5
+Forecast
+6
+Forecast vs Budget
+Show more lines
+Interaksjon
+Klikk på en måned skal filtrere:
+avviksdriverne
+tiltakstabellen
+ressurs-/aktivitetsvisualet
+Men ikke KPI-kortene for helårsforecast, ellers blir årsforecasten feilaktig begrenset til valgt måned.
+Bruk derfor:
+Format → Edit interactions → None på Forecast-kortet og årsbudsjettkortet.
+4. Visual: Forecast Bridge
+Dette er en av de viktigste visualene.
+Visualtype: Waterfall chart
+Den bør konceptuelt vise:
+Plain Text
+1
+Årsbudsjett
+2
+↓
+3
+Lønnsavvik
+4
+↓
+5
+BOA / inntektsavvik
+6
+↓
+7
+Driftskostnadsavvik
+8
+↓
+9
+Andre forhold
+10
+↓
+11
+Forecast
+Show more lines
+For eksempel:
+Plain Text
+1
+60,0m
+2
++3,2m lønn
+3
++1,4m inntektssvikt
+4
++0,6m drift
+5
+-0,4m andre forhold
+6
+────────────────
+7
+64,8m Forecast
+Show more lines
+DAX
+Lag separate measures:
+DAX
+1
+Forecast lønnsavvik =
+2
+VAR _Budget =
+3
+CALCULATE (
+4
+[Årsbudsjett],
+5
+DimAccount[SRS_regnskapslinje] = "Lonnskostnader"
+6
+)
+7
+RETURN
+8
+[Forecast lønn] - _Budget
+Show more lines
+Tilsvarende for andre driftskostnader og inntekter.
+For en produksjonsmodell ville jeg etter hvert vurdert en egen liten DimVarianceDriver for å gjøre waterfall-logikken mer elegant.
+5. Visual: Avviksdrivere
+Visualtype: Clustered bar chart
+Y-axis
+Plain Text
+1
+DimAccount[SRS_regnskapslinje]
+Show more lines
+Eventuelt drillhierarki:
+Plain Text
+1
+SRS_regnskapslinje
+2
+↓
+3
+Kontonavn
+4
+↓
+5
+Konto
+Show more lines
+X-axis
+DAX
+1
+Forecastavvik
+Show more lines
+Sortering
+Descending etter:
+DAX
+1
+ABS ( Forecastavvik )
+Show more lines
+Mål gjerne:
+DAX
+1
+Absolutt forecastavvik =
+2
+ABS ( [Forecastavvik
+Show more lines
+Conditional formatting
+Positivt kostnadsavvik:
+rødt
+Negativt kostnadsavvik:
+grønt/blått
+Drill-down
+Brukeren skal kunne gå:
+Plain Text
+1
+Lønnskostnader
+2
+↓
+3
+Fast lønn
+4
+↓
+5
+Konto 5000
+Show more lines
+Derfra skal høyreklikk gi:
+Drill through → Økonomidetalj
+6. Ressurser og aktivitet
+Her ville jeg brukt en Matrix, ikke seks separate kort.
+Rows
+Plain Text
+1
+KPI
+Show more lines
+Her er en disconnected KPI-tabell ideell.
+Eksempel:
+DAX
+1
+DimInstituteKPI =
+2
+DATATABLE (
+3
+"KPI", STRING,
+4
+"Sort", INTEGER,
+5
+{
+6
+{ "Registrerte studenter", 1 },
+7
+{ "Faglige årsverk", 2 },
+8
+{ "Studenter / faglig ÅV", 3 },
+9
+{ "SPE60", 4 },
+10
+{ "SPE60 / faglig ÅV", 5 },
+11
+{ "Kostnad / SPE60", 6 },
+12
+{ "BOA / faglig ÅV", 7 }
+13
+}
+14
+)
+Show more lines
+Deretter:
+DAX
+1
+Institutt KPI verdi =
+2
+SWITCH (
+3
+SELECTEDVALUE ( DimInstituteKPI[KPI] ),
+4
+"Registrerte studenter", [Registrerte studenter],
+5
+"Faglige årsverk", [Faglige årsverk],
+6
+"Studenter / faglig ÅV", [Studenter per faglig årsverk],
+7
+"SPE60", [SPE60],
+8
+"SPE60 / faglig ÅV", [SPE60 per faglig årsverk],
+9
+"Kostnad / SPE60", [Kostnad per SPE60],
+10
+"BOA / faglig ÅV", [BOA per faglig årsverk]
+11
+)
+Show more lines
+Matrix:
+Plain Text
+1
+KPI Verdi
+2
+────────────────────────────────
+3
+Registrerte studenter 620
+4
+Faglige årsverk 34,1
+5
+Studenter / faglig ÅV 18,2
+6
+SPE60 410
+7
+SPE60 / faglig ÅV 12,0
+8
+Kostnad / SPE60 82 400
+9
+BOA / faglig ÅV xxx xxx
+Show more lines
+7. Action Tracker
+Dette bruker FactAction direkte. FactAction.csv har tiltak, avviksårsak, ansvarlig rolle, forventet/realisert effekt, frist, status, sannsynlighet og prioritet.
+1.csv
+Visualtype: Table
+Columns
+Plain Text
+1
+FactAction[TiltakID]
+2
+ 
+3
+FactAction[Tiltaksbeskrivelse]
+4
+ 
+5
+FactAction[AnsvarligRolle]
+6
+ 
+7
+FactAction[ForventetEffekt]
+8
+ 
+9
+FactAction[RealisertEffekt]
+10
+ 
+11
+FactAction[FristDatoNokkel]
+12
+ 
+13
+FactAction[Status]
+Show more lines
+Conditional formatting
+Status
+Plain Text
+1
+Gjennomført Grønn
+2
+Pågår Gul
+3
+Forsinket Rød
+4
+Planlagt Blå/grå
+Show more lines
+Frist
+Rødt dersom:
+Plain Text
+1
+Frist < dagens/rapportdato
+2
+AND
+3
+Status <>
+Show more lines
+Action-dimensjonen har egne statusverdier og lukketindikator.
+2.csv
+8. Tiltakskort
+Over Action Tracker:
+Åpne tiltak
+DAX
+1
+Åpne tiltak
+Show more lines
+Forventet effekt
+DAX
+1
+Forventet tiltakseffekt
+Show more lines
+Realisert effekt
+DAX
+1
+Realisert tiltakseffekt
+Show more lines
+Realiseringsgrad
+DAX
+1
+Tiltak realiseringsgrad %
+Show more lines
+Disse målene ligger også i tiltakspakken.
+3.dax
+9. Bottom line: Etter tiltak
+Jeg ville viet nederste stripe av siden til fire kort:
+Plain Text
+1
+┌──────────────┐ ┌──────────────┐
+2
+│ FORECAST │ │ TILTAK │
+3
+│ 64,8m │ + │ -3,6m │
+4
+└──────────────┘ └──────────────┘
+5
+ 
+6
+↓
+7
+ 
+8
+┌──────────────────┐ ┌──────────────────┐
+9
+│ ETTER TILTAK │ │ RESTAVVIK │
+10
+│ 61,2m │ │ +1,2m 🟡 │
+11
+└──────────────────┘ └──────────────────┘
+Show more lines
+Measures:
+DAX
+1
+Forecast årsbeløp
+2
+ 
+3
+Forventet tiltakseffekt
+4
+ 
+5
+Forecast etter controller-tiltak
+6
+ 
+7
+Restavvik etter tiltak
+Show more lines
+Dette er den viktigste styringskonklusjonen på siden.
+Drill-through 1: Økonomidetalj
+Sidenavn: DT Økonomidetalj
+Drill-through fields
+Plain Text
+1
+DimOrganization[Organisasjonsnokkel]
+2
+DimAccount[SRS_regnskapslinje]
+Show more lines
+Hold all filters:
+On
+Layout
+Plain Text
+1
+┌───────────────────────────────────────────────────────────────┐
+2
+│ ØKONOMIDETALJ │
+3
+│ Institutt: X │ SRS-linje: Lønn │ Periode: Jan-Okt │
+4
+├──────────┬──────────┬──────────┬──────────┬───────────────────┤
+5
+│ Actual │ Budget │ Avvik │ Forecast │ Forecastavvik │
+6
+├──────────┴──────────┴──────────┴──────────┴───────────────────┤
+7
+│ Månedlig utvikling │
+8
+├─────────────────────────────┬─────────────────────────────────┤
+9
+│ Konto │ Koststed │
+10
+│ 5000 Fast lønn +2,1m │ Koststed A +1,3m │
+11
+│ 5090 Feriepenger +0,6m │ Koststed B +0,8m │
+12
+│ 5400 AGA +0,4m │ Koststed C +0,5m │
+13
+├─────────────────────────────┴─────────────────────────────────┤
+14
+│ BILAGSDETALJ │
+15
+│ Dato | Bilag | Konto | Prosjekt | Tekst | Debet | Kredit │
+16
+└───────────────────────────────────────────────────────────────┘
+Show more lines
+Bilagstabellen
+Fields fra FactGL:
+Plain Text
+1
+DatoNokkel
+2
+Bilag
+3
+Konto
+4
+Prosjekt
+5
+Tekst
+6
+Debet
+7
+Kredit
+8
+Belop_signert
+Show more lines
+Dette er det laveste økonomiske detaljnivået i modellen.
+4.csv
+Drill-through 2: Lønn og bemanning
+Sidenavn: DT Bemanning
+Drill-through field
+Plain Text
+1
+DimOrganization[Organisasjonsnokkel]
+Show more lines
+Visualer
+KPI
+Plain Text
+1
+Årsverk
+2
+Faglige årsverk
+3
+Lønn YTD
+4
+Forecast lønn
+5
+Forecast lønnsavvik
+6
+Lønn per årsverk
+Show more lines
+Line chart
+X:
+Plain Text
+1
+DimDate[AarMaaned]
+Show more lines
+Values:
+Plain Text
+1
+Årsverk
+2
+Faglige årsverk
+Show more lines
+Bar chart
+Axis:
+Plain Text
+1
+DimPositionGroup[Stillingsgruppenavn]
+Show more lines
+Value:
+DAX
+1
+Årsverk
+Show more lines
+Matrix
+Plain Text
+1
+Stillingskategori
+2
+↓
+3
+Stillingsgruppenavn
+Show more lines
+med:
+Plain Text
+1
+Årsverk
+2
+Faglige årsverk
+3
+Lønn
+4
+Forecast lønn
+Show more lines
+Bemanningsfakta ligger i FactFTE.
+5.csv
+Drill-through 3: Prosjektdetalj
+Sidenavn: DT Prosjekt
+Drill-through fields
+Plain Text
+1
+DimOrganization[Organisasjonsnokkel]
+2
+DimProject[Prosjekt]
+Show more lines
+Header
+Plain Text
+1
+Prosjektnavn
+2
+Finansieringskilde
+3
+Finansieringstype
+4
+Startår
+5
+Sluttår
+Show more lines
+Dette kommer fra DimProject.
+6.csv
+KPI-kort
+Plain Text
+1
+Prosjektbudsjett
+2
+Actual
+3
+Forecast
+4
+Forecastavvik
+Show more lines
+Graf
+Plain Text
+1
+Actual │ Budget │ Forecast
+2
+Jan → Des
+Show more lines
+Prosjektbruk
+Jeg ville hatt en gauge/bullet-lignende visualisering:
+Plain Text
+1
+Budsjett brukt 67 %
+2
+Prosjektperiode gått 82 %
+Show more lines
+Som gir et enkelt kontrollsignal:
+Plain Text
+1
+82 % tid brukt
+2
+67 % penger brukt
+3
+→ aktivitet ligger etter tidsplan
+Show more lines
+Drill-through 4: Tiltaksdetalj
+Sidenavn: DT Tiltak
+Drill-through field
+Plain Text
+1
+FactAction[TiltakID]
+Show more lines
+Layout
+Plain Text
+1
+┌──────────────────────────────────────────────────────────────┐
+2
+│ TILTAK T014 │
+3
+├────────────────────────────┬─────────────────────────────────┤
+4
+│ Avviksårsak │ Høyere bemanning enn plan │
+5
+│ Tiltak │ Vakansestyring │
+6
+│ Ansvarlig │ Instituttleder │
+7
+│ Status │ Pågår │
+8
+│ Prioritet │ Høy │
+9
+│ Frist │ 31.10.26 │
+10
+├────────────────────────────┴─────────────────────────────────┤
+11
+│ │
+12
+│ Forventet effekt Realisert effekt Gjenstående │
+13
+│ -1,8m -0,8m -1,0m │
+14
+│ │
+15
+├──────────────────────────────────────────────────────────────┤
+16
+│ REALISERING │
+17
+│ │
+18
+│ 0% ─────────────── 44 % ───────────────────────────── 100% │
+19
+│ │
+20
+├──────────────────────────────────────────────────────────────┤
+21
+│ Kommentar / siste oppdatering │
+22
+└──────────────────────────────────────────────────────────────┘
+Show more lines
+Drill-through 5: Studieaktivitet
+Sidenavn: DT Studieaktivitet
+Dette er nyttig hvis instituttlederen klikker på eksempelvis lav studiepoengproduksjon.
+Drill-through
+Plain Text
+1
+DimOrganization[Organisasjonsnokkel]
+2
+DimStudyProgram[Studieprogram]
+Show more lines
+Visualer
+KPI:
+Plain Text
+1
+Registrerte studenter
+2
+Planlagte studiepoeng
+3
+Avlagte studiepoeng
+4
+SPE60
+5
+Studiepoeng måloppnåelse %
+Show more lines
+Matrix:
+Plain Text
+1
+Studienivå
+2
+↓
+3
+Studieprogram
+Show more lines
+Values:
+Plain Text
+1
+Studenter
+2
+Planlagte studiepoeng
+3
+Avlagte studiepoeng
+4
+SPE60
+Show more lines
+Scatter plot:
+X-axis
+DAX
+1
+Registrerte studenter
+Show more lines
+Y-axis
+DAX
+1
+Kostnad per SPE60
+Show more lines
+Size
+DAX
+1
+SPE60
+Show more lines
+Details
+Plain Text
+1
+Studieprogram
+Show more lines
+Denne kan være veldig interessant for identifisering av små/dyre aktiviteter.
+Studieaktiviteten kommer fra FactStudyPoints.
+7.csv
+Drill-through-strukturen samlet
+Plain Text
+1
+INSTITUTTLEDER
+2
+│
+3
+┌───────────────┼────────────────┐
+4
+│ │ │
+5
+Økonomi Bemanning Prosjekt
+6
+│ │ │
+7
+SRS-linje Stillingsgruppe Prosjekt
+8
+│ │ │
+9
+Konto Årsverk Finansiering
+10
+│
+11
+Bilag
+12
+ 
+13
+ 
+14
+INSTITUTTLEDER
+15
+│
+16
+┌───────┴───────┐
+17
+│ │
+18
+Tiltak Studier
+19
+│ │
+20
+Avviksårsak Studieprogram
+21
+│ │
+22
+Ansvarlig Aktivitet
+23
+│ │
+24
+Effekt Kostnad/SPE
+Show more lines
+Viktig UX-regel
+På Instituttleder-siden bruker jeg drill-down innenfor et visual når vi beveger oss nedover i samme hierarki, eksempelvis:
+SRS-linje → konto.
+Jeg bruker drill-through når brukeren trenger et annet analyseperspektiv og en egen detaljside, eksempelvis:
+Forecastavvik → Økonomidetalj
+ Årsverk → Bemanning
+ Prosjekt → Prosjektdetalj
+ Tiltak → Tiltaksdetalj.
+Det holder hovedsiden ryddig samtidig som controlleren og instituttlederen kan gå helt ned til bilagsnivå ved behov.
+

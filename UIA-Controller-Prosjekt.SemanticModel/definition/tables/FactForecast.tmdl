@@ -3,74 +3,66 @@ table FactForecast
 
 	column DatoNokkel
 		dataType: int64
-		lineageTag: bc8ead9d-1794-4cc3-b422-89d643e921b3
+		lineageTag: f0000003-0000-0000-0000-000000000002
 		summarizeBy: none
 		sourceColumn: DatoNokkel
 
 	column Organisasjonsnokkel
-		dataType: int64
-		lineageTag: 4e40f054-9ceb-448d-87f5-d1414911cbde
+		dataType: string
+		lineageTag: f0000003-0000-0000-0000-000000000003
 		summarizeBy: none
 		sourceColumn: Organisasjonsnokkel
 
 	column Konto
 		dataType: int64
-		lineageTag: a58e440f-2812-43af-9ed9-9decdff00116
+		lineageTag: f0000003-0000-0000-0000-000000000004
 		summarizeBy: none
 		sourceColumn: Konto
 
 	column Prosjekt
 		dataType: string
-		lineageTag: 8bc9963d-a70b-40ac-8e64-8a950518f1ad
+		lineageTag: f0000003-0000-0000-0000-000000000005
 		summarizeBy: none
 		sourceColumn: Prosjekt
 
 	column Versjon
 		dataType: string
-		lineageTag: 8ee55a2a-4cbf-4230-863b-4ae9c5102a52
+		lineageTag: f0000003-0000-0000-0000-000000000006
 		summarizeBy: none
 		sourceColumn: Versjon
 
 	column ForecastBelop
-		dataType: double
+		dataType: decimal
 		formatString: #,##0.00
-		lineageTag: f3990d51-a0c6-4e0b-bfe8-2badf34078a8
+		lineageTag: f0000003-0000-0000-0000-000000000007
 		summarizeBy: sum
 		sourceColumn: ForecastBelop
 
 	column Datastatus
 		dataType: string
-		lineageTag: 042947a6-78fe-4adf-b98f-3f68c6a836be
+		lineageTag: f0000003-0000-0000-0000-000000000008
 		summarizeBy: none
 		sourceColumn: Datastatus
 
 	column Sannsynlighet
 		dataType: double
 		formatString: 0.0%
-		lineageTag: 7f7ef2de-c202-477f-8f76-941e0637c9e1
+		lineageTag: f0000003-0000-0000-0000-000000000009
 		summarizeBy: average
 		sourceColumn: Sannsynlighet
 
 	column Kommentar
 		dataType: string
-		lineageTag: 2293f0fb-b8d4-4921-befe-41116afc44b1
+		lineageTag: f0000003-0000-0000-0000-000000000010
 		summarizeBy: none
 		sourceColumn: Kommentar
-
-	column Tiltakseffekt
-		dataType: double
-		formatString: #,##0.00
-		lineageTag: a43ffa0b-93b1-4a1e-bc0a-23c31220cb1e
-		summarizeBy: sum
-		sourceColumn: Tiltakseffekt
 
 	partition FactForecast = m
 		mode: import
 		source =
 				let
-				    Source = Csv.Document(File.Contents(DataFolder & "FactForecast.csv"), [Delimiter=";", Columns=10, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    Source = Csv.Document(File.Contents(DataFolder & "FactForecast.csv"), [Delimiter=";", Columns=9, Encoding=65001, QuoteStyle=QuoteStyle.None]),
 				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
-				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"DatoNokkel", Int64.Type}, {"Organisasjonsnokkel", Int64.Type}, {"Konto", Int64.Type}, {"Prosjekt", type text}, {"Versjon", type text}, {"ForecastBelop", type number}, {"Datastatus", type text}, {"Sannsynlighet", type number}, {"Kommentar", type text}, {"Tiltakseffekt", type number}})
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"DatoNokkel", Int64.Type}, {"Organisasjonsnokkel", type text}, {"Konto", Int64.Type}, {"Prosjekt", type text}, {"Versjon", type text}, {"ForecastBelop", Currency.Type}, {"Datastatus", type text}, {"Sannsynlighet", type number}, {"Kommentar", type text}})
 				in
 				    #"Changed Type"
-

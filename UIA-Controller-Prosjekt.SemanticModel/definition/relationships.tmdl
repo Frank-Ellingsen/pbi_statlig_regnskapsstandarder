@@ -31,46 +31,57 @@ relationship 00000001-0000-0000-0000-000000000008
 	toColumn: DimProject.Prosjekt
 
 relationship 00000001-0000-0000-0000-000000000009
-	fromColumn: FactFTE.DatoNokkel
-	toColumn: DimDate.DatoNokkel
-
-relationship 00000001-0000-0000-0000-000000000010
-	fromColumn: FactFTE.Organisasjonsnokkel
-	toColumn: DimOrganization.Organisasjonsnokkel
-
-relationship 00000001-0000-0000-0000-000000000011
-	fromColumn: FactFTE.Stillingsgruppe
-	toColumn: DimPositionGroup.Stillingsgruppe
-
-relationship 00000001-0000-0000-0000-000000000012
-	fromColumn: FactStudyPoints.DatoNokkel
-	toColumn: DimDate.DatoNokkel
-
-relationship 00000001-0000-0000-0000-000000000013
-	fromColumn: FactStudyPoints.Organisasjonsnokkel
-	toColumn: DimOrganization.Organisasjonsnokkel
-
-relationship 00000001-0000-0000-0000-000000000014
-	fromColumn: FactStudyPoints.Studieprogram
-	toColumn: DimStudyProgram.Studieprogram
-
-relationship 00000001-0000-0000-0000-000000000015
 	fromColumn: FactForecast.DatoNokkel
 	toColumn: DimDate.DatoNokkel
 
-relationship 00000001-0000-0000-0000-000000000016
+relationship 00000001-0000-0000-0000-000000000010
 	fromColumn: FactForecast.Organisasjonsnokkel
 	toColumn: DimOrganization.Organisasjonsnokkel
 
-relationship 00000001-0000-0000-0000-000000000017
+relationship 00000001-0000-0000-0000-000000000011
 	fromColumn: FactForecast.Konto
 	toColumn: DimAccount.Konto
 
-relationship 00000001-0000-0000-0000-000000000018
+relationship 00000001-0000-0000-0000-000000000012
 	fromColumn: FactForecast.Prosjekt
 	toColumn: DimProject.Prosjekt
 
-relationship 00000001-0000-0000-0000-000000000019
+relationship 00000001-0000-0000-0000-000000000013
 	fromColumn: FactForecast.Versjon
 	toColumn: DimForecastVersion.Versjon
 
+relationship 00000001-0000-0000-0000-000000000014
+	fromColumn: FactFTE.DatoNokkel
+	toColumn: DimDate.DatoNokkel
+
+relationship 00000001-0000-0000-0000-000000000015
+	fromColumn: FactFTE.Organisasjonsnokkel
+	toColumn: DimOrganization.Organisasjonsnokkel
+
+relationship 00000001-0000-0000-0000-000000000016
+	fromColumn: FactFTE.Stillingsgruppe
+	toColumn: DimPositionGroup.Stillingsgruppe
+
+relationship 00000001-0000-0000-0000-000000000017
+	fromColumn: FactStudyPoints.DatoNokkel
+	toColumn: DimDate.DatoNokkel
+
+relationship 00000001-0000-0000-0000-000000000018
+	fromColumn: FactStudyPoints.Organisasjonsnokkel
+	toColumn: DimOrganization.Organisasjonsnokkel
+
+relationship 00000001-0000-0000-0000-000000000019
+	fromColumn: FactStudyPoints.Studieprogram
+	toColumn: DimStudyProgram.Studieprogram
+
+relationship 00000001-0000-0000-0000-000000000020
+	fromColumn: FactAction.Organisasjonsnokkel
+	toColumn: DimOrganization.Organisasjonsnokkel
+
+relationship 00000001-0000-0000-0000-000000000021
+	fromColumn: FactAction.Konto
+	toColumn: DimAccount.Konto
+
+relationship 00000001-0000-0000-0000-000000000022
+	fromColumn: FactAction.Prosjekt
+	toColumn: DimProject.Prosjekt

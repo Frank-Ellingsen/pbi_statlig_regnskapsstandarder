@@ -1,0 +1,17 @@
+﻿TiltakID;Organisasjonsnokkel;Prosjekt;Konto;Avviksarsak;Tiltaksbeskrivelse;AnsvarligRolle;StartDatoNokkel;FristDatoNokkel;ForventetEffekt;RealisertEffekt;Status;Prioritet;Sannsynlighet
+T001;I001K1;DRIFT;5000;Hoyere driftskostnader;Reforhandle innkjop;Instituttleder;20260901;20261215;-855000;-512578.02;Forsinket;Hoy;0.76
+T002;I002K1;DRIFT;5000;Lavere eksterninntekt;Reforhandle innkjop;Instituttleder;20260901;20261215;-662000;-371503.34;Planlagt;Hoy;0.83
+T003;I003K1;DRIFT;5000;Bemanning over plan;Vakansestyring;Instituttleder;20260901;20261215;-774000;-289014.81;Forsinket;Middels;0.74
+T004;I004K1;DRIFT;5000;Hoyere driftskostnader;Reforhandle innkjop;Instituttleder;20260901;20261215;-244000;-155453.53;Gjennomfort;Middels;0.9
+T005;I005K1;DRIFT;5000;Bemanning over plan;Vakansestyring;Instituttleder;20260901;20261215;-647000;-198703.79;Forsinket;Hoy;0.91
+T006;I006K1;DRIFT;5000;Hoyere driftskostnader;Aktiv prosjektoppfolging;Instituttleder;20260901;20261215;-675000;-383727.31;Pagar;Hoy;0.76
+T007;I007K1;DRIFT;5000;Lavere eksterninntekt;Reforhandle innkjop;Instituttleder;20260901;20261215;-723000;-565012.46;Planlagt;Hoy;0.72
+T008;I008K1;DRIFT;5000;Bemanning over plan;Vakansestyring;Instituttleder;20260901;20261215;-294000;-194983.37;Gjennomfort;Middels;0.89
+T009;I009K1;DRIFT;5000;Bemanning over plan;Reforhandle innkjop;Instituttleder;20260901;20261215;-289000;-128220.68;Forsinket;Hoy;0.94
+T010;I010K1;DRIFT;5000;Bemanning over plan;Aktiv prosjektoppfolging;Instituttleder;20260901;20261215;-752000;-425904.69;Pagar;Middels;0.9
+T011;I011K1;DRIFT;5000;Hoyere driftskostnader;Vakansestyring;Instituttleder;20260901;20261215;-873000;-696226.86;Pagar;Middels;0.9
+T012;I012K1;DRIFT;5000;Bemanning over plan;Vakansestyring;Instituttleder;20260901;20261215;-569000;-367296.51;Planlagt;Middels;0.93
+T013;I013K1;DRIFT;5000;Hoyere driftskostnader;Reforhandle innkjop;Instituttleder;20260901;20261215;-379000;-156395.37;Pagar;Hoy;0.87
+T014;I014K1;DRIFT;5000;Lavere eksterninntekt;Aktiv prosjektoppfolging;Instituttleder;20260901;20261215;-900000;-322008.17;Pagar;Middels;0.93
+T015;I015K1;DRIFT;5000;Lavere eksterninntekt;Aktiv prosjektoppfolging;Instituttleder;20260901;20261215;-417000;-267816.11;Gjennomfort;Middels;0.71
+T016;I016K1;DRIFT;5000;Hoyere driftskostnader;Vakansestyring;Instituttleder;20260901;20261215;-952000;-527236.64;Gjennomfort;Hoy;0.81

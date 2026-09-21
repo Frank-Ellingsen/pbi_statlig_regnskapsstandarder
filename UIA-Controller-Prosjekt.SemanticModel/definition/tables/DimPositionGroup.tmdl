@@ -4,19 +4,19 @@ table DimPositionGroup
 	column Stillingsgruppe
 		dataType: string
 		isKey
-		lineageTag: bfef5c6b-6133-4995-908d-2424e5ae0d8b
+		lineageTag: d0000006-0000-0000-0000-000000000002
 		summarizeBy: none
 		sourceColumn: Stillingsgruppe
 
 	column Stillingsgruppenavn
 		dataType: string
-		lineageTag: 363dcaa8-8179-4927-9343-31e71b0fac94
+		lineageTag: d0000006-0000-0000-0000-000000000003
 		summarizeBy: none
 		sourceColumn: Stillingsgruppenavn
 
 	column Stillingskategori
 		dataType: string
-		lineageTag: f64c7856-6c66-41e6-925a-a59a7f67d51a
+		lineageTag: d0000006-0000-0000-0000-000000000004
 		summarizeBy: none
 		sourceColumn: Stillingskategori
 
@@ -29,4 +29,3 @@ table DimPositionGroup
 				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Stillingsgruppe", type text}, {"Stillingsgruppenavn", type text}, {"Stillingskategori", type text}})
 				in
 				    #"Changed Type"
-

@@ -1,6 +1,6 @@
 ﻿Stillingsgruppe;Stillingsgruppenavn;Stillingskategori
-VIT_PROF;Professor/dosent;Vitenskapelig
-VIT_FORST;Forsteamanuensis/forstelektor;Vitenskapelig
-VIT_STIP;Stipendiat/postdoktor;Rekruttering
-ADM;Administrativ stilling;Teknisk-administrativ
-TEK;Teknisk stilling;Teknisk-administrativ
+PROF;Professor/dosent;Vitenskapelig
+FORST;Forsteamanuensis/forstelektor;Vitenskapelig
+REKR;Stipendiat/postdoktor;Rekruttering
+ADM;Administrativ;Teknisk-administrativ
+TEK;Teknisk;Teknisk-administrativ

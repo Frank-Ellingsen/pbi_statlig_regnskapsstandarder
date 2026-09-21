@@ -4,48 +4,29 @@ table DimForecastVersion
 	column Versjon
 		dataType: string
 		isKey
-		lineageTag: b8f62b80-c65e-45c6-8d65-cbcb1cceb834
+		lineageTag: d0000005-0000-0000-0000-000000000002
 		summarizeBy: none
 		sourceColumn: Versjon
 
 	column Versjonsnavn
 		dataType: string
-		lineageTag: 7cb51eb2-22e0-4094-b1fa-02bd69706ac7
+		lineageTag: d0000005-0000-0000-0000-000000000003
+		sortByColumn: Sortering
 		summarizeBy: none
 		sourceColumn: Versjonsnavn
-		sortByColumn: Sortering
-
-	column Versjonstype
-		dataType: string
-		lineageTag: f486bc1c-4652-442c-9ee3-d53b4a7ee930
-		summarizeBy: none
-		sourceColumn: Versjonstype
 
 	column Sortering
 		dataType: int64
-		lineageTag: f2e71399-7efc-451f-8021-ff49279ba27d
+		lineageTag: d0000005-0000-0000-0000-000000000004
 		summarizeBy: none
 		sourceColumn: Sortering
-
-	column CutoffDatoNokkel
-		dataType: int64
-		lineageTag: 8320bf03-5391-45bd-a6ba-b757ed5b5ae5
-		summarizeBy: none
-		sourceColumn: CutoffDatoNokkel
-
-	column ErGjeldende
-		dataType: int64
-		lineageTag: f3e7364f-8396-4dd8-bbff-de883bf467ef
-		summarizeBy: none
-		sourceColumn: ErGjeldende
 
 	partition DimForecastVersion = m
 		mode: import
 		source =
 				let
-				    Source = Csv.Document(File.Contents(DataFolder & "DimForecastVersion.csv"), [Delimiter=";", Columns=6, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    Source = Csv.Document(File.Contents(DataFolder & "DimForecastVersion.csv"), [Delimiter=";", Columns=3, Encoding=65001, QuoteStyle=QuoteStyle.None]),
 				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
-				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Versjon", type text}, {"Versjonsnavn", type text}, {"Versjonstype", type text}, {"Sortering", Int64.Type}, {"CutoffDatoNokkel", Int64.Type}, {"ErGjeldende", Int64.Type}})
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Versjon", type text}, {"Versjonsnavn", type text}, {"Sortering", Int64.Type}})
 				in
 				    #"Changed Type"
-

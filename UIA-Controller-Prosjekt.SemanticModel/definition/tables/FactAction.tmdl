@@ -1,0 +1,100 @@
+table FactAction
+	lineageTag: f0000006-0000-0000-0000-000000000001
+
+	column TiltakID
+		dataType: string
+		isKey
+		lineageTag: f0000006-0000-0000-0000-000000000002
+		summarizeBy: none
+		sourceColumn: TiltakID
+
+	column Organisasjonsnokkel
+		dataType: string
+		lineageTag: f0000006-0000-0000-0000-000000000003
+		summarizeBy: none
+		sourceColumn: Organisasjonsnokkel
+
+	column Prosjekt
+		dataType: string
+		lineageTag: f0000006-0000-0000-0000-000000000004
+		summarizeBy: none
+		sourceColumn: Prosjekt
+
+	column Konto
+		dataType: int64
+		lineageTag: f0000006-0000-0000-0000-000000000005
+		summarizeBy: none
+		sourceColumn: Konto
+
+	column Avviksarsak
+		dataType: string
+		lineageTag: f0000006-0000-0000-0000-000000000006
+		summarizeBy: none
+		sourceColumn: Avviksarsak
+
+	column Tiltaksbeskrivelse
+		dataType: string
+		lineageTag: f0000006-0000-0000-0000-000000000007
+		summarizeBy: none
+		sourceColumn: Tiltaksbeskrivelse
+
+	column AnsvarligRolle
+		dataType: string
+		lineageTag: f0000006-0000-0000-0000-000000000008
+		summarizeBy: none
+		sourceColumn: AnsvarligRolle
+
+	column StartDatoNokkel
+		dataType: int64
+		lineageTag: f0000006-0000-0000-0000-000000000009
+		summarizeBy: none
+		sourceColumn: StartDatoNokkel
+
+	column FristDatoNokkel
+		dataType: int64
+		lineageTag: f0000006-0000-0000-0000-000000000010
+		summarizeBy: none
+		sourceColumn: FristDatoNokkel
+
+	column ForventetEffekt
+		dataType: decimal
+		formatString: #,##0.00
+		lineageTag: f0000006-0000-0000-0000-000000000011
+		summarizeBy: sum
+		sourceColumn: ForventetEffekt
+
+	column RealisertEffekt
+		dataType: decimal
+		formatString: #,##0.00
+		lineageTag: f0000006-0000-0000-0000-000000000012
+		summarizeBy: sum
+		sourceColumn: RealisertEffekt
+
+	column Status
+		dataType: string
+		lineageTag: f0000006-0000-0000-0000-000000000013
+		summarizeBy: none
+		sourceColumn: Status
+
+	column Prioritet
+		dataType: string
+		lineageTag: f0000006-0000-0000-0000-000000000014
+		summarizeBy: none
+		sourceColumn: Prioritet
+
+	column Sannsynlighet
+		dataType: double
+		formatString: 0.0%
+		lineageTag: f0000006-0000-0000-0000-000000000015
+		summarizeBy: average
+		sourceColumn: Sannsynlighet
+
+	partition FactAction = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "FactAction.csv"), [Delimiter=";", Columns=14, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"TiltakID", type text}, {"Organisasjonsnokkel", type text}, {"Prosjekt", type text}, {"Konto", Int64.Type}, {"Avviksarsak", type text}, {"Tiltaksbeskrivelse", type text}, {"AnsvarligRolle", type text}, {"StartDatoNokkel", Int64.Type}, {"FristDatoNokkel", Int64.Type}, {"ForventetEffekt", Currency.Type}, {"RealisertEffekt", Currency.Type}, {"Status", type text}, {"Prioritet", type text}, {"Sannsynlighet", type number}})
+				in
+				    #"Changed Type"

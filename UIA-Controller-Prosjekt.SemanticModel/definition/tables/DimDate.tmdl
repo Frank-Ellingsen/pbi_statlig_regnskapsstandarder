@@ -6,85 +6,73 @@ table DimDate
 		dataType: dateTime
 		isKey
 		formatString: yyyy-MM-dd
-		lineageTag: e96f6959-3793-470f-bba7-c0b4ce303c4b
+		lineageTag: d0000001-0000-0000-0000-000000000002
 		summarizeBy: none
 		sourceColumn: Dato
 
-		annotation UnderlyingDateTimeDataType = Date
-
 	column DatoNokkel
 		dataType: int64
-		lineageTag: bcdcf0ea-bb6a-49ca-850d-e8c2fa167c9f
+		lineageTag: d0000001-0000-0000-0000-000000000003
 		summarizeBy: none
 		sourceColumn: DatoNokkel
 
 	column Aar
 		dataType: int64
-		lineageTag: 59b2f41d-5e97-404c-a9cb-32168eaa37b1
+		lineageTag: d0000001-0000-0000-0000-000000000004
 		summarizeBy: none
 		sourceColumn: Aar
 
 	column Kvartal
 		dataType: string
-		lineageTag: 78ed7d89-80c9-44b2-aa88-b84f769ffb43
+		lineageTag: d0000001-0000-0000-0000-000000000005
 		summarizeBy: none
 		sourceColumn: Kvartal
 
 	column MaanedNr
 		dataType: int64
-		lineageTag: 5690dceb-36fd-4294-8878-90cd35c2cc60
+		lineageTag: d0000001-0000-0000-0000-000000000006
 		summarizeBy: none
 		sourceColumn: MaanedNr
 
-	column Maaned
-		dataType: string
-		lineageTag: 54db08fb-2e2c-42b6-ab5f-4f1972c48927
-		summarizeBy: none
-		sourceColumn: Maaned
-		sortByColumn: MaanedNr
-
 	column AarMaaned
 		dataType: string
-		lineageTag: c7a83c79-4ae7-4088-a03a-841dfb5a6946
+		lineageTag: d0000001-0000-0000-0000-000000000007
+		sortByColumn: MaanedStart
 		summarizeBy: none
 		sourceColumn: AarMaaned
-		sortByColumn: MaanedStart
 
 	column MaanedStart
 		dataType: dateTime
 		formatString: yyyy-MM-dd
-		lineageTag: 20ae41e3-8795-491a-8183-95f7dde2e39d
+		lineageTag: d0000001-0000-0000-0000-000000000008
 		summarizeBy: none
 		sourceColumn: MaanedStart
 
-		annotation UnderlyingDateTimeDataType = Date
-
 	hierarchy Tid
-		lineageTag: d0000001-0000-0000-0000-000000000002
+		lineageTag: d0000001-0000-0000-0000-000000000009
 
 		level Aar
-			lineageTag: d0000001-0000-0000-0000-000000000003
+			lineageTag: d0000001-0000-0000-0000-000000000010
 			column: Aar
 
 		level Kvartal
-			lineageTag: d0000001-0000-0000-0000-000000000004
+			lineageTag: d0000001-0000-0000-0000-000000000011
 			column: Kvartal
 
-		level Maaned
-			lineageTag: d0000001-0000-0000-0000-000000000005
-			column: Maaned
+		level AarMaaned
+			lineageTag: d0000001-0000-0000-0000-000000000012
+			column: AarMaaned
 
 		level Dato
-			lineageTag: d0000001-0000-0000-0000-000000000006
+			lineageTag: d0000001-0000-0000-0000-000000000013
 			column: Dato
 
 	partition DimDate = m
 		mode: import
 		source =
 				let
-				    Source = Csv.Document(File.Contents(DataFolder & "DimDate.csv"), [Delimiter=";", Columns=8, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    Source = Csv.Document(File.Contents(DataFolder & "DimDate.csv"), [Delimiter=";", Columns=7, Encoding=65001, QuoteStyle=QuoteStyle.None]),
 				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
-				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Dato", type date}, {"DatoNokkel", Int64.Type}, {"Aar", Int64.Type}, {"Kvartal", type text}, {"MaanedNr", Int64.Type}, {"Maaned", type text}, {"AarMaaned", type text}, {"MaanedStart", type date}})
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Dato", type date}, {"DatoNokkel", Int64.Type}, {"Aar", Int64.Type}, {"Kvartal", type text}, {"MaanedNr", Int64.Type}, {"AarMaaned", type text}, {"MaanedStart", type date}})
 				in
 				    #"Changed Type"
-

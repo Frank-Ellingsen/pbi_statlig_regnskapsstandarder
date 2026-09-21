@@ -1,9 +1,7 @@
-﻿Prosjekt;Prosjektnavn;Finansieringstype;Finansieringskilde;Prosjektkategori;Startaar;Sluttaar
-DRIFT;Ordinaer drift;Bevilgning;KD;Drift;2026;2026
-NFR001;NFR forskningsprosjekt;Bidrag;NFR;Forskning;2024;2028
-NFR002;NFR innovasjonsprosjekt;Bidrag;NFR;Innovasjon;2026;2029
-EU001;Horisont Europa prosjekt;Bidrag;EU;Forskning;2025;2029
-EU002;MSCA prosjekt;Bidrag;EU;Forskning;2026;2028
-EVU001;Eksternfinansiert EVU;Oppdrag;Ekstern;Utdanning;2026;2026
-INV001;Investeringsprosjekt;Bevilgning;KD;Investering;2026;2028
-INV002;Campus og utstyr;Bevilgning;KD;Investering;2026;2028
+﻿Prosjekt;Prosjektnavn;Finansieringstype;Finansieringskilde;Prosjektkategori
+DRIFT;Ordinær drift;Bevilgning;KD;Drift
+NFR001;NFR forskningsprosjekt A;Bidrag;NFR;Forskning
+NFR002;NFR forskningsprosjekt B;Bidrag;NFR;Forskning
+EU001;Horisont Europa prosjekt;Bidrag;EU;Forskning
+EVU001;Etter- og videreutdanning;Oppdrag;Ekstern;Utdanning
+INV001;Campus/utstyr;Bevilgning;KD;Investering
