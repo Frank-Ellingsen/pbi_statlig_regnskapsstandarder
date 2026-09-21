@@ -37,7 +37,7 @@ table DimProject
 		sourceColumn: Sluttaar
 		summarizeBy: none
 
-	hierarchy Prosjekt
+	hierarchy Prosjekthierarki
 		lineageTag: d0000004-0000-0000-0000-000000000002
 
 		level Finansieringstype

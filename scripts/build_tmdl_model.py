@@ -793,7 +793,7 @@ relationship 00000001-0000-0000-0000-000000000019
 \t\tsourceColumn: SRS_regnskapslinje
 \t\tsummarizeBy: none
 
-\thierarchy Konto
+\thierarchy Kontohierarki
 \t\tlineageTag: d0000003-0000-0000-0000-000000000002
 
 \t\tlevel SRS_regnskapslinje
@@ -866,7 +866,7 @@ relationship 00000001-0000-0000-0000-000000000019
 \t\tsourceColumn: Sluttaar
 \t\tsummarizeBy: none
 
-\thierarchy Prosjekt
+\thierarchy Prosjekthierarki
 \t\tlineageTag: d0000004-0000-0000-0000-000000000002
 
 \t\tlevel Finansieringstype

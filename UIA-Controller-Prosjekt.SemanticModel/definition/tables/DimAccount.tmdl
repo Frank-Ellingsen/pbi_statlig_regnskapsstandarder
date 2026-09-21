@@ -22,7 +22,7 @@ table DimAccount
 		sourceColumn: SRS_regnskapslinje
 		summarizeBy: none
 
-	hierarchy Konto
+	hierarchy Kontohierarki
 		lineageTag: d0000003-0000-0000-0000-000000000002
 
 		level SRS_regnskapslinje

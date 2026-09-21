@@ -17,8 +17,8 @@ Det er etablert 19 aktive en-til-mange (`1:*`) relasjoner med enkel filtreringsr
 ## 3. Hierarkier
 Følgende 5 drill-down hierarkier er etablert i TMDL-modellen:
 1.  **`UiA organisasjon`** (`DimOrganization`): `OrgNavn` > `Instituttnavn` > `Koststednavn`
-2.  **`Konto`** (`DimAccount`): `SRS_regnskapslinje` > `Kontotype` > `Kontonavn` > `Konto`
-3.  **`Prosjekt`** (`DimProject`): `Finansieringstype` > `Finansieringskilde` > `Prosjektkategori` > `Prosjektnavn`
+2.  **`Kontohierarki`** (`DimAccount`): `SRS_regnskapslinje` > `Kontotype` > `Kontonavn` > `Konto`
+3.  **`Prosjekthierarki`** (`DimProject`): `Finansieringstype` > `Finansieringskilde` > `Prosjektkategori` > `Prosjektnavn`
 4.  **`Studie`** (`DimStudyProgram`): `Studienivaa` > `Studieprogramnavn`
 5.  **`Tid`** (`DimDate`): `Aar` > `Kvartal` > `Maaned` > `Dato`
 
