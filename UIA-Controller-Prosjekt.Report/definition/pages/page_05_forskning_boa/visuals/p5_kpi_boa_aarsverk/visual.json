@@ -1,0 +1,59 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "p5_kpi_boa_aarsverk",
+  "position": {
+    "x": 1430,
+    "y": 95,
+    "z": 7,
+    "width": 470,
+    "height": 105,
+    "tabOrder": 7
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "BOA per faglig aarsverk"
+                }
+              },
+              "queryRef": "_Measures.BOA per faglig aarsverk",
+              "nativeQueryRef": "BOA per faglig aarsverk"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'BOA per faglig \u00e5rsverk'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

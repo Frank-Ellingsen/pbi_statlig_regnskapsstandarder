@@ -1,0 +1,77 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "p5_cht_kilde",
+  "position": {
+    "x": 20,
+    "y": 215,
+    "z": 8,
+    "width": 930,
+    "height": 420,
+    "tabOrder": 8
+  },
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimProject"
+                    }
+                  },
+                  "Property": "Finansieringskilde"
+                }
+              },
+              "queryRef": "DimProject.Finansieringskilde",
+              "nativeQueryRef": "Finansieringskilde"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "BOA inntekter"
+                }
+              },
+              "queryRef": "_Measures.BOA inntekter",
+              "nativeQueryRef": "BOA inntekter"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'BOA-inntekter fordelt p\u00e5 finansieringskilder'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

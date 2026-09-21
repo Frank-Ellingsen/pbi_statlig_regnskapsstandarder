@@ -1,0 +1,59 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "p1_slc_proj",
+  "position": {
+    "x": 1000,
+    "y": 15,
+    "z": 4,
+    "width": 340,
+    "height": 65,
+    "tabOrder": 4
+  },
+  "visual": {
+    "visualType": "slicer",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimProject"
+                    }
+                  },
+                  "Property": "Prosjektnavn"
+                }
+              },
+              "queryRef": "DimProject.Prosjektnavn",
+              "nativeQueryRef": "Prosjektnavn"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Prosjektfilter'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

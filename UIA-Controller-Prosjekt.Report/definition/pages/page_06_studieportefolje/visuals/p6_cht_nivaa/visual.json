@@ -1,0 +1,77 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "p6_cht_nivaa",
+  "position": {
+    "x": 970,
+    "y": 215,
+    "z": 11,
+    "width": 930,
+    "height": 420,
+    "tabOrder": 11
+  },
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimStudyProgram"
+                    }
+                  },
+                  "Property": "Studienivaa"
+                }
+              },
+              "queryRef": "DimStudyProgram.Studienivaa",
+              "nativeQueryRef": "Studienivaa"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "SPE60"
+                }
+              },
+              "queryRef": "_Measures.SPE60",
+              "nativeQueryRef": "SPE60"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'SPE60 fordelt p\u00e5 studieniv\u00e5'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

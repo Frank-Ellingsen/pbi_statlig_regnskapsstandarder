@@ -1,0 +1,185 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "p7_tbl_alle_tiltak",
+  "position": {
+    "x": 20,
+    "y": 650,
+    "z": 12,
+    "width": 1880,
+    "height": 410,
+    "tabOrder": 12
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactAction"
+                    }
+                  },
+                  "Property": "TiltakID"
+                }
+              },
+              "queryRef": "FactAction.TiltakID",
+              "nativeQueryRef": "TiltakID"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactAction"
+                    }
+                  },
+                  "Property": "Tiltaksbeskrivelse"
+                }
+              },
+              "queryRef": "FactAction.Tiltaksbeskrivelse",
+              "nativeQueryRef": "Tiltaksbeskrivelse"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactAction"
+                    }
+                  },
+                  "Property": "Avviksarsak"
+                }
+              },
+              "queryRef": "FactAction.Avviksarsak",
+              "nativeQueryRef": "Avviksarsak"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactAction"
+                    }
+                  },
+                  "Property": "AnsvarligRolle"
+                }
+              },
+              "queryRef": "FactAction.AnsvarligRolle",
+              "nativeQueryRef": "AnsvarligRolle"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactAction"
+                    }
+                  },
+                  "Property": "StartDatoNokkel"
+                }
+              },
+              "queryRef": "FactAction.StartDatoNokkel",
+              "nativeQueryRef": "StartDatoNokkel"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactAction"
+                    }
+                  },
+                  "Property": "FristDatoNokkel"
+                }
+              },
+              "queryRef": "FactAction.FristDatoNokkel",
+              "nativeQueryRef": "FristDatoNokkel"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactAction"
+                    }
+                  },
+                  "Property": "ForventetEffekt"
+                }
+              },
+              "queryRef": "FactAction.ForventetEffekt",
+              "nativeQueryRef": "ForventetEffekt"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactAction"
+                    }
+                  },
+                  "Property": "RealisertEffekt"
+                }
+              },
+              "queryRef": "FactAction.RealisertEffekt",
+              "nativeQueryRef": "RealisertEffekt"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactAction"
+                    }
+                  },
+                  "Property": "Status"
+                }
+              },
+              "queryRef": "FactAction.Status",
+              "nativeQueryRef": "Status"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactAction"
+                    }
+                  },
+                  "Property": "Prioritet"
+                }
+              },
+              "queryRef": "FactAction.Prioritet",
+              "nativeQueryRef": "Prioritet"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Komplett omstillingslogg (FactAction.csv)'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

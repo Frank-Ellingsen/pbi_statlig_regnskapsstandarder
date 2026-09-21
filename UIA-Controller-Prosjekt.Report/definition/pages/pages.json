@@ -1,11 +1,19 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/pagesMetadata/1.1.0/schema.json",
   "pageOrder": [
-    "page_01_ledelse",
-    "page_02_forecast",
-    "page_03_boa",
-    "page_04_bemanning",
-    "page_05_tiltak"
+    "page_01_instituttleder",
+    "page_02_dekan",
+    "page_03_executive",
+    "page_04_styret",
+    "page_05_forskning_boa",
+    "page_06_studieportefolje",
+    "page_07_action_tracker",
+    "page_08_controller_cockpit",
+    "page_dt_okonomi",
+    "page_dt_bemanning",
+    "page_dt_prosjekt",
+    "page_dt_tiltak",
+    "page_dt_studier"
   ],
-  "activePageName": "page_05_tiltak"
+  "activePageName": "page_01_instituttleder"
 }

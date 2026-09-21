@@ -377,6 +377,21 @@ table _Measures
 		displayFolder: 05 Tiltak
 		lineageTag: 67428370-d8c3-4537-96ec-7cde80bdc523
 
+	measure 'Avvik YTD %' = DIVIDE ( [Avvik YTD], ABS ( [Budsjett YTD] ) )
+		formatString: 0.0%
+		displayFolder: 01 Okonomi
+		lineageTag: m0000000-0000-0000-0000-000000000091
+
+	measure 'Forecast lonnsavvik' = [Forecast lonn] - CALCULATE ( [Aarsbudsjett], DimAccount[SRS_regnskapslinje] = "Lonnskostnader" )
+		formatString: #,##0.00
+		displayFolder: 02 Forecast
+		lineageTag: m0000000-0000-0000-0000-000000000092
+
+	measure 'Absolutt forecastavvik' = ABS ( [Forecastavvik] )
+		formatString: #,##0.00
+		displayFolder: 02 Forecast
+		lineageTag: m0000000-0000-0000-0000-000000000093
+
 	column Placeholder
 		dataType: string
 		isHidden

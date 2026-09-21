@@ -1,0 +1,59 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "p4_kpi_spe_oppnaaelse",
+  "position": {
+    "x": 1160,
+    "y": 95,
+    "z": 6,
+    "width": 360,
+    "height": 105,
+    "tabOrder": 6
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Studiepoeng maaloppnaelse %"
+                }
+              },
+              "queryRef": "_Measures.Studiepoeng maaloppnaelse %",
+              "nativeQueryRef": "Studiepoeng maaloppnaelse %"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Studiepoeng m\u00e5loppn\u00e5else'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

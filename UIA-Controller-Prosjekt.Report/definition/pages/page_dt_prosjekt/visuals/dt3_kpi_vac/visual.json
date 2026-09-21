@@ -1,0 +1,59 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "dt3_kpi_vac",
+  "position": {
+    "x": 1430,
+    "y": 20,
+    "z": 4,
+    "width": 470,
+    "height": 110,
+    "tabOrder": 4
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "VAC (Variance at Completion)"
+                }
+              },
+              "queryRef": "_Measures.VAC (Variance at Completion)",
+              "nativeQueryRef": "VAC (Variance at Completion)"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'VAC (Variance at Completion)'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

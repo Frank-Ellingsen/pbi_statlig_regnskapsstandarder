@@ -1,0 +1,59 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "p4_slc_fc",
+  "position": {
+    "x": 440,
+    "y": 15,
+    "z": 2,
+    "width": 400,
+    "height": 65,
+    "tabOrder": 2
+  },
+  "visual": {
+    "visualType": "slicer",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimForecastVersion"
+                    }
+                  },
+                  "Property": "Versjonsnavn"
+                }
+              },
+              "queryRef": "DimForecastVersion.Versjonsnavn",
+              "nativeQueryRef": "Versjonsnavn"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Forecastversjon'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

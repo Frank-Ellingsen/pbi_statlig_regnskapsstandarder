@@ -1,0 +1,77 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "p7_cht_rolle",
+  "position": {
+    "x": 20,
+    "y": 215,
+    "z": 10,
+    "width": 930,
+    "height": 420,
+    "tabOrder": 10
+  },
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactAction"
+                    }
+                  },
+                  "Property": "AnsvarligRolle"
+                }
+              },
+              "queryRef": "FactAction.AnsvarligRolle",
+              "nativeQueryRef": "AnsvarligRolle"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Forventet tiltakseffekt"
+                }
+              },
+              "queryRef": "_Measures.Forventet tiltakseffekt",
+              "nativeQueryRef": "Forventet tiltakseffekt"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Identifisert besparelse per ansvarlig rolle'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

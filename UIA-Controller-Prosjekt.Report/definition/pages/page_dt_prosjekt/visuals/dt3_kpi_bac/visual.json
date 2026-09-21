@@ -1,0 +1,59 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "dt3_kpi_bac",
+  "position": {
+    "x": 20,
+    "y": 20,
+    "z": 1,
+    "width": 450,
+    "height": 110,
+    "tabOrder": 1
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "BAC (Budget at Completion)"
+                }
+              },
+              "queryRef": "_Measures.BAC (Budget at Completion)",
+              "nativeQueryRef": "BAC (Budget at Completion)"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'BAC (Budget at Completion)'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

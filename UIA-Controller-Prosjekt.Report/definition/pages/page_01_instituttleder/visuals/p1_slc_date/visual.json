@@ -1,0 +1,59 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "p1_slc_date",
+  "position": {
+    "x": 400,
+    "y": 15,
+    "z": 2,
+    "width": 280,
+    "height": 65,
+    "tabOrder": 2
+  },
+  "visual": {
+    "visualType": "slicer",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimDate"
+                    }
+                  },
+                  "Property": "AarMaaned"
+                }
+              },
+              "queryRef": "DimDate.AarMaaned",
+              "nativeQueryRef": "AarMaaned"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Rapporteringsperiode'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

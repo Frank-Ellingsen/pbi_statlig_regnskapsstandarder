@@ -1,0 +1,115 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "p4_tbl_maal",
+  "position": {
+    "x": 20,
+    "y": 215,
+    "z": 8,
+    "width": 930,
+    "height": 420,
+    "tabOrder": 8
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimOrganization"
+                    }
+                  },
+                  "Property": "Fakultetsnavn"
+                }
+              },
+              "queryRef": "DimOrganization.Fakultetsnavn",
+              "nativeQueryRef": "Fakultetsnavn"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Registrerte studenter"
+                }
+              },
+              "queryRef": "_Measures.Registrerte studenter",
+              "nativeQueryRef": "Registrerte studenter"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Avlagte studiepoeng"
+                }
+              },
+              "queryRef": "_Measures.Avlagte studiepoeng",
+              "nativeQueryRef": "Avlagte studiepoeng"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "SPE60"
+                }
+              },
+              "queryRef": "_Measures.SPE60",
+              "nativeQueryRef": "SPE60"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Studiepoeng maaloppnaelse %"
+                }
+              },
+              "queryRef": "_Measures.Studiepoeng maaloppnaelse %",
+              "nativeQueryRef": "Studiepoeng maaloppnaelse %"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Strategisk m\u00e5loppn\u00e5else studieaktivitet'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

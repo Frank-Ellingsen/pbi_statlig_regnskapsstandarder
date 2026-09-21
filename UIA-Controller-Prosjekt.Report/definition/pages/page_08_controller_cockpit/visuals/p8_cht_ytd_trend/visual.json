@@ -1,0 +1,91 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "p8_cht_ytd_trend",
+  "position": {
+    "x": 970,
+    "y": 215,
+    "z": 10,
+    "width": 930,
+    "height": 420,
+    "tabOrder": 10
+  },
+  "visual": {
+    "visualType": "lineChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimDate"
+                    }
+                  },
+                  "Property": "AarMaaned"
+                }
+              },
+              "queryRef": "DimDate.AarMaaned",
+              "nativeQueryRef": "AarMaaned"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Regnskap YTD"
+                }
+              },
+              "queryRef": "_Measures.Regnskap YTD",
+              "nativeQueryRef": "Regnskap YTD"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Budsjett YTD"
+                }
+              },
+              "queryRef": "_Measures.Budsjett YTD",
+              "nativeQueryRef": "Budsjett YTD"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Akkumulert YTD-utvikling (Regnskap vs Budsjett)'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

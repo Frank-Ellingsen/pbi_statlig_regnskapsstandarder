@@ -1,0 +1,185 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "p5_tbl_portefolje",
+  "position": {
+    "x": 20,
+    "y": 650,
+    "z": 10,
+    "width": 1880,
+    "height": 410,
+    "tabOrder": 10
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimProject"
+                    }
+                  },
+                  "Property": "Prosjekt"
+                }
+              },
+              "queryRef": "DimProject.Prosjekt",
+              "nativeQueryRef": "Prosjekt"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimProject"
+                    }
+                  },
+                  "Property": "Prosjektnavn"
+                }
+              },
+              "queryRef": "DimProject.Prosjektnavn",
+              "nativeQueryRef": "Prosjektnavn"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimProject"
+                    }
+                  },
+                  "Property": "Finansieringskilde"
+                }
+              },
+              "queryRef": "DimProject.Finansieringskilde",
+              "nativeQueryRef": "Finansieringskilde"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimProject"
+                    }
+                  },
+                  "Property": "Finansieringstype"
+                }
+              },
+              "queryRef": "DimProject.Finansieringstype",
+              "nativeQueryRef": "Finansieringstype"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimProject"
+                    }
+                  },
+                  "Property": "Startaar"
+                }
+              },
+              "queryRef": "DimProject.Startaar",
+              "nativeQueryRef": "Startaar"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimProject"
+                    }
+                  },
+                  "Property": "Sluttaar"
+                }
+              },
+              "queryRef": "DimProject.Sluttaar",
+              "nativeQueryRef": "Sluttaar"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Regnskap"
+                }
+              },
+              "queryRef": "_Measures.Regnskap",
+              "nativeQueryRef": "Regnskap"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Budsjett"
+                }
+              },
+              "queryRef": "_Measures.Budsjett",
+              "nativeQueryRef": "Budsjett"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Forecast"
+                }
+              },
+              "queryRef": "_Measures.Forecast",
+              "nativeQueryRef": "Forecast"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Avvik"
+                }
+              },
+              "queryRef": "_Measures.Avvik",
+              "nativeQueryRef": "Avvik"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Fullstendig prosjektportef\u00f8lje (DimProject / FactGL)'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

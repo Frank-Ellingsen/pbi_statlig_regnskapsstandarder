@@ -1,0 +1,59 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "dt2_kpi_faglige",
+  "position": {
+    "x": 490,
+    "y": 20,
+    "z": 2,
+    "width": 450,
+    "height": 110,
+    "tabOrder": 2
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Faglige aarsverk"
+                }
+              },
+              "queryRef": "_Measures.Faglige aarsverk",
+              "nativeQueryRef": "Faglige aarsverk"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Faglige \u00e5rsverk'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

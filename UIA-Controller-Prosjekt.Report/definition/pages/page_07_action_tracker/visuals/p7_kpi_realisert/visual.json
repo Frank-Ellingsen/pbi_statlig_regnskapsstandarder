@@ -1,0 +1,59 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "p7_kpi_realisert",
+  "position": {
+    "x": 1300,
+    "y": 95,
+    "z": 8,
+    "width": 300,
+    "height": 105,
+    "tabOrder": 8
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Realisert tiltakseffekt"
+                }
+              },
+              "queryRef": "_Measures.Realisert tiltakseffekt",
+              "nativeQueryRef": "Realisert tiltakseffekt"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Realisert effekt'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

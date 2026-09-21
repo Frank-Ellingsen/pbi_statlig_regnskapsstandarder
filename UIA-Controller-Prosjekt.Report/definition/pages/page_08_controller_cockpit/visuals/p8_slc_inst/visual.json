@@ -1,0 +1,59 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "p8_slc_inst",
+  "position": {
+    "x": 400,
+    "y": 15,
+    "z": 2,
+    "width": 360,
+    "height": 65,
+    "tabOrder": 2
+  },
+  "visual": {
+    "visualType": "slicer",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimOrganization"
+                    }
+                  },
+                  "Property": "Instituttnavn"
+                }
+              },
+              "queryRef": "DimOrganization.Instituttnavn",
+              "nativeQueryRef": "Instituttnavn"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Institutt'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

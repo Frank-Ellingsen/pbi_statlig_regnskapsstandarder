@@ -1,0 +1,59 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "p8_slc_fak",
+  "position": {
+    "x": 20,
+    "y": 15,
+    "z": 1,
+    "width": 360,
+    "height": 65,
+    "tabOrder": 1
+  },
+  "visual": {
+    "visualType": "slicer",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimOrganization"
+                    }
+                  },
+                  "Property": "Fakultetsnavn"
+                }
+              },
+              "queryRef": "DimOrganization.Fakultetsnavn",
+              "nativeQueryRef": "Fakultetsnavn"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Fakultet'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

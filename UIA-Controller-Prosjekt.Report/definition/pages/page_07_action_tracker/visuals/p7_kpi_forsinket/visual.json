@@ -1,0 +1,59 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "p7_kpi_forsinket",
+  "position": {
+    "x": 660,
+    "y": 95,
+    "z": 6,
+    "width": 300,
+    "height": 105,
+    "tabOrder": 6
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Forsinkede tiltak"
+                }
+              },
+              "queryRef": "_Measures.Forsinkede tiltak",
+              "nativeQueryRef": "Forsinkede tiltak"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Forsinkede tiltak'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "p3_kpi_budsjett",
+  "position": {
+    "x": 20,
+    "y": 95,
+    "z": 3,
+    "width": 360,
+    "height": 105,
+    "tabOrder": 3
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Aarsbudsjett"
+                }
+              },
+              "queryRef": "_Measures.Aarsbudsjett",
+              "nativeQueryRef": "Aarsbudsjett"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'\u00c5rsbudsjett UiA'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

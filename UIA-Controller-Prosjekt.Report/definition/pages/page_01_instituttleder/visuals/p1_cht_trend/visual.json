@@ -1,0 +1,105 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "p1_cht_trend",
+  "position": {
+    "x": 20,
+    "y": 215,
+    "z": 10,
+    "width": 1120,
+    "height": 390,
+    "tabOrder": 10
+  },
+  "visual": {
+    "visualType": "lineChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimDate"
+                    }
+                  },
+                  "Property": "AarMaaned"
+                }
+              },
+              "queryRef": "DimDate.AarMaaned",
+              "nativeQueryRef": "AarMaaned"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Regnskap"
+                }
+              },
+              "queryRef": "_Measures.Regnskap",
+              "nativeQueryRef": "Regnskap"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Budsjett"
+                }
+              },
+              "queryRef": "_Measures.Budsjett",
+              "nativeQueryRef": "Budsjett"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Gjeldende forecast"
+                }
+              },
+              "queryRef": "_Measures.Gjeldende forecast",
+              "nativeQueryRef": "Gjeldende forecast"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'M\u00e5nedlig faktisk / budsjett / prognosetrend'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

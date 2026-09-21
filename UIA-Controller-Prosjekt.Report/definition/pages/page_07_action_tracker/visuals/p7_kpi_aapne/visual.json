@@ -1,0 +1,59 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "p7_kpi_aapne",
+  "position": {
+    "x": 340,
+    "y": 95,
+    "z": 5,
+    "width": 300,
+    "height": 105,
+    "tabOrder": 5
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Aapne tiltak"
+                }
+              },
+              "queryRef": "_Measures.Aapne tiltak",
+              "nativeQueryRef": "Aapne tiltak"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Aktive \u00e5pne tiltak'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

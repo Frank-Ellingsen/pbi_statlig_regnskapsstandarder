@@ -1,0 +1,185 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "dt1_tbl_bilag",
+  "position": {
+    "x": 20,
+    "y": 150,
+    "z": 4,
+    "width": 1880,
+    "height": 910,
+    "tabOrder": 4
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactGL"
+                    }
+                  },
+                  "Property": "Bilag"
+                }
+              },
+              "queryRef": "FactGL.Bilag",
+              "nativeQueryRef": "Bilag"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactGL"
+                    }
+                  },
+                  "Property": "DatoNokkel"
+                }
+              },
+              "queryRef": "FactGL.DatoNokkel",
+              "nativeQueryRef": "DatoNokkel"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactGL"
+                    }
+                  },
+                  "Property": "Konto"
+                }
+              },
+              "queryRef": "FactGL.Konto",
+              "nativeQueryRef": "Konto"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactGL"
+                    }
+                  },
+                  "Property": "Prosjekt"
+                }
+              },
+              "queryRef": "FactGL.Prosjekt",
+              "nativeQueryRef": "Prosjekt"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactGL"
+                    }
+                  },
+                  "Property": "Finansieringskilde"
+                }
+              },
+              "queryRef": "FactGL.Finansieringskilde",
+              "nativeQueryRef": "Finansieringskilde"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactGL"
+                    }
+                  },
+                  "Property": "Tekst"
+                }
+              },
+              "queryRef": "FactGL.Tekst",
+              "nativeQueryRef": "Tekst"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactGL"
+                    }
+                  },
+                  "Property": "Debet"
+                }
+              },
+              "queryRef": "FactGL.Debet",
+              "nativeQueryRef": "Debet"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactGL"
+                    }
+                  },
+                  "Property": "Kredit"
+                }
+              },
+              "queryRef": "FactGL.Kredit",
+              "nativeQueryRef": "Kredit"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactGL"
+                    }
+                  },
+                  "Property": "Belop_signert"
+                }
+              },
+              "queryRef": "FactGL.Belop_signert",
+              "nativeQueryRef": "Belop_signert"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Regnskap"
+                }
+              },
+              "queryRef": "_Measures.Regnskap",
+              "nativeQueryRef": "Regnskap"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Transaksjons- og bilagslogg (FactGL.csv)'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "p1_bot_fc",
+  "position": {
+    "x": 20,
+    "y": 945,
+    "z": 14,
+    "width": 450,
+    "height": 115,
+    "tabOrder": 14
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Forecast aarsbelop"
+                }
+              },
+              "queryRef": "_Measures.Forecast aarsbelop",
+              "nativeQueryRef": "Forecast aarsbelop"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'1. Forecast f\u00f8r tiltak'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

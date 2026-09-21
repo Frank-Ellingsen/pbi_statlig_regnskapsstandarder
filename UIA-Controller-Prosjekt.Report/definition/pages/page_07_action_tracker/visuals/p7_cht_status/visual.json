@@ -1,0 +1,77 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "p7_cht_status",
+  "position": {
+    "x": 970,
+    "y": 215,
+    "z": 11,
+    "width": 930,
+    "height": 420,
+    "tabOrder": 11
+  },
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactAction"
+                    }
+                  },
+                  "Property": "Status"
+                }
+              },
+              "queryRef": "FactAction.Status",
+              "nativeQueryRef": "Status"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Forventet tiltakseffekt"
+                }
+              },
+              "queryRef": "_Measures.Forventet tiltakseffekt",
+              "nativeQueryRef": "Forventet tiltakseffekt"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Tiltakseffekt per status (Gjennomf\u00f8rt, P\u00e5g\u00e5r, Forsinket)'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

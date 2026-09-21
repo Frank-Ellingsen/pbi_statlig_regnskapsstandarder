@@ -1,0 +1,129 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "p1_tbl_ressurs",
+  "position": {
+    "x": 20,
+    "y": 620,
+    "z": 12,
+    "width": 860,
+    "height": 310,
+    "tabOrder": 12
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimOrganization"
+                    }
+                  },
+                  "Property": "Instituttnavn"
+                }
+              },
+              "queryRef": "DimOrganization.Instituttnavn",
+              "nativeQueryRef": "Instituttnavn"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Registrerte studenter"
+                }
+              },
+              "queryRef": "_Measures.Registrerte studenter",
+              "nativeQueryRef": "Registrerte studenter"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Faglige aarsverk"
+                }
+              },
+              "queryRef": "_Measures.Faglige aarsverk",
+              "nativeQueryRef": "Faglige aarsverk"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Studenter per faglig aarsverk"
+                }
+              },
+              "queryRef": "_Measures.Studenter per faglig aarsverk",
+              "nativeQueryRef": "Studenter per faglig aarsverk"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "SPE60"
+                }
+              },
+              "queryRef": "_Measures.SPE60",
+              "nativeQueryRef": "SPE60"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Kostnad per SPE60"
+                }
+              },
+              "queryRef": "_Measures.Kostnad per SPE60",
+              "nativeQueryRef": "Kostnad per SPE60"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Ressurser & Studieproduktivitet'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

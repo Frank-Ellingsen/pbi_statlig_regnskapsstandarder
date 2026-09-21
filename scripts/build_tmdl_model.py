@@ -1371,6 +1371,18 @@ relationship 00000001-0000-0000-0000-000000000022
 \t\t```
 \t\tdisplayFolder: 07 Status & Farger
 
+\tmeasure 'Avvik YTD %' = DIVIDE ( [Avvik YTD], ABS ( [Budsjett YTD] ) )
+\t\tformatString: 0.0%
+\t\tdisplayFolder: 01 Okonomi
+
+\tmeasure 'Forecast lonnsavvik' = [Forecast lonn] - CALCULATE ( [Aarsbudsjett], DimAccount[SRS_regnskapslinje] = "Lonnskostnader" )
+\t\tformatString: #,##0.00
+\t\tdisplayFolder: 02 Forecast
+
+\tmeasure 'Absolutt forecastavvik' = ABS ( [Forecastavvik] )
+\t\tformatString: #,##0.00
+\t\tdisplayFolder: 02 Forecast
+
 \tcolumn Placeholder
 \t\tdataType: string
 \t\tisHidden

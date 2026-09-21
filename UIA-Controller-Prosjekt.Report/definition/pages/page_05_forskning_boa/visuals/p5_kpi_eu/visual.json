@@ -1,0 +1,59 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "p5_kpi_eu",
+  "position": {
+    "x": 960,
+    "y": 95,
+    "z": 6,
+    "width": 450,
+    "height": 105,
+    "tabOrder": 6
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "EU inntekter"
+                }
+              },
+              "queryRef": "_Measures.EU inntekter",
+              "nativeQueryRef": "EU inntekter"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'EU inntekter'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

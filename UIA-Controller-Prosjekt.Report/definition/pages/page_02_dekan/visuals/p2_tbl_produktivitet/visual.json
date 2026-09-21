@@ -1,0 +1,115 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "p2_tbl_produktivitet",
+  "position": {
+    "x": 20,
+    "y": 650,
+    "z": 12,
+    "width": 930,
+    "height": 410,
+    "tabOrder": 12
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimOrganization"
+                    }
+                  },
+                  "Property": "Instituttnavn"
+                }
+              },
+              "queryRef": "DimOrganization.Instituttnavn",
+              "nativeQueryRef": "Instituttnavn"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Kostnad per SPE60"
+                }
+              },
+              "queryRef": "_Measures.Kostnad per SPE60",
+              "nativeQueryRef": "Kostnad per SPE60"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Studenter per faglig aarsverk"
+                }
+              },
+              "queryRef": "_Measures.Studenter per faglig aarsverk",
+              "nativeQueryRef": "Studenter per faglig aarsverk"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "SPE60 per faglig aarsverk"
+                }
+              },
+              "queryRef": "_Measures.SPE60 per faglig aarsverk",
+              "nativeQueryRef": "SPE60 per faglig aarsverk"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Lonnandel %"
+                }
+              },
+              "queryRef": "_Measures.Lonnandel %",
+              "nativeQueryRef": "Lonnandel %"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Faglig produktivitet og l\u00f8nnsandel per institutt'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "dt2_cht_gruppe",
+  "position": {
+    "x": 20,
+    "y": 150,
+    "z": 5,
+    "width": 930,
+    "height": 420,
+    "tabOrder": 5
+  },
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimPositionGroup"
+                    }
+                  },
+                  "Property": "Stillingsgruppenavn"
+                }
+              },
+              "queryRef": "DimPositionGroup.Stillingsgruppenavn",
+              "nativeQueryRef": "Stillingsgruppenavn"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Aarsverk"
+                }
+              },
+              "queryRef": "_Measures.Aarsverk",
+              "nativeQueryRef": "Aarsverk"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'\u00c5rsverk per stillingsgruppe'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

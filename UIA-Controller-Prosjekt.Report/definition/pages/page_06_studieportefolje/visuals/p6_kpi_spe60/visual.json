@@ -1,0 +1,59 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "p6_kpi_spe60",
+  "position": {
+    "x": 660,
+    "y": 95,
+    "z": 6,
+    "width": 300,
+    "height": 105,
+    "tabOrder": 6
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "SPE60"
+                }
+              },
+              "queryRef": "_Measures.SPE60",
+              "nativeQueryRef": "SPE60"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'SPE60 (hel\u00e5rsekvivalenter)'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

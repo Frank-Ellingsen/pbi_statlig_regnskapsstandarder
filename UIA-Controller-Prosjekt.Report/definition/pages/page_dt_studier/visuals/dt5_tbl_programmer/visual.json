@@ -1,0 +1,171 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "dt5_tbl_programmer",
+  "position": {
+    "x": 20,
+    "y": 150,
+    "z": 5,
+    "width": 1880,
+    "height": 910,
+    "tabOrder": 5
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimStudyProgram"
+                    }
+                  },
+                  "Property": "Studieprogram"
+                }
+              },
+              "queryRef": "DimStudyProgram.Studieprogram",
+              "nativeQueryRef": "Studieprogram"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimStudyProgram"
+                    }
+                  },
+                  "Property": "Studieprogramnavn"
+                }
+              },
+              "queryRef": "DimStudyProgram.Studieprogramnavn",
+              "nativeQueryRef": "Studieprogramnavn"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimStudyProgram"
+                    }
+                  },
+                  "Property": "Studienivaa"
+                }
+              },
+              "queryRef": "DimStudyProgram.Studienivaa",
+              "nativeQueryRef": "Studienivaa"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactStudyPoints"
+                    }
+                  },
+                  "Property": "RegistrerteStudenter"
+                }
+              },
+              "queryRef": "FactStudyPoints.RegistrerteStudenter",
+              "nativeQueryRef": "RegistrerteStudenter"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactStudyPoints"
+                    }
+                  },
+                  "Property": "PlanlagteStudiepoeng"
+                }
+              },
+              "queryRef": "FactStudyPoints.PlanlagteStudiepoeng",
+              "nativeQueryRef": "PlanlagteStudiepoeng"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactStudyPoints"
+                    }
+                  },
+                  "Property": "AvlagteStudiepoeng"
+                }
+              },
+              "queryRef": "FactStudyPoints.AvlagteStudiepoeng",
+              "nativeQueryRef": "AvlagteStudiepoeng"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactStudyPoints"
+                    }
+                  },
+                  "Property": "SPE60"
+                }
+              },
+              "queryRef": "FactStudyPoints.SPE60",
+              "nativeQueryRef": "SPE60"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactStudyPoints"
+                    }
+                  },
+                  "Property": "BestattAndel"
+                }
+              },
+              "queryRef": "FactStudyPoints.BestattAndel",
+              "nativeQueryRef": "BestattAndel"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Studiepoeng maaloppnaelse %"
+                }
+              },
+              "queryRef": "_Measures.Studiepoeng maaloppnaelse %",
+              "nativeQueryRef": "Studiepoeng maaloppnaelse %"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Studieaktivitet og studiepoengproduksjon (FactStudyPoints)'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

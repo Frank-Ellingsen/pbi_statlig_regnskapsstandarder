@@ -1,0 +1,143 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "dt2_tbl_detalj",
+  "position": {
+    "x": 20,
+    "y": 590,
+    "z": 7,
+    "width": 1880,
+    "height": 470,
+    "tabOrder": 7
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimOrganization"
+                    }
+                  },
+                  "Property": "Instituttnavn"
+                }
+              },
+              "queryRef": "DimOrganization.Instituttnavn",
+              "nativeQueryRef": "Instituttnavn"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimPositionGroup"
+                    }
+                  },
+                  "Property": "Stillingskategori"
+                }
+              },
+              "queryRef": "DimPositionGroup.Stillingskategori",
+              "nativeQueryRef": "Stillingskategori"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimPositionGroup"
+                    }
+                  },
+                  "Property": "Stillingsgruppenavn"
+                }
+              },
+              "queryRef": "DimPositionGroup.Stillingsgruppenavn",
+              "nativeQueryRef": "Stillingsgruppenavn"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Aarsverk"
+                }
+              },
+              "queryRef": "_Measures.Aarsverk",
+              "nativeQueryRef": "Aarsverk"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Faglige aarsverk"
+                }
+              },
+              "queryRef": "_Measures.Faglige aarsverk",
+              "nativeQueryRef": "Faglige aarsverk"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Lonnskostnader"
+                }
+              },
+              "queryRef": "_Measures.Lonnskostnader",
+              "nativeQueryRef": "Lonnskostnader"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Lonn per aarsverk"
+                }
+              },
+              "queryRef": "_Measures.Lonn per aarsverk",
+              "nativeQueryRef": "Lonn per aarsverk"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Bemannings- og \u00e5rsverksoversikt (FactFTE.csv)'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

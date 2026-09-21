@@ -1,0 +1,115 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "p4_tbl_risiko",
+  "position": {
+    "x": 970,
+    "y": 215,
+    "z": 9,
+    "width": 930,
+    "height": 420,
+    "tabOrder": 9
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimOrganization"
+                    }
+                  },
+                  "Property": "Fakultetsnavn"
+                }
+              },
+              "queryRef": "DimOrganization.Fakultetsnavn",
+              "nativeQueryRef": "Fakultetsnavn"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Forecast aarsbelop"
+                }
+              },
+              "queryRef": "_Measures.Forecast aarsbelop",
+              "nativeQueryRef": "Forecast aarsbelop"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Forecastavvik"
+                }
+              },
+              "queryRef": "_Measures.Forecastavvik",
+              "nativeQueryRef": "Forecastavvik"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Forventet tiltakseffekt"
+                }
+              },
+              "queryRef": "_Measures.Forventet tiltakseffekt",
+              "nativeQueryRef": "Forventet tiltakseffekt"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Restavvik etter tiltak"
+                }
+              },
+              "queryRef": "_Measures.Restavvik etter tiltak",
+              "nativeQueryRef": "Restavvik etter tiltak"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'\u00d8konomisk risikobilde og omstilling'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

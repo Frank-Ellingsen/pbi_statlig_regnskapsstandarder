@@ -1,0 +1,59 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "dt1_kpi_regnskap",
+  "position": {
+    "x": 20,
+    "y": 20,
+    "z": 1,
+    "width": 600,
+    "height": 110,
+    "tabOrder": 1
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Regnskap"
+                }
+              },
+              "queryRef": "_Measures.Regnskap",
+              "nativeQueryRef": "Regnskap"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Total sum posteringer (Regnskap)'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

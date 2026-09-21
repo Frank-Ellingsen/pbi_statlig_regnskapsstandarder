@@ -1,0 +1,59 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "p6_kpi_oppnaa",
+  "position": {
+    "x": 980,
+    "y": 95,
+    "z": 7,
+    "width": 300,
+    "height": 105,
+    "tabOrder": 7
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Studiepoeng maaloppnaelse %"
+                }
+              },
+              "queryRef": "_Measures.Studiepoeng maaloppnaelse %",
+              "nativeQueryRef": "Studiepoeng maaloppnaelse %"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'M\u00e5loppn\u00e5else %'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

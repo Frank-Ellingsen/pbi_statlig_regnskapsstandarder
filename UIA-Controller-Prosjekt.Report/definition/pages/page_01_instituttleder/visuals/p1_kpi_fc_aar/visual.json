@@ -1,0 +1,59 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "p1_kpi_fc_aar",
+  "position": {
+    "x": 780,
+    "y": 95,
+    "z": 7,
+    "width": 360,
+    "height": 105,
+    "tabOrder": 7
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Forecast aarsbelop"
+                }
+              },
+              "queryRef": "_Measures.Forecast aarsbelop",
+              "nativeQueryRef": "Forecast aarsbelop"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Forecast \u00e5rsbel\u00f8p (LE)'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

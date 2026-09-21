@@ -1,0 +1,59 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "p1_bot_tiltak",
+  "position": {
+    "x": 490,
+    "y": 945,
+    "z": 15,
+    "width": 450,
+    "height": 115,
+    "tabOrder": 15
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Forventet tiltakseffekt"
+                }
+              },
+              "queryRef": "_Measures.Forventet tiltakseffekt",
+              "nativeQueryRef": "Forventet tiltakseffekt"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'2. Identifisert tiltakseffekt'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

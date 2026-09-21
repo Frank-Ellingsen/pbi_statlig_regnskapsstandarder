@@ -1,0 +1,199 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "dt4_tbl_kort",
+  "position": {
+    "x": 20,
+    "y": 150,
+    "z": 4,
+    "width": 1880,
+    "height": 910,
+    "tabOrder": 4
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactAction"
+                    }
+                  },
+                  "Property": "TiltakID"
+                }
+              },
+              "queryRef": "FactAction.TiltakID",
+              "nativeQueryRef": "TiltakID"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactAction"
+                    }
+                  },
+                  "Property": "Tiltaksbeskrivelse"
+                }
+              },
+              "queryRef": "FactAction.Tiltaksbeskrivelse",
+              "nativeQueryRef": "Tiltaksbeskrivelse"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactAction"
+                    }
+                  },
+                  "Property": "Avviksarsak"
+                }
+              },
+              "queryRef": "FactAction.Avviksarsak",
+              "nativeQueryRef": "Avviksarsak"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactAction"
+                    }
+                  },
+                  "Property": "AnsvarligRolle"
+                }
+              },
+              "queryRef": "FactAction.AnsvarligRolle",
+              "nativeQueryRef": "AnsvarligRolle"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactAction"
+                    }
+                  },
+                  "Property": "StartDatoNokkel"
+                }
+              },
+              "queryRef": "FactAction.StartDatoNokkel",
+              "nativeQueryRef": "StartDatoNokkel"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactAction"
+                    }
+                  },
+                  "Property": "FristDatoNokkel"
+                }
+              },
+              "queryRef": "FactAction.FristDatoNokkel",
+              "nativeQueryRef": "FristDatoNokkel"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactAction"
+                    }
+                  },
+                  "Property": "ForventetEffekt"
+                }
+              },
+              "queryRef": "FactAction.ForventetEffekt",
+              "nativeQueryRef": "ForventetEffekt"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactAction"
+                    }
+                  },
+                  "Property": "RealisertEffekt"
+                }
+              },
+              "queryRef": "FactAction.RealisertEffekt",
+              "nativeQueryRef": "RealisertEffekt"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactAction"
+                    }
+                  },
+                  "Property": "Status"
+                }
+              },
+              "queryRef": "FactAction.Status",
+              "nativeQueryRef": "Status"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactAction"
+                    }
+                  },
+                  "Property": "Prioritet"
+                }
+              },
+              "queryRef": "FactAction.Prioritet",
+              "nativeQueryRef": "Prioritet"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactAction"
+                    }
+                  },
+                  "Property": "Sannsynlighet"
+                }
+              },
+              "queryRef": "FactAction.Sannsynlighet",
+              "nativeQueryRef": "Sannsynlighet"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Detaljert tiltakskort & risikovurdering (FactAction)'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

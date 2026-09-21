@@ -1,0 +1,59 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "dt1_kpi_budsjett",
+  "position": {
+    "x": 660,
+    "y": 20,
+    "z": 2,
+    "width": 600,
+    "height": 110,
+    "tabOrder": 2
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Budsjett"
+                }
+              },
+              "queryRef": "_Measures.Budsjett",
+              "nativeQueryRef": "Budsjett"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Budsjettbel\u00f8p'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

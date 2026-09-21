@@ -1,0 +1,77 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "dt2_cht_kat",
+  "position": {
+    "x": 970,
+    "y": 150,
+    "z": 6,
+    "width": 930,
+    "height": 420,
+    "tabOrder": 6
+  },
+  "visual": {
+    "visualType": "clusteredBarChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimPositionGroup"
+                    }
+                  },
+                  "Property": "Stillingskategori"
+                }
+              },
+              "queryRef": "DimPositionGroup.Stillingskategori",
+              "nativeQueryRef": "Stillingskategori"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Aarsverk"
+                }
+              },
+              "queryRef": "_Measures.Aarsverk",
+              "nativeQueryRef": "Aarsverk"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'\u00c5rsverk per stillingskategori'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

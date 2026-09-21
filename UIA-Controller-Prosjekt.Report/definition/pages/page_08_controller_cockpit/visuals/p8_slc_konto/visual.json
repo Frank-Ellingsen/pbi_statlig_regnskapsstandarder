@@ -1,0 +1,59 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "p8_slc_konto",
+  "position": {
+    "x": 780,
+    "y": 15,
+    "z": 3,
+    "width": 360,
+    "height": 65,
+    "tabOrder": 3
+  },
+  "visual": {
+    "visualType": "slicer",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimAccount"
+                    }
+                  },
+                  "Property": "SRS_regnskapslinje"
+                }
+              },
+              "queryRef": "DimAccount.SRS_regnskapslinje",
+              "nativeQueryRef": "SRS_regnskapslinje"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Regnskapslinje'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,157 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "p6_tbl_programmer",
+  "position": {
+    "x": 20,
+    "y": 650,
+    "z": 12,
+    "width": 1880,
+    "height": 410,
+    "tabOrder": 12
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimStudyProgram"
+                    }
+                  },
+                  "Property": "Studieprogram"
+                }
+              },
+              "queryRef": "DimStudyProgram.Studieprogram",
+              "nativeQueryRef": "Studieprogram"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimStudyProgram"
+                    }
+                  },
+                  "Property": "Studieprogramnavn"
+                }
+              },
+              "queryRef": "DimStudyProgram.Studieprogramnavn",
+              "nativeQueryRef": "Studieprogramnavn"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimStudyProgram"
+                    }
+                  },
+                  "Property": "Studienivaa"
+                }
+              },
+              "queryRef": "DimStudyProgram.Studienivaa",
+              "nativeQueryRef": "Studienivaa"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimStudyProgram"
+                    }
+                  },
+                  "Property": "NormerteStudiepoeng"
+                }
+              },
+              "queryRef": "DimStudyProgram.NormerteStudiepoeng",
+              "nativeQueryRef": "NormerteStudiepoeng"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Registrerte studenter"
+                }
+              },
+              "queryRef": "_Measures.Registrerte studenter",
+              "nativeQueryRef": "Registrerte studenter"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Avlagte studiepoeng"
+                }
+              },
+              "queryRef": "_Measures.Avlagte studiepoeng",
+              "nativeQueryRef": "Avlagte studiepoeng"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "SPE60"
+                }
+              },
+              "queryRef": "_Measures.SPE60",
+              "nativeQueryRef": "SPE60"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Studiepoeng maaloppnaelse %"
+                }
+              },
+              "queryRef": "_Measures.Studiepoeng maaloppnaelse %",
+              "nativeQueryRef": "Studiepoeng maaloppnaelse %"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Studieprogramaktivitet og produksjonsgrad (FactStudyPoints)'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

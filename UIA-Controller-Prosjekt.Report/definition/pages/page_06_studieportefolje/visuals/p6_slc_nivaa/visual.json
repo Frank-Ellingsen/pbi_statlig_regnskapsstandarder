@@ -1,0 +1,59 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "p6_slc_nivaa",
+  "position": {
+    "x": 780,
+    "y": 15,
+    "z": 3,
+    "width": 360,
+    "height": 65,
+    "tabOrder": 3
+  },
+  "visual": {
+    "visualType": "slicer",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimStudyProgram"
+                    }
+                  },
+                  "Property": "Studienivaa"
+                }
+              },
+              "queryRef": "DimStudyProgram.Studienivaa",
+              "nativeQueryRef": "Studienivaa"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Studieniv\u00e5'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

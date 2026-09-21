@@ -1,0 +1,115 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "p3_tbl_omstilling",
+  "position": {
+    "x": 1140,
+    "y": 650,
+    "z": 11,
+    "width": 760,
+    "height": 410,
+    "tabOrder": 11
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimOrganization"
+                    }
+                  },
+                  "Property": "Fakultetsnavn"
+                }
+              },
+              "queryRef": "DimOrganization.Fakultetsnavn",
+              "nativeQueryRef": "Fakultetsnavn"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Forventet tiltakseffekt"
+                }
+              },
+              "queryRef": "_Measures.Forventet tiltakseffekt",
+              "nativeQueryRef": "Forventet tiltakseffekt"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Realisert tiltakseffekt"
+                }
+              },
+              "queryRef": "_Measures.Realisert tiltakseffekt",
+              "nativeQueryRef": "Realisert tiltakseffekt"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Forecast etter tiltak"
+                }
+              },
+              "queryRef": "_Measures.Forecast etter tiltak",
+              "nativeQueryRef": "Forecast etter tiltak"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Restavvik etter tiltak"
+                }
+              },
+              "queryRef": "_Measures.Restavvik etter tiltak",
+              "nativeQueryRef": "Restavvik etter tiltak"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Omstillingsstatus & Netto resultat etter tiltak'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

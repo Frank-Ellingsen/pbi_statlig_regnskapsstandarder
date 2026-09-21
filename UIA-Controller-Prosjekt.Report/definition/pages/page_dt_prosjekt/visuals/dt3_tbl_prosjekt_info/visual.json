@@ -1,0 +1,199 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "dt3_tbl_prosjekt_info",
+  "position": {
+    "x": 20,
+    "y": 150,
+    "z": 5,
+    "width": 1880,
+    "height": 910,
+    "tabOrder": 5
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimProject"
+                    }
+                  },
+                  "Property": "Prosjekt"
+                }
+              },
+              "queryRef": "DimProject.Prosjekt",
+              "nativeQueryRef": "Prosjekt"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimProject"
+                    }
+                  },
+                  "Property": "Prosjektnavn"
+                }
+              },
+              "queryRef": "DimProject.Prosjektnavn",
+              "nativeQueryRef": "Prosjektnavn"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimProject"
+                    }
+                  },
+                  "Property": "Finansieringskilde"
+                }
+              },
+              "queryRef": "DimProject.Finansieringskilde",
+              "nativeQueryRef": "Finansieringskilde"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimProject"
+                    }
+                  },
+                  "Property": "Finansieringstype"
+                }
+              },
+              "queryRef": "DimProject.Finansieringstype",
+              "nativeQueryRef": "Finansieringstype"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimProject"
+                    }
+                  },
+                  "Property": "Startaar"
+                }
+              },
+              "queryRef": "DimProject.Startaar",
+              "nativeQueryRef": "Startaar"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimProject"
+                    }
+                  },
+                  "Property": "Sluttaar"
+                }
+              },
+              "queryRef": "DimProject.Sluttaar",
+              "nativeQueryRef": "Sluttaar"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "BAC (Budget at Completion)"
+                }
+              },
+              "queryRef": "_Measures.BAC (Budget at Completion)",
+              "nativeQueryRef": "BAC (Budget at Completion)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "EAC (Estimate at Completion)"
+                }
+              },
+              "queryRef": "_Measures.EAC (Estimate at Completion)",
+              "nativeQueryRef": "EAC (Estimate at Completion)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "ETC (Estimate to Complete)"
+                }
+              },
+              "queryRef": "_Measures.ETC (Estimate to Complete)",
+              "nativeQueryRef": "ETC (Estimate to Complete)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "VAC (Variance at Completion)"
+                }
+              },
+              "queryRef": "_Measures.VAC (Variance at Completion)",
+              "nativeQueryRef": "VAC (Variance at Completion)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "VAC %"
+                }
+              },
+              "queryRef": "_Measures.VAC %",
+              "nativeQueryRef": "VAC %"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Prosjekt Earned Value Management (EVM) oversikt'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

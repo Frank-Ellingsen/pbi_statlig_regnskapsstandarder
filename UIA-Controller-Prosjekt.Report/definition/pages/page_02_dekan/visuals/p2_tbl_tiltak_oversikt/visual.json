@@ -1,0 +1,143 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "p2_tbl_tiltak_oversikt",
+  "position": {
+    "x": 970,
+    "y": 650,
+    "z": 13,
+    "width": 930,
+    "height": 410,
+    "tabOrder": 13
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimOrganization"
+                    }
+                  },
+                  "Property": "Instituttnavn"
+                }
+              },
+              "queryRef": "DimOrganization.Instituttnavn",
+              "nativeQueryRef": "Instituttnavn"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Antall tiltak"
+                }
+              },
+              "queryRef": "_Measures.Antall tiltak",
+              "nativeQueryRef": "Antall tiltak"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Aapne tiltak"
+                }
+              },
+              "queryRef": "_Measures.Aapne tiltak",
+              "nativeQueryRef": "Aapne tiltak"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Forsinkede tiltak"
+                }
+              },
+              "queryRef": "_Measures.Forsinkede tiltak",
+              "nativeQueryRef": "Forsinkede tiltak"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Forventet tiltakseffekt"
+                }
+              },
+              "queryRef": "_Measures.Forventet tiltakseffekt",
+              "nativeQueryRef": "Forventet tiltakseffekt"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Realisert tiltakseffekt"
+                }
+              },
+              "queryRef": "_Measures.Realisert tiltakseffekt",
+              "nativeQueryRef": "Realisert tiltakseffekt"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Tiltak realiseringsgrad %"
+                }
+              },
+              "queryRef": "_Measures.Tiltak realiseringsgrad %",
+              "nativeQueryRef": "Tiltak realiseringsgrad %"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Omstilling og tiltaksdekning per institutt'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

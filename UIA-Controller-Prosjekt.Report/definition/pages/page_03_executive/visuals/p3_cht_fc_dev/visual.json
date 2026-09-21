@@ -1,0 +1,77 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "p3_cht_fc_dev",
+  "position": {
+    "x": 20,
+    "y": 215,
+    "z": 8,
+    "width": 930,
+    "height": 420,
+    "tabOrder": 8
+  },
+  "visual": {
+    "visualType": "lineChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimForecastVersion"
+                    }
+                  },
+                  "Property": "Versjonsnavn"
+                }
+              },
+              "queryRef": "DimForecastVersion.Versjonsnavn",
+              "nativeQueryRef": "Versjonsnavn"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Forecast"
+                }
+              },
+              "queryRef": "_Measures.Forecast",
+              "nativeQueryRef": "Forecast"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Prognoseutvikling over runder (Budsjett, FC1, FC2, LE)'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

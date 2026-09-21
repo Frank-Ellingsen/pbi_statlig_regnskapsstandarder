@@ -1,0 +1,59 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "p1_bot_rest",
+  "position": {
+    "x": 1430,
+    "y": 945,
+    "z": 17,
+    "width": 470,
+    "height": 115,
+    "tabOrder": 17
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Restavvik etter tiltak"
+                }
+              },
+              "queryRef": "_Measures.Restavvik etter tiltak",
+              "nativeQueryRef": "Restavvik etter tiltak"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'4. Gjenst\u00e5ende restavvik'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

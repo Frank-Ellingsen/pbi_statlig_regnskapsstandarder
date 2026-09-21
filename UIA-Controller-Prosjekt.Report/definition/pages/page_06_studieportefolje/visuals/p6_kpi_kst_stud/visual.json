@@ -1,0 +1,59 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "p6_kpi_kst_stud",
+  "position": {
+    "x": 1300,
+    "y": 95,
+    "z": 8,
+    "width": 300,
+    "height": 105,
+    "tabOrder": 8
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Kostnad per student"
+                }
+              },
+              "queryRef": "_Measures.Kostnad per student",
+              "nativeQueryRef": "Kostnad per student"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Kostnad per student'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}
