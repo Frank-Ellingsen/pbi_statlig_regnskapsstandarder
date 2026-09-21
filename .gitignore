@@ -1,0 +1,22 @@
+# Power BI local and cache files
+**/.pbi/localSettings.json
+**/.pbi/cache.abf
+
+# Microsoft Office temporary lock files and root working copies
+~$*.xlsx
+~$*.docx
+~$*.pptx
+/UIA-Controller-Rapport.xlsx
+
+# Python cache & artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+env/
+venv/
+
+# OS metadata
+Thumbs.db
+[Dd]esktop.ini
+.DS_Store

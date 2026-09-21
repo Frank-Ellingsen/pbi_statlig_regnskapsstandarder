@@ -1,0 +1,144 @@
+-- ============================================================
+-- BASE FINANCIAL & ACTIVITY MEASURES FOR UIA CONTROLLER MODEL
+-- ============================================================
+
+-- ------------------------------------------------------------
+-- 01 FAKTISK (ACTUALS / HOVEDBOK - FactGL)
+-- ------------------------------------------------------------
+
+Faktisk belop = 
+SUM ( FactGL[Belop_signert] )
+
+Faktisk debet = 
+SUM ( FactGL[Debet] )
+
+Faktisk kredit = 
+SUM ( FactGL[Kredit] )
+
+Faktisk inntekter = 
+CALCULATE (
+    -[Faktisk belop],
+    DimAccount[Kontotype] = "Inntekt"
+)
+
+Faktisk kostnader = 
+CALCULATE (
+    [Faktisk belop],
+    DimAccount[Kontotype] = "Kostnad"
+)
+
+Faktisk lonnskostnader = 
+CALCULATE (
+    [Faktisk belop],
+    DimAccount[SRS_regnskapslinje] = "Lonnskostnader"
+)
+
+Faktisk driftskostnader = 
+CALCULATE (
+    [Faktisk belop],
+    DimAccount[SRS_regnskapslinje] IN { "Andre driftskostnader", "Husleie og lokaler" }
+)
+
+Faktisk YTD = 
+TOTALYTD ( [Faktisk belop], DimDate[Dato] )
+
+Faktisk inntekter YTD = 
+TOTALYTD ( [Faktisk inntekter], DimDate[Dato] )
+
+Faktisk kostnader YTD = 
+TOTALYTD ( [Faktisk kostnader], DimDate[Dato] )
+
+
+-- ------------------------------------------------------------
+-- 02 BUDSJETT (BUDGET - FactBudget)
+-- ------------------------------------------------------------
+
+Budsjett = 
+SUM ( FactBudget[BudsjettBelop] )
+
+Budsjett inntekter = 
+CALCULATE (
+    -[Budsjett],
+    DimAccount[Kontotype] = "Inntekt"
+)
+
+Budsjett kostnader = 
+CALCULATE (
+    [Budsjett],
+    DimAccount[Kontotype] = "Kostnad"
+)
+
+Budsjett lonnskostnader = 
+CALCULATE (
+    [Budsjett],
+    DimAccount[SRS_regnskapslinje] = "Lonnskostnader"
+)
+
+Budsjett YTD = 
+TOTALYTD ( [Budsjett], DimDate[Dato] )
+
+
+-- ------------------------------------------------------------
+-- 04 AVVIKSANALYSE (VARIANCE ANALYSIS)
+-- ------------------------------------------------------------
+
+Avvik mot budsjett = 
+[Faktisk belop] - [Budsjett]
+
+Avvik mot budsjett % = 
+DIVIDE ( [Avvik mot budsjett], ABS ( [Budsjett] ) )
+
+Avvik kostnader = 
+[Faktisk kostnader] - [Budsjett kostnader]
+
+Avvik inntekter = 
+[Faktisk inntekter] - [Budsjett inntekter]
+
+
+-- ------------------------------------------------------------
+-- 05 BEMANNING & ÅRSVERK (FTE - FactFTE)
+-- ------------------------------------------------------------
+
+Aarsverk = 
+SUM ( FactFTE[Aarsverk] )
+
+Faglige aarsverk = 
+SUM ( FactFTE[FagligeAarsverk] )
+
+Administrative aarsverk = 
+CALCULATE (
+    [Aarsverk],
+    DimPositionGroup[Stillingskategori] = "Administrativ"
+)
+
+Aarsverk snitt = 
+AVERAGEX (
+    VALUES ( DimDate[AarMaaned] ),
+    [Aarsverk]
+)
+
+
+-- ------------------------------------------------------------
+-- 06 STUDIEPOENG & UTDANNINGSPRODUKSJON (FactStudyPoints)
+-- ------------------------------------------------------------
+
+Avlagte studiepoeng = 
+SUM ( FactStudyPoints[AvlagteStudiepoeng] )
+
+Planlagte studiepoeng = 
+SUM ( FactStudyPoints[PlanlagteStudiepoeng] )
+
+SPE 60 = 
+SUM ( FactStudyPoints[SPE60] )
+
+Registrerte studenter = 
+SUM ( FactStudyPoints[RegistrerteStudenter] )
+
+Gjennomforingsgrad % = 
+DIVIDE ( [Avlagte studiepoeng], [Planlagte studiepoeng] )
+
+Avlagte studiepoeng YTD = 
+TOTALYTD ( [Avlagte studiepoeng], DimDate[Dato] )
+
+SPE 60 YTD = 
+TOTALYTD ( [SPE 60], DimDate[Dato] )

@@ -1,0 +1,66 @@
+table FactForecast
+	lineageTag: f0000003-0000-0000-0000-000000000001
+
+	column DatoNokkel
+		dataType: int64
+		sourceColumn: DatoNokkel
+		summarizeBy: none
+
+	column Organisasjonsnokkel
+		dataType: int64
+		sourceColumn: Organisasjonsnokkel
+		summarizeBy: none
+
+	column Konto
+		dataType: int64
+		sourceColumn: Konto
+		summarizeBy: none
+
+	column Prosjekt
+		dataType: string
+		sourceColumn: Prosjekt
+		summarizeBy: none
+
+	column Versjon
+		dataType: string
+		sourceColumn: Versjon
+		summarizeBy: none
+
+	column ForecastBelop
+		dataType: double
+		formatString: #,##0.00
+		sourceColumn: ForecastBelop
+		summarizeBy: sum
+
+	column Datastatus
+		dataType: string
+		sourceColumn: Datastatus
+		summarizeBy: none
+
+	column Sannsynlighet
+		dataType: double
+		formatString: 0.0%
+		sourceColumn: Sannsynlighet
+		summarizeBy: average
+
+	column Kommentar
+		dataType: string
+		sourceColumn: Kommentar
+		summarizeBy: none
+
+	column Tiltakseffekt
+		dataType: double
+		formatString: #,##0.00
+		sourceColumn: Tiltakseffekt
+		summarizeBy: sum
+
+	partition FactForecast = m
+		mode: import
+		source = ```
+			let
+			    Source = Csv.Document(File.Contents(DataFolder & "FactForecast.csv"), [Delimiter=";", Columns=10, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+			    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+			    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"DatoNokkel", Int64.Type}, {"Organisasjonsnokkel", Int64.Type}, {"Konto", Int64.Type}, {"Prosjekt", type text}, {"Versjon", type text}, {"ForecastBelop", type number}, {"Datastatus", type text}, {"Sannsynlighet", type number}, {"Kommentar", type text}, {"Tiltakseffekt", type number}})
+			in
+			    #"Changed Type"
+			```

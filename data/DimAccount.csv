@@ -1,0 +1,18 @@
+﻿Konto;Kontonavn;Kontotype;SRS_regnskapslinje
+3000;Salgsinntekt tjenester;Inntekt;Salgs- og leieinntekter
+3400;Tilskudd og overforinger;Inntekt;Tilskudd og overforinger
+5000;Fast lonn;Kostnad;Lonnskostnader
+5090;Feriepenger;Kostnad;Lonnskostnader
+5400;Arbeidsgiveravgift;Kostnad;Lonnskostnader
+5420;Pensjonskostnad;Kostnad;Lonnskostnader
+6300;Leie lokaler;Kostnad;Andre driftskostnader
+6420;Leie IKT/utstyr;Kostnad;Andre driftskostnader
+6540;Mindre utstyrsanskaffelser;Kostnad;Andre driftskostnader
+6700;Konsulenttjenester;Kostnad;Andre driftskostnader
+6800;Kontorrekvisita/IT forbruk;Kostnad;Andre driftskostnader
+7100;Bilgodtgjorelse/reise;Kostnad;Andre driftskostnader
+7140;Reisekostnad;Kostnad;Andre driftskostnader
+7300;Representasjon/mote;Kostnad;Andre driftskostnader
+7500;Forsikring/avgifter;Kostnad;Andre driftskostnader
+7600;Lisens og programvare;Kostnad;Andre driftskostnader
+7800;Avskrivning;Kostnad;Avskrivninger

@@ -1,0 +1,29 @@
+table DimPositionGroup
+	lineageTag: d0000006-0000-0000-0000-000000000001
+
+	column Stillingsgruppe
+		dataType: string
+		isKey
+		sourceColumn: Stillingsgruppe
+		summarizeBy: none
+
+	column Stillingsgruppenavn
+		dataType: string
+		sourceColumn: Stillingsgruppenavn
+		summarizeBy: none
+
+	column Stillingskategori
+		dataType: string
+		sourceColumn: Stillingskategori
+		summarizeBy: none
+
+	partition DimPositionGroup = m
+		mode: import
+		source = ```
+			let
+			    Source = Csv.Document(File.Contents(DataFolder & "DimPositionGroup.csv"), [Delimiter=";", Columns=3, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+			    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+			    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Stillingsgruppe", type text}, {"Stillingsgruppenavn", type text}, {"Stillingskategori", type text}})
+			in
+			    #"Changed Type"
+			```

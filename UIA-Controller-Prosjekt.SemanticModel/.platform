@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "UIA-Controller-Prosjekt"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "54d21b1f-d900-446a-8a0e-3db9c2ab00f6"
+  }
+}

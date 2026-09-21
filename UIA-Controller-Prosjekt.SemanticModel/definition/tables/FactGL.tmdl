@@ -1,0 +1,76 @@
+table FactGL
+	lineageTag: f0000001-0000-0000-0000-000000000001
+
+	column Bilag
+		dataType: string
+		sourceColumn: Bilag
+		summarizeBy: none
+
+	column DatoNokkel
+		dataType: int64
+		sourceColumn: DatoNokkel
+		summarizeBy: none
+
+	column Organisasjonsnokkel
+		dataType: int64
+		sourceColumn: Organisasjonsnokkel
+		summarizeBy: none
+
+	column Konto
+		dataType: int64
+		sourceColumn: Konto
+		summarizeBy: none
+
+	column Prosjekt
+		dataType: string
+		sourceColumn: Prosjekt
+		summarizeBy: none
+
+	column Finansieringskilde
+		dataType: string
+		sourceColumn: Finansieringskilde
+		summarizeBy: none
+
+	column Tekst
+		dataType: string
+		sourceColumn: Tekst
+		summarizeBy: none
+
+	column Belop_signert
+		dataType: double
+		formatString: #,##0.00
+		sourceColumn: Belop_signert
+		summarizeBy: sum
+
+	column Debet
+		dataType: double
+		formatString: #,##0.00
+		sourceColumn: Debet
+		summarizeBy: sum
+
+	column Kredit
+		dataType: double
+		formatString: #,##0.00
+		sourceColumn: Kredit
+		summarizeBy: sum
+
+	column Valuta
+		dataType: string
+		sourceColumn: Valuta
+		summarizeBy: none
+
+	column Datakilde
+		dataType: string
+		sourceColumn: Datakilde
+		summarizeBy: none
+
+	partition FactGL = m
+		mode: import
+		source = ```
+			let
+			    Source = Csv.Document(File.Contents(DataFolder & "FactGL.csv"), [Delimiter=";", Columns=12, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+			    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+			    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Bilag", type text}, {"DatoNokkel", Int64.Type}, {"Organisasjonsnokkel", Int64.Type}, {"Konto", Int64.Type}, {"Prosjekt", type text}, {"Finansieringskilde", type text}, {"Tekst", type text}, {"Belop_signert", type number}, {"Debet", type number}, {"Kredit", type number}, {"Valuta", type text}, {"Datakilde", type text}})
+			in
+			    #"Changed Type"
+			```

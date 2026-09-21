@@ -1,0 +1,58 @@
+table FactStudyPoints
+	lineageTag: f0000005-0000-0000-0000-000000000001
+
+	column DatoNokkel
+		dataType: int64
+		sourceColumn: DatoNokkel
+		summarizeBy: none
+
+	column Organisasjonsnokkel
+		dataType: int64
+		sourceColumn: Organisasjonsnokkel
+		summarizeBy: none
+
+	column Studieprogram
+		dataType: string
+		sourceColumn: Studieprogram
+		summarizeBy: none
+
+	column RegistrerteStudenter
+		dataType: int64
+		formatString: #,##0
+		sourceColumn: RegistrerteStudenter
+		summarizeBy: sum
+
+	column PlanlagteStudiepoeng
+		dataType: double
+		formatString: #,##0.0
+		sourceColumn: PlanlagteStudiepoeng
+		summarizeBy: sum
+
+	column AvlagteStudiepoeng
+		dataType: double
+		formatString: #,##0.0
+		sourceColumn: AvlagteStudiepoeng
+		summarizeBy: sum
+
+	column SPE60
+		dataType: double
+		formatString: #,##0.00
+		sourceColumn: SPE60
+		summarizeBy: sum
+
+	column BestattAndel
+		dataType: double
+		formatString: 0.0%
+		sourceColumn: BestattAndel
+		summarizeBy: average
+
+	partition FactStudyPoints = m
+		mode: import
+		source = ```
+			let
+			    Source = Csv.Document(File.Contents(DataFolder & "FactStudyPoints.csv"), [Delimiter=";", Columns=8, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+			    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+			    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"DatoNokkel", Int64.Type}, {"Organisasjonsnokkel", Int64.Type}, {"Studieprogram", type text}, {"RegistrerteStudenter", Int64.Type}, {"PlanlagteStudiepoeng", type number}, {"AvlagteStudiepoeng", type number}, {"SPE60", type number}, {"BestattAndel", type number}})
+			in
+			    #"Changed Type"
+			```

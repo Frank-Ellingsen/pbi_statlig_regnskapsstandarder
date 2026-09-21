@@ -1,0 +1,45 @@
+table FactFTE
+	lineageTag: f0000004-0000-0000-0000-000000000001
+
+	column DatoNokkel
+		dataType: int64
+		sourceColumn: DatoNokkel
+		summarizeBy: none
+
+	column Organisasjonsnokkel
+		dataType: int64
+		sourceColumn: Organisasjonsnokkel
+		summarizeBy: none
+
+	column Stillingsgruppe
+		dataType: string
+		sourceColumn: Stillingsgruppe
+		summarizeBy: none
+
+	column Aarsverk
+		dataType: double
+		formatString: #,##0.00
+		sourceColumn: Aarsverk
+		summarizeBy: sum
+
+	column FagligeAarsverk
+		dataType: double
+		formatString: #,##0.00
+		sourceColumn: FagligeAarsverk
+		summarizeBy: sum
+
+	column Scenario
+		dataType: string
+		sourceColumn: Scenario
+		summarizeBy: none
+
+	partition FactFTE = m
+		mode: import
+		source = ```
+			let
+			    Source = Csv.Document(File.Contents(DataFolder & "FactFTE.csv"), [Delimiter=";", Columns=6, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+			    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+			    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"DatoNokkel", Int64.Type}, {"Organisasjonsnokkel", Int64.Type}, {"Stillingsgruppe", type text}, {"Aarsverk", type number}, {"FagligeAarsverk", type number}, {"Scenario", type text}})
+			in
+			    #"Changed Type"
+			```

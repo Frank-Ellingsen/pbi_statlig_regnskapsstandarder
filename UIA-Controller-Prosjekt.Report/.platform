@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "UIA-Controller-Prosjekt"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "7a115cf1-153c-46e1-abe8-2a4595cbb2da"
+  }
+}

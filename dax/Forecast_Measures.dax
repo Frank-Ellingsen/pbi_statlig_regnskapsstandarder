@@ -1,0 +1,162 @@
+-- ============================================================
+-- FORECAST MEASURES FOR UIA CONTROLLER MODEL
+-- ============================================================
+
+Forecast belop =
+SUM ( FactForecast[ForecastBelop] )
+
+Tiltakseffekt =
+SUM ( FactForecast[Tiltakseffekt] )
+
+Forecast etter tiltak =
+[Forecast belop] + [Tiltakseffekt]
+
+Valgt forecastversjon =
+SELECTEDVALUE ( DimForecastVersion[Versjon], "LE_2026" )
+
+Gjeldende forecast =
+VAR ValgtVersjon = [Valgt forecastversjon]
+RETURN
+    CALCULATE (
+        [Forecast belop],
+        KEEPFILTERS ( DimForecastVersion[Versjon] = ValgtVersjon )
+    )
+
+Gjeldende forecast etter tiltak =
+VAR ValgtVersjon = [Valgt forecastversjon]
+RETURN
+    CALCULATE (
+        [Forecast etter tiltak],
+        KEEPFILTERS ( DimForecastVersion[Versjon] = ValgtVersjon )
+    )
+
+Forecast aarsbelop =
+CALCULATE (
+    [Gjeldende forecast],
+    REMOVEFILTERS ( DimDate[MaanedNr], DimDate[Maaned], DimDate[AarMaaned], DimDate[Dato], DimDate[DatoNokkel] )
+)
+
+Forecast YTD =
+TOTALYTD ( [Gjeldende forecast], DimDate[Dato] )
+
+Forecast restaar =
+[Forecast aarsbelop] - [Forecast YTD]
+
+Aarsbudsjett =
+CALCULATE (
+    [Budsjett],
+    REMOVEFILTERS ( DimDate[MaanedNr], DimDate[Maaned], DimDate[AarMaaned], DimDate[Dato], DimDate[DatoNokkel] )
+)
+
+Forecast mot budsjett =
+[Forecast aarsbelop] - [Aarsbudsjett]
+
+Forecast mot budsjett % =
+DIVIDE ( [Forecast mot budsjett], ABS ( [Aarsbudsjett] ) )
+
+Forecast etter tiltak mot budsjett =
+CALCULATE (
+    [Gjeldende forecast etter tiltak],
+    REMOVEFILTERS ( DimDate[MaanedNr], DimDate[Maaned], DimDate[AarMaaned], DimDate[Dato], DimDate[DatoNokkel] )
+) - [Aarsbudsjett]
+
+Forecast endring fra FC1 =
+[Forecast aarsbelop]
+    - CALCULATE (
+        [Forecast belop],
+        DimForecastVersion[Versjon] = "FC1_2026",
+        REMOVEFILTERS ( DimDate )
+    )
+
+Forecast endring fra FC2 =
+[Forecast aarsbelop]
+    - CALCULATE (
+        [Forecast belop],
+        DimForecastVersion[Versjon] = "FC2_2026",
+        REMOVEFILTERS ( DimDate )
+    )
+
+Latest Estimate =
+CALCULATE (
+    [Forecast belop],
+    DimForecastVersion[Versjon] = "LE_2026"
+)
+
+Latest Estimate aarsbelop =
+CALCULATE ( [Latest Estimate], REMOVEFILTERS ( DimDate ) )
+
+LE mot budsjett =
+[Latest Estimate aarsbelop] - [Aarsbudsjett]
+
+LE mot budsjett % =
+DIVIDE ( [LE mot budsjett], ABS ( [Aarsbudsjett] ) )
+
+Forecast inntekter =
+CALCULATE (
+    -[Gjeldende forecast],
+    DimAccount[Kontotype] = "Inntekt"
+)
+
+Forecast kostnader =
+CALCULATE (
+    [Gjeldende forecast],
+    DimAccount[Kontotype] = "Kostnad"
+)
+
+Forecast lonnskostnader =
+CALCULATE (
+    [Gjeldende forecast],
+    DimAccount[SRS_regnskapslinje] = "Lonnskostnader"
+)
+
+Forecast BOA inntekter =
+CALCULATE (
+    [Forecast inntekter],
+    DimProject[Finansieringstype] IN { "Bidrag", "Oppdrag" }
+)
+
+Forecast BOA andel % =
+DIVIDE ( [Forecast BOA inntekter], [Forecast inntekter] )
+
+Forecaststatus =
+VAR AvvikPct = [Forecast mot budsjett %]
+RETURN
+    SWITCH (
+        TRUE (),
+        ISBLANK ( AvvikPct ), BLANK (),
+        AvvikPct > 0.05, "Rod",
+        AvvikPct > 0.02, "Gul",
+        AvvikPct < -0.05, "Bla",
+        "Gronn"
+    )
+
+Forecaststatus farge =
+SWITCH (
+    [Forecaststatus],
+    "Rod", "#C00000",
+    "Gul", "#FFC000",
+    "Bla", "#5B9BD5",
+    "Gronn", "#70AD47",
+    "#A6A6A6"
+)
+
+Forecast datakvalitet % =
+AVERAGE ( FactForecast[Sannsynlighet] )
+
+Forecast faktisk andel % =
+DIVIDE (
+    CALCULATE ( [Forecast belop], FactForecast[Datastatus] = "Faktisk hittil" ),
+    [Forecast belop]
+)
+
+Forecast estimert andel % =
+DIVIDE (
+    CALCULATE ( [Forecast belop], FactForecast[Datastatus] = "Estimert restaar" ),
+    [Forecast belop]
+)
+
+Forecast kostnad per SPE60 =
+DIVIDE ( [Forecast kostnader], [SPE 60] )
+
+Forecast lonn per aarsverk =
+DIVIDE ( [Forecast lonnskostnader], [Aarsverk] )

@@ -1,0 +1,78 @@
+table DimDate
+	lineageTag: d0000001-0000-0000-0000-000000000001
+	dataCategory: Time
+
+	column Dato
+		dataType: dateTime
+		isKey
+		formatString: yyyy-MM-dd
+		sourceColumn: Dato
+		summarizeBy: none
+
+	column DatoNokkel
+		dataType: int64
+		sourceColumn: DatoNokkel
+		summarizeBy: none
+
+	column Aar
+		dataType: int64
+		sourceColumn: Aar
+		summarizeBy: none
+
+	column Kvartal
+		dataType: string
+		sourceColumn: Kvartal
+		summarizeBy: none
+
+	column MaanedNr
+		dataType: int64
+		sourceColumn: MaanedNr
+		summarizeBy: none
+
+	column Maaned
+		dataType: string
+		sourceColumn: Maaned
+		sortByColumn: MaanedNr
+		summarizeBy: none
+
+	column AarMaaned
+		dataType: string
+		sourceColumn: AarMaaned
+		sortByColumn: MaanedStart
+		summarizeBy: none
+
+	column MaanedStart
+		dataType: dateTime
+		formatString: yyyy-MM-dd
+		sourceColumn: MaanedStart
+		summarizeBy: none
+
+	hierarchy Tid
+		lineageTag: d0000001-0000-0000-0000-000000000002
+
+		level Aar
+			lineageTag: d0000001-0000-0000-0000-000000000003
+			column: Aar
+
+		level Kvartal
+			lineageTag: d0000001-0000-0000-0000-000000000004
+			column: Kvartal
+
+		level Maaned
+			lineageTag: d0000001-0000-0000-0000-000000000005
+			column: Maaned
+
+		level Dato
+			lineageTag: d0000001-0000-0000-0000-000000000006
+			column: Dato
+
+	partition DimDate = m
+		mode: import
+		source = ```
+			let
+			    Source = Csv.Document(File.Contents(DataFolder & "DimDate.csv"), [Delimiter=";", Columns=8, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+			    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+			    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Dato", type date}, {"DatoNokkel", Int64.Type}, {"Aar", Int64.Type}, {"Kvartal", type text}, {"MaanedNr", Int64.Type}, {"Maaned", type text}, {"AarMaaned", type text}, {"MaanedStart", type date}})
+			in
+			    #"Changed Type"
+			```

@@ -1,0 +1,53 @@
+table DimAccount
+	lineageTag: d0000003-0000-0000-0000-000000000001
+
+	column Konto
+		dataType: int64
+		isKey
+		sourceColumn: Konto
+		summarizeBy: none
+
+	column Kontonavn
+		dataType: string
+		sourceColumn: Kontonavn
+		summarizeBy: none
+
+	column Kontotype
+		dataType: string
+		sourceColumn: Kontotype
+		summarizeBy: none
+
+	column SRS_regnskapslinje
+		dataType: string
+		sourceColumn: SRS_regnskapslinje
+		summarizeBy: none
+
+	hierarchy Konto
+		lineageTag: d0000003-0000-0000-0000-000000000002
+
+		level SRS_regnskapslinje
+			lineageTag: d0000003-0000-0000-0000-000000000003
+			column: SRS_regnskapslinje
+
+		level Kontotype
+			lineageTag: d0000003-0000-0000-0000-000000000004
+			column: Kontotype
+
+		level Kontonavn
+			lineageTag: d0000003-0000-0000-0000-000000000005
+			column: Kontonavn
+
+		level Konto
+			lineageTag: d0000003-0000-0000-0000-000000000006
+			column: Konto
+
+	partition DimAccount = m
+		mode: import
+		source = ```
+			let
+			    Source = Csv.Document(File.Contents(DataFolder & "DimAccount.csv"), [Delimiter=";", Columns=4, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+			    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+			    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Konto", Int64.Type}, {"Kontonavn", type text}, {"Kontotype", type text}, {"SRS_regnskapslinje", type text}})
+			in
+			    #"Changed Type"
+			```

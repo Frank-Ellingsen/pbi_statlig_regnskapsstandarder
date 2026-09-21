@@ -1,0 +1,45 @@
+table DimForecastVersion
+	lineageTag: d0000005-0000-0000-0000-000000000001
+
+	column Versjon
+		dataType: string
+		isKey
+		sourceColumn: Versjon
+		summarizeBy: none
+
+	column Versjonsnavn
+		dataType: string
+		sourceColumn: Versjonsnavn
+		sortByColumn: Sortering
+		summarizeBy: none
+
+	column Versjonstype
+		dataType: string
+		sourceColumn: Versjonstype
+		summarizeBy: none
+
+	column Sortering
+		dataType: int64
+		sourceColumn: Sortering
+		summarizeBy: none
+
+	column CutoffDatoNokkel
+		dataType: int64
+		sourceColumn: CutoffDatoNokkel
+		summarizeBy: none
+
+	column ErGjeldende
+		dataType: int64
+		sourceColumn: ErGjeldende
+		summarizeBy: none
+
+	partition DimForecastVersion = m
+		mode: import
+		source = ```
+			let
+			    Source = Csv.Document(File.Contents(DataFolder & "DimForecastVersion.csv"), [Delimiter=";", Columns=6, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+			    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+			    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Versjon", type text}, {"Versjonsnavn", type text}, {"Versjonstype", type text}, {"Sortering", Int64.Type}, {"CutoffDatoNokkel", Int64.Type}, {"ErGjeldende", Int64.Type}})
+			in
+			    #"Changed Type"
+			```

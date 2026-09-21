@@ -1,0 +1,385 @@
+table _Measures
+	lineageTag: m0000000-0000-0000-0000-000000000001
+
+	measure 'Faktisk belop' = SUM ( FactGL[Belop_signert] )
+		formatString: #,##0
+		displayFolder: 01 Faktisk
+
+	measure 'Faktisk debet' = SUM ( FactGL[Debet] )
+		formatString: #,##0
+		displayFolder: 01 Faktisk
+
+	measure 'Faktisk kredit' = SUM ( FactGL[Kredit] )
+		formatString: #,##0
+		displayFolder: 01 Faktisk
+
+	measure 'Faktisk inntekter' = ```
+		CALCULATE (
+		    -[Faktisk belop],
+		    DimAccount[Kontotype] = "Inntekt"
+		)
+		```
+		formatString: #,##0
+		displayFolder: 01 Faktisk
+
+	measure 'Faktisk kostnader' = ```
+		CALCULATE (
+		    [Faktisk belop],
+		    DimAccount[Kontotype] = "Kostnad"
+		)
+		```
+		formatString: #,##0
+		displayFolder: 01 Faktisk
+
+	measure 'Faktisk lonnskostnader' = ```
+		CALCULATE (
+		    [Faktisk belop],
+		    DimAccount[SRS_regnskapslinje] = "Lonnskostnader"
+		)
+		```
+		formatString: #,##0
+		displayFolder: 01 Faktisk
+
+	measure 'Faktisk driftskostnader' = ```
+		CALCULATE (
+		    [Faktisk belop],
+		    DimAccount[SRS_regnskapslinje] IN { "Andre driftskostnader", "Husleie og lokaler" }
+		)
+		```
+		formatString: #,##0
+		displayFolder: 01 Faktisk
+
+	measure 'Faktisk YTD' = TOTALYTD ( [Faktisk belop], DimDate[Dato] )
+		formatString: #,##0
+		displayFolder: 01 Faktisk
+
+	measure 'Faktisk inntekter YTD' = TOTALYTD ( [Faktisk inntekter], DimDate[Dato] )
+		formatString: #,##0
+		displayFolder: 01 Faktisk
+
+	measure 'Faktisk kostnader YTD' = TOTALYTD ( [Faktisk kostnader], DimDate[Dato] )
+		formatString: #,##0
+		displayFolder: 01 Faktisk
+
+	measure Budsjett = SUM ( FactBudget[BudsjettBelop] )
+		formatString: #,##0
+		displayFolder: 02 Budsjett
+
+	measure 'Budsjett inntekter' = ```
+		CALCULATE (
+		    -[Budsjett],
+		    DimAccount[Kontotype] = "Inntekt"
+		)
+		```
+		formatString: #,##0
+		displayFolder: 02 Budsjett
+
+	measure 'Budsjett kostnader' = ```
+		CALCULATE (
+		    [Budsjett],
+		    DimAccount[Kontotype] = "Kostnad"
+		)
+		```
+		formatString: #,##0
+		displayFolder: 02 Budsjett
+
+	measure 'Budsjett lonnskostnader' = ```
+		CALCULATE (
+		    [Budsjett],
+		    DimAccount[SRS_regnskapslinje] = "Lonnskostnader"
+		)
+		```
+		formatString: #,##0
+		displayFolder: 02 Budsjett
+
+	measure 'Budsjett YTD' = TOTALYTD ( [Budsjett], DimDate[Dato] )
+		formatString: #,##0
+		displayFolder: 02 Budsjett
+
+	measure Aarsbudsjett = ```
+		CALCULATE (
+		    [Budsjett],
+		    REMOVEFILTERS ( DimDate[MaanedNr], DimDate[Maaned], DimDate[AarMaaned], DimDate[Dato], DimDate[DatoNokkel] )
+		)
+		```
+		formatString: #,##0
+		displayFolder: 02 Budsjett
+
+	measure 'Forecast belop' = SUM ( FactForecast[ForecastBelop] )
+		formatString: #,##0
+		displayFolder: 03 Forecast & LE
+
+	measure Tiltakseffekt = SUM ( FactForecast[Tiltakseffekt] )
+		formatString: #,##0
+		displayFolder: 03 Forecast & LE
+
+	measure 'Forecast etter tiltak' = [Forecast belop] + [Tiltakseffekt]
+		formatString: #,##0
+		displayFolder: 03 Forecast & LE
+
+	measure 'Valgt forecastversjon' = SELECTEDVALUE ( DimForecastVersion[Versjon], "LE_2026" )
+		displayFolder: 03 Forecast & LE
+
+	measure 'Gjeldende forecast' = ```
+		VAR ValgtVersjon = [Valgt forecastversjon]
+		RETURN
+		    CALCULATE (
+		        [Forecast belop],
+		        KEEPFILTERS ( DimForecastVersion[Versjon] = ValgtVersjon )
+		    )
+		```
+		formatString: #,##0
+		displayFolder: 03 Forecast & LE
+
+	measure 'Gjeldende forecast etter tiltak' = ```
+		VAR ValgtVersjon = [Valgt forecastversjon]
+		RETURN
+		    CALCULATE (
+		        [Forecast etter tiltak],
+		        KEEPFILTERS ( DimForecastVersion[Versjon] = ValgtVersjon )
+		    )
+		```
+		formatString: #,##0
+		displayFolder: 03 Forecast & LE
+
+	measure 'Forecast aarsbelop' = ```
+		CALCULATE (
+		    [Gjeldende forecast],
+		    REMOVEFILTERS ( DimDate[MaanedNr], DimDate[Maaned], DimDate[AarMaaned], DimDate[Dato], DimDate[DatoNokkel] )
+		)
+		```
+		formatString: #,##0
+		displayFolder: 03 Forecast & LE
+
+	measure 'Forecast YTD' = TOTALYTD ( [Gjeldende forecast], DimDate[Dato] )
+		formatString: #,##0
+		displayFolder: 03 Forecast & LE
+
+	measure 'Forecast restaar' = [Forecast aarsbelop] - [Forecast YTD]
+		formatString: #,##0
+		displayFolder: 03 Forecast & LE
+
+	measure 'Latest Estimate' = ```
+		CALCULATE (
+		    [Forecast belop],
+		    DimForecastVersion[Versjon] = "LE_2026"
+		)
+		```
+		formatString: #,##0
+		displayFolder: 03 Forecast & LE
+
+	measure 'Latest Estimate aarsbelop' = CALCULATE ( [Latest Estimate], REMOVEFILTERS ( DimDate ) )
+		formatString: #,##0
+		displayFolder: 03 Forecast & LE
+
+	measure 'Forecast inntekter' = ```
+		CALCULATE (
+		    -[Gjeldende forecast],
+		    DimAccount[Kontotype] = "Inntekt"
+		)
+		```
+		formatString: #,##0
+		displayFolder: 03 Forecast & LE
+
+	measure 'Forecast kostnader' = ```
+		CALCULATE (
+		    [Gjeldende forecast],
+		    DimAccount[Kontotype] = "Kostnad"
+		)
+		```
+		formatString: #,##0
+		displayFolder: 03 Forecast & LE
+
+	measure 'Forecast lonnskostnader' = ```
+		CALCULATE (
+		    [Gjeldende forecast],
+		    DimAccount[SRS_regnskapslinje] = "Lonnskostnader"
+		)
+		```
+		formatString: #,##0
+		displayFolder: 03 Forecast & LE
+
+	measure 'Forecast BOA inntekter' = ```
+		CALCULATE (
+		    [Forecast inntekter],
+		    DimProject[Finansieringstype] IN { "Bidrag", "Oppdrag" }
+		)
+		```
+		formatString: #,##0
+		displayFolder: 03 Forecast & LE
+
+	measure 'Forecast BOA andel %' = DIVIDE ( [Forecast BOA inntekter], [Forecast inntekter] )
+		formatString: 0.0%
+		displayFolder: 03 Forecast & LE
+
+	measure 'Avvik mot budsjett' = [Faktisk belop] - [Budsjett]
+		formatString: #,##0
+		displayFolder: 04 Avvik & Analyse
+
+	measure 'Avvik mot budsjett %' = DIVIDE ( [Avvik mot budsjett], ABS ( [Budsjett] ) )
+		formatString: 0.0%
+		displayFolder: 04 Avvik & Analyse
+
+	measure 'Forecast mot budsjett' = [Forecast aarsbelop] - [Aarsbudsjett]
+		formatString: #,##0
+		displayFolder: 04 Avvik & Analyse
+
+	measure 'Forecast mot budsjett %' = DIVIDE ( [Forecast mot budsjett], ABS ( [Aarsbudsjett] ) )
+		formatString: 0.0%
+		displayFolder: 04 Avvik & Analyse
+
+	measure 'Forecast etter tiltak mot budsjett' = ```
+		CALCULATE (
+		    [Gjeldende forecast etter tiltak],
+		    REMOVEFILTERS ( DimDate[MaanedNr], DimDate[Maaned], DimDate[AarMaaned], DimDate[Dato], DimDate[DatoNokkel] )
+		) - [Aarsbudsjett]
+		```
+		formatString: #,##0
+		displayFolder: 04 Avvik & Analyse
+
+	measure 'Forecast endring fra FC1' = ```
+		[Forecast aarsbelop]
+		    - CALCULATE (
+		        [Forecast belop],
+		        DimForecastVersion[Versjon] = "FC1_2026",
+		        REMOVEFILTERS ( DimDate )
+		    )
+		```
+		formatString: #,##0
+		displayFolder: 04 Avvik & Analyse
+
+	measure 'Forecast endring fra FC2' = ```
+		[Forecast aarsbelop]
+		    - CALCULATE (
+		        [Forecast belop],
+		        DimForecastVersion[Versjon] = "FC2_2026",
+		        REMOVEFILTERS ( DimDate )
+		    )
+		```
+		formatString: #,##0
+		displayFolder: 04 Avvik & Analyse
+
+	measure 'LE mot budsjett' = [Latest Estimate aarsbelop] - [Aarsbudsjett]
+		formatString: #,##0
+		displayFolder: 04 Avvik & Analyse
+
+	measure 'LE mot budsjett %' = DIVIDE ( [LE mot budsjett], ABS ( [Aarsbudsjett] ) )
+		formatString: 0.0%
+		displayFolder: 04 Avvik & Analyse
+
+	measure Aarsverk = SUM ( FactFTE[Aarsverk] )
+		formatString: #,##0.00
+		displayFolder: 05 Bemanning
+
+	measure 'Faglige aarsverk' = SUM ( FactFTE[FagligeAarsverk] )
+		formatString: #,##0.00
+		displayFolder: 05 Bemanning
+
+	measure 'Administrative aarsverk' = ```
+		CALCULATE (
+		    [Aarsverk],
+		    DimPositionGroup[Stillingskategori] = "Administrativ"
+		)
+		```
+		formatString: #,##0.00
+		displayFolder: 05 Bemanning
+
+	measure 'Aarsverk snitt' = ```
+		AVERAGEX (
+		    VALUES ( DimDate[AarMaaned] ),
+		    [Aarsverk]
+		)
+		```
+		formatString: #,##0.00
+		displayFolder: 05 Bemanning
+
+	measure 'Forecast lonn per aarsverk' = DIVIDE ( [Forecast lonnskostnader], [Aarsverk] )
+		formatString: #,##0
+		displayFolder: 05 Bemanning
+
+	measure 'Avlagte studiepoeng' = SUM ( FactStudyPoints[AvlagteStudiepoeng] )
+		formatString: #,##0.0
+		displayFolder: 06 Studiepoeng
+
+	measure 'Planlagte studiepoeng' = SUM ( FactStudyPoints[PlanlagteStudiepoeng] )
+		formatString: #,##0.0
+		displayFolder: 06 Studiepoeng
+
+	measure 'SPE 60' = SUM ( FactStudyPoints[SPE60] )
+		formatString: #,##0.00
+		displayFolder: 06 Studiepoeng
+
+	measure 'Registrerte studenter' = SUM ( FactStudyPoints[RegistrerteStudenter] )
+		formatString: #,##0
+		displayFolder: 06 Studiepoeng
+
+	measure 'Gjennomforingsgrad %' = DIVIDE ( [Avlagte studiepoeng], [Planlagte studiepoeng] )
+		formatString: 0.0%
+		displayFolder: 06 Studiepoeng
+
+	measure 'Forecast kostnad per SPE60' = DIVIDE ( [Forecast kostnader], [SPE 60] )
+		formatString: #,##0
+		displayFolder: 06 Studiepoeng
+
+	measure 'Forecast datakvalitet %' = AVERAGE ( FactForecast[Sannsynlighet] )
+		formatString: 0.0%
+		displayFolder: 07 Datakvalitet
+
+	measure 'Forecast faktisk andel %' = ```
+		DIVIDE (
+		    CALCULATE ( [Forecast belop], FactForecast[Datastatus] = "Faktisk hittil" ),
+		    [Forecast belop]
+		)
+		```
+		formatString: 0.0%
+		displayFolder: 07 Datakvalitet
+
+	measure 'Forecast estimert andel %' = ```
+		DIVIDE (
+		    CALCULATE ( [Forecast belop], FactForecast[Datastatus] = "Estimert restaar" ),
+		    [Forecast belop]
+		)
+		```
+		formatString: 0.0%
+		displayFolder: 07 Datakvalitet
+
+	measure Forecaststatus = ```
+		VAR AvvikPct = [Forecast mot budsjett %]
+		RETURN
+		    SWITCH (
+		        TRUE (),
+		        ISBLANK ( AvvikPct ), BLANK (),
+		        AvvikPct > 0.05, "Rod",
+		        AvvikPct > 0.02, "Gul",
+		        AvvikPct < -0.05, "Bla",
+		        "Gronn"
+		    )
+		```
+		displayFolder: 08 Status & Farger
+
+	measure 'Forecaststatus farge' = ```
+		SWITCH (
+		    [Forecaststatus],
+		    "Rod", "#C00000",
+		    "Gul", "#FFC000",
+		    "Bla", "#5B9BD5",
+		    "Gronn", "#70AD47",
+		    "#A6A6A6"
+		)
+		```
+		displayFolder: 08 Status & Farger
+
+	column Placeholder
+		dataType: string
+		isHidden
+		sourceColumn: Placeholder
+		summarizeBy: none
+
+	partition _Measures = m
+		mode: import
+		source = ```
+			let
+			    Source = #table(type table [Placeholder = text], {{"Placeholder"}})
+			in
+			    Source
+			```

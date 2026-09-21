@@ -1,0 +1,64 @@
+﻿Organisasjonsnokkel;OrgEnhet;OrgNavn;Institutt;Instituttnavn;Koststed;Koststednavn;Koststedtype;Organisasjonsnivaa
+100001;100;Fellesadministrasjon;1000;Okonomi og virksomhetsstyring;100001;Okonomi og virksomhetsstyring - drift;Drift;Koststed
+100002;100;Fellesadministrasjon;1000;Okonomi og virksomhetsstyring;100002;Okonomi og virksomhetsstyring - prosjekt;Prosjekt;Koststed
+101001;100;Fellesadministrasjon;1010;HR og organisasjon;101001;HR og organisasjon - drift;Drift;Koststed
+101002;100;Fellesadministrasjon;1010;HR og organisasjon;101002;HR og organisasjon - prosjekt;Prosjekt;Koststed
+102001;100;Fellesadministrasjon;1020;IT og digitalisering;102001;IT og digitalisering - drift;Drift;Koststed
+102002;100;Fellesadministrasjon;1020;IT og digitalisering;102002;IT og digitalisering - prosjekt;Prosjekt;Koststed
+210101;210;Handelshoyskolen;2101;Institutt for okonomi;210101;Institutt for okonomi - drift;Drift;Koststed
+210102;210;Handelshoyskolen;2101;Institutt for okonomi;210102;Institutt for okonomi - prosjekt;Prosjekt;Koststed
+210201;210;Handelshoyskolen;2102;Institutt for arbeidsliv og innovasjon;210201;Institutt for arbeidsliv og innovasjon - drift;Drift;Koststed
+210202;210;Handelshoyskolen;2102;Institutt for arbeidsliv og innovasjon;210202;Institutt for arbeidsliv og innovasjon - prosjekt;Prosjekt;Koststed
+220101;220;Helse- og idrettsvitenskap;2201;Institutt for helse- og sykepleievitenskap;220101;Institutt for helse- og sykepleievitenskap - drift;Drift;Koststed
+220102;220;Helse- og idrettsvitenskap;2201;Institutt for helse- og sykepleievitenskap;220102;Institutt for helse- og sykepleievitenskap - prosjekt;Prosjekt;Koststed
+220201;220;Helse- og idrettsvitenskap;2202;Institutt for idrettsvitenskap;220201;Institutt for idrettsvitenskap - drift;Drift;Koststed
+220202;220;Helse- og idrettsvitenskap;2202;Institutt for idrettsvitenskap;220202;Institutt for idrettsvitenskap - prosjekt;Prosjekt;Koststed
+220301;220;Helse- og idrettsvitenskap;2203;Institutt for psykososial helse;220301;Institutt for psykososial helse - drift;Drift;Koststed
+220302;220;Helse- og idrettsvitenskap;2203;Institutt for psykososial helse;220302;Institutt for psykososial helse - prosjekt;Prosjekt;Koststed
+230101;230;Humaniora og pedagogikk;2301;Institutt for nordisk og mediefag;230101;Institutt for nordisk og mediefag - drift;Drift;Koststed
+230102;230;Humaniora og pedagogikk;2301;Institutt for nordisk og mediefag;230102;Institutt for nordisk og mediefag - prosjekt;Prosjekt;Koststed
+230201;230;Humaniora og pedagogikk;2302;Institutt for pedagogikk;230201;Institutt for pedagogikk - drift;Drift;Koststed
+230202;230;Humaniora og pedagogikk;2302;Institutt for pedagogikk;230202;Institutt for pedagogikk - prosjekt;Prosjekt;Koststed
+230301;230;Humaniora og pedagogikk;2303;Institutt for fremmedsprak;230301;Institutt for fremmedsprak - drift;Drift;Koststed
+230302;230;Humaniora og pedagogikk;2303;Institutt for fremmedsprak;230302;Institutt for fremmedsprak - prosjekt;Prosjekt;Koststed
+240101;240;Kunstfag;2401;Institutt for musikk;240101;Institutt for musikk - drift;Drift;Koststed
+240102;240;Kunstfag;2401;Institutt for musikk;240102;Institutt for musikk - prosjekt;Prosjekt;Koststed
+240201;240;Kunstfag;2402;Institutt for visuelle og sceniske fag;240201;Institutt for visuelle og sceniske fag - drift;Drift;Koststed
+240202;240;Kunstfag;2402;Institutt for visuelle og sceniske fag;240202;Institutt for visuelle og sceniske fag - prosjekt;Prosjekt;Koststed
+250101;250;Samfunnsvitenskap;2501;Institutt for informasjonssystemer;250101;Institutt for informasjonssystemer - drift;Drift;Koststed
+250102;250;Samfunnsvitenskap;2501;Institutt for informasjonssystemer;250102;Institutt for informasjonssystemer - prosjekt;Prosjekt;Koststed
+250201;250;Samfunnsvitenskap;2502;Institutt for statsvitenskap og ledelsesfag;250201;Institutt for statsvitenskap og ledelsesfag - drift;Drift;Koststed
+250202;250;Samfunnsvitenskap;2502;Institutt for statsvitenskap og ledelsesfag;250202;Institutt for statsvitenskap og ledelsesfag - prosjekt;Prosjekt;Koststed
+250301;250;Samfunnsvitenskap;2503;Institutt for sosiologi og sosialt arbeid;250301;Institutt for sosiologi og sosialt arbeid - drift;Drift;Koststed
+250302;250;Samfunnsvitenskap;2503;Institutt for sosiologi og sosialt arbeid;250302;Institutt for sosiologi og sosialt arbeid - prosjekt;Prosjekt;Koststed
+260101;260;Teknologi og realfag;2601;Institutt for IKT;260101;Institutt for IKT - drift;Drift;Koststed
+260102;260;Teknologi og realfag;2601;Institutt for IKT;260102;Institutt for IKT - prosjekt;Prosjekt;Koststed
+260201;260;Teknologi og realfag;2602;Institutt for ingeniørvitenskap;260201;Institutt for ingeniørvitenskap - drift;Drift;Koststed
+260202;260;Teknologi og realfag;2602;Institutt for ingeniørvitenskap;260202;Institutt for ingeniørvitenskap - prosjekt;Prosjekt;Koststed
+260301;260;Teknologi og realfag;2603;Institutt for naturvitenskapelige fag;260301;Institutt for naturvitenskapelige fag - drift;Drift;Koststed
+260302;260;Teknologi og realfag;2603;Institutt for naturvitenskapelige fag;260302;Institutt for naturvitenskapelige fag - prosjekt;Prosjekt;Koststed
+270101;270;Avdeling for laererutdanning;2701;Laererutdanning felles;270101;Laererutdanning felles - drift;Drift;Koststed
+270102;270;Avdeling for laererutdanning;2701;Laererutdanning felles;270102;Laererutdanning felles - prosjekt;Prosjekt;Koststed
+280101;280;Universitetsbiblioteket;2801;Universitetsbiblioteket;280101;Universitetsbiblioteket - drift;Drift;Koststed
+280102;280;Universitetsbiblioteket;2801;Universitetsbiblioteket;280102;Universitetsbiblioteket - prosjekt;Prosjekt;Koststed
+100000;100;Fellesadministrasjon;1000;Okonomi og virksomhetsstyring;100000;Okonomi og virksomhetsstyring - institutt totalt;Institutt total;Institutt
+101000;100;Fellesadministrasjon;1010;HR og organisasjon;101000;HR og organisasjon - institutt totalt;Institutt total;Institutt
+102000;100;Fellesadministrasjon;1020;IT og digitalisering;102000;IT og digitalisering - institutt totalt;Institutt total;Institutt
+210100;210;Handelshoyskolen;2101;Institutt for okonomi;210100;Institutt for okonomi - institutt totalt;Institutt total;Institutt
+210200;210;Handelshoyskolen;2102;Institutt for arbeidsliv og innovasjon;210200;Institutt for arbeidsliv og innovasjon - institutt totalt;Institutt total;Institutt
+220100;220;Helse- og idrettsvitenskap;2201;Institutt for helse- og sykepleievitenskap;220100;Institutt for helse- og sykepleievitenskap - institutt totalt;Institutt total;Institutt
+220200;220;Helse- og idrettsvitenskap;2202;Institutt for idrettsvitenskap;220200;Institutt for idrettsvitenskap - institutt totalt;Institutt total;Institutt
+220300;220;Helse- og idrettsvitenskap;2203;Institutt for psykososial helse;220300;Institutt for psykososial helse - institutt totalt;Institutt total;Institutt
+230100;230;Humaniora og pedagogikk;2301;Institutt for nordisk og mediefag;230100;Institutt for nordisk og mediefag - institutt totalt;Institutt total;Institutt
+230200;230;Humaniora og pedagogikk;2302;Institutt for pedagogikk;230200;Institutt for pedagogikk - institutt totalt;Institutt total;Institutt
+230300;230;Humaniora og pedagogikk;2303;Institutt for fremmedsprak;230300;Institutt for fremmedsprak - institutt totalt;Institutt total;Institutt
+240100;240;Kunstfag;2401;Institutt for musikk;240100;Institutt for musikk - institutt totalt;Institutt total;Institutt
+240200;240;Kunstfag;2402;Institutt for visuelle og sceniske fag;240200;Institutt for visuelle og sceniske fag - institutt totalt;Institutt total;Institutt
+250100;250;Samfunnsvitenskap;2501;Institutt for informasjonssystemer;250100;Institutt for informasjonssystemer - institutt totalt;Institutt total;Institutt
+250200;250;Samfunnsvitenskap;2502;Institutt for statsvitenskap og ledelsesfag;250200;Institutt for statsvitenskap og ledelsesfag - institutt totalt;Institutt total;Institutt
+250300;250;Samfunnsvitenskap;2503;Institutt for sosiologi og sosialt arbeid;250300;Institutt for sosiologi og sosialt arbeid - institutt totalt;Institutt total;Institutt
+260100;260;Teknologi og realfag;2601;Institutt for IKT;260100;Institutt for IKT - institutt totalt;Institutt total;Institutt
+260200;260;Teknologi og realfag;2602;Institutt for ingeniørvitenskap;260200;Institutt for ingeniørvitenskap - institutt totalt;Institutt total;Institutt
+260300;260;Teknologi og realfag;2603;Institutt for naturvitenskapelige fag;260300;Institutt for naturvitenskapelige fag - institutt totalt;Institutt total;Institutt
+270100;270;Avdeling for laererutdanning;2701;Laererutdanning felles;270100;Laererutdanning felles - institutt totalt;Institutt total;Institutt
+280100;280;Universitetsbiblioteket;2801;Universitetsbiblioteket;280100;Universitetsbiblioteket - institutt totalt;Institutt total;Institutt

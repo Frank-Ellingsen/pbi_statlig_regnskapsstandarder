@@ -1,0 +1,74 @@
+table DimOrganization
+	lineageTag: d0000002-0000-0000-0000-000000000001
+
+	column Organisasjonsnokkel
+		dataType: int64
+		isKey
+		sourceColumn: Organisasjonsnokkel
+		summarizeBy: none
+
+	column OrgEnhet
+		dataType: int64
+		sourceColumn: OrgEnhet
+		summarizeBy: none
+
+	column OrgNavn
+		dataType: string
+		sourceColumn: OrgNavn
+		summarizeBy: none
+
+	column Institutt
+		dataType: int64
+		sourceColumn: Institutt
+		summarizeBy: none
+
+	column Instituttnavn
+		dataType: string
+		sourceColumn: Instituttnavn
+		summarizeBy: none
+
+	column Koststed
+		dataType: int64
+		sourceColumn: Koststed
+		summarizeBy: none
+
+	column Koststednavn
+		dataType: string
+		sourceColumn: Koststednavn
+		summarizeBy: none
+
+	column Koststedtype
+		dataType: string
+		sourceColumn: Koststedtype
+		summarizeBy: none
+
+	column Organisasjonsnivaa
+		dataType: string
+		sourceColumn: Organisasjonsnivaa
+		summarizeBy: none
+
+	hierarchy 'UiA organisasjon'
+		lineageTag: d0000002-0000-0000-0000-000000000002
+
+		level OrgNavn
+			lineageTag: d0000002-0000-0000-0000-000000000003
+			column: OrgNavn
+
+		level Instituttnavn
+			lineageTag: d0000002-0000-0000-0000-000000000004
+			column: Instituttnavn
+
+		level Koststednavn
+			lineageTag: d0000002-0000-0000-0000-000000000005
+			column: Koststednavn
+
+	partition DimOrganization = m
+		mode: import
+		source = ```
+			let
+			    Source = Csv.Document(File.Contents(DataFolder & "DimOrganization.csv"), [Delimiter=";", Columns=9, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+			    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+			    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Organisasjonsnokkel", Int64.Type}, {"OrgEnhet", Int64.Type}, {"OrgNavn", type text}, {"Institutt", Int64.Type}, {"Instituttnavn", type text}, {"Koststed", Int64.Type}, {"Koststednavn", type text}, {"Koststedtype", type text}, {"Organisasjonsnivaa", type text}})
+			in
+			    #"Changed Type"
+			```

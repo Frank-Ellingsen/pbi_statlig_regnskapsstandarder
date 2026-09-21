@@ -1,0 +1,68 @@
+table DimProject
+	lineageTag: d0000004-0000-0000-0000-000000000001
+
+	column Prosjekt
+		dataType: string
+		isKey
+		sourceColumn: Prosjekt
+		summarizeBy: none
+
+	column Prosjektnavn
+		dataType: string
+		sourceColumn: Prosjektnavn
+		summarizeBy: none
+
+	column Finansieringstype
+		dataType: string
+		sourceColumn: Finansieringstype
+		summarizeBy: none
+
+	column Finansieringskilde
+		dataType: string
+		sourceColumn: Finansieringskilde
+		summarizeBy: none
+
+	column Prosjektkategori
+		dataType: string
+		sourceColumn: Prosjektkategori
+		summarizeBy: none
+
+	column Startaar
+		dataType: int64
+		sourceColumn: Startaar
+		summarizeBy: none
+
+	column Sluttaar
+		dataType: int64
+		sourceColumn: Sluttaar
+		summarizeBy: none
+
+	hierarchy Prosjekt
+		lineageTag: d0000004-0000-0000-0000-000000000002
+
+		level Finansieringstype
+			lineageTag: d0000004-0000-0000-0000-000000000003
+			column: Finansieringstype
+
+		level Finansieringskilde
+			lineageTag: d0000004-0000-0000-0000-000000000004
+			column: Finansieringskilde
+
+		level Prosjektkategori
+			lineageTag: d0000004-0000-0000-0000-000000000005
+			column: Prosjektkategori
+
+		level Prosjektnavn
+			lineageTag: d0000004-0000-0000-0000-000000000006
+			column: Prosjektnavn
+
+	partition DimProject = m
+		mode: import
+		source = ```
+			let
+			    Source = Csv.Document(File.Contents(DataFolder & "DimProject.csv"), [Delimiter=";", Columns=7, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+			    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+			    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Prosjekt", type text}, {"Prosjektnavn", type text}, {"Finansieringstype", type text}, {"Finansieringskilde", type text}, {"Prosjektkategori", type text}, {"Startaar", Int64.Type}, {"Sluttaar", Int64.Type}})
+			in
+			    #"Changed Type"
+			```

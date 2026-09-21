@@ -1,0 +1,312 @@
+-- ============================================================
+-- MASTER DAX MEASURES LIBRARY - UIA CONTROLLER MODEL
+-- ============================================================
+
+-- ============================================================
+-- 01 FAKTISK (ACTUALS / HOVEDBOK - FactGL)
+-- ============================================================
+
+Faktisk belop = 
+SUM ( FactGL[Belop_signert] )
+
+Faktisk debet = 
+SUM ( FactGL[Debet] )
+
+Faktisk kredit = 
+SUM ( FactGL[Kredit] )
+
+Faktisk inntekter = 
+CALCULATE (
+    -[Faktisk belop],
+    DimAccount[Kontotype] = "Inntekt"
+)
+
+Faktisk kostnader = 
+CALCULATE (
+    [Faktisk belop],
+    DimAccount[Kontotype] = "Kostnad"
+)
+
+Faktisk lonnskostnader = 
+CALCULATE (
+    [Faktisk belop],
+    DimAccount[SRS_regnskapslinje] = "Lonnskostnader"
+)
+
+Faktisk driftskostnader = 
+CALCULATE (
+    [Faktisk belop],
+    DimAccount[SRS_regnskapslinje] IN { "Andre driftskostnader", "Husleie og lokaler" }
+)
+
+Faktisk YTD = 
+TOTALYTD ( [Faktisk belop], DimDate[Dato] )
+
+Faktisk inntekter YTD = 
+TOTALYTD ( [Faktisk inntekter], DimDate[Dato] )
+
+Faktisk kostnader YTD = 
+TOTALYTD ( [Faktisk kostnader], DimDate[Dato] )
+
+
+-- ============================================================
+-- 02 BUDSJETT (BUDGET - FactBudget)
+-- ============================================================
+
+Budsjett = 
+SUM ( FactBudget[BudsjettBelop] )
+
+Budsjett inntekter = 
+CALCULATE (
+    -[Budsjett],
+    DimAccount[Kontotype] = "Inntekt"
+)
+
+Budsjett kostnader = 
+CALCULATE (
+    [Budsjett],
+    DimAccount[Kontotype] = "Kostnad"
+)
+
+Budsjett lonnskostnader = 
+CALCULATE (
+    [Budsjett],
+    DimAccount[SRS_regnskapslinje] = "Lonnskostnader"
+)
+
+Budsjett YTD = 
+TOTALYTD ( [Budsjett], DimDate[Dato] )
+
+Aarsbudsjett = 
+CALCULATE (
+    [Budsjett],
+    REMOVEFILTERS ( DimDate[MaanedNr], DimDate[Maaned], DimDate[AarMaaned], DimDate[Dato], DimDate[DatoNokkel] )
+)
+
+
+-- ============================================================
+-- 03 FORECAST & LATEST ESTIMATE (FactForecast)
+-- ============================================================
+
+Forecast belop = 
+SUM ( FactForecast[ForecastBelop] )
+
+Tiltakseffekt = 
+SUM ( FactForecast[Tiltakseffekt] )
+
+Forecast etter tiltak = 
+[Forecast belop] + [Tiltakseffekt]
+
+Valgt forecastversjon = 
+SELECTEDVALUE ( DimForecastVersion[Versjon], "LE_2026" )
+
+Gjeldende forecast = 
+VAR ValgtVersjon = [Valgt forecastversjon]
+RETURN
+    CALCULATE (
+        [Forecast belop],
+        KEEPFILTERS ( DimForecastVersion[Versjon] = ValgtVersjon )
+    )
+
+Gjeldende forecast etter tiltak = 
+VAR ValgtVersjon = [Valgt forecastversjon]
+RETURN
+    CALCULATE (
+        [Forecast etter tiltak],
+        KEEPFILTERS ( DimForecastVersion[Versjon] = ValgtVersjon )
+    )
+
+Forecast aarsbelop = 
+CALCULATE (
+    [Gjeldende forecast],
+    REMOVEFILTERS ( DimDate[MaanedNr], DimDate[Maaned], DimDate[AarMaaned], DimDate[Dato], DimDate[DatoNokkel] )
+)
+
+Forecast YTD = 
+TOTALYTD ( [Gjeldende forecast], DimDate[Dato] )
+
+Forecast restaar = 
+[Forecast aarsbelop] - [Forecast YTD]
+
+Latest Estimate = 
+CALCULATE (
+    [Forecast belop],
+    DimForecastVersion[Versjon] = "LE_2026"
+)
+
+Latest Estimate aarsbelop = 
+CALCULATE ( [Latest Estimate], REMOVEFILTERS ( DimDate ) )
+
+Forecast inntekter = 
+CALCULATE (
+    -[Gjeldende forecast],
+    DimAccount[Kontotype] = "Inntekt"
+)
+
+Forecast kostnader = 
+CALCULATE (
+    [Gjeldende forecast],
+    DimAccount[Kontotype] = "Kostnad"
+)
+
+Forecast lonnskostnader = 
+CALCULATE (
+    [Gjeldende forecast],
+    DimAccount[SRS_regnskapslinje] = "Lonnskostnader"
+)
+
+Forecast BOA inntekter = 
+CALCULATE (
+    [Forecast inntekter],
+    DimProject[Finansieringstype] IN { "Bidrag", "Oppdrag" }
+)
+
+Forecast BOA andel % = 
+DIVIDE ( [Forecast BOA inntekter], [Forecast inntekter] )
+
+
+-- ============================================================
+-- 04 AVVIKSANALYSE & ESTIMATENDRING (VARIANCE & DRIFT)
+-- ============================================================
+
+Avvik mot budsjett = 
+[Faktisk belop] - [Budsjett]
+
+Avvik mot budsjett % = 
+DIVIDE ( [Avvik mot budsjett], ABS ( [Budsjett] ) )
+
+Forecast mot budsjett = 
+[Forecast aarsbelop] - [Aarsbudsjett]
+
+Forecast mot budsjett % = 
+DIVIDE ( [Forecast mot budsjett], ABS ( [Aarsbudsjett] ) )
+
+Forecast etter tiltak mot budsjett = 
+CALCULATE (
+    [Gjeldende forecast etter tiltak],
+    REMOVEFILTERS ( DimDate[MaanedNr], DimDate[Maaned], DimDate[AarMaaned], DimDate[Dato], DimDate[DatoNokkel] )
+) - [Aarsbudsjett]
+
+Forecast endring fra FC1 = 
+[Forecast aarsbelop]
+    - CALCULATE (
+        [Forecast belop],
+        DimForecastVersion[Versjon] = "FC1_2026",
+        REMOVEFILTERS ( DimDate )
+    )
+
+Forecast endring fra FC2 = 
+[Forecast aarsbelop]
+    - CALCULATE (
+        [Forecast belop],
+        DimForecastVersion[Versjon] = "FC2_2026",
+        REMOVEFILTERS ( DimDate )
+    )
+
+LE mot budsjett = 
+[Latest Estimate aarsbelop] - [Aarsbudsjett]
+
+LE mot budsjett % = 
+DIVIDE ( [LE mot budsjett], ABS ( [Aarsbudsjett] ) )
+
+
+-- ============================================================
+-- 05 BEMANNING & ÅRSVERK (FTE - FactFTE)
+-- ============================================================
+
+Aarsverk = 
+SUM ( FactFTE[Aarsverk] )
+
+Faglige aarsverk = 
+SUM ( FactFTE[FagligeAarsverk] )
+
+Administrative aarsverk = 
+CALCULATE (
+    [Aarsverk],
+    DimPositionGroup[Stillingskategori] = "Administrativ"
+)
+
+Aarsverk snitt = 
+AVERAGEX (
+    VALUES ( DimDate[AarMaaned] ),
+    [Aarsverk]
+)
+
+Forecast lonn per aarsverk = 
+DIVIDE ( [Forecast lonnskostnader], [Aarsverk] )
+
+
+-- ============================================================
+-- 06 STUDIEPOENG & UTDANNINGSPRODUKSJON (FactStudyPoints)
+-- ============================================================
+
+Avlagte studiepoeng = 
+SUM ( FactStudyPoints[AvlagteStudiepoeng] )
+
+Planlagte studiepoeng = 
+SUM ( FactStudyPoints[PlanlagteStudiepoeng] )
+
+SPE 60 = 
+SUM ( FactStudyPoints[SPE60] )
+
+Registrerte studenter = 
+SUM ( FactStudyPoints[RegistrerteStudenter] )
+
+Gjennomforingsgrad % = 
+DIVIDE ( [Avlagte studiepoeng], [Planlagte studiepoeng] )
+
+Avlagte studiepoeng YTD = 
+TOTALYTD ( [Avlagte studiepoeng], DimDate[Dato] )
+
+SPE 60 YTD = 
+TOTALYTD ( [SPE 60], DimDate[Dato] )
+
+Forecast kostnad per SPE60 = 
+DIVIDE ( [Forecast kostnader], [SPE 60] )
+
+
+-- ============================================================
+-- 07 DATAKVALITET & FORECAST-METRIKKER
+-- ============================================================
+
+Forecast datakvalitet % = 
+AVERAGE ( FactForecast[Sannsynlighet] )
+
+Forecast faktisk andel % = 
+DIVIDE (
+    CALCULATE ( [Forecast belop], FactForecast[Datastatus] = "Faktisk hittil" ),
+    [Forecast belop]
+)
+
+Forecast estimert andel % = 
+DIVIDE (
+    CALCULATE ( [Forecast belop], FactForecast[Datastatus] = "Estimert restaar" ),
+    [Forecast belop]
+)
+
+
+-- ============================================================
+-- 08 STATUSINDIKATORER & FORMATERING
+-- ============================================================
+
+Forecaststatus = 
+VAR AvvikPct = [Forecast mot budsjett %]
+RETURN
+    SWITCH (
+        TRUE (),
+        ISBLANK ( AvvikPct ), BLANK (),
+        AvvikPct > 0.05, "Rod",
+        AvvikPct > 0.02, "Gul",
+        AvvikPct < -0.05, "Bla",
+        "Gronn"
+    )
+
+Forecaststatus farge = 
+SWITCH (
+    [Forecaststatus],
+    "Rod", "#C00000",
+    "Gul", "#FFC000",
+    "Bla", "#5B9BD5",
+    "Gronn", "#70AD47",
+    "#A6A6A6"
+)

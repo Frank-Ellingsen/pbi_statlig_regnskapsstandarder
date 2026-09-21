@@ -1,0 +1,6 @@
+expression DataFolder = "C:\\Users\\frank\\Desktop\\UIA\\uia_powerbi_complete_forecast_model\\data\\" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: e0000000-0000-0000-0000-000000000001
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
