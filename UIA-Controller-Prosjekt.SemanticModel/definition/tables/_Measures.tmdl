@@ -1,7 +1,6 @@
 table _Measures
 	lineageTag: m0000000-0000-0000-0000-000000000001
 
-	// 01 OKONOMI
 	measure Regnskap = SUM ( FactGL[Belop_signert] )
 		formatString: #,##0.00
 		displayFolder: 01 Okonomi
@@ -61,7 +60,6 @@ table _Measures
 		formatString: 0.0%
 		displayFolder: 01 Okonomi
 
-	// 02 FORECAST
 	measure Forecast = SUM ( FactForecast[ForecastBelop] )
 		formatString: #,##0.00
 		displayFolder: 02 Forecast
@@ -146,7 +144,6 @@ table _Measures
 		formatString: #,##0.00
 		displayFolder: 02 Forecast
 
-	// 03 BEMANNING OG STUDIER
 	measure Aarsverk = ```
 		VAR D =
 		    MAXX (
@@ -215,7 +212,6 @@ table _Measures
 		formatString: #,##0.00
 		displayFolder: 03 Bemanning & Studier
 
-	// 04 BOA
 	measure 'BOA inntekter' = ```
 		CALCULATE (
 		    [Inntekter],
@@ -251,7 +247,6 @@ table _Measures
 		formatString: #,##0.00
 		displayFolder: 04 BOA
 
-	// 05 TILTAK
 	measure 'Antall tiltak' = DISTINCTCOUNT ( FactAction[TiltakID] )
 		formatString: #,##0
 		displayFolder: 05 Tiltak
@@ -298,7 +293,6 @@ table _Measures
 		formatString: 0.0%
 		displayFolder: 05 Tiltak
 
-	// 06 EVM PROSJEKT
 	measure 'BAC (Budget at Completion)' = [Aarsbudsjett]
 		formatString: #,##0.00
 		displayFolder: 06 EVM Prosjekt
@@ -319,7 +313,6 @@ table _Measures
 		formatString: 0.0%
 		displayFolder: 06 EVM Prosjekt
 
-	// 07 STATUS OG FARGER
 	measure Forecaststatus = ```
 		VAR AvvikPct = [Forecastavvik %]
 		RETURN

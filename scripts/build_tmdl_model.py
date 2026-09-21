@@ -1033,7 +1033,6 @@ relationship 00000001-0000-0000-0000-000000000022
     measures_content = """table _Measures
 \tlineageTag: m0000000-0000-0000-0000-000000000001
 
-\t// 01 OKONOMI
 \tmeasure Regnskap = SUM ( FactGL[Belop_signert] )
 \t\tformatString: #,##0.00
 \t\tdisplayFolder: 01 Okonomi
@@ -1093,7 +1092,6 @@ relationship 00000001-0000-0000-0000-000000000022
 \t\tformatString: 0.0%
 \t\tdisplayFolder: 01 Okonomi
 
-\t// 02 FORECAST
 \tmeasure Forecast = SUM ( FactForecast[ForecastBelop] )
 \t\tformatString: #,##0.00
 \t\tdisplayFolder: 02 Forecast
@@ -1178,7 +1176,6 @@ relationship 00000001-0000-0000-0000-000000000022
 \t\tformatString: #,##0.00
 \t\tdisplayFolder: 02 Forecast
 
-\t// 03 BEMANNING OG STUDIER
 \tmeasure Aarsverk = ```
 \t\tVAR D =
 \t\t    MAXX (
@@ -1247,7 +1244,6 @@ relationship 00000001-0000-0000-0000-000000000022
 \t\tformatString: #,##0.00
 \t\tdisplayFolder: 03 Bemanning & Studier
 
-\t// 04 BOA
 \tmeasure 'BOA inntekter' = ```
 \t\tCALCULATE (
 \t\t    [Inntekter],
@@ -1283,7 +1279,6 @@ relationship 00000001-0000-0000-0000-000000000022
 \t\tformatString: #,##0.00
 \t\tdisplayFolder: 04 BOA
 
-\t// 05 TILTAK
 \tmeasure 'Antall tiltak' = DISTINCTCOUNT ( FactAction[TiltakID] )
 \t\tformatString: #,##0
 \t\tdisplayFolder: 05 Tiltak
@@ -1330,7 +1325,6 @@ relationship 00000001-0000-0000-0000-000000000022
 \t\tformatString: 0.0%
 \t\tdisplayFolder: 05 Tiltak
 
-\t// 06 EVM PROSJEKT
 \tmeasure 'BAC (Budget at Completion)' = [Aarsbudsjett]
 \t\tformatString: #,##0.00
 \t\tdisplayFolder: 06 EVM Prosjekt
@@ -1351,7 +1345,6 @@ relationship 00000001-0000-0000-0000-000000000022
 \t\tformatString: 0.0%
 \t\tdisplayFolder: 06 EVM Prosjekt
 
-\t// 07 STATUS OG FARGER
 \tmeasure Forecaststatus = ```
 \t\tVAR AvvikPct = [Forecastavvik %]
 \t\tRETURN
