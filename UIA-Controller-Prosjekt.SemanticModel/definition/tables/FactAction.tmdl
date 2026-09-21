@@ -98,3 +98,4 @@ table FactAction
 				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"TiltakID", type text}, {"Organisasjonsnokkel", type text}, {"Prosjekt", type text}, {"Konto", Int64.Type}, {"Avviksarsak", type text}, {"Tiltaksbeskrivelse", type text}, {"AnsvarligRolle", type text}, {"StartDatoNokkel", Int64.Type}, {"FristDatoNokkel", Int64.Type}, {"ForventetEffekt", Currency.Type}, {"RealisertEffekt", Currency.Type}, {"Status", type text}, {"Prioritet", type text}, {"Sannsynlighet", type number}})
 				in
 				    #"Changed Type"
+

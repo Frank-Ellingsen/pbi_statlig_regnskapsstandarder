@@ -109,7 +109,22 @@ Resultat: **43/43 tester består (0 feil)**.
 
 ---
 
-## 5. Edward Tufte Visuelle Standarder
+## 5. Pre-konfigurert Rapportsuite i Power BI (PBIR)
+
+Rapportdefinisjonen i [`UIA-Controller-Prosjekt.Report`](file:///c:/Users/frank/Desktop/UIA/uia_powerbi_complete_forecast_model/UIA-Controller-Prosjekt.Report) er forhåndskonfigurert med de 5 sentrale controllersidene for UiA Handelshøyskolen:
+
+1.  **`01 Ledelsesstatus & Totaløkonomi`** (`page_01_ledelse`): Regnskap vs. Budsjett vs. Latest Estimate, organisasjonsdrilldown og SRS-fordeling (Lønn, Drift, Avskrivninger).
+2.  **`02 Prognose & Avviksanalyse`** (`page_02_forecast`): Rullende prognoser (FC1, FC2, LE), tiltakseffekter, EVM (BAC, EAC, ETC, VAC) og S-kurve over 12 måneder.
+3.  **`03 Prosjektcontrolling & BOA`** (`page_03_boa`): Bidrag- og oppdragsforskning (NFR, EU, Oppdrag), finansieringskilder, indirekte kostnader og prosjektresultater.
+4.  **`04 Bemanning & Studiepoeng`** (`page_04_bemanning`): Årsverk (vitenskapelige UF vs. teknisk-adm), lønn per årsverk, avlagte studiepoeng, gjennomføringsgrad og studenter per faglig årsverk.
+5.  **`05 Tiltak & Omstillingsportefølje`** (`page_05_tiltak`): Oppfølging av 16 innsparingstiltak, ansvarlige, frister, realiserte effekter og restavvik.
+
+*For fullstendig layout, visuelle feltoppsett og Edward Tufte Data-Ink retningslinjer, se den detaljerte manualen:*  
+👉 [**`docs/UIA_Controller_Reporting_Suite.md`**](file:///c:/Users/frank/Desktop/UIA/uia_powerbi_complete_forecast_model/docs/UIA_Controller_Reporting_Suite.md)
+
+---
+
+## 6. Edward Tufte Visuelle Standarder
 
 Dashbordene følger Edward Tuftes **Data-Ink Ratio**:
 *   Ingen vertikale tabellinjer eller unødvendige rutenett i tabeller.
@@ -117,3 +132,4 @@ Dashbordene følger Edward Tuftes **Data-Ink Ratio**:
 *   Direkte merking (direct labeling) på kurver og grafer i stedet for store fargeforklaringer.
 *   Fargestyring via heksadesimale DAX-mål: Rød (`#C00000`) for risiko og forsinkelser, Grønn (`#70AD47`) for måloppnåelse, Gul (`#FFC000`) for varsel.
 *   Venstrejustert tekst, høyrejusterte tall og beløp med vertikal justering av desimaler.
+

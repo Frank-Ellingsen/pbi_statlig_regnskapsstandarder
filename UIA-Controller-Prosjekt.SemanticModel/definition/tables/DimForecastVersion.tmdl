@@ -11,9 +11,9 @@ table DimForecastVersion
 	column Versjonsnavn
 		dataType: string
 		lineageTag: d0000005-0000-0000-0000-000000000003
-		sortByColumn: Sortering
 		summarizeBy: none
 		sourceColumn: Versjonsnavn
+		sortByColumn: Sortering
 
 	column Sortering
 		dataType: int64
@@ -30,3 +30,4 @@ table DimForecastVersion
 				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Versjon", type text}, {"Versjonsnavn", type text}, {"Sortering", Int64.Type}})
 				in
 				    #"Changed Type"
+

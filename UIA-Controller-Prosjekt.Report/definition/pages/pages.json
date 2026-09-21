@@ -4,7 +4,8 @@
     "page_01_ledelse",
     "page_02_forecast",
     "page_03_boa",
-    "page_04_bemanning"
+    "page_04_bemanning",
+    "page_05_tiltak"
   ],
-  "activePageName": "page_01_ledelse"
+  "activePageName": "page_05_tiltak"
 }
