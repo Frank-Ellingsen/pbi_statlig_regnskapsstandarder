@@ -1,0 +1,119 @@
+BOA er et sentralt begrep i universitetsøkonomi, og det er nyttig å ha en liten glossary når du jobber med controller-caset.
+Hva betyr BOA?
+BOA = bidrags- og oppdragsfinansiert aktivitet.
+Det er aktivitet som finansieres av andre kilder enn universitetets ordinære grunnbevilgning.
+En praktisk oppdeling er:
+Bidragsfinansiert aktivitet: ekstern finansiering uten ordinært krav om en konkret leveranse til finansieringskilden. Forskningsprosjekter finansiert av Norges forskningsråd og EU er typiske kategorier i modellen vår. Den statlige kontoplanen har egne kontoer for blant annet NFR-tilskudd (340) og EU-tilskudd (342).
+Oppdragsfinansiert aktivitet: universitetet utfører et konkret oppdrag mot betaling, eksempelvis etter- og videreutdanning eller annen avtalt leveranse.
+I modellen vår brukes derfor:
+Plain Text
+1
+BOA
+2
+├── Bidrag
+3
+│ ├── NFR
+4
+│ ├── EU
+5
+│ └── Andre tilskudd
+6
+│
+7
+└── Oppdrag
+8
+├── EVU
+9
+└── Andre oppdrag
+Show more lines
+Glossary for controller-caset
+Begrep	Betydning	Praktisk controller-tolkningBOA	Bidrags- og oppdragsfinansiert aktivitet	Eksternfinansiert aktivitet
+BFV	Bevilgningsfinansiert virksomhet	Aktivitet finansiert gjennom ordinær statlig bevilgning
+NFR	Norges forskningsråd	Viktig ekstern finansieringskilde
+EU	EU-finansiering	Eksempelvis forskningsprosjekter
+EVU	Etter- og videreutdanning	Kan inngå i oppdrags-/eksternfinansiert aktivitet
+SRS	Statlige regnskapsstandarder	Regler for periodisert virksomhetsregnskap
+Standard kontoplan	Felles artskontoplan for statlige virksomheter	Gir konto → kontogruppe → kontoklasse
+Artskonto	Konto som beskriver transaksjonens art	Eksempelvis lønn, reise eller konsulent
+Kontoklasse	Øverste nivå i kontoplanen	Eksempel: 5 = lønn, 6 = annen driftskostnad
+Koststed	Organisatorisk sted kostnaden/inntekten tilhører	Brukes til ansvar og drill-down
+Prosjekt	Avgrenset aktivitet med egen økonomi	Viktig særlig for BOA
+Actual / Regnskap	Faktisk bokført regnskap	Hva har faktisk skjedd?
+Budget / Budsjett	Vedtatt økonomisk plan	Hva forventet vi opprinnelig?
+Forecast / Prognose	Oppdatert forventning	Hvor tror vi at vi ender?
+Latest Estimate / LE	Nyeste forecast	Beste nåværende estimat for helåret
+YTD	Year to Date	Akkumulert fra januar til valgt periode
+MTD	Month to Date	Tall for inneværende måned
+Avvik	Actual minus Budget	Hvor mye avviker regnskapet fra planen?
+Forecastavvik	Forecast minus årsbudsjett	Hvor stort avvik forventes ved årsslutt?
+Årsverk / FTE	Full-time equivalent	Standardisert bemanningsvolum
+Faglige årsverk	Årsverk knyttet til faglig aktivitet	Viktig kapasitetsdriver
+SPE60	60 produserte studiepoeng uttrykt som én enhet	Normaliserer studiepoengproduksjon
+KPI	Key Performance Indicator	Styringsindikator
+Tiltakseffekt	Forventet økonomisk konsekvens av tiltak	Brukes til å redusere forecastavvik
+Restavvik	Avvik som gjenstår etter tiltak	Det ledelsen fortsatt må håndtere
+Forecast confidence	Vurdering av sikkerheten i prognosen	Hvor mye kan vi stole på forecasten?
+Forecast accuracy	Forecast sammenlignet med senere actual	Måler prognosekvalitet
+Forecast bias	Systematisk over-/underestimering	Avdekker skjevhet i prognosene
+Drill-down	Navigasjon nedover i et hierarki	Fakultet → institutt → koststed
+Drill-through	Navigasjon til egen detaljside	Eksempel: forecastavvik → økonomidetalj
+Tre begreper du bør kunne veldig godt i et controllerintervju
+Actual, Budget, Forecast
+Plain Text
+1
+BUDGET
+2
+Hva trodde vi før året startet?
+3
+↓
+4
+ACTUAL
+5
+Hva har faktisk skjedd?
+6
+↓
+7
+VARIANCE
+8
+Hvorfor avviker vi?
+9
+↓
+10
+FORECAST
+11
+Hvor tror vi at året ender?
+12
+↓
+13
+ACTION
+14
+Hva skal vi gjøre?
+15
+↓
+16
+LATEST ESTIMATE
+17
+Hvor forventer vi å ende etter ny informasjon?
+Show more lines
+Og i universitetscaset ville jeg koblet på:
+Plain Text
+1
+Økonomi
+2
+↕
+3
+Årsverk
+4
+↕
+5
+Studenter
+6
+↕
+7
+Studiepoengproduksjon
+8
+↕
+9
+BOA / forskningsaktivitet
+Show more lines
+Det er nettopp denne sammenhengen som gjør controllerrollen interessant. Controlleren analyserer ikke bare hva pengene er brukt på, men også hvilken aktivitet, kapasitet og finansiering som driver økonomien.

@@ -1,0 +1,81 @@
+﻿Kontogruppe;Kontogruppenavn;Kontoklasse;Kontoklassenavn;Sortering
+10;Immaterielle eiendeler og lignende;1;Eiendeler;10
+11;Tomter, bygninger og annen fast eiendom;1;Eiendeler;11
+12;Transportmidler, inventar og maskiner mv.;1;Eiendeler;12
+13;Finansielle anleggsmidler;1;Eiendeler;13
+14;Beholdninger av varer og driftsmateriell;1;Eiendeler;14
+15;Kortsiktige fordringer;1;Eiendeler;15
+16;Merverdiavgift o.l. til gode;1;Eiendeler;16
+17;Forskuddsbetalt kostnad, opptjent inntekt o.l.;1;Eiendeler;17
+18;Kortsiktige finansinvesteringer;1;Eiendeler;18
+19;Bankinnskudd, kontanter og avregning med statskassen;1;Eiendeler;19
+20;Virksomhetskapital;2;Statens kapital og gjeld;20
+21;Avsetning for forpliktelser og avregning bevilgningsfinansiert virksomhet;2;Statens kapital og gjeld;21
+22;Annen langsiktig gjeld;2;Statens kapital og gjeld;22
+23;Kortsiktige lån og gjeld til finansinstitusjoner;2;Statens kapital og gjeld;23
+24;Leverandørgjeld;2;Statens kapital og gjeld;24
+25;Gjeld ved tilskuddsforvaltning og andre overføringer;2;Statens kapital og gjeld;25
+26;Skattetrekk og andre trekk;2;Statens kapital og gjeld;26
+27;Skyldige offentlige avgifter;2;Statens kapital og gjeld;27
+28;Annen kortsiktig gjeld;2;Statens kapital og gjeld;28
+29;Annen kortsiktig gjeld;2;Statens kapital og gjeld;29
+30;Salgsinntekt, avgiftspliktig;3;Salgs- og driftsinntekt;30
+31;Salgsinntekt, avgiftsfri;3;Salgs- og driftsinntekt;31
+32;Salgsinntekt, unntatt avgiftsplikt;3;Salgs- og driftsinntekt;32
+33;Offentlig avgift vedrørende omsetning;3;Salgs- og driftsinntekt;33
+34;Inntekt fra tilskudd og overføringer;3;Salgs- og driftsinntekt;34
+35;Uopptjent inntekt;3;Salgs- og driftsinntekt;35
+36;Leieinntekt og annen driftsinntekt;3;Salgs- og driftsinntekt;36
+37;Gebyrer med videre som inngår som driftsinntekt;3;Salgs- og driftsinntekt;37
+38;Gevinst ved avgang anleggsmidler;3;Salgs- og driftsinntekt;38
+39;Inntekt fra bevilgninger;3;Salgs- og driftsinntekt;39
+40;Forbruk av råvarer og innkjøpte halvfabrikata;4;Varekostnad og større utstyrsanskaffelser;40
+41;Forbruk av varer under tilvirkning;4;Varekostnad og større utstyrsanskaffelser;41
+42;Forbruk av ferdig egentilvirkede varer;4;Varekostnad og større utstyrsanskaffelser;42
+43;Forbruk av innkjøpte varer og tjenester;4;Varekostnad og større utstyrsanskaffelser;43
+44;Reservert;4;Varekostnad og større utstyrsanskaffelser;44
+45;Fremmedytelse og underentreprise;4;Varekostnad og større utstyrsanskaffelser;45
+46;Annen periodisering;4;Varekostnad og større utstyrsanskaffelser;46
+47;Kjøp av immaterielle eiendeler og lignende;4;Varekostnad og større utstyrsanskaffelser;47
+48;Kjøp av tomter, bygninger og annen fast eiendom;4;Varekostnad og større utstyrsanskaffelser;48
+49;Kjøp av transportmidler, inventar og maskiner mv.;4;Varekostnad og større utstyrsanskaffelser;49
+50;Lønn fast ansatte;5;Lønnskostnad;50
+51;Lønn midlertidig ansatte;5;Lønnskostnad;51
+52;Fordel i arbeidsforhold;5;Lønnskostnad;52
+53;Annen opplysningspliktig godtgjørelse;5;Lønnskostnad;53
+54;Arbeidsgiveravgift, pensjonspremie o.l.;5;Lønnskostnad;54
+55;Annen godtgjørelse;5;Lønnskostnad;55
+56;Reservert;5;Lønnskostnad;56
+57;Offentlige tilskudd vedrørende arbeidskraft;5;Lønnskostnad;57
+58;Offentlige refusjoner vedrørende arbeidskraft;5;Lønnskostnad;58
+59;Annen personalkostnad;5;Lønnskostnad;59
+60;Av- og nedskrivning;6;Annen driftskostnad;60
+61;Frakt og transport vedrørende salg og utdeling;6;Annen driftskostnad;61
+62;Energi, brensel og vann vedrørende produksjon;6;Annen driftskostnad;62
+63;Kostnader lokaler;6;Annen driftskostnad;63
+64;Leie maskiner, inventar o.l.;6;Annen driftskostnad;64
+65;Anskaffelser som ikke skal føres i kontogruppe 10-12 eller 47-49;6;Annen driftskostnad;65
+66;Reparasjon og vedlikehold;6;Annen driftskostnad;66
+67;Kjøp av konsulenttjenester og andre fremmede tjenester;6;Annen driftskostnad;67
+68;Kontorrekvisita, bøker, møter og kurs;6;Annen driftskostnad;68
+69;Telefon, porto o.l.;6;Annen driftskostnad;69
+70;Kostnad transportmidler;7;Annen driftskostnad, fortsettelse;70
+71;Kostnad og godtgjørelse for reise, diett, bil o.l.;7;Annen driftskostnad, fortsettelse;71
+72;Reservert;7;Annen driftskostnad, fortsettelse;72
+73;Salg, reklame og representasjon;7;Annen driftskostnad, fortsettelse;73
+74;Kontingent og gave;7;Annen driftskostnad, fortsettelse;74
+75;Forsikringspremie, garanti og service;7;Annen driftskostnad, fortsettelse;75
+76;Lisenser og patenter;7;Annen driftskostnad, fortsettelse;76
+77;Annen kostnad;7;Annen driftskostnad, fortsettelse;77
+78;Tap o.l.;7;Annen driftskostnad, fortsettelse;78
+79;Reservert;7;Annen driftskostnad, fortsettelse;79
+80;Finansinntekt;8;Finansposter, overføringer, periodens resultat og avregninger;80
+81;Finanskostnad;8;Finansposter, overføringer, periodens resultat og avregninger;81
+82;Overføringer fra andre statlige regnskaper m.m.;8;Finansposter, overføringer, periodens resultat og avregninger;82
+83;Innkrevingsvirksomhet;8;Finansposter, overføringer, periodens resultat og avregninger;83
+84;Skatter og avgifter, renteinntekter og utbytte m.m.;8;Finansposter, overføringer, periodens resultat og avregninger;84
+85;Overføringer til andre statlige regnskaper;8;Finansposter, overføringer, periodens resultat og avregninger;85
+86;Tilskudd og stønader fra staten til andre;8;Finansposter, overføringer, periodens resultat og avregninger;86
+87;Tilskudd og stønader fra staten til andre, fortsettelse;8;Finansposter, overføringer, periodens resultat og avregninger;87
+88;Disponering - periodens resultat;8;Finansposter, overføringer, periodens resultat og avregninger;88
+89;Avregning - resultat av periodens aktiviteter;8;Finansposter, overføringer, periodens resultat og avregninger;89

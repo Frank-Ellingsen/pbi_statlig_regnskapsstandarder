@@ -1,0 +1,47 @@
+﻿Konto;Kontonavn;Nivaa1_Kontoklasse;Nivaa1_Navn;Nivaa2_Kontogruppe;Nivaa2_Navn;Nivaa3_Standardkonto;Nivaa3_Navn;Nivaa4_Underkonto;Nivaa4_Navn;Kontotype;SRS_regnskapslinje
+3030;Salgsinntekt tjenester, avgiftspliktig;3;Salgs- og driftsinntekt;30;Salgsinntekt, avgiftspliktig;303;Salgsinntekt tjenester, avgiftspliktig;3030;Salgsinntekt tjenester, avgiftspliktig;Inntekt;Salgsinntekt
+3130;Salgsinntekt tjenester, avgiftsfri;3;Salgs- og driftsinntekt;31;Salgsinntekt, avgiftsfri;313;Salgsinntekt tjenester, avgiftsfri;3130;Salgsinntekt tjenester, avgiftsfri;Inntekt;Salgsinntekt
+3230;Salgsinntekt tjenester, unntatt avgiftsplikt;3;Salgs- og driftsinntekt;32;Salgsinntekt, unntatt avgiftsplikt;323;Salgsinntekt tjenester, unntatt avgiftsplikt;3230;Salgsinntekt tjenester, unntatt avgiftsplikt;Inntekt;Salgsinntekt
+3400;Tilskudd fra Norges forskningsråd;3;Salgs- og driftsinntekt;34;Inntekt fra tilskudd og overføringer;340;Tilskudd fra Norges forskningsråd;3400;Tilskudd fra Norges forskningsråd;Inntekt;Tilskudd og overforinger
+3410;Tilskudd fra andre statlige virksomheter;3;Salgs- og driftsinntekt;34;Inntekt fra tilskudd og overføringer;341;Tilskudd fra andre statlige virksomheter;3410;Tilskudd fra andre statlige virksomheter;Inntekt;Tilskudd og overforinger
+3420;Tilskudd fra EU;3;Salgs- og driftsinntekt;34;Inntekt fra tilskudd og overføringer;342;Tilskudd fra EU;3420;Tilskudd fra EU;Inntekt;Tilskudd og overforinger
+3450;Tilskudd fra naeringsliv og private;3;Salgs- og driftsinntekt;34;Inntekt fra tilskudd og overføringer;345;Tilskudd fra naeringsliv og private;3450;Tilskudd fra naeringsliv og private;Inntekt;Tilskudd og overforinger
+3490;Andre tilskudd og overforinger;3;Salgs- og driftsinntekt;34;Inntekt fra tilskudd og overføringer;349;Andre tilskudd og overforinger;3490;Andre tilskudd og overforinger;Inntekt;Tilskudd og overforinger
+3670;Annen driftsrelatert inntekt;3;Salgs- og driftsinntekt;36;Leieinntekt og annen driftsinntekt;367;Annen driftsrelatert inntekt;3670;Annen driftsrelatert inntekt;Inntekt;Andre driftsinntekter
+3900;Inntekt fra bevilgninger;3;Salgs- og driftsinntekt;39;Inntekt fra bevilgninger;390;Inntekt fra bevilgninger;3900;Inntekt fra bevilgninger;Inntekt;Inntekt fra bevilgninger
+5000;Lonn fast ansatte;5;Lønnskostnad;50;Lønn fast ansatte;500;Lonn fast ansatte;5000;Lonn fast ansatte;Kostnad;Lonnskostnader
+5050;Overtid fast ansatte;5;Lønnskostnad;50;Lønn fast ansatte;505;Overtid fast ansatte;5050;Overtid fast ansatte;Kostnad;Lonnskostnader
+5100;Lonn midlertidig ansatte;5;Lønnskostnad;51;Lønn midlertidig ansatte;510;Lonn midlertidig ansatte;5100;Lonn midlertidig ansatte;Kostnad;Lonnskostnader
+5080;Feriepenger;5;Lønnskostnad;50;Lønn fast ansatte;508;Feriepenger;5080;Feriepenger;Kostnad;Lonnskostnader
+5400;Arbeidsgiveravgift innberettede ytelser;5;Lønnskostnad;54;Arbeidsgiveravgift, pensjonspremie o.l.;540;Arbeidsgiveravgift innberettede ytelser;5400;Arbeidsgiveravgift innberettede ytelser;Kostnad;Lonnskostnader
+5420;Pensjonspremie til SPK;5;Lønnskostnad;54;Arbeidsgiveravgift, pensjonspremie o.l.;542;Pensjonspremie til SPK;5420;Pensjonspremie til SPK;Kostnad;Lonnskostnader
+5800;Refusjon av sykepenger;5;Lønnskostnad;58;Offentlige refusjoner vedrørende arbeidskraft;580;Refusjon av sykepenger;5800;Refusjon av sykepenger;Kostnad;Lonnskostnader
+5810;Refusjon av foreldrepenger;5;Lønnskostnad;58;Offentlige refusjoner vedrørende arbeidskraft;581;Refusjon av foreldrepenger;5810;Refusjon av foreldrepenger;Kostnad;Lonnskostnader
+6000;Avskrivning immaterielle eiendeler;6;Annen driftskostnad;60;Av- og nedskrivning;600;Avskrivning immaterielle eiendeler;6000;Avskrivning immaterielle eiendeler;Kostnad;Av- og nedskrivninger
+6050;Avskrivning driftslosore/inventar/IKT;6;Annen driftskostnad;60;Av- og nedskrivning;605;Avskrivning driftslosore/inventar/IKT;6050;Avskrivning driftslosore/inventar/IKT;Kostnad;Av- og nedskrivninger
+6300;Leie lokaler;6;Annen driftskostnad;63;Kostnader lokaler;630;Leie lokaler;6300;Leie lokaler;Kostnad;Andre driftskostnader
+6310;Leie lokaler fra Statsbygg;6;Annen driftskostnad;63;Kostnader lokaler;631;Leie lokaler fra Statsbygg;6310;Leie lokaler fra Statsbygg;Kostnad;Andre driftskostnader
+6340;Lys, varme;6;Annen driftskostnad;63;Kostnader lokaler;634;Lys, varme;6340;Lys, varme;Kostnad;Andre driftskostnader
+6360;Renhold, vakthold, vaktmester;6;Annen driftskostnad;63;Kostnader lokaler;636;Renhold, vakthold, vaktmester;6360;Renhold, vakthold, vaktmester;Kostnad;Andre driftskostnader
+6420;Leie av datasystemer;6;Annen driftskostnad;64;Leie maskiner, inventar o.l.;642;Leie av datasystemer;6420;Leie av datasystemer;Kostnad;Andre driftskostnader
+6540;Inventar;6;Annen driftskostnad;65;Anskaffelser som ikke skal føres i kontogruppe 10-12 eller 47-49;654;Inventar;6540;Inventar;Kostnad;Andre driftskostnader
+6550;Datamaskiner og annet IKT-utstyr;6;Annen driftskostnad;65;Anskaffelser som ikke skal føres i kontogruppe 10-12 eller 47-49;655;Datamaskiner og annet IKT-utstyr;6550;Datamaskiner og annet IKT-utstyr;Kostnad;Andre driftskostnader
+6630;Reparasjon og vedlikehold leide lokaler;6;Annen driftskostnad;66;Reparasjon og vedlikehold;663;Reparasjon og vedlikehold leide lokaler;6630;Reparasjon og vedlikehold leide lokaler;Kostnad;Andre driftskostnader
+6700;Konsulenttjenester okonomi/revisjon/juss;6;Annen driftskostnad;67;Kjøp av konsulenttjenester og andre fremmede tjenester;670;Konsulenttjenester okonomi/revisjon/juss;6700;Konsulenttjenester okonomi/revisjon/juss;Kostnad;Andre driftskostnader
+6710;Konsulenttjenester programvare/IKT;6;Annen driftskostnad;67;Kjøp av konsulenttjenester og andre fremmede tjenester;671;Konsulenttjenester programvare/IKT;6710;Konsulenttjenester programvare/IKT;Kostnad;Andre driftskostnader
+6720;Konsulenttjenester organisasjonsutvikling;6;Annen driftskostnad;67;Kjøp av konsulenttjenester og andre fremmede tjenester;672;Konsulenttjenester organisasjonsutvikling;6720;Konsulenttjenester organisasjonsutvikling;Kostnad;Andre driftskostnader
+6730;Andre konsulenttjenester;6;Annen driftskostnad;67;Kjøp av konsulenttjenester og andre fremmede tjenester;673;Andre konsulenttjenester;6730;Andre konsulenttjenester;Kostnad;Andre driftskostnader
+6740;Innleie av vikarer;6;Annen driftskostnad;67;Kjøp av konsulenttjenester og andre fremmede tjenester;674;Innleie av vikarer;6740;Innleie av vikarer;Kostnad;Andre driftskostnader
+6750;Tjenester til lopende IKT-drift;6;Annen driftskostnad;67;Kjøp av konsulenttjenester og andre fremmede tjenester;675;Tjenester til lopende IKT-drift;6750;Tjenester til lopende IKT-drift;Kostnad;Andre driftskostnader
+6800;Kontorrekvisita;6;Annen driftskostnad;68;Kontorrekvisita, bøker, møter og kurs;680;Kontorrekvisita;6800;Kontorrekvisita;Kostnad;Andre driftskostnader
+6840;Aviser, tidsskrifter, boker;6;Annen driftskostnad;68;Kontorrekvisita, bøker, møter og kurs;684;Aviser, tidsskrifter, boker;6840;Aviser, tidsskrifter, boker;Kostnad;Andre driftskostnader
+6860;Moter;6;Annen driftskostnad;68;Kontorrekvisita, bøker, møter og kurs;686;Moter;6860;Moter;Kostnad;Andre driftskostnader
+6870;Kurs og seminarer egne ansatte;6;Annen driftskostnad;68;Kontorrekvisita, bøker, møter og kurs;687;Kurs og seminarer egne ansatte;6870;Kurs og seminarer egne ansatte;Kostnad;Andre driftskostnader
+6900;Telefoni og datakommunikasjon;6;Annen driftskostnad;69;Telefon, porto o.l.;690;Telefoni og datakommunikasjon;6900;Telefoni og datakommunikasjon;Kostnad;Andre driftskostnader
+7100;Bilgodtgjorelse;7;Annen driftskostnad, fortsettelse;71;Kostnad og godtgjørelse for reise, diett, bil o.l.;710;Bilgodtgjorelse;7100;Bilgodtgjorelse;Kostnad;Andre driftskostnader
+7130;Reisekostnad;7;Annen driftskostnad, fortsettelse;71;Kostnad og godtgjørelse for reise, diett, bil o.l.;713;Reisekostnad;7130;Reisekostnad;Kostnad;Andre driftskostnader
+7150;Diettkostnad;7;Annen driftskostnad, fortsettelse;71;Kostnad og godtgjørelse for reise, diett, bil o.l.;715;Diettkostnad;7150;Diettkostnad;Kostnad;Andre driftskostnader
+7320;Reklame og markedsforing;7;Annen driftskostnad, fortsettelse;73;Salg, reklame og representasjon;732;Reklame og markedsforing;7320;Reklame og markedsforing;Kostnad;Andre driftskostnader
+7400;Kontingent;7;Annen driftskostnad, fortsettelse;74;Kontingent og gave;740;Kontingent;7400;Kontingent;Kostnad;Andre driftskostnader
+7600;Lisensavgift og royalties;7;Annen driftskostnad, fortsettelse;76;Lisenser og patenter;760;Lisensavgift og royalties;7600;Lisensavgift og royalties;Kostnad;Andre driftskostnader
+7790;Annen kostnad;7;Annen driftskostnad, fortsettelse;77;Annen kostnad;779;Annen kostnad;7790;Annen kostnad;Kostnad;Andre driftskostnader
