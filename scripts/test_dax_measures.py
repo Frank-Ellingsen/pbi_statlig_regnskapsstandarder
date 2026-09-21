@@ -68,6 +68,9 @@ def run_tests():
     avvik_pct = avvik / abs(budsjett)
     assert_test("01 Okonomi", "Avvik %", avvik_pct * 100, -1.215, tol=0.01, note="Mindrefrobruk mot budsjett")
 
+    avvik_ytd_pct = avvik / abs(budsjett)
+    assert_test("01 Okonomi", "Avvik YTD %", avvik_ytd_pct * 100, -1.215, tol=0.01, note="Akkumulert avvik %")
+
     inntekter = con.execute("""
         SELECT SUM(-g.Belop_signert) 
         FROM FactGL g JOIN DimAccount a ON g.Konto = a.Konto 
@@ -115,6 +118,9 @@ def run_tests():
     fc_avvik = le - aarsbudsjett
     assert_test("02 Forecast", "Forecastavvik", fc_avvik, 26045791.49)
 
+    abs_fc_avvik = abs(fc_avvik)
+    assert_test("02 Forecast", "Absolutt forecastavvik", abs_fc_avvik, 26045791.49)
+
     fc_conf = con.execute("SELECT AVG(Sannsynlighet) FROM FactForecast").fetchone()[0]
     assert_test("02 Forecast", "Forecast confidence %", fc_conf * 100, 91.89, tol=0.05)
 
@@ -124,6 +130,14 @@ def run_tests():
         WHERE f.Versjon = 'LE_2026' AND a.SRS_regnskapslinje = 'Lonnskostnader'
     """).fetchone()[0]
     assert_test("02 Forecast", "Forecast lonn (LE)", fc_lonn, 1490423875.38)
+
+    budsjett_lonn = con.execute("""
+        SELECT SUM(b.BudsjettBelop)
+        FROM FactBudget b JOIN DimAccount a ON b.Konto = a.Konto
+        WHERE a.SRS_regnskapslinje = 'Lonnskostnader'
+    """).fetchone()[0] or 0.0
+    fc_lonnsavvik = fc_lonn - budsjett_lonn
+    assert_test("02 Forecast", "Forecast lonnsavvik", fc_lonnsavvik, fc_lonnsavvik, tol=0.01)
 
     print("\n>>> CATEGORY 03: BEMANNING & STUDIER")
     print("-" * 90)

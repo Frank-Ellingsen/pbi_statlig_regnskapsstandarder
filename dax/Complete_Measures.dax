@@ -38,6 +38,10 @@ Avvik YTD =
 [Regnskap YTD] - [Budsjett YTD]
 /* Format: #,##0.00 | Akkumulert budsjettavvik hittil i år */
 
+Avvik YTD % = 
+DIVIDE ( [Avvik YTD], ABS ( [Budsjett YTD] ) )
+/* Format: 0.0% | Akkumulert budsjettavvik i prosent */
+
 Inntekter = 
 CALCULATE (
     -[Regnskap],
@@ -97,6 +101,10 @@ Forecastavvik =
 [Forecast aarsbelop] - [Aarsbudsjett]
 /* Format: #,##0.00 | Avvik mellom gjeldende helårs forecast og årsbudsjett */
 
+Absolutt forecastavvik = 
+ABS ( [Forecastavvik] )
+/* Format: #,##0.00 | Absoluttverdi av forecastavvik mot budsjett */
+
 Forecastavvik % = 
 DIVIDE ( [Forecastavvik], ABS ( [Aarsbudsjett] ) )
 /* Format: 0.0% | Relativt forecastavvik mot årsbudsjett */
@@ -142,6 +150,11 @@ CALCULATE (
     DimAccount[SRS_regnskapslinje] = "Lonnskostnader"
 )
 /* Format: #,##0.00 | Forecast for lønnskostnader */
+
+Forecast lonnsavvik = 
+[Forecast lonn] - CALCULATE ( [Aarsbudsjett], DimAccount[SRS_regnskapslinje] = "Lonnskostnader" )
+/* Format: #,##0.00 | Helårs forecastavvik spesifikt for lønnskostnader */
+
 
 
 -- ==============================================================================
