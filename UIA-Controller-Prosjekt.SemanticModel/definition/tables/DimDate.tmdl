@@ -10,8 +10,6 @@ table DimDate
 		summarizeBy: none
 		sourceColumn: Dato
 
-		annotation UnderlyingDateTimeDataType = Date
-
 	column DatoNokkel
 		dataType: int64
 		lineageTag: d0000001-0000-0000-0000-000000000003
@@ -39,9 +37,9 @@ table DimDate
 	column AarMaaned
 		dataType: string
 		lineageTag: d0000001-0000-0000-0000-000000000007
+		sortByColumn: MaanedStart
 		summarizeBy: none
 		sourceColumn: AarMaaned
-		sortByColumn: MaanedStart
 
 	column MaanedStart
 		dataType: dateTime
@@ -49,8 +47,6 @@ table DimDate
 		lineageTag: d0000001-0000-0000-0000-000000000008
 		summarizeBy: none
 		sourceColumn: MaanedStart
-
-		annotation UnderlyingDateTimeDataType = Date
 
 	hierarchy Tid
 		lineageTag: d0000001-0000-0000-0000-000000000009
@@ -80,4 +76,3 @@ table DimDate
 				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Dato", type date}, {"DatoNokkel", Int64.Type}, {"Aar", Int64.Type}, {"Kvartal", type text}, {"MaanedNr", Int64.Type}, {"AarMaaned", type text}, {"MaanedStart", type date}}, "en-US")
 				in
 				    #"Changed Type"
-

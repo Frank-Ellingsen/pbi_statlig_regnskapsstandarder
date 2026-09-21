@@ -8,6 +8,18 @@ table DimOrganization
 		summarizeBy: none
 		sourceColumn: Organisasjonsnokkel
 
+	column Fakultet
+		dataType: string
+		lineageTag: d0000002-0000-0000-0000-000000000003
+		summarizeBy: none
+		sourceColumn: Fakultet
+
+	column Fakultetsnavn
+		dataType: string
+		lineageTag: d0000002-0000-0000-0000-000000000004
+		summarizeBy: none
+		sourceColumn: Fakultetsnavn
+
 	column Institutt
 		dataType: string
 		lineageTag: d0000002-0000-0000-0000-000000000005
@@ -38,18 +50,6 @@ table DimOrganization
 		summarizeBy: none
 		sourceColumn: Koststedtype
 
-	column Fakultet
-		dataType: string
-		lineageTag: d0000002-0000-0000-0000-000000000003
-		summarizeBy: none
-		sourceColumn: Fakultet
-
-	column Fakultetsnavn
-		dataType: string
-		lineageTag: d0000002-0000-0000-0000-000000000004
-		summarizeBy: none
-		sourceColumn: Fakultetsnavn
-
 	hierarchy 'Organisasjonshierarki'
 		lineageTag: d0000002-0000-0000-0000-000000000010
 
@@ -74,4 +74,3 @@ table DimOrganization
 				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Organisasjonsnokkel", type text}, {"Fakultet", type text}, {"Fakultetsnavn", type text}, {"Institutt", type text}, {"Instituttnavn", type text}, {"Koststed", type text}, {"Koststednavn", type text}, {"Koststedtype", type text}}, "en-US")
 				in
 				    #"Changed Type"
-

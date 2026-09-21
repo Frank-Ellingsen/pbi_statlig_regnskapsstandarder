@@ -29,4 +29,3 @@ table DimPositionGroup
 				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Stillingsgruppe", type text}, {"Stillingsgruppenavn", type text}, {"Stillingskategori", type text}}, "en-US")
 				in
 				    #"Changed Type"
-

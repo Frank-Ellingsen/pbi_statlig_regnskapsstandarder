@@ -8,29 +8,17 @@ table DimAccount
 		summarizeBy: none
 		sourceColumn: Konto
 
-	column Kontonavn
-		dataType: string
-		lineageTag: d0000003-0000-0000-0000-000000000004
-		summarizeBy: none
-		sourceColumn: Kontonavn
-
-	column Kontotype
-		dataType: string
-		lineageTag: d0000003-0000-0000-0000-000000000007
-		summarizeBy: none
-		sourceColumn: Kontotype
-
-	column SRS_regnskapslinje
-		dataType: string
-		lineageTag: d0000003-0000-0000-0000-000000000008
-		summarizeBy: none
-		sourceColumn: SRS_regnskapslinje
-
 	column StandardKonto3
 		dataType: int64
 		lineageTag: d0000003-0000-0000-0000-000000000003
 		summarizeBy: none
 		sourceColumn: StandardKonto3
+
+	column Kontonavn
+		dataType: string
+		lineageTag: d0000003-0000-0000-0000-000000000004
+		summarizeBy: none
+		sourceColumn: Kontonavn
 
 	column Kontoklasse
 		dataType: int64
@@ -43,6 +31,18 @@ table DimAccount
 		lineageTag: d0000003-0000-0000-0000-000000000006
 		summarizeBy: none
 		sourceColumn: Kontogruppe
+
+	column Kontotype
+		dataType: string
+		lineageTag: d0000003-0000-0000-0000-000000000007
+		summarizeBy: none
+		sourceColumn: Kontotype
+
+	column SRS_regnskapslinje
+		dataType: string
+		lineageTag: d0000003-0000-0000-0000-000000000008
+		summarizeBy: none
+		sourceColumn: SRS_regnskapslinje
 
 	column AktuellFor
 		dataType: string
@@ -78,4 +78,3 @@ table DimAccount
 				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Konto", Int64.Type}, {"StandardKonto3", Int64.Type}, {"Kontonavn", type text}, {"Kontoklasse", Int64.Type}, {"Kontogruppe", Int64.Type}, {"Kontotype", type text}, {"SRS_regnskapslinje", type text}, {"AktuellFor", type text}}, "en-US")
 				in
 				    #"Changed Type"
-
