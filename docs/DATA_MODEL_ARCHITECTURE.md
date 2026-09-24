@@ -17,12 +17,140 @@ Modellen representerer en komplett virksomhets- og økonomimodell for Statlig ut
 
 ```mermaid
 erDiagram
+    DimDate {
+        int DatoNokkel PK
+        date Dato
+        int Aar
+        int Kvartal
+        int MaanedNr
+        int AarMaaned
+        date MaanedStart
+    }
+    DimOrganization {
+        string Organisasjonsnokkel PK
+        string Fakultet
+        string Fakultetsnavn
+        string Institutt
+        string Instituttnavn
+        string Koststed
+        string Koststednavn
+        string Koststedtype
+    }
+    DimAccount {
+        int Konto PK
+        string StandardKonto3
+        string Kontonavn
+        string Kontoklasse
+        string Kontogruppe
+        string Kontotype
+        string SRS_regnskapslinje
+        string AktuellFor
+    }
+    DimProject {
+        string Prosjekt PK
+        string Prosjektnavn
+        string Finansieringstype
+        string Finansieringskilde
+        string Prosjektkategori
+    }
+    DimForecastVersion {
+        string Versjon PK
+        string Versjonsnavn
+        int Sortering
+    }
+    DimPositionGroup {
+        string Stillingsgruppe PK
+        string Stillingsgruppenavn
+        string Stillingskategori
+    }
+    DimStudyProgram {
+        string Studieprogram PK
+        string Studieprogramnavn
+        string Studienivaa
+        int NormerteStudiepoeng
+        string Institutt
+        string Fakultet
+    }
+    DimGlossary {
+        string BegrepID PK
+        string Begrep
+        string FulltNavn
+        string Kategori
+        string Definisjon
+        string PraktiskTolkning
+        string FormelDAX
+        string RolleKontekst
+        string RelevantRapport
+    }
+    FactGL {
+        string Bilag PK
+        int DatoNokkel FK
+        string Organisasjonsnokkel FK
+        int Konto FK
+        string Prosjekt FK
+        decimal Belop_signert
+        string Tekst
+        string Datakilde
+    }
+    FactBudget {
+        int DatoNokkel FK
+        string Organisasjonsnokkel FK
+        int Konto FK
+        string Prosjekt FK
+        decimal BudsjettBelop
+        string Scenario
+    }
+    FactForecast {
+        int DatoNokkel FK
+        string Organisasjonsnokkel FK
+        int Konto FK
+        string Prosjekt FK
+        string Versjon FK
+        decimal ForecastBelop
+        string Datastatus
+        decimal Sannsynlighet
+        string Kommentar
+    }
+    FactAction {
+        string TiltakID PK
+        string Organisasjonsnokkel FK
+        string Prosjekt FK
+        int Konto FK
+        string Avviksarsak
+        string Tiltaksbeskrivelse
+        string AnsvarligRolle
+        int StartDatoNokkel
+        int FristDatoNokkel
+        decimal ForventetEffekt
+        decimal RealisertEffekt
+        string Status
+        string Prioritet
+        decimal Sannsynlighet
+    }
+    FactFTE {
+        int DatoNokkel FK
+        string Organisasjonsnokkel FK
+        string Stillingsgruppe FK
+        decimal Aarsverk
+        decimal FagligeAarsverk
+        string Scenario
+    }
+    FactStudyPoints {
+        int DatoNokkel FK
+        string Organisasjonsnokkel FK
+        string Studieprogram FK
+        int RegistrerteStudenter
+        decimal PlanlagteStudiepoeng
+        decimal AvlagteStudiepoeng
+        decimal SPE60
+        decimal BestattAndel
+    }
+
     DimDate ||--o{ FactGL : "DatoNokkel"
     DimDate ||--o{ FactBudget : "DatoNokkel"
     DimDate ||--o{ FactForecast : "DatoNokkel"
     DimDate ||--o{ FactFTE : "DatoNokkel"
     DimDate ||--o{ FactStudyPoints : "DatoNokkel"
-    DimDate ||--o{ FactAction : "FristDatoNokkel"
 
     DimOrganization ||--o{ FactGL : "Organisasjonsnokkel"
     DimOrganization ||--o{ FactBudget : "Organisasjonsnokkel"
@@ -44,6 +172,74 @@ erDiagram
     DimForecastVersion ||--o{ FactForecast : "Versjon"
     DimPositionGroup ||--o{ FactFTE : "Stillingsgruppe"
     DimStudyProgram ||--o{ FactStudyPoints : "Studieprogram"
+```
+
+### 2.0 Dataarkitektur & Dataflyt (End-to-End Pipeline)
+
+```mermaid
+flowchart TD
+    subgraph S1 ["1. Operative Kildedata & Fagsystemer"]
+        SRC_UNIT4["Unit4 ERP / Agresso: Hovedbok, DFØ SRS R-102 Kontoplan & Prosjekter"]
+        SRC_FS["Felles Studentsystem (FS): Opptak, Registrerte studenter & Avlagte SPE60"]
+        SRC_DFO["DFØ Lønn & Personal: Månedlige årsverk, UF/TA stillinger & Lønnskostnader"]
+        SRC_KD["Kunnskapsdepartementet: Statsbudsjettet Post 50 & Finansieringskategorier 1-3"]
+        SRC_BOA["Forskningsportaler & Eksterne oppdragsgivere: NFR, EU Horisont Europa & BOA-avtaler"]
+    end
+
+    subgraph S2 ["2. Staging & Strukturert CSV-Datalager (/data/*.csv)"]
+        CSV_DIMS["8 Dimensjonstabeller (UTF-8): DimDate, DimOrg, DimAccount, DimProject, DimVersion, DimPos, DimStudy, DimGlossary"]
+        CSV_FACTS["6 Faktatabeller (126k+ rader): FactGL, FactBudget, FactForecast, FactAction, FactFTE, FactStudyPoints"]
+        CSV_RELS["Relasjonsmetadata: Relationships.csv (22 aktive 1:* enveisrelasjoner)"]
+    end
+
+    subgraph S3 ["3. Analysemotor & AI Multi-Agent Pipeline"]
+        ENG_DUCK["DuckDB In-Memory OLAP SQL: Sub-sekunds aggregering, kryssavstemming & 90/90 QA-tester"]
+        ENG_ML["Scikit-Learn ML Prognosemotor: Ridge Regression & Holt-Winters tidsserie (Fan Cone P10-P90)"]
+        ENG_AGENTS["Tri-Agent AI Hub: Diagnose (SRS-avvik), Prognose (EAC/ETC) & Preskripsjon (FactAction T017-T021)"]
+    end
+
+    subgraph S4 ["4. Semantisk Modell & Microsoft Fabric PBIP Layer"]
+        MOD_PBIP["Microsoft Fabric / Power BI Project: UIA-Controller-Prosjekt.pbip (Git-integrert)"]
+        MOD_TMDL["TMDL Modellstruktur: Tabellskjemaer, datatyper, kolonneformater & hierarkier"]
+        MOD_DAX["Sentralisert DAX-katalog: _Measures (61+ sertifiserte mål fordelt på 9 controller-mapper)"]
+    end
+
+    subgraph S5 ["5. Rapporterings-, Beslutnings- & Innsiktsflater"]
+        REP_PBI["Power BI Desktop & Fabric Service: 16 Dashboards (11 Roller/Temaer + 5 Drilldown-paneler)"]
+        REP_WEB["Interaktiv Webportal (index.html): Tufte Data-Ink design, sanntids KPIer & 29-reglers revisjon"]
+        REP_EXCEL["Integrert Controllermal (uia_controller_excel_pack.xlsx): Power Query, dynamiske modeller & 12 ark"]
+        REP_QA["Kontinuerlig Kvalitetssikring: test_rapportering_skills.py & verify_reporting_rules.py"]
+    end
+
+    SRC_UNIT4 --> CSV_FACTS
+    SRC_UNIT4 --> CSV_DIMS
+    SRC_FS --> CSV_FACTS
+    SRC_FS --> CSV_DIMS
+    SRC_DFO --> CSV_FACTS
+    SRC_DFO --> CSV_DIMS
+    SRC_KD --> CSV_FACTS
+    SRC_BOA --> CSV_FACTS
+
+    CSV_DIMS --> ENG_DUCK
+    CSV_FACTS --> ENG_DUCK
+    CSV_RELS --> ENG_DUCK
+
+    ENG_DUCK --> ENG_ML
+    ENG_DUCK --> ENG_AGENTS
+    ENG_ML --> CSV_FACTS
+    ENG_AGENTS --> CSV_FACTS
+
+    CSV_DIMS --> MOD_TMDL
+    CSV_FACTS --> MOD_TMDL
+    CSV_RELS --> MOD_TMDL
+    MOD_TMDL --> MOD_PBIP
+    MOD_DAX --> MOD_PBIP
+
+    MOD_PBIP --> REP_PBI
+    ENG_DUCK --> REP_WEB
+    ENG_AGENTS --> REP_WEB
+    MOD_PBIP --> REP_EXCEL
+    ENG_DUCK --> REP_QA
 ```
 
 ### 2.1 Dimensjoner (1-siden)

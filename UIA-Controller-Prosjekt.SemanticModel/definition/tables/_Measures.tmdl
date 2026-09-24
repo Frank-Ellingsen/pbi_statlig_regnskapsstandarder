@@ -339,6 +339,135 @@ table _Measures
 		```
 		displayFolder: 07 Status & Farger
 
+	measure 'Forecast RAG Status' = ```
+		VAR AvvikPct = [Forecastavvik %]
+		RETURN
+		    SWITCH (
+		        TRUE (),
+		        ISBLANK ( AvvikPct ), BLANK (),
+		        AvvikPct > 0.05, "🔴 Rød (>5%)",
+		        AvvikPct > 0.02, "🟡 Gul (2-5%)",
+		        "🟢 Grønn (<=2%)"
+		    )
+		```
+		displayFolder: 07 Status & Farger
+
+	measure 'Avvik YTD RAG Status' = ```
+		VAR AvvikPct = [Avvik YTD %]
+		RETURN
+		    SWITCH (
+		        TRUE (),
+		        ISBLANK ( AvvikPct ), BLANK (),
+		        AvvikPct > 0.05, "🔴 Rød (>5%)",
+		        AvvikPct > 0.02, "🟡 Gul (2-5%)",
+		        "🟢 Grønn (<=2%)"
+		    )
+		```
+		displayFolder: 07 Status & Farger
+
+	measure 'Tiltak RAG Status' = ```
+		VAR S = SELECTEDVALUE ( FactAction[Status] )
+		RETURN
+		    SWITCH (
+		        S,
+		        "Gjennomfort", "🟢 Gjennomført",
+		        "Pagar", "🟡 Pågår",
+		        "Forsinket", "🔴 Forsinket",
+		        "⚪ Planlagt"
+		    )
+		```
+		displayFolder: 07 Status & Farger
+
+	measure 'Studiepoeng RAG Status' = ```
+		VAR M = [Studiepoeng maaloppnaelse %]
+		RETURN
+		    SWITCH (
+		        TRUE (),
+		        ISBLANK ( M ), BLANK (),
+		        M >= 0.90, "🟢 Mål nådd (>=90%)",
+		        M >= 0.80, "🟡 Moderat (80-90%)",
+		        "🔴 Lav (<80%)"
+		    )
+		```
+		displayFolder: 07 Status & Farger
+
+	measure 'EVM Sluttavvik RAG Status' = ```
+		VAR V = [VAC %]
+		RETURN
+		    SWITCH (
+		        TRUE (),
+		        ISBLANK ( V ), BLANK (),
+		        V >= 0, "🟢 Under budsjett",
+		        V >= -0.05, "🟡 Moderat overskridelse",
+		        "🔴 Kritisk overskridelse"
+		    )
+		```
+		displayFolder: 07 Status & Farger
+
+	measure 'Antall rode institutter' = ```
+		CALCULATE (
+		    DISTINCTCOUNT ( DimOrganization[Instituttnavn] ),
+		    FILTER (
+		        VALUES ( DimOrganization[Instituttnavn] ),
+		        [Forecastavvik %] > 0.05
+		    )
+		)
+		```
+		formatString: #,##0
+		displayFolder: 07 Status & Farger
+
+	measure 'Avvik RAG farge' = ```
+		VAR AvvikPct = [Avvik YTD %]
+		RETURN
+		    SWITCH (
+		        TRUE (),
+		        ISBLANK ( AvvikPct ), "#A6A6A6",
+		        AvvikPct > 0.05, "#C00000",
+		        AvvikPct > 0.02, "#FFC000",
+		        "#70AD47"
+		    )
+		```
+		displayFolder: 07 Status & Farger
+
+	measure 'Tiltak RAG farge' = ```
+		VAR S = SELECTEDVALUE ( FactAction[Status] )
+		RETURN
+		    SWITCH (
+		        S,
+		        "Gjennomfort", "#70AD47",
+		        "Pagar", "#FFC000",
+		        "Forsinket", "#C00000",
+		        "#A6A6A6"
+		    )
+		```
+		displayFolder: 07 Status & Farger
+
+	measure 'Studiepoeng RAG farge' = ```
+		VAR M = [Studiepoeng maaloppnaelse %]
+		RETURN
+		    SWITCH (
+		        TRUE (),
+		        ISBLANK ( M ), "#A6A6A6",
+		        M >= 0.90, "#70AD47",
+		        M >= 0.80, "#FFC000",
+		        "#C00000"
+		    )
+		```
+		displayFolder: 07 Status & Farger
+
+	measure 'EVM Sluttavvik RAG farge' = ```
+		VAR V = [VAC %]
+		RETURN
+		    SWITCH (
+		        TRUE (),
+		        ISBLANK ( V ), "#A6A6A6",
+		        V >= 0, "#70AD47",
+		        V >= -0.05, "#FFC000",
+		        "#C00000"
+		    )
+		```
+		displayFolder: 07 Status & Farger
+
 	measure 'Avvik YTD %' = DIVIDE ( [Avvik YTD], ABS ( [Budsjett YTD] ) )
 		formatString: 0.0%
 		displayFolder: 01 Okonomi
@@ -350,6 +479,92 @@ table _Measures
 	measure 'Absolutt forecastavvik' = ABS ( [Forecastavvik] )
 		formatString: #,##0.00
 		displayFolder: 02 Forecast
+
+	measure 'Antall begreper' = COUNTROWS ( DimGlossary )
+		formatString: #,##0
+		displayFolder: 09 Begrepskatalog
+
+	measure 'Antall begrepskategorier' = DISTINCTCOUNT ( DimGlossary[Kategori] )
+		formatString: #,##0
+		displayFolder: 09 Begrepskatalog
+
+	measure 'Statsbevilgning basis' = ```
+		CALCULATE (
+		    -[Budsjett],
+		    REMOVEFILTERS ( DimDate ),
+		    DimAccount[Konto] = 3900
+		)
+		```
+		formatString: #,##0.00
+		displayFolder: 10 Regulatorisk & Veileder
+
+	measure 'Maks tillatt reserve 5%' = [Statsbevilgning basis] * 0.05
+		formatString: #,##0.00
+		displayFolder: 10 Regulatorisk & Veileder
+
+	measure 'Beregnet avsetningsandel %' = DIVIDE ( ABS ( [Avvik YTD] ), [Statsbevilgning basis] )
+		formatString: 0.000%
+		displayFolder: 10 Regulatorisk & Veileder
+
+	measure '5 %-regel Status' = ```
+		IF (
+		    [Beregnet avsetningsandel %] <= 0.05,
+		    "🟢 Overholdt (<=5%)",
+		    "🔴 Overskredet (>5%)"
+		)
+		```
+		displayFolder: 10 Regulatorisk & Veileder
+
+	measure 'KD 2025 SPE Kat 1 Sats' = 54550.0
+		formatString: #,##0
+		displayFolder: 10 Regulatorisk & Veileder
+
+	measure 'KD 2025 SPE Kat 2 Sats' = 81800.0
+		formatString: #,##0
+		displayFolder: 10 Regulatorisk & Veileder
+
+	measure 'KD 2025 SPE Kat 3 Sats' = 190900.0
+		formatString: #,##0
+		displayFolder: 10 Regulatorisk & Veileder
+
+	measure 'SRS 1 Driftsinntekter' = [Inntekter]
+		formatString: #,##0.00
+		displayFolder: 10 Regulatorisk & Veileder
+
+	measure 'SRS 1 Driftskostnader' = [Kostnader]
+		formatString: #,##0.00
+		displayFolder: 10 Regulatorisk & Veileder
+
+	measure 'SRS 1 Netto driftsresultat' = [Kostnader] - [Inntekter]
+		formatString: #,##0.00
+		displayFolder: 10 Regulatorisk & Veileder
+
+	measure 'SRS 10 Bidragsinntekter' = ```
+		CALCULATE (
+		    [Inntekter],
+		    DimProject[Finansieringstype] = "Bidrag"
+		)
+		```
+		formatString: #,##0.00
+		displayFolder: 10 Regulatorisk & Veileder
+
+	measure 'SRS 9 Oppdragsinntekter' = ```
+		CALCULATE (
+		    [Inntekter],
+		    DimProject[Finansieringstype] = "Oppdrag"
+		)
+		```
+		formatString: #,##0.00
+		displayFolder: 10 Regulatorisk & Veileder
+
+	measure 'SRS 17 Avskrivninger' = ```
+		CALCULATE (
+		    [Regnskap],
+		    DimAccount[SRS_regnskapslinje] = "Av- og nedskrivninger"
+		)
+		```
+		formatString: #,##0.00
+		displayFolder: 10 Regulatorisk & Veileder
 
 	column Placeholder
 		dataType: string

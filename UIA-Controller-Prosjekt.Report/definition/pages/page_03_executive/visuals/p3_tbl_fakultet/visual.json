@@ -93,6 +93,20 @@
                       "Entity": "_Measures"
                     }
                   },
+                  "Property": "Forecast RAG Status"
+                }
+              },
+              "queryRef": "_Measures.Forecast RAG Status",
+              "nativeQueryRef": "Forecast RAG Status"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
                   "Property": "Aarsverk"
                 }
               },
@@ -131,7 +145,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Hovedtall per fakultet og fellesområde'"
+                  "Value": "'Hovedtall og prognosestatus per fakultet og fellesomr\u00e5de'"
                 }
               }
             }

@@ -1,0 +1,70 @@
+table DimGlossary
+	lineageTag: d0000008-0000-0000-0000-000000000001
+
+	column BegrepID
+		dataType: int64
+		formatString: 0
+		lineageTag: d0000008-0000-0000-0000-000000000002
+		summarizeBy: count
+		sourceColumn: BegrepID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Begrep
+		dataType: string
+		isKey
+		lineageTag: d0000008-0000-0000-0000-000000000003
+		summarizeBy: none
+		sourceColumn: Begrep
+
+	column FulltNavn
+		dataType: string
+		lineageTag: d0000008-0000-0000-0000-000000000004
+		summarizeBy: none
+		sourceColumn: FulltNavn
+
+	column Kategori
+		dataType: string
+		lineageTag: d0000008-0000-0000-0000-000000000005
+		summarizeBy: none
+		sourceColumn: Kategori
+
+	column Definisjon
+		dataType: string
+		lineageTag: d0000008-0000-0000-0000-000000000006
+		summarizeBy: none
+		sourceColumn: Definisjon
+
+	column PraktiskTolkning
+		dataType: string
+		lineageTag: d0000008-0000-0000-0000-000000000007
+		summarizeBy: none
+		sourceColumn: PraktiskTolkning
+
+	column FormelDAX
+		dataType: string
+		lineageTag: d0000008-0000-0000-0000-000000000008
+		summarizeBy: none
+		sourceColumn: FormelDAX
+
+	column RolleKontekst
+		dataType: string
+		lineageTag: d0000008-0000-0000-0000-000000000009
+		summarizeBy: none
+		sourceColumn: RolleKontekst
+
+	column RelevantRapport
+		dataType: string
+		lineageTag: d0000008-0000-0000-0000-000000000010
+		summarizeBy: none
+		sourceColumn: RelevantRapport
+
+	partition DimGlossary = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "DimGlossary.csv"), [Delimiter=";", Columns=9, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"BegrepID", Int64.Type}, {"Begrep", type text}, {"FulltNavn", type text}, {"Kategori", type text}, {"Definisjon", type text}, {"PraktiskTolkning", type text}, {"FormelDAX", type text}, {"RolleKontekst", type text}, {"RelevantRapport", type text}}, "en-US")
+				in
+				    #"Changed Type"

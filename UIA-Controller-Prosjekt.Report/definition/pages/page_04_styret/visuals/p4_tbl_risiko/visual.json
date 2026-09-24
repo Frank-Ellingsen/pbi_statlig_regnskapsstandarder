@@ -65,6 +65,20 @@
                       "Entity": "_Measures"
                     }
                   },
+                  "Property": "Forecast RAG Status"
+                }
+              },
+              "queryRef": "_Measures.Forecast RAG Status",
+              "nativeQueryRef": "Forecast RAG Status"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
                   "Property": "Forventet tiltakseffekt"
                 }
               },
@@ -103,7 +117,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Økonomisk risikobilde og omstilling'"
+                  "Value": "'\u00d8konomisk risikobilde og omstilling'"
                 }
               }
             }

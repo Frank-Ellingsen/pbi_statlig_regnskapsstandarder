@@ -47,7 +47,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'1. Forecast før tiltak'"
+                  "Value": "'1. Forecast f\u00f8r tiltak'"
                 }
               }
             }

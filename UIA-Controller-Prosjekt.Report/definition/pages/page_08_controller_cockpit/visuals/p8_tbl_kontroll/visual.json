@@ -121,6 +121,20 @@
                       "Entity": "_Measures"
                     }
                   },
+                  "Property": "Avvik YTD RAG Status"
+                }
+              },
+              "queryRef": "_Measures.Avvik YTD RAG Status",
+              "nativeQueryRef": "Avvik YTD RAG Status"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
                   "Property": "Forecast aarsbelop"
                 }
               },
@@ -140,6 +154,20 @@
               },
               "queryRef": "_Measures.Forecastavvik",
               "nativeQueryRef": "Forecastavvik"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Forecast RAG Status"
+                }
+              },
+              "queryRef": "_Measures.Forecast RAG Status",
+              "nativeQueryRef": "Forecast RAG Status"
             }
           ]
         }
@@ -159,7 +187,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Hierarkisk avstemmingsmatrise (Fakultet → Institutt → Regnskapslinje → Konto)'"
+                  "Value": "'Hierarkisk avstemmingsmatrise med RAG-avvik (Fakultet \u2192 Institutt \u2192 Regnskapslinje \u2192 Konto)'"
                 }
               }
             }

@@ -47,7 +47,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Forecast årsbeløp (LE)'"
+                  "Value": "'Forecast \u00e5rsbel\u00f8p (LE)'"
                 }
               }
             }

@@ -114,15 +114,35 @@ Målene er plassert i den dedikerte måltabellen `_Measures` og strukturert i 8 
 *   `Forecast faktisk andel %`: Andel av prognosen som er basert på realisert regnskap.
 *   `Forecast estimert andel %`: Andel av prognosen som er gjenstående estimat.
 
-### 08 Status & Farger (Tufte Data-Ink)
-*   `Forecaststatus`: Risikovurdering via `SWITCH`: Rød (>5% overskridelse), Gul (2-5%), Grønn (+/-2%), Blå (<-5% mindreforbruk).
-*   `Forecaststatus farge`: Hex-koder for betinget formatering: `#C00000` (Rød), `#FFC000` (Amber), `#70AD47` (Salviegrønn), `#5B9BD5` (Dempet blå), `#A6A6A6` (Grå).
+### 07 Status & Farger (Tufte Data-Ink & RAG)
+Fargestyring og statusindikatorer er utformet iht. Edward Tuftes prinsipper: nøytrale tabellbakgrunner uten tunge fargefyll, med presise Unicode-ikoner (`🔴`, `🟡`, `🟢`, `⚪`) og dempede semantiske hex-farger for betinget formatering i Power BI (bakgrunnsfarge eller skriftfarge).
+
+| Domene | RAG Målnavn | Fargemål | Terskelverdier / Logikk | RAG Tekst | Hex-farge |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Helårsprognose** | `Forecast RAG Status` | `Forecaststatus farge` | `[Forecastavvik %] > 0.05`<br>`[Forecastavvik %] >= 0.02`<br>Ellers | `🔴 Rød (>5%)`<br>`🟡 Gul (2-5%)`<br>`🟢 Grønn (<=2%)` | `#ef4444`<br>`#f59e0b`<br>`#10b981` |
+| **YTD Regnskap** | `Avvik YTD RAG Status` | `Avvik RAG farge` | `[Avvik YTD %] > 0.05`<br>`[Avvik YTD %] >= 0.02`<br>Ellers | `🔴 Rød (>5%)`<br>`🟡 Gul (2-5%)`<br>`🟢 Grønn (<=2%)` | `#ef4444`<br>`#f59e0b`<br>`#10b981` |
+| **Omstillingstiltak** | `Tiltak RAG Status` | `Tiltak RAG farge` | `Status = "Gjennomført"`<br>`Status = "Pågår"`<br>`Status = "Forsinket"`<br>`Status = "Planlagt"` | `🟢 Gjennomført`<br>`🟡 Pågår`<br>`🔴 Forsinket`<br>`⚪ Planlagt` | `#10b981`<br>`#f59e0b`<br>`#ef4444`<br>`#94a3b8` |
+| **Studiepoeng** | `Studiepoeng RAG Status` | `Studiepoeng RAG farge` | `[Måloppnåelse] >= 0.90`<br>`[Måloppnåelse] >= 0.80`<br>Ellers | `🟢 Mål nådd (>=90%)`<br>`🟡 Moderat (80-90%)`<br>`🔴 Lav (<80%)` | `#10b981`<br>`#f59e0b`<br>`#ef4444` |
+| **EVM Sluttavvik** | `EVM Sluttavvik RAG Status` | `EVM Sluttavvik RAG farge` | `[VAC] >= 0`<br>`[VAC %] >= -0.05`<br>Ellers | `🟢 Under budsjett`<br>`🟡 Moderat overskridelse`<br>`🔴 Kritisk overskridelse` | `#10b981`<br>`#f59e0b`<br>`#ef4444` |
+| **Porteføljerisiko** | `Antall rode institutter` | — | `[Forecastavvik %] > 0.05` | Heltall (Antall enheter i rød sone) | Format: `#,0` |
+
+### 09 Begrepskatalog (DimGlossary)
+*   `Antall begreper`: `COUNTROWS(DimGlossary)` (60 definerte styringsbegreper).
+*   `Antall begrepskategorier`: `DISTINCTCOUNT(DimGlossary[Kategori])` (8 faglige styringsakser).
 
 ---
 
 ## 5. Kjøring av Automatisert Testsuite
-Alle 50 målene er verifisert med en automatisert Python/DuckDB testsuite som tester formlene mot de underliggende CSV-filene:
+Alle 60+ målene er verifisert med en automatisert Python/DuckDB testsuite som tester formlene mot de underliggende CSV-filene:
 ```bash
 python scripts/test_dax_measures.py
 ```
-Testsuiten sjekker additivitet, fortegn, filterkontekst, tidssammenhenger (YTD/ETC/EAC), stillingskategorier og betinget formatering.
+Testsuiten omfatter **61 automatiserte tester (61/61 bestått)** og sjekker:
+1. Additivitet og fortegnsintegritet for inntekter og kostnader iht. SRS.
+2. Filterkontekst og tidssammenhenger (YTD, ETC, EAC, BAC, VAC).
+3. Bemannings-snapshots og stillingskategorier.
+4. RAG-grenser (5% og 2% terskler for prognose og YTD-avvik).
+5. Studiepoeng-terskler (90% og 80% måloppnåelse).
+6. EVM-sluttavvikskategorisering for BOA-prosjekter.
+7. Aggregerte risikoindikatorer (`Antall rode institutter`).
+8. Begrepskatalogens integritet og kategorier (`DimGlossary`).

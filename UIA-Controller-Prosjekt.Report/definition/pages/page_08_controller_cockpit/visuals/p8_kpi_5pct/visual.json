@@ -1,0 +1,59 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "p8_kpi_5pct",
+  "position": {
+    "x": 660,
+    "y": 95,
+    "z": 6,
+    "width": 300,
+    "height": 105,
+    "tabOrder": 6
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "5 %-regel Status"
+                }
+              },
+              "queryRef": "_Measures.5 %-regel Status",
+              "nativeQueryRef": "5 %-regel Status"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'5 %-Regel (F-05-20) Tak'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

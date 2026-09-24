@@ -140,6 +140,18 @@ SWITCH (
     "#A6A6A6"
 )
 
+Forecast RAG Status = 
+VAR AvvikPct = [Forecast mot budsjett %]
+RETURN
+    SWITCH (
+        TRUE (),
+        ISBLANK ( AvvikPct ), BLANK (),
+        AvvikPct > 0.05, "🔴 Rød (>5%)",
+        AvvikPct > 0.02, "🟡 Gul (2-5%)",
+        "🟢 Grønn (<=2%)"
+    )
+
+
 Forecast datakvalitet % =
 AVERAGE ( FactForecast[Sannsynlighet] )
 
@@ -160,3 +172,10 @@ DIVIDE ( [Forecast kostnader], [SPE 60] )
 
 Forecast lonn per aarsverk =
 DIVIDE ( [Forecast lonnskostnader], [Aarsverk] )
+
+Antall begreper =
+COUNTROWS ( DimGlossary )
+
+Antall begrepskategorier =
+DISTINCTCOUNT ( DimGlossary[Kategori] )
+

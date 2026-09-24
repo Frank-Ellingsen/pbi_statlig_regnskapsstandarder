@@ -1,0 +1,157 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "p9_tbl_glossary",
+  "position": {
+    "x": 20,
+    "y": 215,
+    "z": 8,
+    "width": 1880,
+    "height": 845,
+    "tabOrder": 8
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimGlossary"
+                    }
+                  },
+                  "Property": "Begrep"
+                }
+              },
+              "queryRef": "DimGlossary.Begrep",
+              "nativeQueryRef": "Begrep"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimGlossary"
+                    }
+                  },
+                  "Property": "FulltNavn"
+                }
+              },
+              "queryRef": "DimGlossary.FulltNavn",
+              "nativeQueryRef": "FulltNavn"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimGlossary"
+                    }
+                  },
+                  "Property": "Kategori"
+                }
+              },
+              "queryRef": "DimGlossary.Kategori",
+              "nativeQueryRef": "Kategori"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimGlossary"
+                    }
+                  },
+                  "Property": "Definisjon"
+                }
+              },
+              "queryRef": "DimGlossary.Definisjon",
+              "nativeQueryRef": "Definisjon"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimGlossary"
+                    }
+                  },
+                  "Property": "PraktiskTolkning"
+                }
+              },
+              "queryRef": "DimGlossary.PraktiskTolkning",
+              "nativeQueryRef": "PraktiskTolkning"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimGlossary"
+                    }
+                  },
+                  "Property": "FormelDAX"
+                }
+              },
+              "queryRef": "DimGlossary.FormelDAX",
+              "nativeQueryRef": "FormelDAX"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimGlossary"
+                    }
+                  },
+                  "Property": "RolleKontekst"
+                }
+              },
+              "queryRef": "DimGlossary.RolleKontekst",
+              "nativeQueryRef": "RolleKontekst"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "DimGlossary"
+                    }
+                  },
+                  "Property": "RelevantRapport"
+                }
+              },
+              "queryRef": "DimGlossary.RelevantRapport",
+              "nativeQueryRef": "RelevantRapport"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'UiA Begrepskatalog & \u00d8konomistyringsleksikon (60 definerte n\u00f8kkelbegreper for controller, ledelse og prosjekt)'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -2,10 +2,10 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
   "name": "p4_kpi_forecast",
   "position": {
-    "x": 400,
+    "x": 340,
     "y": 95,
     "z": 4,
-    "width": 360,
+    "width": 300,
     "height": 105,
     "tabOrder": 4
   },
@@ -47,7 +47,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Forventet helårsresultat'"
+                  "Value": "'Forventet hel\u00e5rsresultat'"
                 }
               }
             }

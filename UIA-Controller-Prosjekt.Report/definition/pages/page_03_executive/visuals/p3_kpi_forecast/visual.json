@@ -47,7 +47,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Helårsprognose (LE)'"
+                  "Value": "'Hel\u00e5rsprognose (LE)'"
                 }
               }
             }

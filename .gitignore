@@ -26,3 +26,8 @@ uia_complete_controller_powerbi_excel_package/
 
 # Local screenshots
 screenshots/
+
+# Secrets and environment files
+.env
+.env.*
+*.env

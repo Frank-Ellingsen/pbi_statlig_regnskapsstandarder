@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
   "name": "p3_cht_fak_avvik",
   "position": {
     "x": 970,
     "y": 215,
     "z": 9,
-    "height": 420,
     "width": 930,
+    "height": 420,
     "tabOrder": 9
   },
   "visual": {
@@ -27,8 +27,7 @@
                 }
               },
               "queryRef": "DimOrganization.Fakultetsnavn",
-              "nativeQueryRef": "Fakultetsnavn",
-              "active": true
+              "nativeQueryRef": "Fakultetsnavn"
             }
           ]
         },
@@ -66,7 +65,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Prognoseavvik fordelt på fakulteter'"
+                  "Value": "'Prognoseavvik fordelt p\u00e5 fakulteter'"
                 }
               }
             }

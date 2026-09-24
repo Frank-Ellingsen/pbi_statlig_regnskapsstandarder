@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
   "name": "p8_kpi_aapne_tiltak",
   "position": {
-    "x": 1160,
+    "x": 1300,
     "y": 95,
-    "z": 7,
-    "width": 360,
+    "z": 8,
+    "width": 300,
     "height": 105,
-    "tabOrder": 7
+    "tabOrder": 8
   },
   "visual": {
     "visualType": "card",

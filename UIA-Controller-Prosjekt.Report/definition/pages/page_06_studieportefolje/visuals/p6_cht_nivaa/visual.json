@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
   "name": "p6_cht_nivaa",
   "position": {
     "x": 970,
     "y": 215,
     "z": 11,
-    "height": 420,
     "width": 930,
+    "height": 420,
     "tabOrder": 11
   },
   "visual": {
@@ -27,8 +27,7 @@
                 }
               },
               "queryRef": "DimStudyProgram.Studienivaa",
-              "nativeQueryRef": "Studienivaa",
-              "active": true
+              "nativeQueryRef": "Studienivaa"
             }
           ]
         },
@@ -66,7 +65,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'SPE60 fordelt på studienivå'"
+                  "Value": "'SPE60 fordelt p\u00e5 studieniv\u00e5'"
                 }
               }
             }

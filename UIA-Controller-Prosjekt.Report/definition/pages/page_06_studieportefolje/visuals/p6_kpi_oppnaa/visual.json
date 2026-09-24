@@ -47,7 +47,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Måloppnåelse %'"
+                  "Value": "'M\u00e5loppn\u00e5else %'"
                 }
               }
             }

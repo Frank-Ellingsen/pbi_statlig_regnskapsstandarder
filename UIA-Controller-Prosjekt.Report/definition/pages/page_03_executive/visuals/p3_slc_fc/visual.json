@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
   "name": "p3_slc_fc",
   "position": {
     "x": 390,
     "y": 15,
     "z": 2,
-    "height": 65,
     "width": 350,
+    "height": 65,
     "tabOrder": 2
   },
   "visual": {
@@ -27,8 +27,7 @@
                 }
               },
               "queryRef": "DimForecastVersion.Versjonsnavn",
-              "nativeQueryRef": "Versjonsnavn",
-              "active": true
+              "nativeQueryRef": "Versjonsnavn"
             }
           ]
         }

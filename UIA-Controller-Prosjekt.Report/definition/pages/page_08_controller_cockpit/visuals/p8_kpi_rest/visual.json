@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
   "name": "p8_kpi_rest",
   "position": {
-    "x": 1540,
+    "x": 1620,
     "y": 95,
-    "z": 8,
-    "width": 360,
+    "z": 9,
+    "width": 280,
     "height": 105,
-    "tabOrder": 8
+    "tabOrder": 9
   },
   "visual": {
     "visualType": "card",
@@ -47,7 +47,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Gjenstående restavvik'"
+                  "Value": "'Gjenst\u00e5ende restavvik'"
                 }
               }
             }

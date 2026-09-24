@@ -47,7 +47,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Faglige årsverk'"
+                  "Value": "'Faglige \u00e5rsverk'"
                 }
               }
             }

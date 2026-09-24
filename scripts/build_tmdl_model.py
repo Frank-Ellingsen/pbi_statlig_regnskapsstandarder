@@ -29,7 +29,7 @@ annotation __PBI_TimeIntelligenceEnabled = 0
 
 annotation PBI_ProTooling = ["DevMode"]
 
-annotation PBI_QueryOrder = ["_Measures","DimDate","DimOrganization","DimAccount","DimProject","DimForecastVersion","DimPositionGroup","DimStudyProgram","FactGL","FactBudget","FactForecast","FactFTE","FactStudyPoints","FactAction","DataFolder"]
+annotation PBI_QueryOrder = ["_Measures","DimDate","DimOrganization","DimAccount","DimProject","DimForecastVersion","DimPositionGroup","DimStudyProgram","DimGlossary","FactGL","FactBudget","FactForecast","FactFTE","FactStudyPoints","FactAction","DataFolder"]
 
 ref table _Measures
 ref table DimDate
@@ -39,6 +39,7 @@ ref table DimProject
 ref table DimForecastVersion
 ref table DimPositionGroup
 ref table DimStudyProgram
+ref table DimGlossary
 ref table FactGL
 ref table FactBudget
 ref table FactForecast
@@ -607,6 +608,81 @@ relationship 00000001-0000-0000-0000-000000000022
 """
     with open(os.path.join(tables_dir, "DimStudyProgram.tmdl"), "w", encoding="utf-8") as f:
         f.write(dim_sp_content)
+
+    # 10b. DimGlossary.tmdl
+    dim_glossary_content = """table DimGlossary
+\tlineageTag: d0000008-0000-0000-0000-000000000001
+
+\tcolumn BegrepID
+\t\tdataType: int64
+\t\tformatString: 0
+\t\tlineageTag: d0000008-0000-0000-0000-000000000002
+\t\tsummarizeBy: count
+\t\tsourceColumn: BegrepID
+
+\t\tannotation SummarizationSetBy = Automatic
+
+\tcolumn Begrep
+\t\tdataType: string
+\t\tisKey
+\t\tlineageTag: d0000008-0000-0000-0000-000000000003
+\t\tsummarizeBy: none
+\t\tsourceColumn: Begrep
+
+\tcolumn FulltNavn
+\t\tdataType: string
+\t\tlineageTag: d0000008-0000-0000-0000-000000000004
+\t\tsummarizeBy: none
+\t\tsourceColumn: FulltNavn
+
+\tcolumn Kategori
+\t\tdataType: string
+\t\tlineageTag: d0000008-0000-0000-0000-000000000005
+\t\tsummarizeBy: none
+\t\tsourceColumn: Kategori
+
+\tcolumn Definisjon
+\t\tdataType: string
+\t\tlineageTag: d0000008-0000-0000-0000-000000000006
+\t\tsummarizeBy: none
+\t\tsourceColumn: Definisjon
+
+\tcolumn PraktiskTolkning
+\t\tdataType: string
+\t\tlineageTag: d0000008-0000-0000-0000-000000000007
+\t\tsummarizeBy: none
+\t\tsourceColumn: PraktiskTolkning
+
+\tcolumn FormelDAX
+\t\tdataType: string
+\t\tlineageTag: d0000008-0000-0000-0000-000000000008
+\t\tsummarizeBy: none
+\t\tsourceColumn: FormelDAX
+
+\tcolumn RolleKontekst
+\t\tdataType: string
+\t\tlineageTag: d0000008-0000-0000-0000-000000000009
+\t\tsummarizeBy: none
+\t\tsourceColumn: RolleKontekst
+
+\tcolumn RelevantRapport
+\t\tdataType: string
+\t\tlineageTag: d0000008-0000-0000-0000-000000000010
+\t\tsummarizeBy: none
+\t\tsourceColumn: RelevantRapport
+
+\tpartition DimGlossary = m
+\t\tmode: import
+\t\tsource =
+\t\t\t\tlet
+\t\t\t\t    Source = Csv.Document(File.Contents(DataFolder & "DimGlossary.csv"), [Delimiter=";", Columns=9, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+\t\t\t\t    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+\t\t\t\t    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"BegrepID", Int64.Type}, {"Begrep", type text}, {"FulltNavn", type text}, {"Kategori", type text}, {"Definisjon", type text}, {"PraktiskTolkning", type text}, {"FormelDAX", type text}, {"RolleKontekst", type text}, {"RelevantRapport", type text}}, "en-US")
+\t\t\t\tin
+\t\t\t\t    #"Changed Type"
+"""
+    with open(os.path.join(tables_dir, "DimGlossary.tmdl"), "w", encoding="utf-8") as f:
+        f.write(dim_glossary_content)
 
     # 11. FactGL.tmdl
     fact_gl_content = """table FactGL
@@ -1332,6 +1408,284 @@ relationship 00000001-0000-0000-0000-000000000022
 \tmeasure 'EAC (Estimate at Completion)' = [Forecast aarsbelop]
 \t\tformatString: #,##0.00
 \t\tdisplayFolder: 06 EVM Prosjekt
+
+\tmeasure 'ETC (Estimate to Complete)' = [Forecast aarsbelop] - TOTALYTD ( [Gjeldende forecast], DimDate[Dato] )
+\t\tformatString: #,##0.00
+\t\tdisplayFolder: 06 EVM Prosjekt
+
+\tmeasure 'VAC (Variance at Completion)' = [BAC (Budget at Completion)] - [EAC (Estimate at Completion)]
+\t\tformatString: #,##0.00
+\t\tdisplayFolder: 06 EVM Prosjekt
+
+\tmeasure 'VAC %' = DIVIDE ( [VAC (Variance at Completion)], [BAC (Budget at Completion)] )
+\t\tformatString: 0.0%
+\t\tdisplayFolder: 06 EVM Prosjekt
+
+\tmeasure Forecaststatus = ```
+\t\tVAR AvvikPct = [Forecastavvik %]
+\t\tRETURN
+\t\t    SWITCH (
+\t\t        TRUE (),
+\t\t        ISBLANK ( AvvikPct ), BLANK (),
+\t\t        AvvikPct > 0.05, "Rod",
+\t\t        AvvikPct > 0.02, "Gul",
+\t\t        AvvikPct < -0.05, "Bla",
+\t\t        "Gronn"
+\t\t    )
+\t\t```
+\t\tdisplayFolder: 07 Status & Farger
+
+\tmeasure 'Forecaststatus farge' = ```
+\t\tSWITCH (
+\t\t    [Forecaststatus],
+\t\t    "Rod", "#C00000",
+\t\t    "Gul", "#FFC000",
+\t\t    "Bla", "#5B9BD5",
+\t\t    "Gronn", "#70AD47",
+\t\t    "#A6A6A6"
+\t\t)
+\t\t```
+\t\tdisplayFolder: 07 Status & Farger
+
+\tmeasure 'Forecast RAG Status' = ```
+\t\tVAR AvvikPct = [Forecastavvik %]
+\t\tRETURN
+\t\t    SWITCH (
+\t\t        TRUE (),
+\t\t        ISBLANK ( AvvikPct ), BLANK (),
+\t\t        AvvikPct > 0.05, "🔴 Rød (>5%)",
+\t\t        AvvikPct > 0.02, "🟡 Gul (2-5%)",
+\t\t        "🟢 Grønn (<=2%)"
+\t\t    )
+\t\t```
+\t\tdisplayFolder: 07 Status & Farger
+
+\tmeasure 'Avvik YTD RAG Status' = ```
+\t\tVAR AvvikPct = [Avvik YTD %]
+\t\tRETURN
+\t\t    SWITCH (
+\t\t        TRUE (),
+\t\t        ISBLANK ( AvvikPct ), BLANK (),
+\t\t        AvvikPct > 0.05, "🔴 Rød (>5%)",
+\t\t        AvvikPct > 0.02, "🟡 Gul (2-5%)",
+\t\t        "🟢 Grønn (<=2%)"
+\t\t    )
+\t\t```
+\t\tdisplayFolder: 07 Status & Farger
+
+\tmeasure 'Tiltak RAG Status' = ```
+\t\tVAR S = SELECTEDVALUE ( FactAction[Status] )
+\t\tRETURN
+\t\t    SWITCH (
+\t\t        S,
+\t\t        "Gjennomfort", "🟢 Gjennomført",
+\t\t        "Pagar", "🟡 Pågår",
+\t\t        "Forsinket", "🔴 Forsinket",
+\t\t        "⚪ Planlagt"
+\t\t    )
+\t\t```
+\t\tdisplayFolder: 07 Status & Farger
+
+\tmeasure 'Studiepoeng RAG Status' = ```
+\t\tVAR M = [Studiepoeng maaloppnaelse %]
+\t\tRETURN
+\t\t    SWITCH (
+\t\t        TRUE (),
+\t\t        ISBLANK ( M ), BLANK (),
+\t\t        M >= 0.90, "🟢 Mål nådd (>=90%)",
+\t\t        M >= 0.80, "🟡 Moderat (80-90%)",
+\t\t        "🔴 Lav (<80%)"
+\t\t    )
+\t\t```
+\t\tdisplayFolder: 07 Status & Farger
+
+\tmeasure 'EVM Sluttavvik RAG Status' = ```
+\t\tVAR V = [VAC %]
+\t\tRETURN
+\t\t    SWITCH (
+\t\t        TRUE (),
+\t\t        ISBLANK ( V ), BLANK (),
+\t\t        V >= 0, "🟢 Under budsjett",
+\t\t        V >= -0.05, "🟡 Moderat overskridelse",
+\t\t        "🔴 Kritisk overskridelse"
+\t\t    )
+\t\t```
+\t\tdisplayFolder: 07 Status & Farger
+
+\tmeasure 'Antall rode institutter' = ```
+\t\tCALCULATE (
+\t\t    DISTINCTCOUNT ( DimOrganization[Instituttnavn] ),
+\t\t    FILTER (
+\t\t        VALUES ( DimOrganization[Instituttnavn] ),
+\t\t        [Forecastavvik %] > 0.05
+\t\t    )
+\t\t)
+\t\t```
+\t\tformatString: #,##0
+\t\tdisplayFolder: 07 Status & Farger
+
+\tmeasure 'Avvik RAG farge' = ```
+\t\tVAR AvvikPct = [Avvik YTD %]
+\t\tRETURN
+\t\t    SWITCH (
+\t\t        TRUE (),
+\t\t        ISBLANK ( AvvikPct ), "#A6A6A6",
+\t\t        AvvikPct > 0.05, "#C00000",
+\t\t        AvvikPct > 0.02, "#FFC000",
+\t\t        "#70AD47"
+\t\t    )
+\t\t```
+\t\tdisplayFolder: 07 Status & Farger
+
+\tmeasure 'Tiltak RAG farge' = ```
+\t\tVAR S = SELECTEDVALUE ( FactAction[Status] )
+\t\tRETURN
+\t\t    SWITCH (
+\t\t        S,
+\t\t        "Gjennomfort", "#70AD47",
+\t\t        "Pagar", "#FFC000",
+\t\t        "Forsinket", "#C00000",
+\t\t        "#A6A6A6"
+\t\t    )
+\t\t```
+\t\tdisplayFolder: 07 Status & Farger
+
+\tmeasure 'Studiepoeng RAG farge' = ```
+\t\tVAR M = [Studiepoeng maaloppnaelse %]
+\t\tRETURN
+\t\t    SWITCH (
+\t\t        TRUE (),
+\t\t        ISBLANK ( M ), "#A6A6A6",
+\t\t        M >= 0.90, "#70AD47",
+\t\t        M >= 0.80, "#FFC000",
+\t\t        "#C00000"
+\t\t    )
+\t\t```
+\t\tdisplayFolder: 07 Status & Farger
+
+\tmeasure 'EVM Sluttavvik RAG farge' = ```
+\t\tVAR V = [VAC %]
+\t\tRETURN
+\t\t    SWITCH (
+\t\t        TRUE (),
+\t\t        ISBLANK ( V ), "#A6A6A6",
+\t\t        V >= 0, "#70AD47",
+\t\t        V >= -0.05, "#FFC000",
+\t\t        "#C00000"
+\t\t    )
+\t\t```
+\t\tdisplayFolder: 07 Status & Farger
+
+\tmeasure 'Avvik YTD %' = DIVIDE ( [Avvik YTD], ABS ( [Budsjett YTD] ) )
+\t\tformatString: 0.0%
+\t\tdisplayFolder: 01 Okonomi
+
+\tmeasure 'Forecast lonnsavvik' = [Forecast lonn] - CALCULATE ( [Aarsbudsjett], DimAccount[SRS_regnskapslinje] = "Lonnskostnader" )
+\t\tformatString: #,##0.00
+\t\tdisplayFolder: 02 Forecast
+
+\tmeasure 'Absolutt forecastavvik' = ABS ( [Forecastavvik] )
+\t\tformatString: #,##0.00
+\t\tdisplayFolder: 02 Forecast
+
+\tmeasure 'Antall begreper' = COUNTROWS ( DimGlossary )
+\t\tformatString: #,##0
+\t\tdisplayFolder: 09 Begrepskatalog
+
+\tmeasure 'Antall begrepskategorier' = DISTINCTCOUNT ( DimGlossary[Kategori] )
+\t\tformatString: #,##0
+\t\tdisplayFolder: 09 Begrepskatalog
+
+\tmeasure 'Statsbevilgning basis' = ```
+\t\tCALCULATE (
+\t\t    -[Budsjett],
+\t\t    REMOVEFILTERS ( DimDate ),
+\t\t    DimAccount[Konto] = 3900
+\t\t)
+\t\t```
+\t\tformatString: #,##0.00
+\t\tdisplayFolder: 10 Regulatorisk & Veileder
+
+\tmeasure 'Maks tillatt reserve 5%' = [Statsbevilgning basis] * 0.05
+\t\tformatString: #,##0.00
+\t\tdisplayFolder: 10 Regulatorisk & Veileder
+
+\tmeasure 'Beregnet avsetningsandel %' = DIVIDE ( ABS ( [Avvik YTD] ), [Statsbevilgning basis] )
+\t\tformatString: 0.000%
+\t\tdisplayFolder: 10 Regulatorisk & Veileder
+
+\tmeasure '5 %-regel Status' = ```
+\t\tIF (
+\t\t    [Beregnet avsetningsandel %] <= 0.05,
+\t\t    "🟢 Overholdt (<=5%)",
+\t\t    "🔴 Overskredet (>5%)"
+\t\t)
+\t\t```
+\t\tdisplayFolder: 10 Regulatorisk & Veileder
+
+\tmeasure 'KD 2025 SPE Kat 1 Sats' = 54550.0
+\t\tformatString: #,##0
+\t\tdisplayFolder: 10 Regulatorisk & Veileder
+
+\tmeasure 'KD 2025 SPE Kat 2 Sats' = 81800.0
+\t\tformatString: #,##0
+\t\tdisplayFolder: 10 Regulatorisk & Veileder
+
+\tmeasure 'KD 2025 SPE Kat 3 Sats' = 190900.0
+\t\tformatString: #,##0
+\t\tdisplayFolder: 10 Regulatorisk & Veileder
+
+\tmeasure 'SRS 1 Driftsinntekter' = [Inntekter]
+\t\tformatString: #,##0.00
+\t\tdisplayFolder: 10 Regulatorisk & Veileder
+
+\tmeasure 'SRS 1 Driftskostnader' = [Kostnader]
+\t\tformatString: #,##0.00
+\t\tdisplayFolder: 10 Regulatorisk & Veileder
+
+\tmeasure 'SRS 1 Netto driftsresultat' = [Kostnader] - [Inntekter]
+\t\tformatString: #,##0.00
+\t\tdisplayFolder: 10 Regulatorisk & Veileder
+
+\tmeasure 'SRS 10 Bidragsinntekter' = ```
+\t\tCALCULATE (
+\t\t    [Inntekter],
+\t\t    DimProject[Finansieringstype] = "Bidrag"
+\t\t)
+\t\t```
+\t\tformatString: #,##0.00
+\t\tdisplayFolder: 10 Regulatorisk & Veileder
+
+\tmeasure 'SRS 9 Oppdragsinntekter' = ```
+\t\tCALCULATE (
+\t\t    [Inntekter],
+\t\t    DimProject[Finansieringstype] = "Oppdrag"
+\t\t)
+\t\t```
+\t\tformatString: #,##0.00
+\t\tdisplayFolder: 10 Regulatorisk & Veileder
+
+\tmeasure 'SRS 17 Avskrivninger' = ```
+\t\tCALCULATE (
+\t\t    [Regnskap],
+\t\t    DimAccount[SRS_regnskapslinje] = "Av- og nedskrivninger"
+\t\t)
+\t\t```
+\t\tformatString: #,##0.00
+\t\tdisplayFolder: 10 Regulatorisk & Veileder
+
+\tcolumn Placeholder
+\t\tdataType: string
+\t\tisHidden
+\t\tlineageTag: m0000000-0000-0000-0000-000000000099
+\t\tsummarizeBy: none
+\t\tsourceColumn: Placeholder
+
+\tpartition _Measures = m
+\t\tmode: import
+\t\tsource =
+\t\t\t\tlet
+\t\t\t\t    Source = #table(type table [Placeholder = text], {{"Placeholder"}})
 \t\t\t\tin
 \t\t\t\t    Source
 """

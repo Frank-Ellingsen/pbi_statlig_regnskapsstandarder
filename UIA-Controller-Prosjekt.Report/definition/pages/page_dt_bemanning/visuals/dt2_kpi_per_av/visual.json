@@ -47,7 +47,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Snittlønn per årsverk'"
+                  "Value": "'Snittl\u00f8nn per \u00e5rsverk'"
                 }
               }
             }

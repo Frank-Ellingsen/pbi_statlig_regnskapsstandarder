@@ -47,7 +47,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Aktive åpne tiltak'"
+                  "Value": "'Aktive \u00e5pne tiltak'"
                 }
               }
             }

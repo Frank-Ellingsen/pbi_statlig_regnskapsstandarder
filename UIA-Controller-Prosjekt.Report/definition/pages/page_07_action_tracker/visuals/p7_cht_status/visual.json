@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
   "name": "p7_cht_status",
   "position": {
     "x": 970,
     "y": 215,
     "z": 11,
-    "height": 420,
     "width": 930,
+    "height": 420,
     "tabOrder": 11
   },
   "visual": {
@@ -27,8 +27,7 @@
                 }
               },
               "queryRef": "FactAction.Status",
-              "nativeQueryRef": "Status",
-              "active": true
+              "nativeQueryRef": "Status"
             }
           ]
         },
@@ -66,7 +65,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Tiltakseffekt per status (Gjennomført, Pågår, Forsinket)'"
+                  "Value": "'Tiltakseffekt per status (Gjennomf\u00f8rt, P\u00e5g\u00e5r, Forsinket)'"
                 }
               }
             }

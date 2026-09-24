@@ -20,7 +20,7 @@ def run_validation():
     con = duckdb.connect(database=":memory:")
 
     csv_tables = [
-        "DimAccount", "DimDate", "DimForecastVersion", "DimOrganization",
+        "DimAccount", "DimDate", "DimForecastVersion", "DimGlossary", "DimOrganization",
         "DimPositionGroup", "DimProject", "DimStudyProgram",
         "FactAction", "FactBudget", "FactFTE", "FactForecast", "FactGL", "FactStudyPoints"
     ]
@@ -104,6 +104,12 @@ def run_validation():
 
     sp_sum = con.execute("SELECT ROUND(SUM(PlanlagteStudiepoeng), 1), ROUND(SUM(AvlagteStudiepoeng), 1), ROUND(SUM(SPE60), 2) FROM FactStudyPoints").fetchone()
     print(f"  FactStudyPoints         : Planlagt: {sp_sum[0]:>10,.1f} SP | Avlagt: {sp_sum[1]:>10,.1f} SP | SPE60: {sp_sum[2]:>10,.2f}")
+
+    gloss_count = con.execute("SELECT COUNT(*), COUNT(DISTINCT BegrepID), COUNT(DISTINCT Begrep), COUNT(DISTINCT Kategori) FROM DimGlossary").fetchone()
+    print(f"  DimGlossary Terms       : {gloss_count[0]:>7,} definisjoner | PK Unike: {gloss_count[1]} | Kategorier: {gloss_count[3]}")
+    if gloss_count[0] != gloss_count[1] or gloss_count[0] != gloss_count[2]:
+        all_passed = False
+        print("  [FAILED] DimGlossary contains duplicate BegrepID or Begrep keys!")
 
     print("\n" + "=" * 85)
     if all_passed:

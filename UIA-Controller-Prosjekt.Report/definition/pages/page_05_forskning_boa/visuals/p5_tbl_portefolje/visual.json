@@ -140,6 +140,20 @@
               },
               "queryRef": "_Measures.Avvik",
               "nativeQueryRef": "Avvik"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Forecast RAG Status"
+                }
+              },
+              "queryRef": "_Measures.Forecast RAG Status",
+              "nativeQueryRef": "Forecast RAG Status"
             }
           ]
         }
@@ -159,7 +173,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Fullstendig prosjektportefølje (DimProject / FactGL)'"
+                  "Value": "'Fullstendig prosjektportef\u00f8lje med RAG-status (DimProject / FactGL)'"
                 }
               }
             }

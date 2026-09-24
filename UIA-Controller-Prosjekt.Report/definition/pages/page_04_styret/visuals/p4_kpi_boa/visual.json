@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
   "name": "p4_kpi_boa",
   "position": {
-    "x": 1540,
+    "x": 1620,
     "y": 95,
-    "z": 7,
-    "width": 360,
+    "z": 8,
+    "width": 280,
     "height": 105,
-    "tabOrder": 7
+    "tabOrder": 8
   },
   "visual": {
     "visualType": "card",

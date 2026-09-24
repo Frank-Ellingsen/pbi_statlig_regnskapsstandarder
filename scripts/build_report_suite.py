@@ -295,8 +295,8 @@ def build_all_pages():
             {"entity": "FactAction", "property": "AnsvarligRolle"},
             {"entity": "FactAction", "property": "ForventetEffekt"},
             {"entity": "FactAction", "property": "RealisertEffekt"},
-            {"entity": "FactAction", "property": "Status"}
-        ], "Tiltaksoppfølging (FactAction)"),
+            {"entity": "_Measures", "property": "Tiltak RAG Status", "is_measure": True}
+        ], "Tiltaksoppfølging med RAG-status (FactAction)"),
         # Bottom summary strip
         create_card("p1_bot_fc", 20, 945, 450, 115, 14, "Forecast aarsbelop", "1. Forecast før tiltak"),
         create_card("p1_bot_tiltak", 490, 945, 450, 115, 15, "Forventet tiltakseffekt", "2. Identifisert tiltakseffekt"),
@@ -350,8 +350,9 @@ def build_all_pages():
             {"entity": "_Measures", "property": "Kostnad per SPE60", "is_measure": True},
             {"entity": "_Measures", "property": "Studenter per faglig aarsverk", "is_measure": True},
             {"entity": "_Measures", "property": "SPE60 per faglig aarsverk", "is_measure": True},
-            {"entity": "_Measures", "property": "Lonnandel %", "is_measure": True}
-        ], "Faglig produktivitet og lønnsandel per institutt"),
+            {"entity": "_Measures", "property": "Lonnandel %", "is_measure": True},
+            {"entity": "_Measures", "property": "Studiepoeng RAG Status", "is_measure": True}
+        ], "Faglig produktivitet og studiepoengstatus per institutt"),
         create_table("p2_tbl_tiltak_oversikt", 970, 650, 930, 410, 13, [
             {"entity": "DimOrganization", "property": "Instituttnavn"},
             {"entity": "_Measures", "property": "Antall tiltak", "is_measure": True},
@@ -410,9 +411,10 @@ def build_all_pages():
             {"entity": "_Measures", "property": "Regnskap YTD", "is_measure": True},
             {"entity": "_Measures", "property": "Forecast aarsbelop", "is_measure": True},
             {"entity": "_Measures", "property": "Forecastavvik", "is_measure": True},
+            {"entity": "_Measures", "property": "Forecast RAG Status", "is_measure": True},
             {"entity": "_Measures", "property": "Aarsverk", "is_measure": True},
             {"entity": "_Measures", "property": "BOA inntekter", "is_measure": True}
-        ], "Hovedtall per fakultet og fellesområde"),
+        ], "Hovedtall og prognosestatus per fakultet og fellesområde"),
         create_table("p3_tbl_omstilling", 1140, 650, 760, 410, 11, [
             {"entity": "DimOrganization", "property": "Fakultetsnavn"},
             {"entity": "_Measures", "property": "Forventet tiltakseffekt", "is_measure": True},
@@ -450,24 +452,27 @@ def build_all_pages():
     p4_visuals = [
         create_slicer("p4_slc_date", 20, 15, 400, 65, 1, "DimDate", "AarMaaned", "Rapporteringsperiode"),
         create_slicer("p4_slc_fc", 440, 15, 400, 65, 2, "DimForecastVersion", "Versjonsnavn", "Forecastversjon"),
-        # KPI Strip
-        create_card("p4_kpi_budsjett", 20, 95, 360, 105, 3, "Aarsbudsjett", "Totalbudsjett"),
-        create_card("p4_kpi_forecast", 400, 95, 360, 105, 4, "Forecast aarsbelop", "Forventet helårsresultat"),
-        create_card("p4_kpi_avvik_pct", 780, 95, 360, 105, 5, "Forecastavvik %", "Forventet avvik %"),
-        create_card("p4_kpi_spe_oppnaaelse", 1160, 95, 360, 105, 6, "Studiepoeng maaloppnaelse %", "Studiepoeng måloppnåelse"),
-        create_card("p4_kpi_boa", 1540, 95, 360, 105, 7, "BOA inntekter", "Eksternfinansiering (BOA)"),
+        # KPI Strip (6 cards including 5%-regel F-05-20 compliance)
+        create_card("p4_kpi_budsjett", 20, 95, 300, 105, 3, "Aarsbudsjett", "Totalbudsjett"),
+        create_card("p4_kpi_forecast", 340, 95, 300, 105, 4, "Forecast aarsbelop", "Forventet helårsresultat"),
+        create_card("p4_kpi_avvik_pct", 660, 95, 300, 105, 5, "Forecastavvik %", "Forventet avvik %"),
+        create_card("p4_kpi_5pct", 980, 95, 300, 105, 6, "5 %-regel Status", "5 %-Regel (F-05-20) Tak"),
+        create_card("p4_kpi_spe_oppnaaelse", 1300, 95, 300, 105, 7, "Studiepoeng maaloppnaelse %", "Studiepoeng måloppnåelse"),
+        create_card("p4_kpi_boa", 1620, 95, 280, 105, 8, "BOA inntekter", "Eksternfinansiering (BOA)"),
         # Middle row
         create_table("p4_tbl_maal", 20, 215, 930, 420, 8, [
             {"entity": "DimOrganization", "property": "Fakultetsnavn"},
             {"entity": "_Measures", "property": "Registrerte studenter", "is_measure": True},
             {"entity": "_Measures", "property": "Avlagte studiepoeng", "is_measure": True},
             {"entity": "_Measures", "property": "SPE60", "is_measure": True},
-            {"entity": "_Measures", "property": "Studiepoeng maaloppnaelse %", "is_measure": True}
+            {"entity": "_Measures", "property": "Studiepoeng maaloppnaelse %", "is_measure": True},
+            {"entity": "_Measures", "property": "Studiepoeng RAG Status", "is_measure": True}
         ], "Strategisk måloppnåelse studieaktivitet"),
         create_table("p4_tbl_risiko", 970, 215, 930, 420, 9, [
             {"entity": "DimOrganization", "property": "Fakultetsnavn"},
             {"entity": "_Measures", "property": "Forecast aarsbelop", "is_measure": True},
             {"entity": "_Measures", "property": "Forecastavvik", "is_measure": True},
+            {"entity": "_Measures", "property": "Forecast RAG Status", "is_measure": True},
             {"entity": "_Measures", "property": "Forventet tiltakseffekt", "is_measure": True},
             {"entity": "_Measures", "property": "Restavvik etter tiltak", "is_measure": True}
         ], "Økonomisk risikobilde og omstilling"),
@@ -479,7 +484,7 @@ def build_all_pages():
             {"entity": "FactAction", "property": "AnsvarligRolle"},
             {"entity": "FactAction", "property": "ForventetEffekt"},
             {"entity": "FactAction", "property": "RealisertEffekt"},
-            {"entity": "FactAction", "property": "Status"}
+            {"entity": "_Measures", "property": "Tiltak RAG Status", "is_measure": True}
         ], "Universitetsstyrets omstillingstiltak (FactAction)")
     ]
 
@@ -530,8 +535,9 @@ def build_all_pages():
             {"entity": "_Measures", "property": "Regnskap", "is_measure": True},
             {"entity": "_Measures", "property": "Budsjett", "is_measure": True},
             {"entity": "_Measures", "property": "Forecast", "is_measure": True},
-            {"entity": "_Measures", "property": "Avvik", "is_measure": True}
-        ], "Fullstendig prosjektportefølje (DimProject / FactGL)")
+            {"entity": "_Measures", "property": "Avvik", "is_measure": True},
+            {"entity": "_Measures", "property": "Forecast RAG Status", "is_measure": True}
+        ], "Fullstendig prosjektportefølje med RAG-status (DimProject / FactGL)")
     ]
 
     for v in p5_visuals:
@@ -582,7 +588,8 @@ def build_all_pages():
             {"entity": "_Measures", "property": "Registrerte studenter", "is_measure": True},
             {"entity": "_Measures", "property": "Avlagte studiepoeng", "is_measure": True},
             {"entity": "_Measures", "property": "SPE60", "is_measure": True},
-            {"entity": "_Measures", "property": "Studiepoeng maaloppnaelse %", "is_measure": True}
+            {"entity": "_Measures", "property": "Studiepoeng maaloppnaelse %", "is_measure": True},
+            {"entity": "_Measures", "property": "Studiepoeng RAG Status", "is_measure": True}
         ], "Studieprogramaktivitet og produksjonsgrad (FactStudyPoints)")
     ]
 
@@ -635,9 +642,9 @@ def build_all_pages():
             {"entity": "FactAction", "property": "FristDatoNokkel"},
             {"entity": "FactAction", "property": "ForventetEffekt"},
             {"entity": "FactAction", "property": "RealisertEffekt"},
-            {"entity": "FactAction", "property": "Status"},
+            {"entity": "_Measures", "property": "Tiltak RAG Status", "is_measure": True},
             {"entity": "FactAction", "property": "Prioritet"}
-        ], "Komplett omstillingslogg (FactAction.csv)")
+        ], "Komplett omstillingslogg med RAG-status (FactAction.csv)")
     ]
 
     for v in p7_visuals:
@@ -669,12 +676,13 @@ def build_all_pages():
         create_slicer("p8_slc_fak", 20, 15, 360, 65, 1, "DimOrganization", "Fakultetsnavn", "Fakultet"),
         create_slicer("p8_slc_inst", 400, 15, 360, 65, 2, "DimOrganization", "Instituttnavn", "Institutt"),
         create_slicer("p8_slc_konto", 780, 15, 360, 65, 3, "DimAccount", "SRS_regnskapslinje", "Regnskapslinje"),
-        # KPI Strip
-        create_card("p8_kpi_avvik", 20, 95, 360, 105, 4, "Forecastavvik", "Helårsavvik mot budsjett"),
-        create_card("p8_kpi_avvik_pct", 400, 95, 360, 105, 5, "Forecastavvik %", "Avvik i prosent"),
-        create_card("p8_kpi_conf", 780, 95, 360, 105, 6, "Forecast confidence %", "Forecast confidence %"),
-        create_card("p8_kpi_aapne_tiltak", 1160, 95, 360, 105, 7, "Aapne tiltak", "Aktive tiltak"),
-        create_card("p8_kpi_rest", 1540, 95, 360, 105, 8, "Restavvik etter tiltak", "Gjenstående restavvik"),
+        # KPI Strip (6 cards including SRS 1 and 5%-regel status)
+        create_card("p8_kpi_srs_netto", 20, 95, 300, 105, 4, "SRS 1 Netto driftsresultat", "SRS 1 Netto driftsresultat"),
+        create_card("p8_kpi_avvik", 340, 95, 300, 105, 5, "Forecastavvik", "Helårsavvik mot budsjett"),
+        create_card("p8_kpi_5pct", 660, 95, 300, 105, 6, "5 %-regel Status", "5 %-Regel (F-05-20) Tak"),
+        create_card("p8_kpi_conf", 980, 95, 300, 105, 7, "Forecast confidence %", "Forecast confidence %"),
+        create_card("p8_kpi_aapne_tiltak", 1300, 95, 300, 105, 8, "Aapne tiltak", "Aktive tiltak"),
+        create_card("p8_kpi_rest", 1620, 95, 280, 105, 9, "Restavvik etter tiltak", "Gjenstående restavvik"),
         # Middle row
         create_bar_chart("p8_cht_konto", 20, 215, 930, 420, 9, "DimAccount", "Kontonavn", "Forecastavvik", "Avviksdrivere på kontonavn (Største avvik)"),
         create_line_chart("p8_cht_ytd_trend", 970, 215, 930, 420, 10, "DimDate", "AarMaaned", [
@@ -690,13 +698,62 @@ def build_all_pages():
             {"entity": "_Measures", "property": "Regnskap YTD", "is_measure": True},
             {"entity": "_Measures", "property": "Budsjett YTD", "is_measure": True},
             {"entity": "_Measures", "property": "Avvik YTD", "is_measure": True},
+            {"entity": "_Measures", "property": "Avvik YTD RAG Status", "is_measure": True},
             {"entity": "_Measures", "property": "Forecast aarsbelop", "is_measure": True},
-            {"entity": "_Measures", "property": "Forecastavvik", "is_measure": True}
-        ], "Hierarkisk avstemmingsmatrise (Fakultet → Institutt → Regnskapslinje → Konto)")
+            {"entity": "_Measures", "property": "Forecastavvik", "is_measure": True},
+            {"entity": "_Measures", "property": "Forecast RAG Status", "is_measure": True}
+        ], "Hierarkisk avstemmingsmatrise med RAG-avvik (Fakultet → Institutt → Regnskapslinje → Konto)")
     ]
 
     for v in p8_visuals:
         v_dir = os.path.join(p8_dir, "visuals", v["name"])
+        os.makedirs(v_dir, exist_ok=True)
+        with open(os.path.join(v_dir, "visual.json"), "w", encoding="utf-8") as vf:
+            json.dump(v, vf, indent=2)
+
+    # =========================================================================
+    # PAGE 9: 09 Begrepskatalog & Metodikk (DimGlossary)
+    # =========================================================================
+    p9_id = "page_09_begrepskatalog"
+    p9_name = "09 Begrepskatalog & Metodikk"
+    p9_dir = os.path.join(PAGES_DIR, p9_id)
+    os.makedirs(os.path.join(p9_dir, "visuals"), exist_ok=True)
+
+    with open(os.path.join(p9_dir, "page.json"), "w", encoding="utf-8") as f:
+        json.dump({
+            "$schema": SCHEMA_PAGE,
+            "name": p9_id,
+            "displayName": p9_name,
+            "displayOption": "FitToPage",
+            "height": 1080,
+            "width": 1920
+        }, f, indent=2)
+    pages_manifest.append(p9_id)
+
+    p9_visuals = [
+        create_slicer("p9_slc_kat", 20, 15, 450, 65, 1, "DimGlossary", "Kategori", "Begrepskategori"),
+        create_slicer("p9_slc_rolle", 490, 15, 450, 65, 2, "DimGlossary", "RolleKontekst", "Rollekontekst"),
+        create_slicer("p9_slc_rapport", 960, 15, 450, 65, 3, "DimGlossary", "RelevantRapport", "Relevant rapport"),
+        # KPI Strip
+        create_card("p9_kpi_antall", 20, 95, 450, 105, 4, "Antall begreper", "Definerte begreper"),
+        create_card("p9_kpi_kat", 490, 95, 450, 105, 5, "Antall begrepskategorier", "Faglige kategorier"),
+        create_card("p9_kpi_eac", 960, 95, 450, 105, 6, "EAC", "EAC (Sluttkostnad)"),
+        create_card("p9_kpi_avvik", 1430, 95, 470, 105, 7, "Forecastavvik", "Helårs forecastavvik"),
+        # Main Dictionary Table (Tufte Data-Ink)
+        create_table("p9_tbl_glossary", 20, 215, 1880, 845, 8, [
+            {"entity": "DimGlossary", "property": "Begrep"},
+            {"entity": "DimGlossary", "property": "FulltNavn"},
+            {"entity": "DimGlossary", "property": "Kategori"},
+            {"entity": "DimGlossary", "property": "Definisjon"},
+            {"entity": "DimGlossary", "property": "PraktiskTolkning"},
+            {"entity": "DimGlossary", "property": "FormelDAX"},
+            {"entity": "DimGlossary", "property": "RolleKontekst"},
+            {"entity": "DimGlossary", "property": "RelevantRapport"}
+        ], "UiA Begrepskatalog & Økonomistyringsleksikon (60 definerte nøkkelbegreper for controller, ledelse og prosjekt)")
+    ]
+
+    for v in p9_visuals:
+        v_dir = os.path.join(p9_dir, "visuals", v["name"])
         os.makedirs(v_dir, exist_ok=True)
         with open(os.path.join(v_dir, "visual.json"), "w", encoding="utf-8") as vf:
             json.dump(v, vf, indent=2)
@@ -820,8 +877,9 @@ def build_all_pages():
             {"entity": "_Measures", "property": "EAC (Estimate at Completion)", "is_measure": True},
             {"entity": "_Measures", "property": "ETC (Estimate to Complete)", "is_measure": True},
             {"entity": "_Measures", "property": "VAC (Variance at Completion)", "is_measure": True},
-            {"entity": "_Measures", "property": "VAC %", "is_measure": True}
-        ], "Prosjekt Earned Value Management (EVM) oversikt")
+            {"entity": "_Measures", "property": "VAC %", "is_measure": True},
+            {"entity": "_Measures", "property": "EVM Sluttavvik RAG Status", "is_measure": True}
+        ], "Prosjekt Earned Value Management (EVM) oversikt med RAG-sluttavvik")
     ]
 
     for v in dt3_visuals:
@@ -862,10 +920,10 @@ def build_all_pages():
             {"entity": "FactAction", "property": "FristDatoNokkel"},
             {"entity": "FactAction", "property": "ForventetEffekt"},
             {"entity": "FactAction", "property": "RealisertEffekt"},
-            {"entity": "FactAction", "property": "Status"},
+            {"entity": "_Measures", "property": "Tiltak RAG Status", "is_measure": True},
             {"entity": "FactAction", "property": "Prioritet"},
             {"entity": "FactAction", "property": "Sannsynlighet"}
-        ], "Detaljert tiltakskort & risikovurdering (FactAction)")
+        ], "Detaljert tiltakskort & risikovurdering med RAG-status (FactAction)")
     ]
 
     for v in dt4_visuals:
@@ -907,8 +965,9 @@ def build_all_pages():
             {"entity": "FactStudyPoints", "property": "AvlagteStudiepoeng"},
             {"entity": "FactStudyPoints", "property": "SPE60"},
             {"entity": "FactStudyPoints", "property": "BestattAndel"},
-            {"entity": "_Measures", "property": "Studiepoeng maaloppnaelse %", "is_measure": True}
-        ], "Studieaktivitet og studiepoengproduksjon (FactStudyPoints)")
+            {"entity": "_Measures", "property": "Studiepoeng maaloppnaelse %", "is_measure": True},
+            {"entity": "_Measures", "property": "Studiepoeng RAG Status", "is_measure": True}
+        ], "Studieaktivitet og studiepoengproduksjon med RAG-måloppnåelse (FactStudyPoints)")
     ]
 
     for v in dt5_visuals:

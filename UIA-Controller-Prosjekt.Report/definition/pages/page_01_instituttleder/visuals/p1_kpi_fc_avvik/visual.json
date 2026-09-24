@@ -47,7 +47,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Forecastavvik mot årsbudsjett'"
+                  "Value": "'Forecastavvik mot \u00e5rsbudsjett'"
                 }
               }
             }

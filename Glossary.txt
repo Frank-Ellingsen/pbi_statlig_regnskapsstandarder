@@ -1,119 +1,460 @@
-BOA er et sentralt begrep i universitetsøkonomi, og det er nyttig å ha en liten glossary når du jobber med controller-caset.
-Hva betyr BOA?
-BOA = bidrags- og oppdragsfinansiert aktivitet.
-Det er aktivitet som finansieres av andre kilder enn universitetets ordinære grunnbevilgning.
-En praktisk oppdeling er:
-Bidragsfinansiert aktivitet: ekstern finansiering uten ordinært krav om en konkret leveranse til finansieringskilden. Forskningsprosjekter finansiert av Norges forskningsråd og EU er typiske kategorier i modellen vår. Den statlige kontoplanen har egne kontoer for blant annet NFR-tilskudd (340) og EU-tilskudd (342).
-Oppdragsfinansiert aktivitet: universitetet utfører et konkret oppdrag mot betaling, eksempelvis etter- og videreutdanning eller annen avtalt leveranse.
-I modellen vår brukes derfor:
-Plain Text
-1
-BOA
-2
-├── Bidrag
-3
-│ ├── NFR
-4
-│ ├── EU
-5
-│ └── Andre tilskudd
-6
-│
-7
-└── Oppdrag
-8
-├── EVU
-9
-└── Andre oppdrag
-Show more lines
-Glossary for controller-caset
-Begrep	Betydning	Praktisk controller-tolkningBOA	Bidrags- og oppdragsfinansiert aktivitet	Eksternfinansiert aktivitet
-BFV	Bevilgningsfinansiert virksomhet	Aktivitet finansiert gjennom ordinær statlig bevilgning
-NFR	Norges forskningsråd	Viktig ekstern finansieringskilde
-EU	EU-finansiering	Eksempelvis forskningsprosjekter
-EVU	Etter- og videreutdanning	Kan inngå i oppdrags-/eksternfinansiert aktivitet
-SRS	Statlige regnskapsstandarder	Regler for periodisert virksomhetsregnskap
-Standard kontoplan	Felles artskontoplan for statlige virksomheter	Gir konto → kontogruppe → kontoklasse
-Artskonto	Konto som beskriver transaksjonens art	Eksempelvis lønn, reise eller konsulent
-Kontoklasse	Øverste nivå i kontoplanen	Eksempel: 5 = lønn, 6 = annen driftskostnad
-Koststed	Organisatorisk sted kostnaden/inntekten tilhører	Brukes til ansvar og drill-down
-Prosjekt	Avgrenset aktivitet med egen økonomi	Viktig særlig for BOA
-Actual / Regnskap	Faktisk bokført regnskap	Hva har faktisk skjedd?
-Budget / Budsjett	Vedtatt økonomisk plan	Hva forventet vi opprinnelig?
-Forecast / Prognose	Oppdatert forventning	Hvor tror vi at vi ender?
-Latest Estimate / LE	Nyeste forecast	Beste nåværende estimat for helåret
-YTD	Year to Date	Akkumulert fra januar til valgt periode
-MTD	Month to Date	Tall for inneværende måned
-Avvik	Actual minus Budget	Hvor mye avviker regnskapet fra planen?
-Forecastavvik	Forecast minus årsbudsjett	Hvor stort avvik forventes ved årsslutt?
-Årsverk / FTE	Full-time equivalent	Standardisert bemanningsvolum
-Faglige årsverk	Årsverk knyttet til faglig aktivitet	Viktig kapasitetsdriver
-SPE60	60 produserte studiepoeng uttrykt som én enhet	Normaliserer studiepoengproduksjon
-KPI	Key Performance Indicator	Styringsindikator
-Tiltakseffekt	Forventet økonomisk konsekvens av tiltak	Brukes til å redusere forecastavvik
-Restavvik	Avvik som gjenstår etter tiltak	Det ledelsen fortsatt må håndtere
-Forecast confidence	Vurdering av sikkerheten i prognosen	Hvor mye kan vi stole på forecasten?
-Forecast accuracy	Forecast sammenlignet med senere actual	Måler prognosekvalitet
-Forecast bias	Systematisk over-/underestimering	Avdekker skjevhet i prognosene
-Drill-down	Navigasjon nedover i et hierarki	Fakultet → institutt → koststed
-Drill-through	Navigasjon til egen detaljside	Eksempel: forecastavvik → økonomidetalj
-Tre begreper du bør kunne veldig godt i et controllerintervju
-Actual, Budget, Forecast
-Plain Text
-1
-BUDGET
-2
-Hva trodde vi før året startet?
-3
-↓
-4
-ACTUAL
-5
-Hva har faktisk skjedd?
-6
-↓
-7
-VARIANCE
-8
-Hvorfor avviker vi?
-9
-↓
-10
-FORECAST
-11
-Hvor tror vi at året ender?
-12
-↓
-13
-ACTION
-14
-Hva skal vi gjøre?
-15
-↓
-16
-LATEST ESTIMATE
-17
-Hvor forventer vi å ende etter ny informasjon?
-Show more lines
-Og i universitetscaset ville jeg koblet på:
-Plain Text
-1
-Økonomi
-2
-↕
-3
-Årsverk
-4
-↕
-5
-Studenter
-6
-↕
-7
-Studiepoengproduksjon
-8
-↕
-9
-BOA / forskningsaktivitet
-Show more lines
-Det er nettopp denne sammenhengen som gjør controllerrollen interessant. Controlleren analyserer ikke bare hva pengene er brukt på, men også hvilken aktivitet, kapasitet og finansiering som driver økonomien.
+====================================================================================================
+STATLIG UTDANNINGSINSTITUSJON - CONTROLLER & POWER BI GLOSSARY
+Begrepskatalog for Virksomhetsstyring, Prosjektcontrolling (BOA/EVM) og Rullende Prognoser
+====================================================================================================
+
+Dette oppslagsverket dokumenterer samtlige faguttrykk, regnskapsstandarder, formler og beregninger
+som benyttes i Power BI-rapportene (PBIR/PBIP), den semantiske datamodellen (TMDL) og webportalen
+(index.html). Dokumentet er utformet spesifikt for rollen som Project Controller og Business
+Intelligence-spesialist.
+
+----------------------------------------------------------------------------------------------------
+INNHOLD
+----------------------------------------------------------------------------------------------------
+1. Kjernestyringshjulet for Controlleren (Actual -> Budget -> Forecast -> Action)
+2. Sektor- og Finansieringsbegreper (KD, BFV, BOA, SRS, TDI)
+3. Prosjektcontrolling & Earned Value Management (BAC, EAC, ETC, VAC)
+4. Rullende Prognoser & Avviksanalyse (LE, FC1, FC2, Estimattendring)
+5. Bemannings- og Kapasitetsstyring (FTE, UF, TA, Lønnsandel, Snittlønn)
+6. Utdanningsproduksjon & Enhetskostnader (SP, SPE60, Måloppnåelse, Kost/SPE)
+7. Omstillingstiltak & Gevinstrealisering (FactAction, Realiseringsgrad, Restavvik)
+8. RAG-Statusindikatorer & Fargeterskelregler (Tufte Data-Ink Standard)
+9. Rapportsuite & Rollearkitektur (8 Dashboards + 5 Drill-Throughs)
+10. Teknisk PBIP/TMDL- og Datamodellterminologi
+11. Komplett Alfabetisk Hurtigoppslagstabell
+
+====================================================================================================
+1. KJERNESTYRINGSHJULET FOR CONTROLLEREN
+====================================================================================================
+
+En controller fokuserer ikke bare på historiske regnskapsposter, men binder sammen årsakssammenhenger
+mellom bemanning, faglig aktivitet og fremtidig økonomisk handlingsrom:
+
+       BUDGET (BAC)              Hva var den opprinnelige vedtatte planen?
+            |
+            v
+       ACTUAL (Regnskap)         Hva er faktisk bokført hittil i år (SRS)?
+            |
+            v
+       VARIANCE (Avvik)          Hvorfor avviker vi fra budsjettet (driveranalyse)?
+            |
+            v
+       FORECAST (LE / EAC)       Hvor forventer vi å ende ved årets slutt?
+            |
+            v
+       ACTION (FactAction)       Hvilke korrigerende tiltak må iverksettes?
+            |
+            v
+       RESTAVVIK (Netto Gap)     Hvor stort er det gjenværende gapet etter tiltak?
+
+Sammenheng i universitetsmodellen:
+       Økonomi (Netto)  <--->  Årsverk (UF/TA)  <--->  Studenter  <--->  SPE60  <--->  BOA
+
+====================================================================================================
+2. SEKTOR- OG FINANSIERINGSBEGREPER (KD, SRS & BOA)
+====================================================================================================
+
+* KD (Kunnskapsdepartementet):
+  Sektordepartementet som tildeler statstilskuddet til statlige utdanningsinstitusjoner gjennom
+  det årlige tildelingsbrevet.
+
+* BFV (Bevilgningsfinansiert virksomhet):
+  Den ordinære kjernevirksomheten (utdanning og grunnforskning) finansiert over statsbudsjettet
+  (Post 50 basisbevilgning).
+
+* BOA (Bidrags- og oppdragsfinansiert aktivitet):
+  All forsknings- og utviklingsaktivitet finansiert av eksterne kilder utenfor grunnbevilgningen.
+  I modellen deles BOA i to hovedkategorier:
+  
+  BOA Total
+  ├── Bidrag (Ekstern støtte uten krav om leveranse/gjenytelse)
+  │   ├── NFR (Norges forskningsråd - konto 3400-3419)
+  │   ├── EU (Horisont Europa / Marie Curie - konto 3420-3439)
+  │   └── Andre tilskudd (Regionale fond, stiftelser)
+  └── Oppdrag (Kommersiell leveranse med krav om gjenytelse/motytelse)
+      ├── EVU (Etter- og videreutdanning - konto 3600-3620)
+      └── Oppdragsforskning (Næringsliv / offentlig sektor - konto 3630-3690)
+
+* SRS (Statlige Regnskapsstandarder):
+  Periodiserte regnskapsprinsipper for statlige virksomheter (DFØ). Tilsvarer IFRS/NGAAP ved at
+  inntekter og kostnader matches i den perioden ressursene faktisk forbrukes:
+  - SRS 10 (Inntekter fra bevilgninger): Bevilgninger inntektsføres i takt med påløpte kostnader.
+  - SRS 11 (Inntekter fra tilskudd/overføringer): Bidrag (NFR/EU) inntektsføres i takt med fremdrift.
+  - SRS 12 (Salgsinntekter og oppdrag): Oppdragsinntekter inntektsføres ved fullføring eller milepæler.
+
+* TDI-modellen (Totalkostnadsmodellen for indirekte kostnader):
+  Nasjonale retningslinjer i UH-sektoren for beregning av direkte prosjektkostnader (lønn, drift)
+  og påslag for indirekte felleskostnader (arealer, IT, sentraladministrasjon, bibliotek/infrastruktur).
+
+* Standard Artskontoplan (DFØ R-102/2025):
+  Felles kontoplan for statlige virksomheter:
+  - Klasse 3: Driftsinntekter (Bevilgninger, salg, tilskudd)
+  - Klasse 5: Lønns- og personalkostnader (Fast lønn, sensorer, overtid, sosiale kostnader)
+  - Klasse 6: Andre driftskostnader (Husleie, konsulenter, reiser, lisenser)
+  - Klasse 7: Andre driftskostnader og overføringer (Stipender, tap på krav)
+  - Klasse 8: Finansinntekter og finanskostnader
+
+====================================================================================================
+3. PROSJEKTCONTROLLING & EARNED VALUE MANAGEMENT (EVM)
+====================================================================================================
+
+I større forsknings- og industriprosjekter (herunder BOA, NFR og maritime forsvarskontrakter)
+benyttes anerkjente EVM-standarder for styring av tid, kost og fremdrift:
+
+* BAC (Budget at Completion):
+  Den opprinnelige vedtatte kostnadsrammen for prosjektet.
+  DAX: [BAC (Budget at Completion)] = [Aarsbudsjett]
+
+* EAC (Estimate at Completion):
+  Det oppdaterte forventede totalsluttresultatet for prosjektet ved fullføring.
+  DAX: [EAC (Estimate at Completion)] = [Forecast aarsbelop]
+
+* ETC (Estimate to Complete):
+  Gjenstående forventet ressursforbruk fra nåværende status og frem til prosjektslutt.
+  DAX: [ETC (Estimate to Complete)] = [Forecast aarsbelop] - TOTALYTD ( [Gjeldende forecast], DimDate[Dato] )
+
+* VAC (Variance at Completion):
+  Forventet sluttavvik ved prosjektslutt (differansen mellom budsjett og forventet sluttkostnad).
+  DAX: [VAC (Variance at Completion)] = [BAC] - [EAC]
+  Tolkning:
+  - Positiv VAC (+): Prosjektet slutter under budsjett (besparelse / mindreforbruk).
+  - Negativ VAC (-): Prosjektet forventes å overskride budsjettrammen (merforbruk).
+
+* VAC % (Variance at Completion Prosent):
+  Relativ overskridelse eller besparelse målt mot opprinnelig budsjettramme.
+  DAX: [VAC %] = DIVIDE ( [VAC (Variance at Completion)], [BAC (Budget at Completion)] )
+
+====================================================================================================
+4. RULLENDE PROGNOSER & AVVIKSANALYSE
+====================================================================================================
+
+* Actual / Regnskap (FactGL):
+  Faktisk bokførte transaksjoner i hovedboken. I modellen benyttes `Belop_signert` (Debet = +, Kredit = -).
+  DAX: [Regnskap] = SUM ( FactGL[Belop_signert] )
+
+* Budsjett (FactBudget):
+  Det vedtatte årsbudsjettet, periodisert flatt eller sesongjustert per måned.
+  DAX: [Budsjett] = SUM ( FactBudget[BudsjettBelop] )
+
+* YTD (Year-to-Date):
+  Akkumulert beløp fra regnskapsårets start (1. januar) frem til og med valgt rapportmåned.
+  DAX: [Regnskap YTD] = TOTALYTD ( [Regnskap], DimDate[Dato] )
+  DAX: [Budsjett YTD] = TOTALYTD ( [Budsjett], DimDate[Dato] )
+
+* Avvik YTD:
+  Differansen mellom akkumulert regnskap og akkumulert budsjett.
+  DAX: [Avvik YTD] = [Regnskap YTD] - [Budsjett YTD]
+  DAX: [Avvik YTD %] = DIVIDE ( [Avvik YTD], [Budsjett YTD] )
+  Tolkning for kostnader: Negativt = Mindreforbruk (gunstig), Positivt = Merforbruk (ugunstig).
+
+* Prognoseversjoner (DimForecastVersion / FactForecast):
+  - BUD2026: Opprinnelig vedtatt ramme (baseline).
+  - FC1_2026: Rullende prognose 1 (utarbeidet etter tertial 1 / april).
+  - FC2_2026: Rullende prognose 2 (utarbeidet etter tertial 2 / august).
+  - LE_2026 (Latest Estimate): Nåværende gjeldende helårsprognose (EAC).
+
+* Forecastavvik:
+  Avviket mellom helårsprognosen og det opprinnelige årsbudsjettet.
+  DAX: [Forecastavvik] = [Forecast aarsbelop] - [Aarsbudsjett]
+  DAX: [Forecastavvik %] = DIVIDE ( [Forecastavvik], [Aarsbudsjett] )
+
+* Estimatendring (Forecast Drift):
+  Endring i forventet sluttresultat mellom to prognoserunder.
+  DAX: [Endring FC2 til LE] = [Latest Estimate] - [FC2 aarsbelop]
+
+* Forecast Confidence %:
+  Sannsynlighetsvektet konfidensgrad basert på fagekspertenes usikkerhetsvurdering i FactForecast.
+  DAX: [Forecast confidence %] = AVERAGE ( FactForecast[Sannsynlighet] )
+
+====================================================================================================
+5. BEMANNINGS- OG KAPASITETSSTYRING (FactFTE)
+====================================================================================================
+
+Lønnskostnader utgjør ca. 70 % av institusjonens samlede kostnader. Bemanningsstyring er derfor
+den mest kritiske operative kostnadsdriveren:
+
+* Årsverk / FTE (Full-Time Equivalent):
+  Måleenhet for arbeidskraft. 1,0 årsverk tilsvarer én fulltidsansatt gjennom et helt år (1950 timer).
+  Beregnes som en "siste måneds snapshot" for å unngå feilaktig summering over tid.
+  DAX: [Aarsverk] = CALCULATE ( SUM ( FactFTE[Aarsverk] ), DimDate[DatoNokkel] = SisteDato )
+
+* Faglige årsverk / UF (Undervisning og forskning):
+  Vitenskapelig ansatte med direkte tilknytning til kjerneoppgavene:
+  - Professor (VIT_PROF)
+  - Førsteamanuensis / Førstelektor (VIT_FORST)
+  - Universitetslektor / Universitetslærer (VIT_LEKT)
+  - Postdoktor / Stipendiat (VIT_REKR)
+
+* Administrative årsverk / TA (Teknisk-administrativ):
+  Ansatte innen studieadministrasjon, økonomi, HR, IT, bibliotek og drift (ADM_LEDER, ADM_SAKSB).
+
+* Faglig andel %:
+  Andelen av den totale bemanningen som arbeider innen vitenskapelige stillinger.
+  DAX: [Faglig andel %] = DIVIDE ( [Faglige aarsverk], [Aarsverk] )
+  Mål i UH-sektoren: Bør ligge over 50-55 % for å sikre høy faglig kjerneinnsats.
+
+* Lønn per årsverk:
+  Gjennomsnittlig totalkostnad per årsverk inkludert fastlønn, overtid, pensjon (SPK) og arbeidsgiveravgift.
+  DAX: [Lonn per aarsverk] = DIVIDE ( [Faktisk lonnskostnader], [Aarsverk] )
+
+* Lønnsandel %:
+  Andel av de totale driftskostnadene som utgjøres av personalkostnader.
+  DAX: [Lonnandel %] = DIVIDE ( [Faktisk lonnskostnader], [Faktisk kostnader] )
+
+====================================================================================================
+6. UTDANNINGSPRODUKSJON & ENHETSKOSTNADER (FactStudyPoints)
+====================================================================================================
+
+Kunnskapsdepartementets finansieringssystem belønner institusjonen basert på faktisk studiepoeng-
+produksjon (SPE60-uttelling med 2 års etterslep):
+
+* Registrerte studenter:
+  Antall aktive studenter med gyldig semesterregistrering i FS (Felles Studentsystem).
+  DAX: [Registrerte studenter] = SUM ( FactStudyPoints[RegistrerteStudenter] )
+
+* Studiepoeng (SP):
+  Måleenhet for studentenes arbeidsomfang. En normert fulltidsstudent avlegger 60 SP per studieår
+  (30 SP per semester).
+
+* SPE60 (Studiepoengekvivalenter / Helårsstudenter):
+  Totalt antall avlagte studiepoeng dividert på 60. Normaliserer studentmassen til fulltidsekvivalenter.
+  DAX: [SPE60] = DIVIDE ( [Avlagte studiepoeng], 60 )
+
+* Planlagte studiepoeng:
+  Budsjettert/målsatt produksjonsvolum basert på opptaksrammer og studieplaner.
+  DAX: [Planlagte studiepoeng] = SUM ( FactStudyPoints[PlanlagteStudiepoeng] )
+
+* Studiepoeng måloppnåelse %:
+  Faktisk produksjon sammenlignet med det planlagte måltallet.
+  DAX: [Studiepoeng maloppnaelse %] = DIVIDE ( [Avlagte studiepoeng], [Planlagte studiepoeng] )
+  Terskler: >= 90 % (Mål nådd), 80-90 % (Moderat), < 80 % (Kritisk lav).
+
+* Beståttandel %:
+  Andel avmeldte eksamener som resulterte i bestått karakter.
+  DAX: [Bestattandel %] = DIVIDE ( [Avlagte studiepoeng], [Planlagte studiepoeng] )
+
+* Studenter per faglig årsverk:
+  Kapasitetsindikator for lærertetthet.
+  DAX: [Studenter per faglig AV] = DIVIDE ( [Registrerte studenter], [Faglige aarsverk] )
+
+* Kostnad per SPE60 (Enhetskostnad):
+  Samlede drifts- og personalkostnader per produserte helårsstudent.
+  DAX: [Kostnad per SPE60] = DIVIDE ( [Faktisk kostnader], [SPE60] )
+  Brukes til å avdekke kostbare studieprogrammer med for små studentkull.
+
+====================================================================================================
+7. OMSTILLINGSTILTAK & GEVINSTREALISERING (FactAction)
+====================================================================================================
+
+Når helårsprognosen viser et merforbruk (negativt avvik mot budsjett), definerer ledelsen omstillings-
+tiltak i `FactAction` for å lukke gapet:
+
+* Tiltak ID (T-01 til T-16):
+  Unik identifikator for hvert omstillingstiltak (f.eks. vakansestopp, kutt i konsulenter, arealleie).
+
+* Forventet tiltakseffekt:
+  Planlagt innsparingseffekt i kroner (angitt med negativt fortegn som kostnadsreduksjon).
+  DAX: [Forventet tiltakseffekt] = SUM ( FactAction[ForventetEffekt] )
+
+* Realisert tiltakseffekt:
+  Faktisk oppnådd og bokført kostnadsreduksjon hittil.
+  DAX: [Realisert tiltakseffekt] = SUM ( FactAction[RealisertEffekt] )
+
+* Tiltak realiseringsgrad %:
+  Hvor stor andel av det planlagte innsparingspotensialet som faktisk er sikret.
+  DAX: [Tiltak realiseringsgrad %] = DIVIDE ( [Realisert tiltakseffekt], [Forventet tiltakseffekt] )
+
+* Forecast etter tiltak:
+  Forventet sluttresultat dersom samtlige planlagte tiltak realiseres fullt ut.
+  DAX: [Forecast etter tiltak] = [Forecast aarsbelop] + [Forventet tiltakseffekt]
+
+* Restavvik etter tiltak (Netto gap):
+  Gjenværende udekket merforbruk som krever ytterligere ledelsesgrep.
+  DAX: [Restavvik etter tiltak] = [Forecast etter tiltak] - [Aarsbudsjett]
+
+* Tiltaksdekning av avvik %:
+  Andelen av det opprinnelige helårsavviket som dekkes av tiltaksporteføljen.
+  DAX: [Tiltaksdekning av avvik %] = DIVIDE ( ABS ( [Forventet tiltakseffekt] ), ABS ( [Forecastavvik] ) )
+
+====================================================================================================
+8. RAG-STATUSINDIKATORER & FARGETERSKELREGLER (EDWARD TUFTE STANDARD)
+====================================================================================================
+
+I henhold til Edward Tuftes Data-Ink Ratio standarder unngås tunge, forstyrrende bakgrunnsfarger.
+I stedet benyttes diskrete Unicode-symboler og semantisk fargede tekster:
+
++---------------------------+------------------------------------+-----------------------------+
+| RAG Indikator             | Betydning                          | Terskel / Forretningsregel  |
++---------------------------+------------------------------------+-----------------------------+
+| 🟢 Grønn                  | Normal / Under budsjett / Mål nådd | Avvik <= 2% / SP >= 90%     |
+| 🟡 Gul / Amber            | Moderat risiko / Observasjon       | Avvik 2-5% / SP 80-90%      |
+| 🔴 Rød                    | Høy risiko / Kritisk overskridelse | Avvik > 5% / SP < 80%       |
+| ⚪ Nøytral / Grå          | Planlagt / Ikke påbegynt           | FactAction Status = Planlagt|
++---------------------------+------------------------------------+-----------------------------+
+
+Spesifikke DAX RAG-mål i modellen (Display Folder: `07 Status & Farger`):
+
+1. [Forecast RAG Status]:
+   - "🔴 Rød (>5%)": [Forecastavvik %] > 0.05
+   - "🟡 Gul (2-5%)": [Forecastavvik %] >= 0.02
+   - "🟢 Grønn (<=2%)": Ellers
+   Hex-farge: [Forecaststatus farge] (#ef4444 / #f59e0b / #10b981)
+
+2. [Avvik YTD RAG Status]:
+   - "🔴 Rød (>5%)": [Avvik YTD %] > 0.05
+   - "🟡 Gul (2-5%)": [Avvik YTD %] >= 0.02
+   - "🟢 Grønn (<=2%)": Ellers
+   Hex-farge: [Avvik RAG farge] (#ef4444 / #f59e0b / #10b981)
+
+3. [Tiltak RAG Status]:
+   - "🟢 Gjennomført": FactAction[Status] = "Gjennomført"
+   - "🟡 Pågår": FactAction[Status] = "Pågår"
+   - "🔴 Forsinket": FactAction[Status] = "Forsinket"
+   - "⚪ Planlagt": FactAction[Status] = "Planlagt"
+   Hex-farge: [Tiltak RAG farge] (#10b981 / #f59e0b / #ef4444 / #94a3b8)
+
+4. [Studiepoeng RAG Status]:
+   - "🟢 Mål nådd (>=90%)": [Studiepoeng maloppnaelse %] >= 0.90
+   - "🟡 Moderat (80-90%)": [Studiepoeng maloppnaelse %] >= 0.80
+   - "🔴 Lav (<80%)": Ellers
+   Hex-farge: [Studiepoeng RAG farge] (#10b981 / #f59e0b / #ef4444)
+
+5. [EVM Sluttavvik RAG Status]:
+   - "🟢 Under budsjett": [VAC] >= 0
+   - "🟡 Moderat overskridelse": [VAC %] >= -0.05
+   - "🔴 Kritisk overskridelse": Ellers
+   Hex-farge: [EVM Sluttavvik RAG farge] (#10b981 / #f59e0b / #ef4444)
+
+6. [Antall rode institutter]:
+   Teller antall institutter med helårs forecastavvik over 5 %.
+   DAX: CALCULATE ( DISTINCTCOUNT ( DimOrganization[Instituttnavn] ),
+                    FILTER ( VALUES ( DimOrganization[Instituttnavn] ), [Forecastavvik %] > 0.05 ) )
+
+====================================================================================================
+9. RAPPORTSUITE & ROLLEARKITEKTUR (13 DASHBOARDS)
+====================================================================================================
+
+Rapporteringssuiten i Power BI (PBIR) og webportalen (index.html) er strukturert i 4 nivåer:
+
+NIVÅ 1: TOPPLEDELSE & STRATEGI
+* Side 04 - Universitetsstyret:
+  Hovedoversikt over institusjonens rammer, måloppnåelse på utdanning (SP), samlet prognoseavvik
+  og status på kritiske omstillingstiltak.
+* Side 03 - Universitetsdirektør & Ledelse (Executive Summary):
+  Fakultetsfordelt prognoseavvik, bemanningsvolum, BOA-andel og netto restavvik etter tiltak.
+
+NIVÅ 2: TAKTISK FAKULTETSLEDELSE
+* Side 02 - Dekan & Fakultetsledelse:
+  Fakultetets produktivitetsdrivere: studenter per faglig årsverk, kostnad per SPE60, lønnsandel %
+  og instituttvise avvik.
+* Side 05 - Forskningsledelse & BOA:
+  Oppfølging av eksternfinansiert portefølje fordelt på kilder (NFR, EU, Oppdrag) og dekningsgrad.
+* Side 06 - Studieportefølje & Aktivitet:
+  Produksjonsanalyse per studieprogram og studienivå (Bachelor, Master, PhD), frafall og beståttandel.
+
+NIVÅ 3: OPERATIV INSTITUTT- OG CONTROLLERSTYRING
+* Side 01 - Instituttleder (Operativ styring):
+  Instituttets handlingsrom: månedsavvik, lønnsutvikling, lokale innsparingstiltak og lærerkapasitet.
+* Side 07 - Action Tracker (Omstilling & Tiltak):
+  Detaljert tiltaksoppfølging med milepælsdatoer, ansvarlige roller, realiseringsgrad og prioriteter.
+* Side 08 - Controller Cockpit (Avstemming & Hovedbok):
+  Avstemmingsmatrise på laveste kontonivå (Konto -> SRS-linje), avviksdrivere og forecast confidence.
+
+NIVÅ 4: DRILL-THROUGH DYBDEANALYSER
+* DT 1 - Økonomidetaljer: Transaksjonsvisning fra FactGL med bilagsnummer, konto og prosjekt.
+* DT 2 - Bemanningsdetaljer: Stillingsgrupper, vitenskapelig/administrativ fordeling og snittlønn.
+* DT 3 - Prosjektdetaljer (EVM): Earned Value-analyse per prosjekt (BAC, EAC, ETC, VAC).
+* DT 4 - Tiltaksdetaljer: Komplett porteføljeinnsyn i FactAction med sannsynlighetsvekting.
+* DT 5 - Studieaktivitet: Månedlig aktivitet per studieprogram fra FactStudyPoints.
+
+====================================================================================================
+10. TEKNISK PBIP/TMDL- OG DATAMODELLTERMINOLOGI
+====================================================================================================
+
+* PBIP (Power BI Project):
+  Moderne filformat der rapporten og datamodellen lagres som rene tekstfiler (JSON/TMDL),
+  tilrettelagt for versjonskontroll (Git) og CI/CD i Microsoft Fabric.
+
+* TMDL (Tabular Model Definition Language):
+  Det deklarative språket som definerer tabeller, kolonner, relasjoner, hierarkier og DAX-mål
+  i mappen `UIA-Controller-Prosjekt.SemanticModel/definition/`.
+
+* PBIR (Power BI Enhanced Report Format):
+  JSON-basert rapportformat (`UIA-Controller-Prosjekt.Report/definition/`) som definerer visuals,
+  layouts, fargepaletter og feltprojiseringer uavhengig av binære PBIX-filer.
+
+* Stjerneskjema (Star Schema / Fact Constellation):
+  Arkitekturen der felles dimensjonstabeller (DimDate, DimOrganization, DimAccount, DimProject,
+  DimPositionGroup, DimStudyProgram, DimForecastVersion) filtrerer 6 spesialiserte faktatabeller
+  (FactGL, FactBudget, FactForecast, FactAction, FactFTE, FactStudyPoints) gjennom 22 enveis (1:*) relasjoner.
+
+* Data-Ink Ratio (Edward Tufte):
+  Designprinsipp: (Data-blekk) / (Totalt blekk brukt til å tegne grafen). Målet er å fjerne alt
+  "chartjunk" (unødvendige rutenett, tunge skygger, 3D-effekter og dekorative ikoner).
+
+====================================================================================================
+11. KOMPLETT ALFABETISK HURTIGOPPSLAGSTABELL
+====================================================================================================
+
+Begrep / Forkortelse      Full Betegnelse                       Praktisk Controller-Definisjon
+----------------------------------------------------------------------------------------------------
+Actual                    Regnskap (Bokført)                    Faktisk påløpt inntekt/kostnad (FactGL)
+Artskonto                 Konto iht. DFØ R-102                  Konto som beskriver transaksjonsart
+Avvik YTD                 Actual minus Budget YTD               Periodisk avvik mot periodisert budsjett
+BAC                       Budget at Completion                  Vedtatt opprinnelig årsbudsjettramme
+Bemanning (FTE)           Full-Time Equivalent                  Standardisert årsverksvolum (1950 t)
+Beståttandel              Avlagte SP / Planlagte SP             Kvalitetsindikator på eksamensgjennomføring
+BFV                       Bevilgningsfinansiert virksomhet      Aktivitet finansiert over grunnbevilgning
+Bidrag                    Bidragsforskning                      Ekstern finansiering uten gjenytelse (NFR/EU)
+BOA                       Bidrags- og oppdragsaktivitet         Samlet eksternfinansiert portefølje
+Budget                    Vedtatt budsjett                      Opprinnelig økonomisk plan (FactBudget)
+Controller Cockpit        Avstemmingsdashboard                  Kontrollpanel for hovedbok og avvik
+DAX                       Data Analysis Expressions             Formelspråk for dynamiske beregninger
+Dekan                     Fakultetsleder                        Øverste leder for fakultet og institutter
+DFØ                       Direktoratet for forv. og øk.styring  Forvalter statens regnskapsstandarder (SRS)
+Drill-down                Hierarkisk navigasjon                 Fakultet -> Institutt -> Koststed
+Drill-through             Navigasjon til detaljside             Kontekstoverføring til underliggende fakta
+EAC                       Estimate at Completion                Forventet helårs sluttkostnad (Forecast LE)
+ETC                       Estimate to Complete                  Gjenstående forventet kostnad til årsslutt
+EU-finansiering           Horisont Europa / Marie Curie         Ekstern europeisk forskningsfinansiering
+EVU                       Etter- og videreutdanning             Oppdragsutdanning mot betaling
+FactAction                Tiltakstabell                         Fakta om innsparingstiltak og omstilling
+FactBudget                Budsjettabell                         Periodiserte månedsbudsjetter
+FactForecast              Prognosetabell                        Rullende prognoser med sannsynlighet
+FactFTE                   Banningstabell                        Månedlige årsverk per stillingsgruppe
+FactGL                    Hovedbokstabell                       Bokførte transaksjoner og bilagsdata
+FactStudyPoints           Studietabell                          Studenttall og studiepoengproduksjon
+Faglig andel %            UF-årsverk / Totale årsverk           Andel vitenskapelig bemanning (mål: >50%)
+FC1 / FC2                 Forecast tertial 1 og 2               Formelle rullende prognoseoppdateringer
+Forecast                  Rullende prognose                     Beste estimat for forventet sluttresultat
+Forecastavvik             Forecast LE minus Årsbudsjett         Forventet sluttavvik ved årsslutt
+FS                        Felles Studentsystem                  Kildesystem for student- og eksamensdata
+Instituttleder            Leder av grunnenhet                   Budsjett- og personalansvarlig for institutt
+KD                        Kunnskapsdepartementet                Overordnet sektordepartement
+Kostnad per SPE60         Totalkostnad / SPE60                  Enhetskostnad per produsert helårsstudent
+LE (Latest Estimate)      Gjeldende helårsprognose              Siste prognoseversjon (LE_2026 / EAC)
+Lønnsandel %              Lønnskostnader / Totalkostnader       Andel personalkostnader av total drift (~70%)
+NFR                       Norges forskningsråd                  Norsk statlig forskningsfinansiering
+Oppdrag                   Oppdragsforskning / EVU               Kommersielle oppdrag med krav om gjenytelse
+PBIP                      Power BI Project                      Tekstbasert prosjektformat for Power BI
+PBIR                      Power BI Report Format                Deklarativ JSON-rapportdefinisjon
+RAG Status                Red-Amber-Green                       Trafikklys-klassifisering av avvik/risiko
+Realiseringsgrad          Realisert / Forventet tiltakseffekt   Hvor mye av innsparingen som er oppnådd
+Restavvik                 Forecastavvik minus Tiltakseffekt     Gjenværende udekket risikogap
+SAP / Agresso             ERP / Økonomisystem                   Kildesystem for regnskap og bilagsposteringer
+SPE60                     Studiepoengekvivalenter               Avlagte studiepoeng / 60 (helårsstudent)
+SRS                       Statlige regnskapsstandarder          Periodiseringsregler for staten (DFØ)
+Stillingsgruppe           UF (Vitenskapelig) / TA (Admin)       Kategorisering av arbeidskraft
+Studenter per faglig ÅV   Registrerte studenter / UF-årsverk    Lærertetthet og veiledningskapasitet
+TDI                       Totalkostnadsmodellen                 Modell for beregning av indirekte kostnader
+Tiltakseffekt             Forventet innsparing i kroner         Planlagt kostnadsreduksjon (negativt fortegn)
+TMDL                      Tabular Model Definition Language     Tekstformat for semantisk Power BI-modell
+Tufte Standard            Edward Tufte Data-Ink Ratio           Prinsipp om ren, funksjonell datavisualisering
+Universitetsdirektør      Administrativ toppleder               Ansvarlig for institusjonens samlede drift
+Universitetsstyret        Styret ved institusjonen              Øverste organ som vedtar budsjett og rammer
+VAC                       Variance at Completion (BAC - EAC)    Forventet sluttavvik (positivt = besparelse)
+VAC %                     VAC / BAC                             Relativt sluttavvik i prosent av budsjett
+YTD                       Year to Date                          Akkumulert fra januar til gjeldende måned
+====================================================================================================
+Slutt på Glossary.txt
+====================================================================================================

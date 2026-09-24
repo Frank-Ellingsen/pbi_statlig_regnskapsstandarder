@@ -1,0 +1,59 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "p9_kpi_antall",
+  "position": {
+    "x": 20,
+    "y": 95,
+    "z": 4,
+    "width": 450,
+    "height": 105,
+    "tabOrder": 4
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Antall begreper"
+                }
+              },
+              "queryRef": "_Measures.Antall begreper",
+              "nativeQueryRef": "Antall begreper"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Definerte begreper'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
   "name": "p7_slc_rolle",
   "position": {
     "x": 20,
     "y": 15,
     "z": 1,
-    "height": 65,
     "width": 360,
+    "height": 65,
     "tabOrder": 1
   },
   "visual": {
@@ -27,8 +27,7 @@
                 }
               },
               "queryRef": "FactAction.AnsvarligRolle",
-              "nativeQueryRef": "AnsvarligRolle",
-              "active": true
+              "nativeQueryRef": "AnsvarligRolle"
             }
           ]
         }

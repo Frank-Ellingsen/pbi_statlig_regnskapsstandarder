@@ -47,7 +47,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Årsverk totalt'"
+                  "Value": "'\u00c5rsverk totalt'"
                 }
               }
             }

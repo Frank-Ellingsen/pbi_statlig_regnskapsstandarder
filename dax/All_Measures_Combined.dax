@@ -357,3 +357,77 @@ SWITCH (
     "#A6A6A6"
 )
 /* Format: Heksadesimal fargekode for DAX Color Formatting */
+
+-- ==============================================================================
+-- 10 REGULATORISK & VEILEDER (KD 2025, SRS 1/9/10/17, F-05-20, NOTE 15)
+-- ==============================================================================
+
+Statsbevilgning basis = 
+CALCULATE (
+    -[Budsjett],
+    REMOVEFILTERS ( DimDate ),
+    DimAccount[Konto] = 3900
+)
+/* Format: #,##0.00 | Statlig rammebevilgning fra KD (Konto 3900 i FactBudget) */
+
+Maks tillatt reserve 5% = 
+[Statsbevilgning basis] * 0.05
+/* Format: #,##0.00 | Øvre lovlig tak for ubrukte bevilgningsmidler iht. Rundskriv F-05-20 (5,0 %) */
+
+Beregnet avsetningsandel % = 
+DIVIDE ( ABS ( [Avvik YTD] ), [Statsbevilgning basis] )
+/* Format: 0.000% | Avsetningsandel av årlig bevilgning mot 5 %-taket */
+
+5 %-regel Status = 
+IF (
+    [Beregnet avsetningsandel %] <= 0.05,
+    "🟢 Overholdt (<=5%)",
+    "🔴 Overskredet (>5%)"
+)
+/* Format: Tekst | Juridisk etterlevelsesstatus for Rundskriv F-05-20 og Note 15 */
+
+KD 2025 SPE Kat 1 Sats = 
+54550.0
+/* Format: #,##0 kr | KD 2025 sats Kategori 1: Humaniora, samfunnsfag, økonomi */
+
+KD 2025 SPE Kat 2 Sats = 
+81800.0
+/* Format: #,##0 kr | KD 2025 sats Kategori 2: Realfag, helse, lærerutdanning */
+
+KD 2025 SPE Kat 3 Sats = 
+190900.0
+/* Format: #,##0 kr | KD 2025 sats Kategori 3: Medisin, odontologi */
+
+SRS 1 Driftsinntekter = 
+[Inntekter]
+/* Format: #,##0.00 | Driftsinntekter etter SRS 1 */
+
+SRS 1 Driftskostnader = 
+[Kostnader]
+/* Format: #,##0.00 | Driftskostnader etter SRS 1 */
+
+SRS 1 Netto driftsresultat = 
+[Kostnader] - [Inntekter]
+/* Format: #,##0.00 | Netto driftsresultat etter SRS 1 (Kostnader - Inntekter) */
+
+SRS 10 Bidragsinntekter = 
+CALCULATE (
+    [Inntekter],
+    DimProject[Finansieringstype] = "Bidrag"
+)
+/* Format: #,##0.00 | Inntekter fra bidragsaktivitet etter SRS 10 (motsatt sammenstilling: inntekt = påløpt kostnad) */
+
+SRS 9 Oppdragsinntekter = 
+CALCULATE (
+    [Inntekter],
+    DimProject[Finansieringstype] = "Oppdrag"
+)
+/* Format: #,##0.00 | Inntekter fra oppdragsaktivitet etter SRS 9 (fullføringsgrad) */
+
+SRS 17 Avskrivninger = 
+CALCULATE (
+    [Regnskap],
+    DimAccount[SRS_regnskapslinje] = "Av- og nedskrivninger"
+)
+/* Format: #,##0.00 | Lineære avskrivninger på varige anleggsmidler etter SRS 17 */
+

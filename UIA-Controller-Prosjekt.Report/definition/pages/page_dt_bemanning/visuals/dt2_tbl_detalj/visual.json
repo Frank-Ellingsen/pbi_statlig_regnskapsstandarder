@@ -131,7 +131,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Bemannings- og årsverksoversikt (FactFTE.csv)'"
+                  "Value": "'Bemannings- og \u00e5rsverksoversikt (FactFTE.csv)'"
                 }
               }
             }

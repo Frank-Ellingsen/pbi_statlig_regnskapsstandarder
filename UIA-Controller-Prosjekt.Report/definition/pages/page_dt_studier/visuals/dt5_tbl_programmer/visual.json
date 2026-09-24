@@ -140,6 +140,20 @@
               },
               "queryRef": "_Measures.Studiepoeng maaloppnaelse %",
               "nativeQueryRef": "Studiepoeng maaloppnaelse %"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Studiepoeng RAG Status"
+                }
+              },
+              "queryRef": "_Measures.Studiepoeng RAG Status",
+              "nativeQueryRef": "Studiepoeng RAG Status"
             }
           ]
         }
@@ -159,7 +173,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Studieaktivitet og studiepoengproduksjon (FactStudyPoints)'"
+                  "Value": "'Studieaktivitet og studiepoengproduksjon med RAG-m\u00e5loppn\u00e5else (FactStudyPoints)'"
                 }
               }
             }

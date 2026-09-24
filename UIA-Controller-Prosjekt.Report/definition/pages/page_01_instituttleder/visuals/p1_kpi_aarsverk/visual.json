@@ -47,7 +47,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Årsverk (siste status)'"
+                  "Value": "'\u00c5rsverk (siste status)'"
                 }
               }
             }

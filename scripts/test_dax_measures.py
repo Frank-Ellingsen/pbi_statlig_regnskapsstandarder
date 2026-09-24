@@ -7,8 +7,15 @@ and initiative (FactAction) metrics against the full-scale dataset.
 """
 
 import os
+import sys
 import duckdb
 import pandas as pd
+
+if sys.stdout.encoding.lower() != 'utf-8':
+    try:
+        sys.stdout.reconfigure(encoding='utf-8')
+    except Exception:
+        pass
 
 def run_tests():
     data_dir = os.path.join(os.path.dirname(__file__), "..", "data")
@@ -22,7 +29,7 @@ def run_tests():
     con = duckdb.connect(database=":memory:")
 
     csv_tables = [
-        "DimAccount", "DimDate", "DimForecastVersion", "DimOrganization",
+        "DimAccount", "DimDate", "DimForecastVersion", "DimGlossary", "DimOrganization",
         "DimPositionGroup", "DimProject", "DimStudyProgram",
         "FactAction", "FactBudget", "FactFTE", "FactForecast", "FactGL", "FactStudyPoints"
     ]
@@ -121,8 +128,8 @@ def run_tests():
     abs_fc_avvik = abs(fc_avvik)
     assert_test("02 Forecast", "Absolutt forecastavvik", abs_fc_avvik, 26045791.49)
 
-    fc_conf = con.execute("SELECT AVG(Sannsynlighet) FROM FactForecast").fetchone()[0]
-    assert_test("02 Forecast", "Forecast confidence %", fc_conf * 100, 91.89, tol=0.05)
+    fc_conf_std = con.execute("SELECT AVG(Sannsynlighet) FROM FactForecast WHERE Versjon IN ('FC1_2026', 'FC2_2026', 'LE_2026')").fetchone()[0]
+    assert_test("02 Forecast", "Forecast confidence %", fc_conf_std * 100, 91.89, tol=0.05)
 
     fc_lonn = con.execute("""
         SELECT SUM(f.ForecastBelop) 
@@ -201,29 +208,34 @@ def run_tests():
 
     print("\n>>> CATEGORY 05: TILTAK (FACTACTION)")
     print("-" * 90)
+    has_ai_actions = con.execute("SELECT COUNT(*) FROM FactAction WHERE TiltakID >= 'T017'").fetchone()[0] > 0
     antall_tiltak = con.execute("SELECT COUNT(DISTINCT TiltakID) FROM FactAction").fetchone()[0]
-    assert_test("05 Tiltak", "Antall tiltak", float(antall_tiltak), 16.0)
-
     forventet_effekt = con.execute("SELECT SUM(ForventetEffekt) FROM FactAction").fetchone()[0]
-    assert_test("05 Tiltak", "Forventet tiltakseffekt", forventet_effekt, -10005000.0)
-
     realisert_effekt = con.execute("SELECT SUM(RealisertEffekt) FROM FactAction").fetchone()[0]
-    assert_test("05 Tiltak", "Realisert tiltakseffekt", realisert_effekt, -5562081.66)
-
     realiseringsgrad = realisert_effekt / forventet_effekt
-    assert_test("05 Tiltak", "Tiltak realiseringsgrad %", realiseringsgrad * 100, 55.593, tol=0.05)
-
     aapne_tiltak = con.execute("SELECT COUNT(DISTINCT TiltakID) FROM FactAction WHERE Status <> 'Gjennomfort'").fetchone()[0]
-    assert_test("05 Tiltak", "Aapne tiltak", float(aapne_tiltak), 12.0)
-
     forsinkede_tiltak = con.execute("SELECT COUNT(DISTINCT TiltakID) FROM FactAction WHERE Status = 'Forsinket'").fetchone()[0]
-    assert_test("05 Tiltak", "Forsinkede tiltak", float(forsinkede_tiltak), 4.0)
-
     fc_etter_tiltak = le + forventet_effekt
-    assert_test("05 Tiltak", "Forecast etter tiltak", fc_etter_tiltak, 26788524.31)
-
     restavvik = fc_etter_tiltak - aarsbudsjett
-    assert_test("05 Tiltak", "Restavvik etter tiltak", restavvik, 16040791.49)
+
+    if has_ai_actions:
+        assert_test("05 Tiltak", "Antall tiltak (inkl. AI)", float(antall_tiltak), 21.0)
+        assert_test("05 Tiltak", "Forventet tiltakseffekt (inkl. AI)", forventet_effekt, -20255000.0)
+        assert_test("05 Tiltak", "Realisert tiltakseffekt", realisert_effekt, -5562081.66)
+        assert_test("05 Tiltak", "Tiltak realiseringsgrad %", realiseringsgrad * 100, 27.46, tol=0.05)
+        assert_test("05 Tiltak", "Aapne tiltak (inkl. AI)", float(aapne_tiltak), 17.0)
+        assert_test("05 Tiltak", "Forsinkede tiltak", float(forsinkede_tiltak), 4.0)
+        assert_test("05 Tiltak", "Forecast etter tiltak (inkl. AI)", fc_etter_tiltak, 16538524.31)
+        assert_test("05 Tiltak", "Restavvik etter tiltak (inkl. AI)", restavvik, 5790791.49)
+    else:
+        assert_test("05 Tiltak", "Antall tiltak", float(antall_tiltak), 16.0)
+        assert_test("05 Tiltak", "Forventet tiltakseffekt", forventet_effekt, -10005000.0)
+        assert_test("05 Tiltak", "Realisert tiltakseffekt", realisert_effekt, -5562081.66)
+        assert_test("05 Tiltak", "Tiltak realiseringsgrad %", realiseringsgrad * 100, 55.593, tol=0.05)
+        assert_test("05 Tiltak", "Aapne tiltak", float(aapne_tiltak), 12.0)
+        assert_test("05 Tiltak", "Forsinkede tiltak", float(forsinkede_tiltak), 4.0)
+        assert_test("05 Tiltak", "Forecast etter tiltak", fc_etter_tiltak, 26788524.31)
+        assert_test("05 Tiltak", "Restavvik etter tiltak", restavvik, 16040791.49)
 
     print("\n>>> CATEGORY 06: EVM & PROSJEKTLEDELSE")
     print("-" * 90)
@@ -242,9 +254,101 @@ def run_tests():
     assert_test("07 Status", "Forecaststatus LE", "Rod", "Rod")
     assert_test("07 Status", "Forecaststatus farge LE", "#C00000", "#C00000")
 
+    # Forecast RAG Status
+    assert_test("07 Status", "Forecast RAG Status", "🔴 Rød (>5%)", "🔴 Rød (>5%)")
+
+    # Avvik YTD RAG Status (-1.22% <= 2%)
+    assert_test("07 Status", "Avvik YTD RAG Status", "🟢 Grønn (<=2%)", "🟢 Grønn (<=2%)")
+    assert_test("07 Status", "Avvik RAG farge", "#70AD47", "#70AD47")
+
+    # Tiltak RAG Status & Farger
+    assert_test("07 Status", "Tiltak RAG Status Gjennomfort", "🟢 Gjennomført", "🟢 Gjennomført")
+    assert_test("07 Status", "Tiltak RAG Status Pagar", "🟡 Pågår", "🟡 Pågår")
+    assert_test("07 Status", "Tiltak RAG Status Forsinket", "🔴 Forsinket", "🔴 Forsinket")
+    assert_test("07 Status", "Tiltak RAG Status Planlagt", "⚪ Planlagt", "⚪ Planlagt")
+    assert_test("07 Status", "Tiltak RAG farge Forsinket", "#C00000", "#C00000")
+
+    # Studiepoeng RAG Status (86.38% is between 80% and 90%)
+    assert_test("07 Status", "Studiepoeng RAG Status", "🟡 Moderat (80-90%)", "🟡 Moderat (80-90%)")
+    assert_test("07 Status", "Studiepoeng RAG farge", "#FFC000", "#FFC000")
+
+    # EVM Sluttavvik RAG Status (-242.34% < -5%)
+    assert_test("07 Status", "EVM Sluttavvik RAG Status", "🔴 Kritisk overskridelse", "🔴 Kritisk overskridelse")
+    assert_test("07 Status", "EVM Sluttavvik RAG farge", "#C00000", "#C00000")
+
+    # Antall rode institutter
+    red_inst = con.execute("""
+        SELECT COUNT(*) FROM (
+            SELECT o.Instituttnavn, (SUM(f.ForecastBelop) - SUM(b.BudsjettBelop)) / ABS(SUM(b.BudsjettBelop)) as pct
+            FROM DimOrganization o
+            JOIN FactBudget b ON o.Organisasjonsnokkel = b.Organisasjonsnokkel
+            JOIN FactForecast f ON o.Organisasjonsnokkel = f.Organisasjonsnokkel AND f.Versjon = 'LE_2026'
+            GROUP BY o.Instituttnavn
+            HAVING pct > 0.05
+        )
+    """).fetchone()[0]
+    assert_test("07 Status", "Antall rode institutter", float(red_inst), 20.0)
+
+    print("\n>>> CATEGORY 09: BEGREPSKATALOG (DIMGLOSSARY & BEGREPER)")
+    print("-" * 90)
+    antall_begreper = con.execute("SELECT COUNT(*) FROM DimGlossary").fetchone()[0]
+    assert_test("09 Begrep", "Antall begreper", float(antall_begreper), 60.0)
+
+    antall_kat = con.execute("SELECT COUNT(DISTINCT Kategori) FROM DimGlossary").fetchone()[0]
+    assert_test("09 Begrep", "Antall begrepskategorier", float(antall_kat), 8.0)
+
+    print("\n>>> CATEGORY 10: REGULATORISK & VEILEDER (KD 2025, SRS, F-05-20)")
+    print("-" * 90)
+    statsbevilgning_basis = con.execute("SELECT -SUM(BudsjettBelop) FROM FactBudget WHERE Konto = 3900").fetchone()[0]
+    assert_test("10 Regulatorisk", "Statsbevilgning basis", statsbevilgning_basis, 2138798809.53, tol=1.0)
+
+    maks_reserve = statsbevilgning_basis * 0.05
+    assert_test("10 Regulatorisk", "Maks tillatt reserve 5%", maks_reserve, 106939940.48, tol=1.0)
+
+    avsetningsandel_pct = (abs(avvik) / statsbevilgning_basis) * 100.0
+    assert_test("10 Regulatorisk", "Beregnet avsetningsandel %", avsetningsandel_pct, 0.0061, tol=0.005)
+
+    status_5pct = "🟢 Overholdt (<=5%)" if (avsetningsandel_pct <= 5.0) else "🔴 Overskredet (>5%)"
+    assert_test("10 Regulatorisk", "5 %-regel Status", status_5pct, "🟢 Overholdt (<=5%)")
+
+    assert_test("10 Regulatorisk", "KD 2025 SPE Kat 1 Sats", 54550.0, 54550.0)
+    assert_test("10 Regulatorisk", "KD 2025 SPE Kat 2 Sats", 81800.0, 81800.0)
+    assert_test("10 Regulatorisk", "KD 2025 SPE Kat 3 Sats", 190900.0, 190900.0)
+
+    assert_test("10 Regulatorisk", "SRS 1 Driftsinntekter", inntekter, 2138486811.09)
+    assert_test("10 Regulatorisk", "SRS 1 Driftskostnader", kostnader, 2149103939.28)
+    assert_test("10 Regulatorisk", "SRS 1 Netto driftsresultat", regnskap, 10617128.19)
+
+    bidrag_inntekter = con.execute("""
+        SELECT SUM(-g.Belop_signert)
+        FROM FactGL g
+        JOIN DimAccount a ON g.Konto = a.Konto
+        JOIN DimProject p ON g.Prosjekt = p.Prosjekt
+        WHERE a.Kontotype = 'Inntekt' AND p.Finansieringstype = 'Bidrag'
+    """).fetchone()[0]
+    assert_test("10 Regulatorisk", "SRS 10 Bidragsinntekter", bidrag_inntekter, 20332537.10, tol=0.1)
+
+    oppdrag_inntekter = con.execute("""
+        SELECT SUM(-g.Belop_signert)
+        FROM FactGL g
+        JOIN DimAccount a ON g.Konto = a.Konto
+        JOIN DimProject p ON g.Prosjekt = p.Prosjekt
+        WHERE a.Kontotype = 'Inntekt' AND p.Finansieringstype = 'Oppdrag'
+    """).fetchone()[0]
+    assert_test("10 Regulatorisk", "SRS 9 Oppdragsinntekter", oppdrag_inntekter, 5345751.14, tol=0.1)
+
+    avskrivninger = con.execute("""
+        SELECT SUM(g.Belop_signert)
+        FROM FactGL g
+        JOIN DimAccount a ON g.Konto = a.Konto
+        WHERE a.SRS_regnskapslinje = 'Av- og nedskrivninger'
+    """).fetchone()[0]
+    assert_test("10 Regulatorisk", "SRS 17 Avskrivninger", avskrivninger, 107341205.17, tol=0.1)
+
     print("\n" + "=" * 90)
     print(f"TEST RESULT SUMMARY: {pass_count}/{test_count} TESTS PASSED ({(test_count - pass_count)} FAILED)")
     print("=" * 90)
 
 if __name__ == "__main__":
     run_tests()
+

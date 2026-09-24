@@ -101,17 +101,17 @@
             },
             {
               "field": {
-                "Column": {
+                "Measure": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "FactAction"
+                      "Entity": "_Measures"
                     }
                   },
-                  "Property": "Status"
+                  "Property": "Tiltak RAG Status"
                 }
               },
-              "queryRef": "FactAction.Status",
-              "nativeQueryRef": "Status"
+              "queryRef": "_Measures.Tiltak RAG Status",
+              "nativeQueryRef": "Tiltak RAG Status"
             }
           ]
         }
