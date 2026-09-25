@@ -22,7 +22,7 @@ def run_validation():
     csv_tables = [
         "DimAccount", "DimDate", "DimForecastVersion", "DimGlossary", "DimOrganization",
         "DimPositionGroup", "DimProject", "DimStudyProgram",
-        "FactAction", "FactBudget", "FactFTE", "FactForecast", "FactGL", "FactStudyPoints"
+        "FactAction", "FactBudget", "FactFTE", "FactForecast", "FactGL", "FactProjectBOA", "FactStudyPoints"
     ]
 
     print("\n>>> LOADING CSV TABLES:")
@@ -30,10 +30,21 @@ def run_validation():
         csv_path = os.path.join(data_dir, f"{tbl}.csv").replace("\\", "/")
         if not os.path.exists(csv_path):
             raise FileNotFoundError(f"Missing CSV file: {csv_path}")
-        con.execute(f"""
-            CREATE TABLE {tbl} AS 
-            SELECT * FROM read_csv('{csv_path}', delim=';', header=true, encoding='utf-8')
-        """)
+        if tbl == "FactGL":
+            columns = con.execute(f"DESCRIBE SELECT * FROM read_csv('{csv_path}', delim=';', header=true, encoding='utf-8')").fetchall()
+            column_names = [row[0] for row in columns]
+            if "Belop_signert" in column_names and "Belop" not in column_names:
+                select_sql = "SELECT *, Belop_signert AS Belop FROM read_csv(?, delim=';', header=true, encoding='utf-8')"
+            elif "Belop" in column_names and "Belop_signert" not in column_names:
+                select_sql = "SELECT *, Belop AS Belop_signert FROM read_csv(?, delim=';', header=true, encoding='utf-8')"
+            else:
+                select_sql = "SELECT * FROM read_csv(?, delim=';', header=true, encoding='utf-8')"
+            con.execute(f"CREATE TABLE {tbl} AS {select_sql}", [csv_path])
+        else:
+            con.execute(f"""
+                CREATE TABLE {tbl} AS 
+                SELECT * FROM read_csv('{csv_path}', delim=';', header=true, encoding='utf-8')
+            """)
         row_count = con.execute(f"SELECT COUNT(*) FROM {tbl}").fetchone()[0]
         print(f"  Loaded {tbl:<25}: {row_count:>7,} rows")
 

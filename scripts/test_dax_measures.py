@@ -31,12 +31,23 @@ def run_tests():
     csv_tables = [
         "DimAccount", "DimDate", "DimForecastVersion", "DimGlossary", "DimOrganization",
         "DimPositionGroup", "DimProject", "DimStudyProgram",
-        "FactAction", "FactBudget", "FactFTE", "FactForecast", "FactGL", "FactStudyPoints"
+        "FactAction", "FactBudget", "FactFTE", "FactForecast", "FactGL", "FactProjectBOA", "FactStudyPoints"
     ]
 
     for tbl in csv_tables:
         p = os.path.join(data_dir, f"{tbl}.csv").replace("\\", "/")
-        con.execute(f"CREATE TABLE {tbl} AS SELECT * FROM read_csv('{p}', delim=';', header=true, encoding='utf-8')")
+        if tbl == "FactGL":
+            columns = con.execute(f"DESCRIBE SELECT * FROM read_csv('{p}', delim=';', header=true, encoding='utf-8')").fetchall()
+            column_names = [row[0] for row in columns]
+            if "Belop_signert" in column_names and "Belop" not in column_names:
+                select_sql = "SELECT *, Belop_signert AS Belop FROM read_csv(?, delim=';', header=true, encoding='utf-8')"
+            elif "Belop" in column_names and "Belop_signert" not in column_names:
+                select_sql = "SELECT *, Belop AS Belop_signert FROM read_csv(?, delim=';', header=true, encoding='utf-8')"
+            else:
+                select_sql = "SELECT * FROM read_csv(?, delim=';', header=true, encoding='utf-8')"
+            con.execute(f"CREATE TABLE {tbl} AS {select_sql}", [p])
+        else:
+            con.execute(f"CREATE TABLE {tbl} AS SELECT * FROM read_csv('{p}', delim=';', header=true, encoding='utf-8')")
 
     test_count = 0
     pass_count = 0

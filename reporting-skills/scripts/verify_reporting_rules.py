@@ -52,9 +52,28 @@ def run_compliance_audit(data_dir: str = None) -> int:
         "FactAction", "FactBudget", "FactFTE", "FactForecast", "FactGL", "FactStudyPoints"
     ]
 
-    for tbl in csv_tables:
+    def load_table(tbl: str) -> None:
         p = os.path.join(data_dir, f"{tbl}.csv").replace("\\", "/")
+        if tbl == "FactGL":
+            columns = con.execute(
+                f"DESCRIBE SELECT * FROM read_csv('{p}', delim=';', header=true, encoding='utf-8')"
+            ).fetchall()
+            column_names = [row[0] for row in columns]
+
+            if "Belop_signert" in column_names and "Belop" not in column_names:
+                select_sql = "SELECT *, Belop_signert AS Belop FROM read_csv(?, delim=';', header=true, encoding='utf-8')"
+            elif "Belop" in column_names and "Belop_signert" not in column_names:
+                select_sql = "SELECT *, Belop AS Belop_signert FROM read_csv(?, delim=';', header=true, encoding='utf-8')"
+            else:
+                select_sql = "SELECT * FROM read_csv(?, delim=';', header=true, encoding='utf-8')"
+
+            con.execute(f"CREATE TABLE {tbl} AS {select_sql}", [p])
+            return
+
         con.execute(f"CREATE TABLE {tbl} AS SELECT * FROM read_csv('{p}', delim=';', header=true, encoding='utf-8')")
+
+    for tbl in csv_tables:
+        load_table(tbl)
 
     tests_run = 0
     tests_passed = 0

@@ -229,7 +229,7 @@ def update_index_html():
             </div>
           </div>
           <div style="display: flex; gap: 8px;">
-            <a href="rapportering skills/SKILL.md" target="_blank" class="header-btn" style="text-decoration: none; font-size: 11.5px; padding: 5px 10px;">
+            <a href="reporting-skills/SKILL.md" target="_blank" class="header-btn" style="text-decoration: none; font-size: 11.5px; padding: 5px 10px;">
               📖 Åpne SKILL.md
             </a>
             <span class="badge badge-live">100% Etterlevelse</span>

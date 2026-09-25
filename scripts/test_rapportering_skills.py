@@ -19,7 +19,7 @@ if sys.stdout.encoding.lower() != 'utf-8':
         pass
 
 # Add skill script to path
-skill_script_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "rapportering skills", "scripts"))
+skill_script_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "reporting-skills", "scripts"))
 if skill_script_dir not in sys.path:
     sys.path.insert(0, skill_script_dir)
 
