@@ -101,7 +101,7 @@ def init_duckdb(data_dir):
     tables = [
         "DimAccount", "DimDate", "DimForecastVersion", "DimGlossary", "DimOrganization",
         "DimPositionGroup", "DimProject", "DimStudyProgram",
-        "FactAction", "FactBudget", "FactFTE", "FactForecast", "FactGL", "FactStudyPoints"
+        "FactAction", "FactBudget", "FactFTE", "FactForecast", "FactGL", "FactStudyPoints", "FactProjectBOA"
     ]
     for tbl in tables:
         p = os.path.join(data_dir, f"{tbl}.csv").replace("\\", "/")
@@ -249,6 +249,8 @@ def build_sheet_00_navigasjon(wb):
         ("07", "07_Action_Tracker", "Omstillingsutvalg & Linjeledere", "Oppfølging av de 21 omstillingstiltakene (inkl. AI/prosess), forventet vs realisert effekt"),
         ("08", "08_Controller_Cockpit", "Senior Controllere & Regnskapssjef", "Avstemmingsmatrise, DFØ SRS 1 virksomhetsregnskap, avviksdrivere og kontrolltårn"),
         ("09", "09_Begrepskatalog", "Felles: Controller, Dekan, Prosjekt", "60 definerte begreper innen SRS, EVM, RAG-terskler og UH-styring"),
+        ("UC", "UC_Statlige_Use_Cases", "Senior Controller / Revisjon", "6 Statlige Use Cases (UC1–UC6): F-05-20, SRS 10, SRS 9, SRS 17, FOA, NAV refusjoner"),
+        ("LP", "LP_Laereplaner_KD2025", "Dekan & Studieledelse", "3 Læreplaner (BØA, INDØK, EVU), KD 2025 finansieringsmodell, 2 589,6 SPE60"),
         ("DT1", "DT_Okonomi", "Drill-Through Transaksjoner", "Komplett bilagslogg fra FactGL med bilag, konto, beløp og tekst"),
         ("DT2", "DT_Bemanning", "Drill-Through Bemanning & Årsverk", "Lønnsanalyse, stillingsgrupper (UF/TA) og lønn per årsverk fra FactFTE"),
         ("DT3", "DT_Prosjekt_EVM", "Drill-Through Prosjekter & EVM", "Earned Value Management (BAC, EAC, ETC, VAC, CPI, SPI) for BOA"),
@@ -286,6 +288,7 @@ def build_sheet_00_navigasjon(wb):
         ("DimAccount", "46 SRS-kontoer med kontotype og regnskapslinje"),
         ("DimOrganization", "40 koststeder og organisasjonsenheter (Fakultet og institutt)"),
         ("DimProject", "6 prosjekter (Drift, NFR, EU, Oppdrag)"),
+        ("FactProjectBOA", "6 eksternfinansierte prosjekter med full TDI-kostnadsstruktur og RAG-status"),
         ("FactBudget", "17 760 budsjettlinjer fordelt per måned, enhet, konto og prosjekt"),
         ("FactForecast", "53 280 prognoselinjer fordelt over FC1, FC2 og LE"),
         ("FactFTE", "1 200 bemanningslinjer med årsverk og lønn per stillingsgruppe"),
@@ -349,7 +352,7 @@ def build_sheet_01_instituttleder(wb, con):
 
     mnd_data = con.execute("""
         WITH gl AS (
-            SELECT substr(cast(DatoNokkel as varchar), 1, 6) as mnd, sum(Belop_signert) as regnskap
+            SELECT substr(cast(DatoNokkel as varchar), 1, 6) as mnd, sum(Belop) as regnskap
             FROM FactGL WHERE substr(cast(DatoNokkel as varchar), 1, 4) = '2026'
             GROUP BY 1
         ),
@@ -436,7 +439,7 @@ def build_sheet_01_instituttleder(wb, con):
     ws.row_dimensions[r].height = 20
 
     srs_rows = con.execute("""
-        WITH gl AS (SELECT Konto, sum(Belop_signert) as val FROM FactGL GROUP BY Konto),
+        WITH gl AS (SELECT Konto, sum(Belop) as val FROM FactGL GROUP BY Konto),
              bud AS (SELECT Konto, sum(BudsjettBelop) as val FROM FactBudget GROUP BY Konto),
              fc AS (SELECT Konto, sum(ForecastBelop) as val FROM FactForecast WHERE Versjon = 'LE_2026' GROUP BY Konto)
         SELECT 
@@ -530,13 +533,13 @@ def build_sheet_02_dekan(wb, con):
                   "Sammenligning av institutter, eksternfinansiering og produktivitet",
                   "Dekan / Fakultetsdirektør", max_col=10)
 
-    # KPI Strip
+    # KPI Strip (Zone 1 - Aligned with authentic case data)
     kpis = [
-        {"title": "Forecast Helår (LE)", "val": 36793524.31, "sub": "Fakultetets samlede prognose", "fmt": FMT_CURR},
-        {"title": "Forecastavvik", "val": 26045791.49, "sub": "Merforbruk før tiltak", "fmt": FMT_CURR, "badge": "🔴 Rød"},
-        {"title": "Årsverk Totalt", "val": 1285.93, "sub": "Vitenskapelige: 661,8", "fmt": FMT_DEC},
-        {"title": "Registrerte Studenter", "val": 6490, "sub": "22 studieprogrammer", "fmt": FMT_INT},
-        {"title": "BOA Inntekter", "val": 25678288.24, "sub": "NFR: 12,9M | EU: 7,4M", "fmt": FMT_CURR}
+        {"title": "Regnskap YTD (M01-M08)", "val": 68381200.00, "sub": "Faktisk registrert forbruk", "fmt": FMT_CURR},
+        {"title": "Lønnsandel Drift", "val": 0.7831, "sub": "50,97 MNOK (Norm: 71,0 %)", "fmt": FMT_PCT, "badge": "🔴 Avvik"},
+        {"title": "Konto 2080 Avsetning", "val": -4800000.00, "sub": "8,96 % av 53,6M ramme", "fmt": FMT_CURR, "badge": "🔴 F-05-20"},
+        {"title": "Helårsprognose (EAC)", "val": 96460000.00, "sub": "Rullende 12M hybrid prognose", "fmt": FMT_CURR},
+        {"title": "Sluttavvik (VAC)", "val": -14620000.00, "sub": "Budsjettbrudd ved M10", "fmt": FMT_CURR, "badge": "🔴 Merforbruk"}
     ]
     render_kpis(ws, 4, kpis)
 
@@ -553,7 +556,7 @@ def build_sheet_02_dekan(wb, con):
     ws.row_dimensions[r].height = 20
 
     inst_data = con.execute("""
-        WITH gl AS (SELECT Organisasjonsnokkel, sum(Belop_signert) as val FROM FactGL GROUP BY Organisasjonsnokkel),
+        WITH gl AS (SELECT Organisasjonsnokkel, sum(Belop) as val FROM FactGL GROUP BY Organisasjonsnokkel),
              bud AS (SELECT Organisasjonsnokkel, sum(BudsjettBelop) as val FROM FactBudget GROUP BY Organisasjonsnokkel),
              fc AS (SELECT Organisasjonsnokkel, sum(ForecastBelop) as val FROM FactForecast WHERE Versjon = 'LE_2026' GROUP BY Organisasjonsnokkel)
         SELECT 
@@ -623,7 +626,7 @@ def build_sheet_02_dekan(wb, con):
         SELECT 
             p.Finansieringskilde,
             p.Finansieringstype,
-            round(sum(-g.Belop_signert), 2) as Belop
+            round(sum(-g.Belop), 2) as Belop
         FROM FactGL g
         JOIN DimProject p ON g.Prosjekt = p.Prosjekt
         JOIN DimAccount a ON g.Konto = a.Konto
@@ -726,7 +729,7 @@ def build_sheet_03_executive(wb, con):
     ws.row_dimensions[r].height = 20
 
     fak_data = con.execute("""
-        WITH gl AS (SELECT Organisasjonsnokkel, sum(Belop_signert) as val FROM FactGL GROUP BY Organisasjonsnokkel),
+        WITH gl AS (SELECT Organisasjonsnokkel, sum(Belop) as val FROM FactGL GROUP BY Organisasjonsnokkel),
              bud AS (SELECT Organisasjonsnokkel, sum(BudsjettBelop) as val FROM FactBudget GROUP BY Organisasjonsnokkel),
              fc AS (SELECT Organisasjonsnokkel, sum(ForecastBelop) as val FROM FactForecast WHERE Versjon = 'LE_2026' GROUP BY Organisasjonsnokkel)
         SELECT 
@@ -924,12 +927,12 @@ def build_sheet_05_forskning_boa(wb, con):
                   "Eksternfinansiering, NFR- og EU-prosjekter, dekningsgrad og portefølje",
                   "Prorektor Forskning / Forskningsledelse", max_col=10)
 
-    # KPI Strip
+    # KPI Strip (Aligned with authentic BOA case data)
     kpis = [
-        {"title": "Total BOA Inntekt", "val": 25678288.24, "sub": "Bokført eksternfinansiering", "fmt": FMT_CURR},
-        {"title": "NFR Inntekter", "val": 12901569.82, "sub": "50,2% av samlet BOA", "fmt": FMT_CURR},
-        {"title": "EU Inntekter", "val": 7430967.28, "sub": "Horizon Europe m.fl.", "fmt": FMT_CURR},
-        {"title": "BOA per Faglig Årsverk", "val": 38802.48, "sub": "661,8 faglige årsverk", "fmt": FMT_CURR}
+        {"title": "Total BOA Portefølje", "val": 61500000.00, "sub": "6 eksternfinansierte prosjekter", "fmt": FMT_CURR},
+        {"title": "TDI Årsbudsjett", "val": 20200000.00, "sub": "Fullkalkulert ramme (T+D+I)", "fmt": FMT_CURR},
+        {"title": "Påløpt Kostnad YTD", "val": 20460000.00, "sub": "101,3 % forbruksgrad YTD", "fmt": FMT_CURR, "badge": "🟡 +260k"},
+        {"title": "Overhead (22%/25%)", "val": 4600000.00, "sub": "Institusjonell dekning", "fmt": FMT_CURR}
     ]
     render_kpis(ws, 4, kpis)
 
@@ -938,7 +941,7 @@ def build_sheet_05_forskning_boa(wb, con):
     ws.cell(row=r, column=2, value="KOMPLETT PROSJEKTPORTEFØLJE (DIMPROJECT & FACTGL)").font = FONT_SECTION
     r += 1
 
-    headers = ["Prosjektkode", "Prosjektnavn", "Kilde", "Finansieringstype", "Bokført Regnskap", "Årsbudsjett", "Forecast LE", "Avvik LE", "Status"]
+    headers = ["Prosjektkode", "Prosjektnavn", "Kilde", "Finansieringstype", "Kontraktsbeløp", "TDI Budsjett", "Forbruk YTD", "Forbruksavvik %", "Status"]
     for idx, h in enumerate(headers, start=2):
         c = ws.cell(row=r, column=idx, value=h)
         c.font = FONT_TH; c.fill = FILL_TH
@@ -946,22 +949,18 @@ def build_sheet_05_forskning_boa(wb, con):
     ws.row_dimensions[r].height = 20
 
     projects = con.execute("""
-        WITH gl AS (SELECT Prosjekt, sum(Belop_signert) as val FROM FactGL GROUP BY Prosjekt),
-             bud AS (SELECT Prosjekt, sum(BudsjettBelop) as val FROM FactBudget GROUP BY Prosjekt),
-             fc AS (SELECT Prosjekt, sum(ForecastBelop) as val FROM FactForecast WHERE Versjon = 'LE_2026' GROUP BY Prosjekt)
         SELECT 
-            p.Prosjekt,
-            p.Prosjektnavn,
-            p.Finansieringskilde,
-            p.Finansieringstype,
-            round(coalesce(gl.val, 0), 2) as Regnskap,
-            round(coalesce(bud.val, 0), 2) as Budsjett,
-            round(coalesce(fc.val, 0), 2) as Forecast
-        FROM DimProject p
-        LEFT JOIN gl ON p.Prosjekt = gl.Prosjekt
-        LEFT JOIN bud ON p.Prosjekt = bud.Prosjekt
-        LEFT JOIN fc ON p.Prosjekt = fc.Prosjekt
-        ORDER BY Regnskap DESC
+            Prosjekt,
+            Prosjektnavn,
+            Finansieringskilde,
+            Finansieringstype,
+            round(Kontraktsbelop, 2),
+            round(Budsjett, 2),
+            round(PåløptKostnad, 2),
+            round(Forbruksavvik, 3),
+            RAG_Status
+        FROM FactProjectBOA
+        ORDER BY Kontraktsbelop DESC
     """).fetchall()
 
     p_start = r + 1
@@ -974,8 +973,13 @@ def build_sheet_05_forskning_boa(wb, con):
         ws.cell(row=r, column=6, value=float(p_item[4])).number_format = FMT_CURR
         ws.cell(row=r, column=7, value=float(p_item[5])).number_format = FMT_CURR
         ws.cell(row=r, column=8, value=float(p_item[6])).number_format = FMT_CURR
-        ws.cell(row=r, column=9, value=f"=H{r}-G{r}").number_format = FMT_CURR
-        ws.cell(row=r, column=10, value="Aktiv").font = FONT_TD_BOLD
+        ws.cell(row=r, column=9, value=float(p_item[7])).number_format = FMT_PCT
+        
+        c_stat = ws.cell(row=r, column=10, value=p_item[8])
+        c_stat.font = FONT_TD_BOLD
+        if "Rød" in p_item[8]: c_stat.fill = FILL_RAG_RED
+        elif "Gul" in p_item[8]: c_stat.fill = FILL_RAG_AMBER
+        else: c_stat.fill = FILL_RAG_GREEN
 
         for c in range(2, 11):
             ws.cell(row=r, column=c).border = BORDER_TOP_BOTTOM
@@ -984,11 +988,11 @@ def build_sheet_05_forskning_boa(wb, con):
 
     # Total row
     r += 1
-    ws.cell(row=r, column=2, value="TOTAL PORTEFØLJE").font = FONT_TD_BOLD
+    ws.cell(row=r, column=2, value="TOTAL BOA PORTEFØLJE").font = FONT_TD_BOLD
     ws.cell(row=r, column=6, value=f"=SUM(F{p_start}:F{p_end})").number_format = FMT_CURR
     ws.cell(row=r, column=7, value=f"=SUM(G{p_start}:G{p_end})").number_format = FMT_CURR
     ws.cell(row=r, column=8, value=f"=SUM(H{p_start}:H{p_end})").number_format = FMT_CURR
-    ws.cell(row=r, column=9, value=f"=H{r}-G{r}").number_format = FMT_CURR
+    ws.cell(row=r, column=9, value=f"=(H{r}-G{r})/G{r}").number_format = FMT_PCT
     ws.cell(row=r, column=10, value="Avstemt").font = FONT_TD_BOLD
 
     for c in range(2, 11):
@@ -1009,12 +1013,13 @@ def build_sheet_05_forskning_boa(wb, con):
     ws.row_dimensions[r].height = 20
 
     tdi_rows = [
-        ("Frikjøp vitenskapelig tid (T)", "Tid (T)", "DFØ SRS 10 / TDI", 15406972.94, 0.60, "Frikjøp mot FactFTE (661,8 faglige årsverk)"),
-        ("Direkte prosjektkostnader (D)", "Direkte (D)", "DFØ SRS 10 / TDI", 5135657.65, 0.20, "Forbruksmateriell, lab, reiser og feltkostnader"),
-        ("Indirekte kostnader / Overhead (I)", "Indirekte (I)", "DFØ SRS 10 / TDI", 5135657.65, 0.20, "Institusjons- og fakultetsoverhead (infrastruktur)"),
-        ("Sum TDI Totalkostnad BOA", "Totalkostnad (T+D+I)", "Totalt", 25678288.24, 1.00, "Full kostnadsdekning for eksternfinansiert aktivitet"),
-        ("SRS 10 Bidragsinntekter (NFR / EU)", "Bidrag (Inntekt = Kostnad)", "DFØ SRS 10", 20332537.10, 0.7918, "Inntekt avregnes mot påløpte kostnader (0 margin)"),
-        ("SRS 9 Oppdragsinntekter (EVU / Oppdrag)", "Oppdrag (Fullføringsgrad)", "DFØ SRS 9", 5345751.14, 0.2082, "Markedspris med innregnet dekningsbidrag/margin")
+        ("Frikjøp vitenskapelig tid (T)", "Tid (T)", "DFØ SRS 10 / TDI", 10300000.00, 0.5099, "Frikjøp mot FactProjectBOA (T-komponent)"),
+        ("Direkte prosjektkostnader (D)", "Direkte (D)", "DFØ SRS 10 / TDI", 4800000.00, 0.2376, "Drift, materiell, reiser og feltkostnader"),
+        ("Indirekte kostnader / Overhead (I)", "Indirekte (I)", "DFØ SRS 10 / TDI", 4600000.00, 0.2277, "Institusjonsoverhead: 22 % NFR / 25 % EU"),
+        ("Leiested & Laboratorier", "Infrastruktur", "DFØ SRS 10 / TDI", 500000.00, 0.0248, "Bruk av tung vitenskapelig labinfrastruktur"),
+        ("Sum TDI Budsjett BOA", "Totalkostnad (T+D+I)", "Totalt", 20200000.00, 1.0000, "Fullkalkulert årsramme for ekstern aktivitet"),
+        ("Påløpt kostnad YTD (M01-M08)", "Forbruk YTD", "DFØ SRS 10 / TDI", 20460000.00, 1.0129, "101,3 % forbruk (+260 000 kr merforbruk)"),
+        ("Samlet Kontraktsportefølje", "Kontraktsbeløp", "Totalverdi", 61500000.00, 3.0446, "Totalverdi for alle 6 aktive prosjekter")
     ]
 
     for item in tdi_rows:
@@ -1260,7 +1265,7 @@ def build_sheet_08_controller_cockpit(wb, con):
     ws.row_dimensions[r].height = 20
 
     top_accounts = con.execute("""
-        WITH gl AS (SELECT Konto, sum(Belop_signert) as val FROM FactGL GROUP BY Konto),
+        WITH gl AS (SELECT Konto, sum(Belop) as val FROM FactGL GROUP BY Konto),
              bud AS (SELECT Konto, sum(BudsjettBelop) as val FROM FactBudget GROUP BY Konto),
              fc AS (SELECT Konto, sum(ForecastBelop) as val FROM FactForecast WHERE Versjon = 'LE_2026' GROUP BY Konto)
         SELECT 
@@ -1411,7 +1416,7 @@ def build_sheet_dt_okonomi(wb, con):
 
     # Summary KPIs
     kpis = [
-        {"title": "Totalt Bokført Regnskap", "val": 10617128.19, "sub": "SUM(FactGL[Belop_signert])", "fmt": FMT_CURR},
+        {"title": "Totalt Bokført Regnskap", "val": 10617128.19, "sub": "SUM(FactGL[Belop])", "fmt": FMT_CURR},
         {"title": "Sum Inntekter", "val": 2138486811.09, "sub": "Konto 3000-3999", "fmt": FMT_CURR},
         {"title": "Sum Kostnader", "val": 2149103939.28, "sub": "Konto 5000-8999", "fmt": FMT_CURR},
         {"title": "Antall Bilag", "val": 35760, "sub": "Transaksjoner i FactGL", "fmt": FMT_INT}
@@ -1423,7 +1428,7 @@ def build_sheet_dt_okonomi(wb, con):
     ws.cell(row=r, column=2, value="TRANSAKSJONSLOGG UTVALG (DE 100 STØRSTE POSTERINGENE)").font = FONT_SECTION
     r += 1
 
-    headers = ["Bilagsnummer", "Dato", "Organisasjon", "Konto", "Prosjekt", "Beløp (NOK)", "Posteringstekst", "Datakilde"]
+    headers = ["Transaksjons-ID", "Dato", "Organisasjon", "Konto", "Prosjekt", "Beløp (NOK)", "Posteringstekst", "Use Case Referanse"]
     for idx, h in enumerate(headers, start=2):
         c = ws.cell(row=r, column=idx, value=h)
         c.font = FONT_TH; c.fill = FILL_TH
@@ -1431,9 +1436,9 @@ def build_sheet_dt_okonomi(wb, con):
     ws.row_dimensions[r].height = 20
 
     gl_sample = con.execute("""
-        SELECT Bilag, DatoNokkel, Organisasjonsnokkel, Konto, Prosjekt, round(Belop_signert, 2), Tekst, Datakilde
+        SELECT TransaksjonsID, DatoNokkel, Organisasjonsnokkel, Konto, Prosjekt, round(Belop, 2), Tekst, UseCasesRef
         FROM FactGL
-        ORDER BY abs(Belop_signert) DESC
+        ORDER BY abs(Belop) DESC
         LIMIT 100
     """).fetchall()
 
@@ -1555,7 +1560,7 @@ def build_sheet_dt_prosjekt(wb, con):
     ws.row_dimensions[r].height = 20
 
     evm_data = con.execute("""
-        WITH gl AS (SELECT Prosjekt, sum(Belop_signert) as val FROM FactGL GROUP BY Prosjekt),
+        WITH gl AS (SELECT Prosjekt, sum(Belop) as val FROM FactGL GROUP BY Prosjekt),
              bud AS (SELECT Prosjekt, sum(BudsjettBelop) as val FROM FactBudget GROUP BY Prosjekt),
              fc AS (SELECT Prosjekt, sum(ForecastBelop) as val FROM FactForecast WHERE Versjon = 'LE_2026' GROUP BY Prosjekt)
         SELECT 
@@ -1724,6 +1729,150 @@ def build_sheet_dt_studier(wb, con):
 # ==============================================================================
 # DATA MODEL SHEETS (CSV -> EXCEL)
 # ==============================================================================
+
+def build_sheet_use_cases(wb, con):
+    ws = wb.create_sheet(title="UC_Statlige_Use_Cases")
+    render_header(ws, "UC Statlig Regelverkskontroll (UC1–UC6)",
+                  "Statlige regnskapsstandarder (SRS), F-05-20 5 %-regel, anskaffelser og refusjonsstyring",
+                  "Senior Controller / Regelverksrevisjon", max_col=10)
+
+    kpis = [
+        {"title": "F-05-20 Avsetning", "val": -4800000.00, "sub": "8,96 % av 53,6M ramme", "fmt": FMT_CURR, "badge": "🔴 Rød (>5%)"},
+        {"title": "Lønnsandel Drift", "val": 0.7831, "sub": "50,97 MNOK (Norm: 71,0 %)", "fmt": FMT_PCT, "badge": "🔴 Avvik"},
+        {"title": "SRS 10 Periodisering", "val": 2010000.00, "sub": "Konto 2900 forskudd", "fmt": FMT_CURR},
+        {"title": "SRS 17 Aktivert", "val": 1200000.00, "sub": "Overført fra drift til 1200", "fmt": FMT_CURR},
+        {"title": "Utestående Refusjoner", "val": 1150000.00, "sub": "NAV sykepenger/permisjon", "fmt": FMT_CURR}
+    ]
+    render_kpis(ws, 4, kpis)
+
+    r = 8
+    ws.cell(row=r, column=2, value="1. OVERSIKT OVER DE 6 STATLIGE USE CASENE (UC1–UC6) & REGELVERKSETTERLEVELSE").font = FONT_SECTION
+    r += 1
+
+    headers = ["Use Case", "Rettslig Standard", "Kjerneavvik / Problemstilling", "Finansielt Omfang", "Tiltak ID", "Forankret Styringstiltak", "Ansvarlig Rolle", "RAG Status"]
+    for idx, h in enumerate(headers, start=2):
+        c = ws.cell(row=r, column=idx, value=h)
+        c.font = FONT_TH; c.fill = FILL_TH
+        c.alignment = Alignment(horizontal="right" if idx == 5 else "left", vertical="center")
+    ws.row_dimensions[r].height = 20
+
+    uc_data = [
+        ("UC1", "Rundskriv F-05-20", "5 %-regelen overskredet: Avsetning på konto 2080 er 8,96 % (-4,8 MNOK mot 5,0 % sperre 2,68 MNOK)", 2120000.00, "T002", "Fremskynde strategiske investeringer og utstyrsanskaffelser innen Q4", "Fakultetsdirektør", "🔴 Kritisk"),
+        ("UC2", "DFØ SRS 10", "Oppdrags-/bidragsinntekt feilaktig inntektsført før kostnadspåløp (motsatt sammenstilling)", 2010000.00, "T005", "Innføre månedlig automatisk avstemming mellom påløpte BOA-kostnader og konto 2900", "Prosjektcontroller", "🟡 Korrigert"),
+        ("UC3", "DFØ SRS 9", "Tapskontrakt på oppdrag EVU001: Merforbruk krever umiddelbar tapsavsetning", 450000.00, "T003", "Bokføre tapsavsetning på konto 7790 mot 2800; stramme timeføring på EVU", "Instituttleder", "🔴 Tapsført"),
+        ("UC4", "DFØ SRS 17", "Varige driftsmidler (lab/servere) feilaktig kostnadsført direkte på konto 6500", 1200000.00, "T001", "Omklassifisere og aktivere på konto 1200 i balansen med 5 års avskrivning", "Regnskapssjef", "🟢 Fullført"),
+        ("UC5", "FOA / LOA", "Konsulentanskaffelse bestilt over terskelverdi uten tilstrekkelig kunngjøring", 620000.00, "T004", "Protokollføre anskaffelsesavvik og innføre obligatorisk forhåndsgodkjenning", "Innkjøpsansvarlig", "🟡 Rutine endret"),
+        ("UC6", "Folketrygdloven", "Lønnsandel på 78,3 %; manglende oppfølging av utestående sykepengerefusjoner fra NAV", 1150000.00, "T006", "Etablere ukentlig purrerutine mot NAV på konto 1570 med innbetaling innen 45 dager", "HR- / Lønnscontroller", "🟡 Pågår")
+    ]
+
+    for item in uc_data:
+        r += 1
+        ws.cell(row=r, column=2, value=item[0]).font = FONT_TD_CODE
+        ws.cell(row=r, column=3, value=item[1]).font = FONT_TD_BOLD
+        ws.cell(row=r, column=4, value=item[2]).font = FONT_TD
+        c_omf = ws.cell(row=r, column=5, value=float(item[3]))
+        c_omf.font = FONT_TD_BOLD; c_omf.number_format = FMT_CURR
+        ws.cell(row=r, column=6, value=item[4]).font = FONT_TD_CODE
+        ws.cell(row=r, column=7, value=item[5]).font = FONT_TD
+        ws.cell(row=r, column=8, value=item[6]).font = FONT_TD
+        c_rag = ws.cell(row=r, column=9, value=item[7])
+        c_rag.font = FONT_TD_BOLD
+        if "🔴" in item[7]: c_rag.fill = FILL_RAG_RED
+        elif "🟡" in item[7]: c_rag.fill = FILL_RAG_AMBER
+        else: c_rag.fill = FILL_RAG_GREEN
+
+        for c in range(2, 10):
+            ws.cell(row=r, column=c).border = BORDER_TOP_BOTTOM
+        ws.row_dimensions[r].height = 20
+
+    auto_fit_columns(ws, min_col=1, max_col=10)
+
+
+def build_sheet_laereplaner(wb, con):
+    ws = wb.create_sheet(title="LP_Laereplaner_KD2025")
+    render_header(ws, "LP Læreplaner, Budsjettering & KD 2025 Finansieringsmodell",
+                  "Læreplanportefølje (BØA, INDØK, EVU), 2 589,6 SPE60 og KDs finansieringskategorier",
+                  "Dekan / Studieledelse / Controller", max_col=10)
+
+    kpis = [
+        {"title": "Samlet SPE60 Produksjon", "val": 2589.6, "sub": "336 945 avlagte studiepoeng", "fmt": FMT_DEC},
+        {"title": "Beregnet BFE Inntekt", "val": 176012760.00, "sub": "Resultatbasert tildeling", "fmt": FMT_CURR},
+        {"title": "Kategori 1 (Helse/Tek)", "val": 71707880.00, "sub": "803,9 SPE60 @ 89 200 kr", "fmt": FMT_CURR},
+        {"title": "Kategori 2 (Hum/Samf/Øk)", "val": 104284880.00, "sub": "1 785,7 SPE60 @ 58 400 kr", "fmt": FMT_CURR},
+        {"title": "Gjennomføringsgrad", "val": 0.8638, "sub": "Mål: 90,0 %", "fmt": FMT_PCT, "badge": "🟡 Moderat"}
+    ]
+    render_kpis(ws, 4, kpis)
+
+    r = 8
+    ws.cell(row=r, column=2, value="1. KUNNSKAPSDEPARTEMENTETS FINANSIERINGSMODELL 2025 (SPE60 KATEGORIER)").font = FONT_SECTION
+    r += 1
+
+    kd_headers = ["Finansieringskategori", "Studieområder & Fagprofil", "Sats per SPE60 (NOK)", "Avlagte SPE60", "Beregnet BFE Inntekt (NOK)", "Finansieringsandel %", "Merknad / Etterslep"]
+    for idx, h in enumerate(kd_headers, start=2):
+        c = ws.cell(row=r, column=idx, value=h)
+        c.font = FONT_TH; c.fill = FILL_TH
+        c.alignment = Alignment(horizontal="right" if idx in [4, 5, 6, 7] else "left", vertical="center")
+    ws.row_dimensions[r].height = 20
+
+    kd_rows = [
+        ("Kategori 1", "Helse- og sosialfag, ingeniør, teknologi, realfag", 89200.00, 803.9, 71707880.00, 0.4074, "Høyeste sats; kompensasjon for kostbare laboratorier"),
+        ("Kategori 2", "Humaniora, samfunnsvitenskap, økonomi, lærerutdanning", 58400.00, 1785.7, 104284880.00, 0.5926, "Hovedvolum; basis for breddestudiene"),
+        ("Kategori 3", "Etter- og videreutdanning (EVU) og eksterne oppdrag", 0.00, 0.0, 0.00, 0.0000, "Selvfinansiert; 100 % oppdrags- eller egenbetaling"),
+        ("TOTALT", "Hele institusjonens studieproduksjon (BFE)", 67969.09, 2589.6, 176012760.00, 1.0000, "Vektet gjennomsnittlig sats per SPE60")
+    ]
+
+    for item in kd_rows:
+        r += 1
+        ws.cell(row=r, column=2, value=item[0]).font = FONT_TD_BOLD
+        ws.cell(row=r, column=3, value=item[1]).font = FONT_TD
+        ws.cell(row=r, column=4, value=float(item[2])).number_format = FMT_CURR
+        ws.cell(row=r, column=5, value=float(item[3])).number_format = FMT_DEC
+        c_tot = ws.cell(row=r, column=6, value=float(item[4]))
+        c_tot.font = FONT_TD_BOLD; c_tot.number_format = FMT_CURR
+        ws.cell(row=r, column=7, value=float(item[5])).number_format = FMT_PCT
+        ws.cell(row=r, column=8, value=item[6]).font = FONT_TD
+
+        for c in range(2, 9):
+            ws.cell(row=r, column=c).border = BORDER_TOP_BOTTOM
+            if item[0] == "TOTALT":
+                ws.cell(row=r, column=c).fill = FILL_TOTAL
+                ws.cell(row=r, column=c).border = BORDER_TOTAL
+        ws.row_dimensions[r].height = 20
+
+    r += 3
+    ws.cell(row=r, column=2, value="2. DE TRE LÆREPLANENE & DIMENSJONERINGSSTATUS (UIA CASE DATA)").font = FONT_SECTION
+    r += 1
+
+    lp_headers = ["Læreplan / Program", "Studiekode", "Nivå", "KD Kategori", "Normert ECTS", "Studenter", "Gjennomføring %", "Status"]
+    for idx, h in enumerate(lp_headers, start=2):
+        c = ws.cell(row=r, column=idx, value=h)
+        c.font = FONT_TH; c.fill = FILL_TH
+        c.alignment = Alignment(horizontal="right" if idx in [6, 7, 8] else "left", vertical="center")
+    ws.row_dimensions[r].height = 20
+
+    lp_programs = [
+        ("Bachelor i Økonomi og Administrasjon (BØA)", "BØA100", "Bachelor (3 år)", "Kategori 2", 180, 480, 0.825, "🟢 Høy etterspørsel"),
+        ("Master i Industriell Økonomi og Teknologiledelse (INDØK)", "INDØK200", "Master (2 år)", "Kategori 1", 120, 195, 0.892, "🟢 Høy sats & labdekning"),
+        ("Executive Master i Offentlig Styring og Ledelse (EVU)", "EVU300", "Videreutdanning (1 år)", "Kategori 3", 60, 85, 0.940, "🟡 Krav om tapsavsetning (SRS 9)")
+    ]
+
+    for prg in lp_programs:
+        r += 1
+        ws.cell(row=r, column=2, value=prg[0]).font = FONT_TD_BOLD
+        ws.cell(row=r, column=3, value=prg[1]).font = FONT_TD_CODE
+        ws.cell(row=r, column=4, value=prg[2]).font = FONT_TD
+        ws.cell(row=r, column=5, value=prg[3]).font = FONT_TD
+        ws.cell(row=r, column=6, value=int(prg[4])).number_format = FMT_INT
+        ws.cell(row=r, column=7, value=int(prg[5])).number_format = FMT_INT
+        ws.cell(row=r, column=8, value=float(prg[6])).number_format = FMT_PCT
+        ws.cell(row=r, column=9, value=prg[7]).font = FONT_TD_BOLD
+
+        for c in range(2, 10):
+            ws.cell(row=r, column=c).border = BORDER_TOP_BOTTOM
+        ws.row_dimensions[r].height = 20
+
+    auto_fit_columns(ws, min_col=1, max_col=10)
+
 def write_csv_to_sheet(wb, sheet_name, csv_path, con=None):
     if sheet_name in wb.sheetnames:
         del wb[sheet_name]
@@ -1817,6 +1966,12 @@ def main():
     print(">>> Building 09_Begrepskatalog...")
     build_sheet_09_begrepskatalog(wb, con)
 
+    print(">>> Building UC_Statlige_Use_Cases...")
+    build_sheet_use_cases(wb, con)
+
+    print(">>> Building LP_Laereplaner_KD2025...")
+    build_sheet_laereplaner(wb, con)
+
     # 3. Build Drill-Throughs DT1 - DT5
     print(">>> Building DT_Okonomi...")
     build_sheet_dt_okonomi(wb, con)
@@ -1840,6 +1995,7 @@ def main():
         ("DimAccount", "DimAccount.csv"),
         ("DimOrganization", "DimOrganization.csv"),
         ("DimProject", "DimProject.csv"),
+        ("FactProjectBOA", "FactProjectBOA.csv"),
         ("FactBudget", "FactBudget.csv"),
         ("FactForecast", "FactForecast.csv"),
         ("FactFTE", "FactFTE.csv"),
@@ -1863,6 +2019,9 @@ def main():
         "07_Action_Tracker": "1E40AF",
         "08_Controller_Cockpit": "1E40AF",
         "09_Begrepskatalog": "047857",
+        "UC_Statlige_Use_Cases": "DC2626",
+        "LP_Laereplaner_KD2025": "16A34A",
+        "FactProjectBOA": "D97706",
         "DT_Okonomi": "0E7490",
         "DT_Bemanning": "0E7490",
         "DT_Prosjekt_EVM": "0E7490",

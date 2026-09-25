@@ -1,7 +1,7 @@
 table _Measures
 	lineageTag: m0000000-0000-0000-0000-000000000001
 
-	measure Regnskap = SUM ( FactGL[Belop_signert] )
+	measure Regnskap = SUM ( FactGL[Belop] )
 		formatString: #,##0.00
 		displayFolder: 01 Okonomi
 
@@ -557,14 +557,103 @@ table _Measures
 		formatString: #,##0.00
 		displayFolder: 10 Regulatorisk & Veileder
 
-	measure 'SRS 17 Avskrivninger' = ```
+	measure 'Regnskap Faktisk Beløp' = ```
 		CALCULATE (
 		    [Regnskap],
-		    DimAccount[SRS_regnskapslinje] = "Av- og nedskrivninger"
+		    FactGL[Scenario] = "Actual"
 		)
 		```
 		formatString: #,##0.00
+		displayFolder: 02 Forecast
+
+	measure 'Gjeldende Prognose Beløp' = ```
+		CALCULATE (
+		    SUM ( FactBudget[BudsjettBelop] ),
+		    FactBudget[Scenario] IN { "LE_2026", "FC2_2026", "FC1_2026" }
+		)
+		```
+		formatString: #,##0.00
+		displayFolder: 02 Forecast
+
+	measure 'Rullende 12M Hybrid' = ```
+		VAR SisteDatoFaktisk = MAX ( DimDate[DatoStartMaaned] )
+		RETURN
+		SUMX (
+		    DATESINPERIOD ( DimDate[Dato], MAX ( DimDate[Dato] ), -12, MONTH ),
+		    VAR MndDato = DimDate[DatoStartMaaned]
+		    RETURN
+		    IF (
+		        MndDato <= SisteDatoFaktisk,
+		        [Regnskap],
+		        [Gjeldende Prognose Beløp]
+		    )
+		)
+		```
+		formatString: #,##0.00
+		displayFolder: 02 Forecast
+
+	measure 'Rullende 12M Avvik vs Budsjett KR' = [Rullende 12M Hybrid] - [Budsjett]
+		formatString: #,##0.00
+		displayFolder: 02 Forecast
+
+	measure 'Rullende 12M Avvik vs Budsjett %' = DIVIDE ( [Rullende 12M Avvik vs Budsjett KR], [Budsjett], 0 )
+		formatString: 0.0%
+		displayFolder: 02 Forecast
+
+	measure 'Forecast Bias Index' = ```
+		VAR TidligerePrognose = CALCULATE ( SUM ( FactBudget[BudsjettBelop] ), FactBudget[Scenario] = "FC1_2026" )
+		VAR FaktiskUtfall = [Regnskap]
+		RETURN
+		DIVIDE ( FaktiskUtfall - TidligerePrognose, TidligerePrognose, 0 )
+		```
+		formatString: 0.0%
+		displayFolder: 02 Forecast
+
+	measure 'Avsetningsgrad F-05-20 %' = ```
+		VAR Avsetning2080 = CALCULATE ( SUM ( FactGL[Belop] ), DimAccount[Konto] = 2080 )
+		VAR Ramme = CALCULATE ( SUM ( FactGL[Belop] ), DimAccount[SRS_regnskapslinje] = "Inntekter fra bevilgninger" )
+		RETURN
+		DIVIDE ( ABS ( Avsetning2080 ), ABS ( Ramme ), 0 )
+		```
+		formatString: 0.00%
 		displayFolder: 10 Regulatorisk & Veileder
+
+	measure 'BOA Inntekt YTD SRS 10' = ```
+		CALCULATE (
+		    -[Regnskap],
+		    DimAccount[Konto] IN { 3400, 3420 }
+		)
+		```
+		formatString: #,##0.00
+		displayFolder: 07 BOA Prosjekter
+
+	measure 'TDI Kontraktsbeløp' = SUM ( FactProjectBOA[Kontraktsbelop] )
+		formatString: #,##0.00
+		displayFolder: 07 BOA Prosjekter
+
+	measure 'TDI Budsjett' = SUM ( FactProjectBOA[Budsjett] )
+		formatString: #,##0.00
+		displayFolder: 07 BOA Prosjekter
+
+	measure 'TDI Frikjøp Beløp' = SUM ( FactProjectBOA[Frikjop] )
+		formatString: #,##0.00
+		displayFolder: 07 BOA Prosjekter
+
+	measure 'TDI Direkte Drift Beløp' = SUM ( FactProjectBOA[DirekteDrift] )
+		formatString: #,##0.00
+		displayFolder: 07 BOA Prosjekter
+
+	measure 'TDI Overhead Beløp' = SUM ( FactProjectBOA[Overhead] )
+		formatString: #,##0.00
+		displayFolder: 07 BOA Prosjekter
+
+	measure 'TDI Leiested Beløp' = SUM ( FactProjectBOA[Leiested] )
+		formatString: #,##0.00
+		displayFolder: 07 BOA Prosjekter
+
+	measure 'TDI Forbruksavvik %' = AVERAGE ( FactProjectBOA[Forbruksavvik] )
+		formatString: 0.0%
+		displayFolder: 07 BOA Prosjekter
 
 	column Placeholder
 		dataType: string

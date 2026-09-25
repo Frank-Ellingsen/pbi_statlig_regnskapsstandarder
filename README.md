@@ -1,46 +1,39 @@
-# Statlig Utdanningsinstitusjon - Helhetlig Virksomhetsstyring & Forecast Datamodell (Power BI / PBIP)
+# Universitetet i Agder (UiA) – Helhetlig Virksomhetsstyring & Forecast Datamodell (Power BI / PBIP)
 
 [![Power BI](https://img.shields.io/badge/Power_BI-PBIP_%2F_TMDL-F2C811?logo=powerbi&logoColor=black)](https://powerbi.microsoft.com/)
 [![Fabric DevMode](https://img.shields.io/badge/Microsoft_Fabric-Git_Integrated-0078D4?logo=microsoft)](https://learn.microsoft.com/power-bi/developer/projects/projects-overview)
 [![DFØ SRS](https://img.shields.io/badge/Regnskap-DFØ_SRS_R--102%2F2025-004B87)](https://dfo.no/)
-[![UiA Reporting Skills](https://img.shields.io/badge/UiA_Skills-29%2F29_Rules_Passed-10b981)](rapportering%20skills/SKILL.md)
-[![AI Multi-Agent](https://img.shields.io/badge/AI_Engine-Diagnose_%7C_Prognose_%7C_Prescribe-6366F1)](scripts/ai_engine.py)
+[![Statlige Use Cases](https://img.shields.io/badge/Use_Cases-UC1--UC6_Harmonisert-blue)](index.html)
+[![KD 2025 Modell](https://img.shields.io/badge/KD_2025-SPE60_%7C_176.01_MNOK-10b981)](index.html)
+[![BOA TDI Fullkalkyle](https://img.shields.io/badge/BOA_TDI-6_Prosjekter_%7C_61.5_MNOK-orange)](index.html)
 [![DuckDB](https://img.shields.io/badge/DuckDB-In--Memory_SQL-FFF000?logo=duckdb&logoColor=black)](scripts/ai_engine.py)
 [![ML Forecasting](https://img.shields.io/badge/ML_Forecast-Ridge_%26_Fan_Cone-38BDF8)](app.py)
 [![Data-Ink Ratio](https://img.shields.io/badge/Design-Edward_Tufte_Standard-2E7D32)](https://www.edwardtufte.com/)
-[![QA Tests](https://img.shields.io/badge/QA_Validation-90%2F90_Passed-success)](scripts/test_rapportering_skills.py)
-[![Dashboards](https://img.shields.io/badge/Report_Suite-16_Dashboards-blueviolet)](index.html)
+[![QA Tests](https://img.shields.io/badge/QA_Validation-61%2F61_Bestått-success)](app.py)
 
-Dette prosjektet representerer en **produksjonsklar virksomhetsstyrings- og prosjektcontroller-løsning** for **Statlig utdanningsinstitusjon**. Løsningen er bygget fra grunnen av på **Microsoft Fabric / Power BI Project-formatet (`.pbip` med TMDL)**, og integrerer regnskap (DFØ SRS), periodiserte budsjetter, rullende tertialprognoser (EAC/ETC), omstillingstiltak (gevinstrealisering), bemanningsutvikling (årsverk) og student- og studieproduksjon (SPE60).
+Dette prosjektet representerer en **autoritativ og produksjonsklar virksomhetsstyrings- og prosjektcontroller-løsning for Universitetet i Agder (UiA)**, 100 % harmonisert med styringskravene, læreplanene og regnskapsdataene i `Use Case/`. Løsningen er bygget på **Microsoft Fabric / Power BI Project-formatet (`.pbip` med TMDL)**, og integrerer regnskap (DFØ SRS), periodiserte budsjetter, rullende tertialprognoser (EAC/ETC), omstillingstiltak (gevinstrealisering), bemanningsutvikling (årsverk), student- og studieproduksjon (SPE60) og fullkostkalkyle for eksternfinansiert forskning (BOA/TDI).
 
-Rapporteringssuiten består av **16 spesialtilpassede dashboards** (11 rollebaserte styrings- og referansepaneler inkludert **10 AI Controller Hub** og **11 Rapportering Skills**, samt 5 drill-through dybdeanalyser) utformet strengt etter **Edward Tuftes prinsipper for Data-Ink Ratio**.
+Rapporteringssuiten består av **16 spesialtilpassede dashboards** (inkludert 4-Soners **Dekanens Dashbord**, dedikert **Statlig Regelverkskontroll (UC1–UC6)**, **Læreplaner & Budsjettering**, **BOA TDI Prosjektstyring** og **AI Controller Hub**) utformet strengt etter **Edward Tuftes prinsipper for Data-Ink Ratio**.
 
 ### Hurtigstart & Lenker:
 * 👉 [**Åpne Web Dashboard Portalen (`index.html`)**](index.html)
-* 📑 [**Utforsk UiA Rapportering Skills & Veileder (`rapportering skills/SKILL.md`)**](rapportering%20skills/SKILL.md)
-* 🚀 [**2. Kjøre den interaktive CSV-applikasjonen (`app.py`)**](http://127.0.0.1:8088) (Port 8088)
-* ⚡ [**3. Oppdatere Power BI med ferske KI-tiltak (`scripts/sync_ai_to_powerbi.py`)**](scripts/sync_ai_to_powerbi.py)
+* 📑 [**Utforsk Veileder for Kontroll & Rapportering (`rapportering skills/SKILL.md`)**](rapportering%20skills/SKILL.md)
+* 🚀 [**Kjøre den interaktive Controller-applikasjonen (`app.py`)**](http://127.0.0.1:8088) (Port 8088)
+* ⚡ [**Oppdatere Power BI med ferske KI-tiltak (`scripts/sync_ai_to_powerbi.py`)**](scripts/sync_ai_to_powerbi.py)
 
 ---
 
 ## Innholdsfortegnelse
-1. [Forretningsmessig Kontekst & Formål](#1-forretningsmessig-kontekst--formål)
-2. [Mappestruktur & Prosjektorganisering](#2-mappestruktur--prosjektorganisering)
-3. [Datamodellens Arkitektur & Stjerneskjema](#3-datamodellens-arkitektur--stjerneskjema)
-   - [3.1 Datamodellens ERD (Entity-Relationship Diagram)](#31-datamodellens-erd-entity-relationship-diagram)
-   - [3.2 Dataarkitektur & Dataflyt (End-to-End Pipeline)](#32-dataarkitektur--dataflyt-end-to-end-pipeline)
-   - [3.3 Tabelloversikt & Korn (Granularitet)](#33-tabelloversikt--korn-granularitet)
-   - [3.4 Relasjonsmatrise & Referanseintegritet (22 Relasjoner)](#34-relasjonsmatrise--referanseintegritet-22-aktive-relasjoner)
-4. [DAX-målkatalog & Beregningslogikk](#4-dax-målkatalog--beregningslogikk)
-5. [Komplett Rapportsuite (16 Dashboards)](#5-komplett-rapportsuite-16-dashboards)
-6. [AI Multi-Agent Hub & Maskinlæring (Diagnose, Prognose, Preskripsjon)](#6-ai-multi-agent-hub--maskinlæring-diagnose-prognose-preskripsjon)
-7. [Edward Tufte Visualiseringsstandarder](#7-edward-tufte-visualiseringsstandarder)
-8. [Veileder for Kontroll & Rapportering ved UiA (Rapportering Skills)](#8-veileder-for-kontroll--rapportering-ved-uia-rapportering-skills)
-9. [Controller-metodikk & Styringshjul](#9-controller-metodikk--styringshjul)
-10. [Begrepskatalog & Glossary (Fagterminologi)](#10-begrepskatalog--glossary-fagterminologi)
-11. [Kvalitetssikring & Avstemmingstabell](#11-kvalitetssikring--avstemmingstabell)
-12. [Installasjon & Utviklerveiledning](#12-installasjon--utviklerveiledning)
-13. [Forfatter & Kontakt](#13-forfatter--kontakt)
+1. [Forretningsmessig Kontekst & Statlige Use Cases (UC1–UC6)](#1-forretningsmessig-kontekst--statlige-use-cases-uc1uc6)
+2. [Kunnskapsdepartementets Finansieringsmodell 2025 & Læreplaner](#2-kunnskapsdepartementets-finansieringsmodell-2025--læreplaner)
+3. [BOA TDI Fullkostkalkyle (T+D+I)](#3-boa-tdi-fullkostkalkyle-tdi)
+4. [Mappestruktur & Prosjektorganisering](#4-mappestruktur--prosjektorganisering)
+5. [Datamodellens Arkitektur & Stjerneskjema (16 Tabeller, 23 Relasjoner)](#5-datamodellens-arkitektur--stjerneskjema-16-tabeller-23-relasjoner)
+6. [DAX-målkatalog & Beregningslogikk](#6-dax-målkatalog--beregningslogikk)
+7. [4-Soners Dekanens Dashbord & Komplett Rapportsuite (16 Paneler)](#7-4-soners-dekanens-dashbord--komplett-rapportsuite-16-paneler)
+8. [AI Multi-Agent Hub & Maskinlæring (Diagnose, Prognose, Preskripsjon)](#8-ai-multi-agent-hub--maskinlæring-diagnose-prognose-preskripsjon)
+9. [Edward Tufte Visualiseringsstandarder](#9-edward-tufte-visualiseringsstandarder)
+10. [Installasjon & Utviklerveiledning](#10-installasjon--utviklerveiledning)
 
 ---
 

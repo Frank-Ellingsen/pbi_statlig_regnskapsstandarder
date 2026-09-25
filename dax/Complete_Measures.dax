@@ -1,566 +1,302 @@
 -- ==============================================================================
--- MASTER DAX MEASURES LIBRARY - UIA CONTROLLER & FORECAST MODEL
--- Author: Frank Ellingsen (Financial Controller / Project Controller)
--- Model: UIA-Controller-Prosjekt.pbip (TMDL Semantic Model - Full-Scale Package)
--- 50+ Automated Tested Measures across 7 Controller Disciplines
--- Compliant with: Norwegian SRS, BOA guidelines, EVM (Earned Value Management)
+-- MASTER DAX MEASURES LIBRARY - UNIVERSITETET I AGDER (UIA) CONTROLLER Cockpit
+-- Forankret i:
+--   1. Use Case / case data (FactGL, FactBudget, FactFTE, FactStudyPoints, FactAction, FactProjectBOA)
+--   2. DFØ Statlige Regnskapsstandarder (SRS 1, 9, 10, 17, 25)
+--   3. Rundskriv F-05-20 (5 %-regelen for ubrukte bevilgningsmidler)
+--   4. KDs finansieringsmodell 2025 (Kategori 1: 54 550 kr, Kat 2: 81 800 kr, Kat 3: 190 900 kr)
+--   5. Rullende 12-Måneders Hybridprognose (Actuals + LE) & Forecast Bias Index
+--   6. TDI-modellen for BOA-prosjektcontrolling (frikjøp, direkte drift, overhead ~22 %, leiested)
 -- ==============================================================================
 
 -- ==============================================================================
--- 01 OKONOMI (ACTUALS & BUDGET)
+-- 1. FINANS & REGNSKAP (ACCOUNTING & FINANCIAL MEASURES)
 -- ==============================================================================
 
-Regnskap = 
-SUM ( FactGL[Belop_signert] )
-/* Format: #,##0.00 | Netto faktisk bokført beløp (Debet - Kredit) */
+[Regnskap Beløp] = 
+SUM ( FactGL[Belop] )
+/* Format: #,##0.00 | Faktisk regnskapsført beløp (Debet / Kredit) */
 
-Budsjett = 
-SUM ( FactBudget[BudsjettBelop] )
-/* Format: #,##0.00 | Periodisert budsjettbeløp (netto) */
+[Regnskap Faktisk Beløp] = 
+[Regnskap Beløp]
 
-Avvik = 
-[Regnskap] - [Budsjett]
-/* Format: #,##0.00 | Avvik regnskap mot budsjett (negativt = mindreforbruk / positivt = merforbruk) */
+[Regnskap Faktisk YTD] = 
+TOTALYTD ( [Regnskap Beløp], DimDate[Dato] )
+/* Format: #,##0.00 | Akkumulert faktisk regnskap hittil i år */
 
-Avvik % = 
-DIVIDE ( [Avvik], ABS ( [Budsjett] ) )
-/* Format: 0.0% | Relativt budsjettavvik */
-
-Regnskap YTD = 
-TOTALYTD ( [Regnskap], DimDate[Dato] )
-/* Format: #,##0.00 | Regnskap akkumulert hittil i år */
-
-Budsjett YTD = 
-TOTALYTD ( [Budsjett], DimDate[Dato] )
-/* Format: #,##0.00 | Budsjett akkumulert hittil i år */
-
-Avvik YTD = 
-[Regnskap YTD] - [Budsjett YTD]
-/* Format: #,##0.00 | Akkumulert budsjettavvik hittil i år */
-
-Avvik YTD % = 
-DIVIDE ( [Avvik YTD], ABS ( [Budsjett YTD] ) )
-/* Format: 0.0% | Akkumulert budsjettavvik i prosent */
-
-Inntekter = 
+[Budsjett Beløp] = 
 CALCULATE (
-    -[Regnskap],
-    DimAccount[Kontotype] = "Inntekt"
+    SUM ( FactBudget[BudsjettBelop] ),
+    FactBudget[Scenario] = "BUD2026"
 )
-/* Format: #,##0.00 | Inntekter (Kredit vendt til positivt fortegn for controller-rapportering) */
+/* Format: #,##0.00 | Vedtatt årsbudsjett 2026 */
 
-Kostnader = 
+[Budsjett YTD] = 
+TOTALYTD ( [Budsjett Beløp], DimDate[Dato] )
+/* Format: #,##0.00 | Vedtatt budsjett akkumulert YTD */
+
+[Prognose Beløp (LE)] = 
 CALCULATE (
-    [Regnskap],
-    DimAccount[Kontotype] = "Kostnad"
+    SUM ( FactBudget[BudsjettBelop] ),
+    FactBudget[Scenario] = "LE_2026"
+)
+/* Format: #,##0.00 | Gjeldende helårsprognose (Latest Estimate) */
+
+[Gjeldende Prognose Beløp] = 
+CALCULATE (
+    SUM ( FactBudget[BudsjettBelop] ),
+    FactBudget[Scenario] IN { "LE_2026", "FC2_2026", "FC1_2026" }
+)
+/* Format: #,##0.00 | Beløp fra seneste aktive prognoseversjon */
+
+[Bevilgningsinntekt] = 
+CALCULATE (
+    -[Regnskap Beløp],
+    DimAccount[SRS_regnskapslinje] = "Tilskudd og overføringer" || DimAccount[Konto] IN { 3900, 3910 }
+)
+/* Format: #,##0.00 | Statlig rammebevilgning (Kredit snudd til positiv inntekt) */
+
+[Lønnskostnad] = 
+CALCULATE (
+    [Regnskap Beløp],
+    DimAccount[SRS_regnskapslinje] = "Lonnskostnader" || DimAccount[Konto] >= 5000 && DimAccount[Konto] <= 5999
+)
+/* Format: #,##0.00 | Samlede lønns- og personalkostnader */
+
+[Driftskostnader Eks Lønn] = 
+CALCULATE (
+    [Regnskap Beløp],
+    DimAccount[Kontotype] = "Kostnad",
+    DimAccount[SRS_regnskapslinje] <> "Lonnskostnader",
+    DimAccount[Konto] >= 6000
+)
+/* Format: #,##0.00 | Vare-, drifts- og konsulentkostnader */
+
+[Total Kostnad] = 
+CALCULATE (
+    [Regnskap Beløp],
+    DimAccount[Kontotype] = "Kostnad" || DimAccount[Konto] >= 5000 && DimAccount[Konto] <= 7999
 )
 /* Format: #,##0.00 | Samlede drifts- og personalkostnader */
 
-Lonnskostnader = 
+[Lønnsandel %] = 
+DIVIDE ( [Lønnskostnad], [Total Kostnad], 0 )
+/* Format: 0.0% | Lønnsandel av driftskostnader (måltall: ~70-71 %) */
+
+[Budsjettavvik KR] = 
+[Budsjett Beløp] - [Total Kostnad]
+/* Format: #,##0.00 | Avvik mot budsjett (positivt = mindreforbruk / gunstig) */
+
+[Budsjettavvik %] = 
+DIVIDE ( [Budsjettavvik KR], ABS ( [Budsjett Beløp] ), 0 )
+/* Format: 0.0% | Relativt budsjettavvik */
+
+
+-- ==============================================================================
+-- 2. RULLENDE 12-MÅNEDERS HYBRIDPROGNOSE (ROLLING FORECAST DAX)
+-- ==============================================================================
+
+[Rullende 12M Hybrid] = 
+VAR SisteDatoFaktisk = CALCULATE ( MAX ( FactGL[DatoNokkel] ) )
+RETURN
+SUMX (
+    DATESINPERIOD ( DimDate[Dato], MAX ( DimDate[Dato] ), -12, MONTH ),
+    VAR MndDato = DimDate[DatoNokkel]
+    RETURN
+    IF (
+        MndDato <= SisteDatoFaktisk,
+        [Regnskap Beløp],
+        [Gjeldende Prognose Beløp]
+    )
+)
+/* Format: #,##0.00 | Kombinerer faktiske tall for passerte måneder med LE for reståret */
+
+[Rullende 12M Avvik vs Budsjett KR] = 
+[Rullende 12M Hybrid] - [Budsjett Beløp]
+/* Format: #,##0.00 | Avvik mellom rullende 12M bane og vedtatt årsbudsjett */
+
+[Rullende 12M Avvik vs Budsjett %] = 
+DIVIDE ( [Rullende 12M Avvik vs Budsjett KR], ABS ( [Budsjett Beløp] ), 0 )
+/* Format: 0.0% | Relativt avvik rullende 12M vs budsjett */
+
+[Forecast Bias Index] = 
+VAR TidligerePrognose = CALCULATE ( SUM ( FactBudget[BudsjettBelop] ), FactBudget[Scenario] = "FC1_2026" )
+VAR FaktiskUtfall = [Regnskap Beløp]
+RETURN
+DIVIDE ( FaktiskUtfall - TidligerePrognose, TidligerePrognose, 0 )
+/* Format: +0.0% | Måler om enheten systematisk over- eller underprognostiserer */
+
+
+-- ==============================================================================
+-- 3. SRS & REGELVERKSKONTROLL (COMPLIANCE & BALANCE MEASURES)
+-- ==============================================================================
+
+[Ubenyttet Rammebevilgning (2080)] = 
 CALCULATE (
-    [Regnskap],
-    DimAccount[SRS_regnskapslinje] = "Lonnskostnader"
+    ABS ( SUM ( FactGL[Belop] ) ),
+    DimAccount[Konto] = 2080
 )
-/* Format: #,##0.00 | Lønn, sosiale avgifter og pensjon iht. statlig kontoplan */
+/* Format: #,##0.00 | Akkumulert ubenyttet rammebevilgning i balansen (konto 2080) */
 
-Lonnandel % = 
-DIVIDE ( [Lonnskostnader], [Kostnader] )
-/* Format: 0.0% | Lønnskostnadens andel av totale kostnader */
-
-
--- ==============================================================================
--- 02 FORECAST & ESTIMATENDRING
--- ==============================================================================
-
-Forecast = 
-SUM ( FactForecast[ForecastBelop] )
-/* Format: #,##0.00 | Summert forecastbeløp */
-
-Valgt forecastversjon = 
-SELECTEDVALUE ( DimForecastVersion[Versjon], "LE_2026" )
-/* Format: Tekst | Aktiv forecastversjon fra slicer (Standard: LE_2026) */
-
-Gjeldende forecast = 
-VAR V = [Valgt forecastversjon]
-RETURN
-    CALCULATE (
-        [Forecast],
-        KEEPFILTERS ( DimForecastVersion[Versjon] = V )
-    )
-/* Format: #,##0.00 | Forecast filtrert på aktiv versjon */
-
-Aarsbudsjett = 
-CALCULATE ( [Budsjett], REMOVEFILTERS ( DimDate ) )
-/* Format: #,##0.00 | Fullt årsbudsjett (BAC) uavhengig av månedlig datofiltrering */
-
-Forecast aarsbelop = 
-CALCULATE ( [Gjeldende forecast], REMOVEFILTERS ( DimDate ) )
-/* Format: #,##0.00 | Helårs forecast for valgt versjon (EAC) */
-
-Forecastavvik = 
-[Forecast aarsbelop] - [Aarsbudsjett]
-/* Format: #,##0.00 | Avvik mellom gjeldende helårs forecast og årsbudsjett */
-
-Absolutt forecastavvik = 
-ABS ( [Forecastavvik] )
-/* Format: #,##0.00 | Absoluttverdi av forecastavvik mot budsjett */
-
-Forecastavvik % = 
-DIVIDE ( [Forecastavvik], ABS ( [Aarsbudsjett] ) )
-/* Format: 0.0% | Relativt forecastavvik mot årsbudsjett */
-
-Forecast confidence % = 
-AVERAGE ( FactForecast[Sannsynlighet] )
-/* Format: 0.0% | Gjennomsnittlig konfidensgrad / sannsynlighet for forecastet */
-
-FC1 = 
+[Rammebevilgning Tildelt YTD] = 
 CALCULATE (
-    [Forecast],
-    REMOVEFILTERS ( DimForecastVersion ),
-    DimForecastVersion[Versjon] = "FC1_2026",
-    REMOVEFILTERS ( DimDate )
+    ABS ( SUM ( FactBudget[BudsjettBelop] ) ),
+    DimAccount[Konto] = 3900 || FactBudget[Konto] = 3900
 )
-/* Format: #,##0.00 | Helårs forecast FC1 (T1) */
+/* Format: #,##0.00 | Samlet tildelt rammebevilgning fra KD (konto 3900) */
 
-FC2 = 
-CALCULATE (
-    [Forecast],
-    REMOVEFILTERS ( DimForecastVersion ),
-    DimForecastVersion[Versjon] = "FC2_2026",
-    REMOVEFILTERS ( DimDate )
+[Avsetningsgrad % (F-05-20)] = 
+DIVIDE (
+    [Ubenyttet Rammebevilgning (2080)],
+    [Rammebevilgning Tildelt YTD],
+    0
 )
-/* Format: #,##0.00 | Helårs forecast FC2 (T2) */
+/* Format: 0.00% | Andel ubrukte midler av rammen (F-05-20 grense: 5,00 %) */
 
-Latest Estimate = 
-CALCULATE (
-    [Forecast],
-    REMOVEFILTERS ( DimForecastVersion ),
-    DimForecastVersion[Versjon] = "LE_2026",
-    REMOVEFILTERS ( DimDate )
-)
-/* Format: #,##0.00 | Helårs Latest Estimate (LE) */
-
-Endring FC2 til LE = 
-[Latest Estimate] - [FC2]
-/* Format: #,##0.00 | Estimatendring fra andre tertial til Latest Estimate */
-
-Forecast lonn = 
-CALCULATE (
-    [Gjeldende forecast],
-    DimAccount[SRS_regnskapslinje] = "Lonnskostnader"
-)
-/* Format: #,##0.00 | Forecast for lønnskostnader */
-
-Forecast lonnsavvik = 
-[Forecast lonn] - CALCULATE ( [Aarsbudsjett], DimAccount[SRS_regnskapslinje] = "Lonnskostnader" )
-/* Format: #,##0.00 | Helårs forecastavvik spesifikt for lønnskostnader */
-
-
-
--- ==============================================================================
--- 03 BEMANNING & STUDIEPRODUKSJON
--- ==============================================================================
-
-Aarsverk = 
-VAR D =
-    MAXX (
-        FILTER ( ALLSELECTED ( DimDate ), CALCULATE ( COUNTROWS ( FactFTE ) ) > 0 ),
-        DimDate[DatoNokkel]
-    )
-RETURN
-    CALCULATE ( SUM ( FactFTE[Aarsverk] ), DimDate[DatoNokkel] = D )
-/* Format: #,##0.00 | Årsverk registrert ved siste tilgjengelige måned (snapshot) */
-
-Faglige aarsverk = 
-VAR D =
-    MAXX (
-        FILTER ( ALLSELECTED ( DimDate ), CALCULATE ( COUNTROWS ( FactFTE ) ) > 0 ),
-        DimDate[DatoNokkel]
-    )
-RETURN
-    CALCULATE ( SUM ( FactFTE[FagligeAarsverk] ), DimDate[DatoNokkel] = D )
-/* Format: #,##0.00 | Vitenskapelige/undervisende årsverk ved siste tilgjengelige måned */
-
-Registrerte studenter = 
-VAR D =
-    MAXX (
-        FILTER ( ALLSELECTED ( DimDate ), CALCULATE ( COUNTROWS ( FactStudyPoints ) ) > 0 ),
-        DimDate[DatoNokkel]
-    )
-RETURN
-    CALCULATE ( SUM ( FactStudyPoints[RegistrerteStudenter] ), DimDate[DatoNokkel] = D )
-/* Format: #,##0 | Antall aktive registrerte studenter ved siste snapshot */
-
-Avlagte studiepoeng = 
-SUM ( FactStudyPoints[AvlagteStudiepoeng] )
-/* Format: #,##0.0 | Samlede produserte studiepoeng i perioden */
-
-SPE60 = 
-SUM ( FactStudyPoints[SPE60] )
-/* Format: #,##0.00 | 60-studiepoengsekvivalenter (heltidsstudentekvivalent) */
-
-Studiepoeng maaloppnaelse % = 
-DIVIDE ( [Avlagte studiepoeng], SUM ( FactStudyPoints[PlanlagteStudiepoeng] ) )
-/* Format: 0.0% | Måloppnåelse produksjon: Faktiske SP mot planlagte SP */
-
-Studenter per faglig aarsverk = 
-DIVIDE ( [Registrerte studenter], [Faglige aarsverk] )
-/* Format: #,##0.0 | Bemanningsforhold: Studenter per vitenskapelig årsverk */
-
-SPE60 per faglig aarsverk = 
-DIVIDE ( [SPE60], [Faglige aarsverk] )
-/* Format: #,##0.00 | Undervisningsproduktivitet: SPE60 per vitenskapelig årsverk */
-
-Kostnad per student = 
-DIVIDE ( [Kostnader], [Registrerte studenter] )
-/* Format: #,##0.00 | Enhetskostnad per registrert student */
-
-Kostnad per SPE60 = 
-DIVIDE ( [Kostnader], [SPE60] )
-/* Format: #,##0.00 | Enhetskostnad per fullført 60 studiepoengsekvivalent */
-
-Lonn per aarsverk = 
-DIVIDE ( [Lonnskostnader], [Aarsverk] )
-/* Format: #,##0.00 | Gjennomsnittlig lønnskostnad per årsverk */
-
-
--- ==============================================================================
--- 04 BOA (BIDRAGS- OG OPPDRAGSFINANSIERT AKTIVITET)
--- ==============================================================================
-
-BOA inntekter = 
-CALCULATE (
-    [Inntekter],
-    DimProject[Finansieringstype] IN { "Bidrag", "Oppdrag" }
-)
-/* Format: #,##0.00 | Samlede eksterne prosjektinntekter (NFR, EU, Oppdrag) */
-
-NFR inntekter = 
-CALCULATE (
-    [Inntekter],
-    DimProject[Finansieringskilde] = "NFR"
-)
-/* Format: #,##0.00 | Prosjektinntekter fra Norges forskningsråd */
-
-EU inntekter = 
-CALCULATE (
-    [Inntekter],
-    DimProject[Finansieringskilde] = "EU"
-)
-/* Format: #,##0.00 | Prosjektinntekter fra EU (Horizon Europe, Erasmus+ etc.) */
-
-BOA andel % = 
-DIVIDE ( [BOA inntekter], [Inntekter] )
-/* Format: 0.0% | BOA-inntekters andel av fakultetets/universitetets totale inntekter */
-
-BOA per faglig aarsverk = 
-DIVIDE ( [BOA inntekter], [Faglige aarsverk] )
-/* Format: #,##0.00 | Ekstern inntektssatsing per vitenskapelig årsverk */
-
-
--- ==============================================================================
--- 05 TILTAK (FACTACTION / INITIATIVE TRACKING)
--- ==============================================================================
-
-Antall tiltak = 
-DISTINCTCOUNT ( FactAction[TiltakID] )
-/* Format: #,##0 | Totalt antall registrerte omstillingstiltak */
-
-Forventet tiltakseffekt = 
-SUM ( FactAction[ForventetEffekt] )
-/* Format: #,##0.00 | Estimert helårs kostnadsreduksjon/gevinst fra tiltak (negativt fortegn) */
-
-Realisert tiltakseffekt = 
-SUM ( FactAction[RealisertEffekt] )
-/* Format: #,##0.00 | Faktisk oppnådd gevinst hittil i perioden */
-
-Tiltak realiseringsgrad % = 
-DIVIDE ( [Realisert tiltakseffekt], [Forventet tiltakseffekt] )
-/* Format: 0.0% | Realiseringsgrad for tiltaksporteføljen */
-
-Aapne tiltak = 
-CALCULATE (
-    [Antall tiltak],
-    FactAction[Status] <> "Gjennomfort"
-)
-/* Format: #,##0 | Antall aktive tiltak (Planlagt, Pågår, Forsinket) */
-
-Forsinkede tiltak = 
-CALCULATE (
-    [Antall tiltak],
-    FactAction[Status] = "Forsinket"
-)
-/* Format: #,##0 | Antall tiltak med rød/forsinket fremdriftsstatus */
-
-Forecast etter tiltak = 
-[Forecast aarsbelop] + [Forventet tiltakseffekt]
-/* Format: #,##0.00 | Netto helårsestimat justert for full tiltakseffekt */
-
-Restavvik etter tiltak = 
-[Forecast etter tiltak] - [Aarsbudsjett]
-/* Format: #,##0.00 | Gjenværende budsjettgap etter innregning av alle tiltak */
-
-Tiltaksdekning av avvik % = 
-DIVIDE ( ABS ( [Forventet tiltakseffekt] ), ABS ( [Forecastavvik] ) )
-/* Format: 0.0% | Hvor stor andel av forecastavviket som dekkes av tiltaksporteføljen */
-
-
--- ==============================================================================
--- 06 EVM (EARNED VALUE MANAGEMENT - PROSJEKTSTYRING)
--- ==============================================================================
-
-BAC (Budget at Completion) = 
-[Aarsbudsjett]
-/* Format: #,##0.00 | Opprinnelig budsjettramme ved ferdigstillelse */
-
-EAC (Estimate at Completion) = 
-[Forecast aarsbelop]
-/* Format: #,##0.00 | Oppdatert helårsestimat ved ferdigstillelse */
-
-ETC (Estimate to Complete) = 
-[Forecast aarsbelop] - TOTALYTD ( [Gjeldende forecast], DimDate[Dato] )
-/* Format: #,##0.00 | Gjenstående forventet ressursbruk frem til periodeslutt */
-
-VAC (Variance at Completion) = 
-[BAC (Budget at Completion)] - [EAC (Estimate at Completion)]
-/* Format: #,##0.00 | Forventet sluttavvik (BAC - EAC). Negativt = budsjettoverskridelse */
-
-VAC % = 
-DIVIDE ( [VAC (Variance at Completion)], [BAC (Budget at Completion)] )
-/* Format: 0.0% | Sluttavvik i prosent av budsjettramme */
-
-
--- ==============================================================================
--- 07 STATUS & FARGER (BETINGET FORMATERING - TUFTE STANDARD)
--- ==============================================================================
-
-Forecaststatus = 
-VAR AvvikPct = [Forecastavvik %]
-RETURN
-    SWITCH (
-        TRUE (),
-        ISBLANK ( AvvikPct ), BLANK (),
-        AvvikPct > 0.05, "Rod",
-        AvvikPct > 0.02, "Gul",
-        AvvikPct < -0.05, "Bla",
-        "Gronn"
-    )
-/* Format: Tekst | Kategorisk status basert på avviksgrenser */
-
-Forecaststatus farge = 
-SWITCH (
-    [Forecaststatus],
-    "Rod", "#C00000",
-    "Gul", "#FFC000",
-    "Bla", "#5B9BD5",
-    "Gronn", "#70AD47",
-    "#A6A6A6"
-)
-/* Format: Heksadesimal fargekode for DAX Color Formatting */
-
-Forecast RAG Status = 
-VAR AvvikPct = [Forecastavvik %]
-RETURN
-    SWITCH (
-        TRUE (),
-        ISBLANK ( AvvikPct ), BLANK (),
-        AvvikPct > 0.05, "🔴 Rød (>5%)",
-        AvvikPct > 0.02, "🟡 Gul (2-5%)",
-        "🟢 Grønn (<=2%)"
-    )
-/* Format: Tekst med Unicode-indikator for helårs forecaststatus */
-
-Avvik YTD RAG Status = 
-VAR AvvikPct = [Avvik YTD %]
-RETURN
-    SWITCH (
-        TRUE (),
-        ISBLANK ( AvvikPct ), BLANK (),
-        AvvikPct > 0.05, "🔴 Rød (>5%)",
-        AvvikPct > 0.02, "🟡 Gul (2-5%)",
-        "🟢 Grønn (<=2%)"
-    )
-/* Format: Tekst med Unicode-indikator for akkumulert regnskapsavvik YTD */
-
-Tiltak RAG Status = 
-VAR S = SELECTEDVALUE ( FactAction[Status] )
-RETURN
-    SWITCH (
-        S,
-        "Gjennomfort", "🟢 Gjennomført",
-        "Pagar", "🟡 Pågår",
-        "Forsinket", "🔴 Forsinket",
-        "⚪ Planlagt"
-    )
-/* Format: Tekst med Unicode-indikator for tiltakets gjennomføringsstatus */
-
-Studiepoeng RAG Status = 
-VAR M = [Studiepoeng maaloppnaelse %]
-RETURN
-    SWITCH (
-        TRUE (),
-        ISBLANK ( M ), BLANK (),
-        M >= 0.90, "🟢 Mål nådd (>=90%)",
-        M >= 0.80, "🟡 Moderat (80-90%)",
-        "🔴 Lav (<80%)"
-    )
-/* Format: Tekst med Unicode-indikator for utdanningsproduktivitet */
-
-EVM Sluttavvik RAG Status = 
-VAR V = [VAC %]
-RETURN
-    SWITCH (
-        TRUE (),
-        ISBLANK ( V ), BLANK (),
-        V >= 0, "🟢 Under budsjett",
-        V >= -0.05, "🟡 Moderat overskridelse",
-        "🔴 Kritisk overskridelse"
-    )
-/* Format: Tekst med Unicode-indikator for prosjekt- og EVM-sluttavvik */
-
-Antall rode institutter = 
-CALCULATE (
-    DISTINCTCOUNT ( DimOrganization[Instituttnavn] ),
-    FILTER (
-        VALUES ( DimOrganization[Instituttnavn] ),
-        [Forecastavvik %] > 0.05
-    )
-)
-/* Format: #,##0 | Antall institutter med merforbruk over 5% */
-
-Avvik RAG farge = 
-VAR AvvikPct = [Avvik YTD %]
-RETURN
-    SWITCH (
-        TRUE (),
-        ISBLANK ( AvvikPct ), "#A6A6A6",
-        AvvikPct > 0.05, "#C00000",
-        AvvikPct > 0.02, "#FFC000",
-        "#70AD47"
-    )
-/* Format: Heksadesimal fargekode for regnskapsavvik */
-
-Tiltak RAG farge = 
-VAR S = SELECTEDVALUE ( FactAction[Status] )
-RETURN
-    SWITCH (
-        S,
-        "Gjennomfort", "#70AD47",
-        "Pagar", "#FFC000",
-        "Forsinket", "#C00000",
-        "#A6A6A6"
-    )
-/* Format: Heksadesimal fargekode for tiltaksstatus */
-
-Studiepoeng RAG farge = 
-VAR M = [Studiepoeng maaloppnaelse %]
-RETURN
-    SWITCH (
-        TRUE (),
-        ISBLANK ( M ), "#A6A6A6",
-        M >= 0.90, "#70AD47",
-        M >= 0.80, "#FFC000",
-        "#C00000"
-    )
-/* Format: Heksadesimal fargekode for studiepoengmål */
-
-EVM Sluttavvik RAG farge = 
-VAR V = [VAC %]
-RETURN
-    SWITCH (
-        TRUE (),
-        ISBLANK ( V ), "#A6A6A6",
-        V >= 0, "#70AD47",
-        V >= -0.05, "#FFC000",
-        "#C00000"
-    )
-/* Format: Heksadesimal fargekode for EVM-sluttavvik */
-
--- ============================================================================
--- 09 BEGREPSKATALOG (GLOSSARY)
--- ============================================================================
-
-Antall begreper = 
-COUNTROWS ( DimGlossary )
-/* Format: #,##0 | Totalt antall definerte fagbegreper i modellen */
-
-Antall begrepskategorier = 
-DISTINCTCOUNT ( DimGlossary[Kategori] )
-/* Format: #,##0 | Antall unike faglige kategorier */
-
-
--- ==============================================================================
--- 10 REGULATORISK & VEILEDER (KD 2025, SRS 1/9/10/17, F-05-20, NOTE 15)
--- ==============================================================================
-
-Statsbevilgning basis = 
-CALCULATE (
-    -[Budsjett],
-    REMOVEFILTERS ( DimDate ),
-    DimAccount[Konto] = 3900
-)
-/* Format: #,##0.00 | Statlig rammebevilgning fra KD (Konto 3900 i FactBudget) */
-
-Maks tillatt reserve 5% = 
-[Statsbevilgning basis] * 0.05
-/* Format: #,##0.00 | Øvre lovlig tak for ubrukte bevilgningsmidler iht. Rundskriv F-05-20 (5,0 %) */
-
-Beregnet avsetningsandel % = 
-DIVIDE ( ABS ( [Avvik YTD] ), [Statsbevilgning basis] )
-/* Format: 0.000% | Avsetningsandel av årlig bevilgning mot 5 %-taket */
-
-5 %-regel Status = 
+[F-05-20 Risikoflagg] = 
 IF (
-    [Beregnet avsetningsandel %] <= 0.05,
-    "🟢 Overholdt (<=5%)",
-    "🔴 Overskredet (>5%)"
+    [Avsetningsgrad % (F-05-20)] > 0.05,
+    "RØD: Risikerer inndragning (>5%)",
+    "GRØNN: Innenfor regelverket"
 )
-/* Format: Tekst | Juridisk etterlevelsesstatus for Rundskriv F-05-20 og Note 15 */
+/* Tekstindikator for revisjons- og styringskontroll */
 
-KD 2025 SPE Kat 1 Sats = 
-54550.0
-/* Format: #,##0 kr | KD 2025 sats Kategori 1: Humaniora, samfunnsfag, økonomi */
-
-KD 2025 SPE Kat 2 Sats = 
-81800.0
-/* Format: #,##0 kr | KD 2025 sats Kategori 2: Realfag, helse, lærerutdanning */
-
-KD 2025 SPE Kat 3 Sats = 
-190900.0
-/* Format: #,##0 kr | KD 2025 sats Kategori 3: Medisin, odontologi */
-
-SRS 1 Driftsinntekter = 
-[Inntekter]
-/* Format: #,##0.00 | Driftsinntekter etter SRS 1 */
-
-SRS 1 Driftskostnader = 
-[Kostnader]
-/* Format: #,##0.00 | Driftskostnader etter SRS 1 */
-
-SRS 1 Netto driftsresultat = 
-[Kostnader] - [Inntekter]
-/* Format: #,##0.00 | Netto driftsresultat etter SRS 1 (Kostnader - Inntekter) */
-
-SRS 10 Bidragsinntekter = 
+[Ikke Inntektsført Bidrag (SRS 10)] = 
 CALCULATE (
-    [Inntekter],
-    DimProject[Finansieringstype] = "Bidrag"
+    SUM ( FactGL[Belop] ),
+    DimAccount[Konto] = 2180
 )
-/* Format: #,##0.00 | Inntekter fra bidragsaktivitet etter SRS 10 (motsatt sammenstilling: inntekt = påløpt kostnad) */
+/* Format: #,##0.00 | Balansekonto 2180 mottatt forskuddsbetaling bidrag */
 
-SRS 9 Oppdragsinntekter = 
+[Avsetning Tapsoppdrag (SRS 9)] = 
 CALCULATE (
-    [Inntekter],
-    DimProject[Finansieringstype] = "Oppdrag"
+    SUM ( FactGL[Belop] ),
+    DimAccount[Konto] = 2800
 )
-/* Format: #,##0.00 | Inntekter fra oppdragsaktivitet etter SRS 9 (fullføringsgrad) */
+/* Format: #,##0.00 | Balansekonto 2800 tapsavsetning oppdragsforskning */
 
-SRS 17 Avskrivninger = 
+
+-- ==============================================================================
+-- 4. BOA PROSJEKTCONTROLLING & TDI-KALKYLE (EXTERNAL FUNDING)
+-- ==============================================================================
+
+[BOA Totalt Kontraktsbeløp] = 
+SUM ( FactProjectBOA[Kontraktsbelop] )
+/* Format: #,##0.00 | Samlet ekstern kontraktverdi (NFR, EU, Oppdrag) */
+
+[BOA Påløpt Kostnad] = 
+SUM ( FactProjectBOA[PåløptKostnad] )
+/* Format: #,##0.00 | Påløpte prosjektkostnader (direkte + indirekte) */
+
+[BOA Inntektsført Beløp (SRS 10)] = 
+SUM ( FactProjectBOA[Inntektsført] )
+/* Format: #,##0.00 | Inntektsført i virksomhetsregnskapet */
+
+[BOA Frikjøp Inntekt] = 
 CALCULATE (
-    [Regnskap],
-    DimAccount[SRS_regnskapslinje] = "Av- og nedskrivninger"
+    [Regnskap Beløp],
+    DimProject[Finansieringstype] IN { "Bidrag", "Oppdrag" },
+    DimAccount[Konto] = 5000
 )
-/* Format: #,##0.00 | Lineære avskrivninger på varige anleggsmidler etter SRS 17 */
+/* Format: #,##0.00 | Frikjøp av fast vitenskapelig ansattes tid til eksterne prosjekter */
+
+[BOA Overhead Dekning %] = 
+AVERAGE ( FactProjectBOA[Dekningsgrad] )
+/* Format: 0.0% | Gjennomsnittlig indirekte kostnadsdekning (~22-25 %) */
+
+[BOA Forbruksavvik %] = 
+AVERAGE ( FactProjectBOA[%BudsjettForbrukt] ) - AVERAGE ( FactProjectBOA[%TidGått] )
+/* Format: +0.0%;-0.0% | Forbruksavvik (% Budsjett - % Tid) */
+
+[BOA RAG Status] = 
+VAR Avvik = [BOA Forbruksavvik %]
+RETURN
+SWITCH (
+    TRUE (),
+    Avvik > 0.15, "RØD: Betydelig merforbruk",
+    Avvik < -0.20, "GUL: Betydelig fremdriftsforsinkelse",
+    "GRØNN: I rute"
+)
+/* RAG status basert på TDI-kalkylens fremdrift og budsjettforbruk */
 
 
+-- ==============================================================================
+-- 5. ÅRSVERK & BEMANNINGSKONTROLL (FTE & WORKFORCE)
+-- ==============================================================================
 
+[Faktiske Årsverk] = 
+CALCULATE (
+    SUM ( FactFTE[Aarsverk] ),
+    FactFTE[Scenario] = "Actual"
+)
+/* Format: #,##0.0 | Faktisk bemanning i utførte årsverk */
+
+[Budsjetterte Årsverk] = 
+CALCULATE (
+    SUM ( FactFTE[Aarsverk] ),
+    FactFTE[Scenario] = "BUD2026" || FactFTE[Scenario] = "Budget"
+)
+/* Format: #,##0.0 | Budsjettert bemanningsramme */
+
+[Vakanser Årsverk] = 
+[Budsjetterte Årsverk] - [Faktiske Årsverk]
+/* Format: #,##0.0 | Årsverksavvik / ubesatte stillinger */
+
+[Snitt Lønn per Årsverk] = 
+DIVIDE ( [Lønnskostnad], [Faktiske Årsverk], 0 )
+/* Format: #,##0 kr | Gjennomsnittlig lønns- og personalkostnad per FTE */
+
+
+-- ==============================================================================
+-- 6. UTDANNING & KDS FINANSIERINGSMODELL 2025 (KD FUNDING & SPE60)
+-- ==============================================================================
+
+[Totalt Avlagte Studiepoeng] = 
+SUM ( FactStudyPoints[AvlagteStudiepoeng] )
+/* Format: #,##0 | Samlet antall avlagte ECTS studiepoeng */
+
+[Totalt SPE60] = 
+SUM ( FactStudyPoints[SPE60] )
+/* Format: #,##0.0 | 60-studiepoengsekvivalenter avlagt */
+
+[Gjennomsnittlig Beståttandel %] = 
+AVERAGE ( FactStudyPoints[BestattAndel] )
+/* Format: 0.0% | Eksamensgjennomføring og beståttgrad */
+
+[KDs Beregnede BFE-Inntekt] = 
+SUMX (
+    FactStudyPoints,
+    FactStudyPoints[SPE60] * 
+    SWITCH (
+        FactStudyPoints[Studiekategori],
+        "Kategori 1", 54550,
+        "Kat1", 54550,
+        "Kategori 2", 81800,
+        "Kat2", 81800,
+        "Kategori 3", 190900,
+        "Kat3", 190900,
+        FactStudyPoints[SatsPerSPE60]
+    )
+)
+/* Format: #,##0 kr | Beregnet resultatbasert uttelling etter KDs 2025-satser */
+
+
+-- ==============================================================================
+-- 7. OMSTILLINGSTILTAK & RISIKOSTYRING (ACTION PLAN & RISK)
+-- ==============================================================================
+
+[Antall Tiltak] = 
+COUNTROWS ( FactAction )
+/* Format: #,##0 | Antall registrerte innsparingstiltak i omstillingsplanen */
+
+[Forventet Samlet Tiltakseffekt] = 
+SUM ( FactAction[ForventetEffekt] )
+/* Format: #,##0 kr | Forventet samlet innsparing fra tiltakskatalogen */
+
+[Realisert Samlet Tiltakseffekt] = 
+SUM ( FactAction[RealisertEffekt] )
+/* Format: #,##0 kr | Faktisk realisert innsparingseffekt YTD */
+
+[Tiltaksoppnåelse %] = 
+DIVIDE ( [Realisert Samlet Tiltakseffekt], [Forventet Samlet Tiltakseffekt], 0 )
+/* Format: 0.0% | Realiseringsgrad for vedtatte omstillingstiltak */

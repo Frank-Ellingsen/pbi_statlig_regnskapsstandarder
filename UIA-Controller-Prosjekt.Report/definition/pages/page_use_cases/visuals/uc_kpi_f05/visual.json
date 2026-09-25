@@ -1,0 +1,59 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "uc_kpi_f05",
+  "position": {
+    "x": 20,
+    "y": 95,
+    "z": 2,
+    "width": 450,
+    "height": 105,
+    "tabOrder": 2
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Avsetningsgrad F-05-20 %"
+                }
+              },
+              "queryRef": "_Measures.Avsetningsgrad F-05-20 %",
+              "nativeQueryRef": "F-05-20 Avsetningsgrad"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'UC1: Avsetningsgrad F-05-20 (Maks 5,0 %)'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

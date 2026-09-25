@@ -1,0 +1,133 @@
+table FactProjectBOA
+	lineageTag: f0000010-0000-0000-0000-000000000001
+
+	column Prosjekt
+		dataType: string
+		isKey
+		lineageTag: f0000010-0000-0000-0000-000000000002
+		summarizeBy: none
+		sourceColumn: Prosjekt
+
+	column Prosjektnavn
+		dataType: string
+		lineageTag: f0000010-0000-0000-0000-000000000003
+		summarizeBy: none
+		sourceColumn: Prosjektnavn
+
+	column Finansieringstype
+		dataType: string
+		lineageTag: f0000010-0000-0000-0000-000000000004
+		summarizeBy: none
+		sourceColumn: Finansieringstype
+
+	column Finansieringskilde
+		dataType: string
+		lineageTag: f0000010-0000-0000-0000-000000000005
+		summarizeBy: none
+		sourceColumn: Finansieringskilde
+
+	column Kontraktsbelop
+		dataType: decimal
+		formatString: #,##0.00
+		lineageTag: f0000010-0000-0000-0000-000000000006
+		summarizeBy: sum
+		sourceColumn: Kontraktsbelop
+
+	column Budsjett
+		dataType: decimal
+		formatString: #,##0.00
+		lineageTag: f0000010-0000-0000-0000-000000000007
+		summarizeBy: sum
+		sourceColumn: Budsjett
+
+	column Frikjop
+		dataType: decimal
+		formatString: #,##0.00
+		lineageTag: f0000010-0000-0000-0000-000000000008
+		summarizeBy: sum
+		sourceColumn: Frikjop
+
+	column DirekteDrift
+		dataType: decimal
+		formatString: #,##0.00
+		lineageTag: f0000010-0000-0000-0000-000000000009
+		summarizeBy: sum
+		sourceColumn: DirekteDrift
+
+	column Overhead
+		dataType: decimal
+		formatString: #,##0.00
+		lineageTag: f0000010-0000-0000-0000-000000000010
+		summarizeBy: sum
+		sourceColumn: Overhead
+
+	column Leiested
+		dataType: decimal
+		formatString: #,##0.00
+		lineageTag: f0000010-0000-0000-0000-000000000011
+		summarizeBy: sum
+		sourceColumn: Leiested
+
+	column PåløptKostnad
+		dataType: decimal
+		formatString: #,##0.00
+		lineageTag: f0000010-0000-0000-0000-000000000012
+		summarizeBy: sum
+		sourceColumn: PåløptKostnad
+
+	column Inntektsført
+		dataType: decimal
+		formatString: #,##0.00
+		lineageTag: f0000010-0000-0000-0000-000000000013
+		summarizeBy: sum
+		sourceColumn: Inntektsført
+
+	column Dekningsgrad
+		dataType: double
+		formatString: 0.0%
+		lineageTag: f0000010-0000-0000-0000-000000000014
+		summarizeBy: average
+		sourceColumn: Dekningsgrad
+
+	column '%TidGått'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: f0000010-0000-0000-0000-000000000015
+		summarizeBy: average
+		sourceColumn: '%TidGått'
+
+	column '%BudsjettForbrukt'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: f0000010-0000-0000-0000-000000000016
+		summarizeBy: average
+		sourceColumn: '%BudsjettForbrukt'
+
+	column Forbruksavvik
+		dataType: double
+		formatString: 0.0%
+		lineageTag: f0000010-0000-0000-0000-000000000017
+		summarizeBy: average
+		sourceColumn: Forbruksavvik
+
+	column RAG_Status
+		dataType: string
+		lineageTag: f0000010-0000-0000-0000-000000000018
+		summarizeBy: none
+		sourceColumn: RAG_Status
+
+	column StatusMerknad
+		dataType: string
+		lineageTag: f0000010-0000-0000-0000-000000000019
+		summarizeBy: none
+		sourceColumn: StatusMerknad
+
+	partition FactProjectBOA = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "FactProjectBOA.csv"), [Delimiter=";", Columns=18, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Prosjekt", type text}, {"Prosjektnavn", type text}, {"Finansieringstype", type text}, {"Finansieringskilde", type text}, {"Kontraktsbelop", Currency.Type}, {"Budsjett", Currency.Type}, {"Frikjop", Currency.Type}, {"DirekteDrift", Currency.Type}, {"Overhead", Currency.Type}, {"Leiested", Currency.Type}, {"PåløptKostnad", Currency.Type}, {"Inntektsført", Currency.Type}, {"Dekningsgrad", type number}, {"%TidGått", type number}, {"%BudsjettForbrukt", type number}, {"Forbruksavvik", type number}, {"RAG_Status", type text}, {"StatusMerknad", type text}}, "en-US")
+				in
+				    #"Changed Type"

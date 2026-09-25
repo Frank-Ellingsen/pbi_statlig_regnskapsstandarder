@@ -1,13 +1,13 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
-  "name": "p7_tbl_alle_tiltak",
+  "name": "uc_tbl_actions",
   "position": {
     "x": 20,
-    "y": 650,
-    "z": 12,
+    "y": 220,
+    "z": 1,
     "width": 1880,
-    "height": 410,
-    "tabOrder": 12
+    "height": 830,
+    "tabOrder": 1
   },
   "visual": {
     "visualType": "tableEx",
@@ -41,7 +41,7 @@
                 }
               },
               "queryRef": "FactAction.TiltakID",
-              "nativeQueryRef": "TiltakID"
+              "nativeQueryRef": "Tiltak ID"
             },
             {
               "field": {
@@ -55,7 +55,7 @@
                 }
               },
               "queryRef": "FactAction.Tiltaksbeskrivelse",
-              "nativeQueryRef": "Tiltaksbeskrivelse"
+              "nativeQueryRef": "Tiltak"
             },
             {
               "field": {
@@ -69,7 +69,7 @@
                 }
               },
               "queryRef": "FactAction.Avviksarsak",
-              "nativeQueryRef": "Avviksarsak"
+              "nativeQueryRef": "Regelverksavvik & Årsak"
             },
             {
               "field": {
@@ -83,35 +83,7 @@
                 }
               },
               "queryRef": "FactAction.AnsvarligRolle",
-              "nativeQueryRef": "AnsvarligRolle"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "FactAction"
-                    }
-                  },
-                  "Property": "StartDatoNokkel"
-                }
-              },
-              "queryRef": "FactAction.StartDatoNokkel",
-              "nativeQueryRef": "StartDatoNokkel"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "FactAction"
-                    }
-                  },
-                  "Property": "FristDatoNokkel"
-                }
-              },
-              "queryRef": "FactAction.FristDatoNokkel",
-              "nativeQueryRef": "FristDatoNokkel"
+              "nativeQueryRef": "Ansvarlig Rolle"
             },
             {
               "field": {
@@ -125,7 +97,7 @@
                 }
               },
               "queryRef": "FactAction.ForventetEffekt",
-              "nativeQueryRef": "ForventetEffekt"
+              "nativeQueryRef": "Forventet Effekt"
             },
             {
               "field": {
@@ -139,7 +111,7 @@
                 }
               },
               "queryRef": "FactAction.RealisertEffekt",
-              "nativeQueryRef": "RealisertEffekt"
+              "nativeQueryRef": "Realisert Effekt"
             },
             {
               "field": {
@@ -153,21 +125,7 @@
                 }
               },
               "queryRef": "_Measures.Tiltak RAG Status",
-              "nativeQueryRef": "Tiltak RAG Status"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "FactAction"
-                    }
-                  },
-                  "Property": "Prioritet"
-                }
-              },
-              "queryRef": "FactAction.Prioritet",
-              "nativeQueryRef": "Prioritet"
+              "nativeQueryRef": "Status RAG"
             }
           ]
         }
@@ -187,7 +145,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Komplett omstillingslogg med RAG-status (FactAction.csv)'"
+                  "Value": "'Statlige Use Cases (UC1–UC6) & Forankrede Styringstiltak (FactAction.csv)'"
                 }
               }
             }

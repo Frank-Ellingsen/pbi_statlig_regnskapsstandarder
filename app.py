@@ -909,7 +909,18 @@ class ControllerRequestHandler(BaseHTTPRequestHandler):
         parsed = urlparse(self.path)
         path = parsed.path
 
-        if path in ["/", "/index.html"]:
+        if path in ["/", "/index.html", "/portal"]:
+            index_path = Path(__file__).parent / "index.html"
+            if index_path.exists():
+                with open(index_path, "r", encoding="utf-8") as f:
+                    content = f.read()
+                self._set_headers("text/html")
+                self.wfile.write(content.encode("utf-8"))
+            else:
+                self._set_headers("text/html")
+                self.wfile.write(HTML_PAGE.encode("utf-8"))
+
+        elif path in ["/ai_hub", "/hub", "/agent_hub"]:
             self._set_headers("text/html")
             self.wfile.write(HTML_PAGE.encode("utf-8"))
 
@@ -932,6 +943,35 @@ class ControllerRequestHandler(BaseHTTPRequestHandler):
             ml = ML_ENGINE.generate_monthly_forecast()
             self._set_headers("application/json")
             self.wfile.write(json.dumps(ml).encode("utf-8"))
+
+        elif path == "/api/use_cases":
+            use_cases = ORCHESTRATOR.get_use_cases_data()
+            self._set_headers("application/json")
+            self.wfile.write(json.dumps(use_cases, default=str).encode("utf-8"))
+
+        elif path == "/api/boa_projects":
+            boa = ORCHESTRATOR.get_boa_projects()
+            self._set_headers("application/json")
+            self.wfile.write(json.dumps(boa, default=str).encode("utf-8"))
+
+        elif path == "/api/study_points":
+            sp = ORCHESTRATOR.get_study_points_summary()
+            self._set_headers("application/json")
+            self.wfile.write(json.dumps(sp, default=str).encode("utf-8"))
+
+        elif path == "/api/forecast_hybrid":
+            ml = ML_ENGINE.generate_monthly_forecast()
+            self._set_headers("application/json")
+            self.wfile.write(json.dumps({
+                "rolling_12m_timeline": ml.get("rolling_12m_timeline", ml.get("timeline", [])),
+                "eac_point_estimate_mnok": ml.get("eac_point_estimate_mnok", ml.get("eac_point_mnok", 0)),
+                "r2_score": ml.get("r2_score", ml.get("confidence_score_r2", 0)),
+                "forecast_bias_index": ml.get("forecast_bias_index", 0),
+                "p10_mnok": ml.get("p10_mnok", ml.get("p10_optimistic_mnok", 0)),
+                "p50_mnok": ml.get("p50_mnok", ml.get("p50_base_mnok", 0)),
+                "p90_mnok": ml.get("p90_mnok", ml.get("p90_pessimistic_mnok", 0)),
+                "budget_breach_month": ml.get("budget_breach_month", "M10")
+            }, default=str).encode("utf-8"))
 
         else:
             self._set_headers("text/plain", 404)

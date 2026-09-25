@@ -1,0 +1,59 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "uc_kpi_lonn",
+  "position": {
+    "x": 490,
+    "y": 95,
+    "z": 3,
+    "width": 450,
+    "height": 105,
+    "tabOrder": 3
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Lonnandel %"
+                }
+              },
+              "queryRef": "_Measures.Lonnandel %",
+              "nativeQueryRef": "Lønnsandel %"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'UC6: Lønnsandel av Driftskostnader (Norm 71 %)'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

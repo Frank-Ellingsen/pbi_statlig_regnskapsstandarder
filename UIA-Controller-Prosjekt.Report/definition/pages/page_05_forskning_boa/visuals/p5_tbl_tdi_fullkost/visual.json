@@ -1,13 +1,13 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
-  "name": "p7_tbl_alle_tiltak",
+  "name": "p5_tbl_tdi_fullkost",
   "position": {
     "x": 20,
-    "y": 650,
-    "z": 12,
+    "y": 220,
+    "z": 15,
     "width": 1880,
     "height": 410,
-    "tabOrder": 12
+    "tabOrder": 15
   },
   "visual": {
     "visualType": "tableEx",
@@ -20,154 +20,168 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "FactAction"
+                      "Entity": "FactProjectBOA"
                     }
                   },
-                  "Property": "UseCasesRef"
+                  "Property": "Prosjekt"
                 }
               },
-              "queryRef": "FactAction.UseCasesRef",
-              "nativeQueryRef": "Use Case"
+              "queryRef": "FactProjectBOA.Prosjekt",
+              "nativeQueryRef": "ProsjektID"
             },
             {
               "field": {
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "FactAction"
+                      "Entity": "FactProjectBOA"
                     }
                   },
-                  "Property": "TiltakID"
+                  "Property": "Prosjektnavn"
                 }
               },
-              "queryRef": "FactAction.TiltakID",
-              "nativeQueryRef": "TiltakID"
+              "queryRef": "FactProjectBOA.Prosjektnavn",
+              "nativeQueryRef": "Prosjektnavn"
             },
             {
               "field": {
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "FactAction"
+                      "Entity": "FactProjectBOA"
                     }
                   },
-                  "Property": "Tiltaksbeskrivelse"
+                  "Property": "Finansieringskilde"
                 }
               },
-              "queryRef": "FactAction.Tiltaksbeskrivelse",
-              "nativeQueryRef": "Tiltaksbeskrivelse"
+              "queryRef": "FactProjectBOA.Finansieringskilde",
+              "nativeQueryRef": "Finansieringskilde"
             },
             {
               "field": {
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "FactAction"
+                      "Entity": "FactProjectBOA"
                     }
                   },
-                  "Property": "Avviksarsak"
+                  "Property": "Kontraktsbelop"
                 }
               },
-              "queryRef": "FactAction.Avviksarsak",
-              "nativeQueryRef": "Avviksarsak"
+              "queryRef": "FactProjectBOA.Kontraktsbelop",
+              "nativeQueryRef": "Kontraktsbeløp"
             },
             {
               "field": {
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "FactAction"
+                      "Entity": "FactProjectBOA"
                     }
                   },
-                  "Property": "AnsvarligRolle"
+                  "Property": "Budsjett"
                 }
               },
-              "queryRef": "FactAction.AnsvarligRolle",
-              "nativeQueryRef": "AnsvarligRolle"
+              "queryRef": "FactProjectBOA.Budsjett",
+              "nativeQueryRef": "TDI Budsjett"
             },
             {
               "field": {
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "FactAction"
+                      "Entity": "FactProjectBOA"
                     }
                   },
-                  "Property": "StartDatoNokkel"
+                  "Property": "Frikjop"
                 }
               },
-              "queryRef": "FactAction.StartDatoNokkel",
-              "nativeQueryRef": "StartDatoNokkel"
+              "queryRef": "FactProjectBOA.Frikjop",
+              "nativeQueryRef": "Frikjøp"
             },
             {
               "field": {
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "FactAction"
+                      "Entity": "FactProjectBOA"
                     }
                   },
-                  "Property": "FristDatoNokkel"
+                  "Property": "DirekteDrift"
                 }
               },
-              "queryRef": "FactAction.FristDatoNokkel",
-              "nativeQueryRef": "FristDatoNokkel"
+              "queryRef": "FactProjectBOA.DirekteDrift",
+              "nativeQueryRef": "Direkte Drift"
             },
             {
               "field": {
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "FactAction"
+                      "Entity": "FactProjectBOA"
                     }
                   },
-                  "Property": "ForventetEffekt"
+                  "Property": "Overhead"
                 }
               },
-              "queryRef": "FactAction.ForventetEffekt",
-              "nativeQueryRef": "ForventetEffekt"
+              "queryRef": "FactProjectBOA.Overhead",
+              "nativeQueryRef": "Overhead (22/25%)"
             },
             {
               "field": {
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "FactAction"
+                      "Entity": "FactProjectBOA"
                     }
                   },
-                  "Property": "RealisertEffekt"
+                  "Property": "Leiested"
                 }
               },
-              "queryRef": "FactAction.RealisertEffekt",
-              "nativeQueryRef": "RealisertEffekt"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Measures"
-                    }
-                  },
-                  "Property": "Tiltak RAG Status"
-                }
-              },
-              "queryRef": "_Measures.Tiltak RAG Status",
-              "nativeQueryRef": "Tiltak RAG Status"
+              "queryRef": "FactProjectBOA.Leiested",
+              "nativeQueryRef": "Leiested"
             },
             {
               "field": {
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "FactAction"
+                      "Entity": "FactProjectBOA"
                     }
                   },
-                  "Property": "Prioritet"
+                  "Property": "PåløptKostnad"
                 }
               },
-              "queryRef": "FactAction.Prioritet",
-              "nativeQueryRef": "Prioritet"
+              "queryRef": "FactProjectBOA.PåløptKostnad",
+              "nativeQueryRef": "Forbruk YTD"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactProjectBOA"
+                    }
+                  },
+                  "Property": "Forbruksavvik"
+                }
+              },
+              "queryRef": "FactProjectBOA.Forbruksavvik",
+              "nativeQueryRef": "Forbruksavvik %"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactProjectBOA"
+                    }
+                  },
+                  "Property": "RAG_Status"
+                }
+              },
+              "queryRef": "FactProjectBOA.RAG_Status",
+              "nativeQueryRef": "RAG Status"
             }
           ]
         }
@@ -187,7 +201,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Komplett omstillingslogg med RAG-status (FactAction.csv)'"
+                  "Value": "'BOA TDI Fullkostkalkyle (T+D+I) – Kontrakt, Frikjøp, Drift & Overhead'"
                 }
               }
             }
