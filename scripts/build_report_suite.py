@@ -243,6 +243,56 @@ def build_all_pages():
     pages_manifest = []
 
     # =========================================================================
+    # PAGE 0: 00 Årsrapport Forside & EVM (Executive Front Page)
+    # =========================================================================
+    p0_id = "page_00_forside"
+    p0_name = "00 Årsrapport Forside & EVM"
+    p0_dir = os.path.join(PAGES_DIR, p0_id)
+    os.makedirs(os.path.join(p0_dir, "visuals"), exist_ok=True)
+
+    with open(os.path.join(p0_dir, "page.json"), "w", encoding="utf-8") as f:
+        json.dump({
+            "$schema": SCHEMA_PAGE,
+            "name": p0_id,
+            "displayName": p0_name,
+            "displayOption": "FitToPage",
+            "height": 1080,
+            "width": 1920
+        }, f, indent=2)
+    pages_manifest.append(p0_id)
+
+    p0_visuals = [
+        create_card("p0_kpi_rev", 20, 20, 450, 110, 1, "Total Inntekt BAC", "Total Revenue (BAC)"),
+        create_card("p0_kpi_exp", 490, 20, 450, 110, 2, "Total Kostnad EAC", "Total Expenses (EAC)"),
+        create_card("p0_kpi_cpi", 960, 20, 450, 110, 3, "Helårs CPI", "Cost Performance Index (CPI)"),
+        create_card("p0_kpi_spi", 1430, 20, 470, 110, 4, "Helårs SPI", "Schedule Performance (SPI)"),
+        create_table("p0_tbl_m12", 20, 150, 1880, 910, 5, [
+            {"entity": "FactYearlyReconciliation", "property": "MndNr"},
+            {"entity": "FactYearlyReconciliation", "property": "Maaned"},
+            {"entity": "FactYearlyReconciliation", "property": "StatligBevilgning"},
+            {"entity": "FactYearlyReconciliation", "property": "Forskningsinntekter"},
+            {"entity": "FactYearlyReconciliation", "property": "AndreInntekter"},
+            {"entity": "FactYearlyReconciliation", "property": "TotalInntekt"},
+            {"entity": "FactYearlyReconciliation", "property": "Lonnskostnader"},
+            {"entity": "FactYearlyReconciliation", "property": "Driftskostnader"},
+            {"entity": "FactYearlyReconciliation", "property": "InvesteringerCapex"},
+            {"entity": "FactYearlyReconciliation", "property": "TotalKostnad"},
+            {"entity": "FactYearlyReconciliation", "property": "NettoResultat"},
+            {"entity": "FactYearlyReconciliation", "property": "Kumulativ_PV"},
+            {"entity": "FactYearlyReconciliation", "property": "Kumulativ_EV"},
+            {"entity": "FactYearlyReconciliation", "property": "Kumulativ_AC"},
+            {"entity": "FactYearlyReconciliation", "property": "Kumulativ_CPI"},
+            {"entity": "FactYearlyReconciliation", "property": "Kumulativ_SPI"}
+        ], "Årsrapport Universitetet i Agder (UIA) - 100% Avstemt Helårsmodell 2026 (FactYearlyReconciliation)")
+    ]
+
+    for v in p0_visuals:
+        v_dir = os.path.join(p0_dir, "visuals", v["name"])
+        os.makedirs(v_dir, exist_ok=True)
+        with open(os.path.join(v_dir, "visual.json"), "w", encoding="utf-8") as vf:
+            json.dump(v, vf, indent=2)
+
+    # =========================================================================
     # PAGE 1: 01 Instituttleder (Operativ økonomistyring)
     # =========================================================================
     p1_id = "page_01_instituttleder"

@@ -1,13 +1,13 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
-  "name": "uc_kpi_lonn",
+  "name": "p0_kpi_rev",
   "position": {
-    "x": 490,
-    "y": 95,
-    "z": 3,
+    "x": 20,
+    "y": 20,
+    "z": 1,
     "width": 450,
-    "height": 105,
-    "tabOrder": 3
+    "height": 110,
+    "tabOrder": 1
   },
   "visual": {
     "visualType": "card",
@@ -23,11 +23,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Lonnandel %"
+                  "Property": "Total Inntekt BAC"
                 }
               },
-              "queryRef": "_Measures.Lonnandel %",
-              "nativeQueryRef": "Lønnsandel %"
+              "queryRef": "_Measures.Total Inntekt BAC",
+              "nativeQueryRef": "Total Inntekt BAC"
             }
           ]
         }
@@ -47,7 +47,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'UC6: Lønnsandel av Driftskostnader (Norm 71 %)'"
+                  "Value": "'Total Revenue (BAC)'"
                 }
               }
             }

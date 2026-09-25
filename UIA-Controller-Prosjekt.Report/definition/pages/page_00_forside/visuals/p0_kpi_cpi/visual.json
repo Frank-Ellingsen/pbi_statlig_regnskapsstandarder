@@ -1,13 +1,13 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
-  "name": "uc_kpi_f05",
+  "name": "p0_kpi_cpi",
   "position": {
-    "x": 20,
-    "y": 95,
-    "z": 2,
+    "x": 960,
+    "y": 20,
+    "z": 3,
     "width": 450,
-    "height": 105,
-    "tabOrder": 2
+    "height": 110,
+    "tabOrder": 3
   },
   "visual": {
     "visualType": "card",
@@ -23,11 +23,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Avsetningsgrad F-05-20 %"
+                  "Property": "Hel\u00e5rs CPI"
                 }
               },
-              "queryRef": "_Measures.Avsetningsgrad F-05-20 %",
-              "nativeQueryRef": "F-05-20 Avsetningsgrad"
+              "queryRef": "_Measures.Hel\u00e5rs CPI",
+              "nativeQueryRef": "Hel\u00e5rs CPI"
             }
           ]
         }
@@ -47,7 +47,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'UC1: Avsetningsgrad F-05-20 (Maks 5,0 %)'"
+                  "Value": "'Cost Performance Index (CPI)'"
                 }
               }
             }

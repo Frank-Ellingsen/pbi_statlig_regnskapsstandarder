@@ -1,0 +1,59 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "p0_kpi_spi",
+  "position": {
+    "x": 1430,
+    "y": 20,
+    "z": 4,
+    "width": 470,
+    "height": 110,
+    "tabOrder": 4
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Hel\u00e5rs SPI"
+                }
+              },
+              "queryRef": "_Measures.Hel\u00e5rs SPI",
+              "nativeQueryRef": "Hel\u00e5rs SPI"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Schedule Performance (SPI)'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

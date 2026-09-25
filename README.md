@@ -3,21 +3,26 @@
 [![Power BI](https://img.shields.io/badge/Power_BI-PBIP_%2F_TMDL-F2C811?logo=powerbi&logoColor=black)](https://powerbi.microsoft.com/)
 [![Fabric DevMode](https://img.shields.io/badge/Microsoft_Fabric-Git_Integrated-0078D4?logo=microsoft)](https://learn.microsoft.com/power-bi/developer/projects/projects-overview)
 [![DFØ SRS](https://img.shields.io/badge/Regnskap-DFØ_SRS_R--102%2F2025-004B87)](https://dfo.no/)
+[![Årsrapport 2026](https://img.shields.io/badge/Årsrapport_2026-1_433M_%2F_1_444M_%7C_CPI_0.95-0284C7)](rsrapport_Universitetet_i_Agder_UIA_Project_Controlling_Earned_Value_EV_Analysis.pdf)
+[![Excel Controller Pack](https://img.shields.io/badge/Excel_Pack-30_Ark_%7C_100%25_Avstemt-059669?logo=microsoftexcel&logoColor=white)](excel/UIA-Controller-Excel.xlsx)
 [![Statlige Use Cases](https://img.shields.io/badge/Use_Cases-UC1--UC6_Harmonisert-blue)](index.html)
 [![KD 2025 Modell](https://img.shields.io/badge/KD_2025-SPE60_%7C_176.01_MNOK-10b981)](index.html)
 [![BOA TDI Fullkalkyle](https://img.shields.io/badge/BOA_TDI-6_Prosjekter_%7C_61.5_MNOK-orange)](index.html)
 [![DuckDB](https://img.shields.io/badge/DuckDB-In--Memory_SQL-FFF000?logo=duckdb&logoColor=black)](scripts/ai_engine.py)
 [![ML Forecasting](https://img.shields.io/badge/ML_Forecast-Ridge_%26_Fan_Cone-38BDF8)](app.py)
 [![Data-Ink Ratio](https://img.shields.io/badge/Design-Edward_Tufte_Standard-2E7D32)](https://www.edwardtufte.com/)
-[![QA Tests](https://img.shields.io/badge/QA_Validation-61%2F61_Bestått-success)](app.py)
+[![QA Tests](https://img.shields.io/badge/QA_Validation-90%2F90_Bestått-success)](app.py)
 
 Dette prosjektet representerer en **autoritativ og produksjonsklar virksomhetsstyrings- og prosjektcontroller-løsning for Universitetet i Agder (UiA)**, 100 % harmonisert med styringskravene, læreplanene og regnskapsdataene i `Use Case/`. Løsningen er bygget på **Microsoft Fabric / Power BI Project-formatet (`.pbip` med TMDL)**, og integrerer regnskap (DFØ SRS), periodiserte budsjetter, rullende tertialprognoser (EAC/ETC), omstillingstiltak (gevinstrealisering), bemanningsutvikling (årsverk), student- og studieproduksjon (SPE60) og fullkostkalkyle for eksternfinansiert forskning (BOA/TDI).
 
-Rapporteringssuiten består av **16 spesialtilpassede dashboards** (inkludert 4-Soners **Dekanens Dashbord**, dedikert **Statlig Regelverkskontroll (UC1–UC6)**, **Læreplaner & Budsjettering**, **BOA TDI Prosjektstyring** og **AI Controller Hub**) utformet strengt etter **Edward Tuftes prinsipper for Data-Ink Ratio**.
+Rapporteringssuiten består av **17 spesialtilpassede dashboards** (inkludert overordnet **Årsrapport Forside & EVM (1 433M / 1 444M / CPI 0,95)**, 4-Soners **Dekanens Dashbord**, dedikert **Statlig Regelverkskontroll (UC1–UC6)**, **Læreplaner & Budsjettering**, **BOA TDI Prosjektstyring** og **AI Controller Hub**) utformet strengt etter **Edward Tuftes prinsipper for Data-Ink Ratio**.
 
-### Hurtigstart & Lenker:
+### Hurtigstart & Nøkkellenker:
 
 - 👉 [**Åpne Web Dashboard Portalen (`index.html`)**](index.html)
+- 📄 [**Åpne Offisiell Årsrapport: Project Controlling & EVM Analyse (`.pdf`)**](rsrapport_Universitetet_i_Agder_UIA_Project_Controlling_Earned_Value_EV_Analysis.pdf) ([Markdown-versjon](rsrapport_Universitetet_i_Agder_UIA_Project_Controlling_Earned_Value_EV_Analysis.md))
+- 📗 [**Åpne Komplett Excel Controller Pack (30 ark, 100 % avstemt) (`excel/UIA-Controller-Excel.xlsx`)**](excel/UIA-Controller-Excel.xlsx)
+- ⚡ [**Synkroniser alle rapporter (Excel, Power BI, Web) (`scripts/update_all_reports.py`)**](scripts/update_all_reports.py)
 - 📑 [**Utforsk Veileder for Kontroll & Rapportering (`reporting-skills/SKILL.md`)**](reporting-skills/SKILL.md)
 - 🚀 [**Kjøre den interaktive Controller-applikasjonen (`app.py`)**](http://127.0.0.1:8088) (Port 8088)
 - ⚡ [**Oppdatere Power BI med ferske KI-tiltak (`scripts/sync_ai_to_powerbi.py`)**](scripts/sync_ai_to_powerbi.py)
@@ -32,7 +37,7 @@ Rapporteringssuiten består av **16 spesialtilpassede dashboards** (inkludert 4-
 4. [Mappestruktur & Prosjektorganisering](#4-mappestruktur--prosjektorganisering)
 5. [Datamodellens Arkitektur & Stjerneskjema (16 Tabeller, 23 Relasjoner)](#5-datamodellens-arkitektur--stjerneskjema-16-tabeller-23-relasjoner)
 6. [DAX-målkatalog & Beregningslogikk](#6-dax-målkatalog--beregningslogikk)
-7. [4-Soners Dekanens Dashbord & Komplett Rapportsuite (16 Paneler)](#7-4-soners-dekanens-dashbord--komplett-rapportsuite-16-paneler)
+7. [Årsrapport Forside & Komplett Rapportsuite (17 Paneler)](#7-årsrapport-forside--komplett-rapportsuite-17-paneler)
 8. [AI Multi-Agent Hub & Maskinlæring (Diagnose, Prognose, Preskripsjon)](#8-ai-multi-agent-hub--maskinlæring-diagnose-prognose-preskripsjon)
 9. [Edward Tufte Visualiseringsstandarder](#9-edward-tufte-visualiseringsstandarder)
 10. [Installasjon & Utviklerveiledning](#10-installasjon--utviklerveiledning)
@@ -61,24 +66,31 @@ Universitets- og høyskolesektoren (UH-sektoren) er gjenstand for betydelige str
 ```text
 uia_powerbi_complete_forecast_model/
 ├── app.py                              # Standalone webapp for rå CSV-data og AI/ML-diagnostikk
-├── index.html                          # Interaktiv webportal for dashboards og knapper
+├── index.html                          # Interaktiv webportal for dashboards (17 rapporter)
 ├── README.md                           # Overordnet prosjektveiledning
+├── rsrapport_Universitetet_i_Agder_UIA_Project_Controlling_Earned_Value_EV_Analysis.pdf # Offisiell årsrapport (PDF)
+├── rsrapport_Universitetet_i_Agder_UIA_Project_Controlling_Earned_Value_EV_Analysis.md  # Offisiell årsrapport (Markdown)
 ├── UIA-Controller-Prosjekt.pbip        # Power BI Project fil (åpnes i Desktop)
-├── UIA-Controller-Prosjekt.Report/     # PBIR-rapportdefinisjon for prosjektet
-├── UIA-Controller-Prosjekt.SemanticModel/ # TMDL semantisk modell
+├── UIA-Controller-Prosjekt.Report/     # PBIR-rapportdefinisjon (17 sider inkl. page_00_forside)
+├── UIA-Controller-Prosjekt.SemanticModel/ # TMDL semantisk modell (inkl. FactYearlyReconciliation)
 ├── .agents/skills/                     # Projektspesifikke AI-skills og agentoppsett
 ├── archive/                            # Legacy backups, duplicate files og tidligere bygninger
 ├── assets/                             # Media, PDFs og øvrige non-code artefakter
-├── data/                               # Kildedata i CSV-format og modellrelasjoner
+├── data/                               # Kildedata i CSV-format (inkl. FactYearlyReconciliation.csv)
 ├── dax/                                # DAX-målkataloger og beregningslogikk
 ├── docs/                               # Prosjektfaglig dokumentasjon og referansefiler
-├── excel/                              # Excelarbeidsbøker og rapportutskrifter
+├── excel/                              # Excelarbeidsbøker (30 ark, uia_controller_excel_pack.xlsx & UIA-Controller-Excel.xlsx)
 ├── reports/                            # Power BI-rapportfiler og eksporterte viste rapporter
 ├── reporting-skills/                   # UiA Controller- & rapporteringsferdighet
 │   ├── SKILL.md                        # Hovedinstruksjon og runbook for agentbruk
 │   ├── references/                     # Regulatoriske referanser og kontrollveiledninger
 │   └── scripts/                        # Automatiserte auDitor-/verifikasjons-skript
-├── scripts/                            # Automatiserings-, ML- og valideringsskript
+├── scripts/                            # Automatiserings-, ML-, oppdaterings- og valideringsskript
+│   ├── update_all_reports.py           # Master-oppdatering for Excel, TMDL, PBIR og web
+│   ├── generate_yearly_reconciliation.py # Generator for helårsavstemt 12-månedersmodell
+│   ├── build_excel_pack.py             # Bygger komplett 30-arks Excel Controller Pack
+│   ├── build_tmdl_model.py             # Bygger semantisk TMDL-modell
+│   └── build_report_suite.py           # Bygger PBIR-rapportstruktur
 ├── scratch/                            # Eksperimenter, verifikasjoner og midlertidige hjelpefiler
 ├── screenshots/                        # Løpende skjermbilder og UI-dokumentasjon
 ├── Kontoplan/                          # Standardkontoplan og hierarkireferanser
@@ -90,7 +102,7 @@ uia_powerbi_complete_forecast_model/
 
 ## 3. Datamodellens Arkitektur & Stjerneskjema
 
-Modellen er konstruert som et **flerfakta stjerneskjema (Fact Constellation)** med 8 dimensjoner (inkludert sentral begrepskatalog) og 6 faktatabeller, bundet sammen av **22 en-til-mange (1:\*) enveisrelasjoner** i henhold til beste praksis for Power BI og DFØ SRS statlig virksomhetsstyring.
+Modellen er konstruert som et **flerfakta stjerneskjema (Fact Constellation)** med 8 dimensjoner (inkludert sentral begrepskatalog) og 7 faktatabeller (inkludert 100 % helårsavstemt FactYearlyReconciliation for topplederrapportering), bundet sammen av **22 en-til-mange (1:\*) enveisrelasjoner** i henhold til beste praksis for Power BI og DFØ SRS statlig virksomhetsstyring.
 
 ### 3.1 Datamodellens ERD (Entity-Relationship Diagram)
 
@@ -345,29 +357,30 @@ flowchart TD
    - Sentralisert målkatalog `_Measures` med over 60 DAX-beregninger strukturert i 9 faglige controller-mapper.
    - Stjernemodell med 22 enveis (single) en-til-mange relasjoner for optimal DAX-ytelse og unngåelse av tvetydige relasjonsveier.
 5. **Rapporterings-, Beslutnings- & Innsiktsflater (Presentation Layer)**:
-   - **Power BI Reporting Suite**: 16 spesialiserte dashboards (11 overordnede styringspaneler og 5 drilldown-rapporter) i PBIR v2.1-format.
-   - **Interaktiv Webportal ([index.html](file:///c:/Users/frank/Desktop/UIA/uia_powerbi_complete_forecast_model/index.html))**: Komplett HTML5/CSS3/JavaScript-portal med direkte navigasjon, 29-reglers revisjonsmatrise og live fan cone visualisering.
-   - **Integrert Controllermal ([excel/uia_controller_excel_pack.xlsx](file:///c:/Users/frank/Desktop/UIA/uia_powerbi_complete_forecast_model/excel/uia_controller_excel_pack.xlsx))**: 12 integrerte ark med Power Query-tilkobling og dynamiske pivottabeller.
+   - **Power BI Reporting Suite**: 17 spesialiserte dashboards (12 overordnede styringspaneler og 5 drilldown-rapporter) i PBIR v2.1-format, ledet av `00 Årsrapport Forside & EVM`.
+   - **Interaktiv Webportal ([index.html](file:///c:/Users/frank/Desktop/UIA/uia_powerbi_complete_forecast_model/index.html))**: Komplett HTML5/CSS3/JavaScript-portal med direkte navigasjon, 29-reglers revisjonsmatrise, full 12-måneders avstemming og live fan cone visualisering.
+   - **Integrert Controllermal ([excel/UIA-Controller-Excel.xlsx](file:///c:/Users/frank/Desktop/UIA/uia_powerbi_complete_forecast_model/excel/UIA-Controller-Excel.xlsx))**: 30 integrerte ark med `00_Aarsrapport_Forside_EVM`, 8 ledelsesdashboards, 5 drilldowns, læreplaner, use cases og 11 datatabeller.
    - **Kvalitets- og Revisjonskontroll**: Kontinuerlig verifisering av SRS-regler, 5 %-regelen (F-05-20), TDI-frikjøp og referanseintegritet.
 
 ### 3.3 Tabelloversikt & Korn (Granularitet)
 
-| Tabellnavn               | Type      | Rader  | Korn (Granularitet)                        | Primærnøkkel / Nøkkelfelt | Formål & Beskrivelse                                                                     |
-| ------------------------ | --------- | ------ | ------------------------------------------ | ------------------------- | ---------------------------------------------------------------------------------------- |
-| **`DimDate`**            | Dimensjon | 730    | Dagsnivå (2026-01-01 til 2027-12-31)       | `DatoNokkel` (`YYYYMMDD`) | Felles tidskalender med måned-, kvartal- og årsattributter.                              |
-| **`DimOrganization`**    | Dimensjon | 74     | Koststedsnivå (organisasjonsstruktur)      | `Organisasjonsnokkel`     | Organisasjonshierarki: Fakultet → Institutt → Koststed.                                  |
-| **`DimAccount`**         | Dimensjon | 46     | Kontonivå (DFØ SRS R-102/2025)             | `Konto` (heltall)         | Statlig kontoplan med SRS-regnskapslinjer og kontotyper.                                 |
-| **`DimProject`**         | Dimensjon | 8      | Prosjektkode                               | `Prosjekt`                | Prosjekthierarki for grunnbevilgning og BOA (NFR, EU, Oppdrag).                          |
-| **`DimForecastVersion`** | Dimensjon | 5      | Versjonsnivå                               | `Versjon`                 | Prognoserunder: `BUD2026`, `FC1_2026`, `FC2_2026`, `LE_2026`, `ML_PROGNOSE`.             |
-| **`DimPositionGroup`**   | Dimensjon | 5      | Stillingsgruppe                            | `Stillingsgruppe`         | Vitenskapelige (UF) vs. teknisk-administrative (TA) stillinger.                          |
-| **`DimStudyProgram`**    | Dimensjon | 22     | Studieprogramkode                          | `Studieprogram`           | Studieprogrammer på Bachelor-, Master- og PhD-nivå.                                      |
-| **`DimGlossary`**        | Dimensjon | 60     | Begrepsnivå (8 fagkategorier)              | `BegrepID`                | Komplett controller- og UH-fagterminologi (SRS, KD 2025, BOA/TDI, EVM, 5 %-regel).       |
-| **`FactGL`**             | Fakta     | 35 760 | Bilagsrad per dato, org, konto, prosjekt   | Bilags-ID                 | Bokført faktisk regnskap med `Belop_signert` (+ kostnad / - inntekt).                    |
-| **`FactBudget`**         | Fakta     | 17 760 | Måned, org, konto, prosjekt                | Sammensatt nøkkel         | Vedtatt årsbudsjett 2026 periodisert per måned (`BudsjettBelop`).                        |
-| **`FactForecast`**       | Fakta     | 71 040 | Måned, org, konto, prosjekt, versjon       | Sammensatt nøkkel         | Rullende prognoser inkl. `ML_PROGNOSE_2026` med sannsynlighetsvekting (`Sannsynlighet`). |
-| **`FactAction`**         | Fakta     | 21     | Tiltaks-ID per org, konto, prosjekt, frist | `TiltakID`                | Omstillingstiltak og gevinstrealisering (inkl. AI-tiltak `T017`–`T021`).                 |
-| **`FactFTE`**            | Fakta     | 1 440  | Måned, org, stillingsgruppe                | Sammensatt nøkkel         | Månedlig registrering av totalårsverk og faglige/vitenskapelige årsverk.                 |
-| **`FactStudyPoints`**    | Fakta     | 264    | Måned, org, studieprogram                  | Sammensatt nøkkel         | Registrerte studenter, planlagte og avlagte SP, samt SPE60-enheter.                      |
+| Tabellnavn                     | Type      | Rader  | Korn (Granularitet)                        | Primærnøkkel / Nøkkelfelt | Formål & Beskrivelse                                                                     |
+| ------------------------------ | --------- | ------ | ------------------------------------------ | ------------------------- | ---------------------------------------------------------------------------------------- |
+| **`DimDate`**                  | Dimensjon | 730    | Dagsnivå (2026-01-01 til 2027-12-31)       | `DatoNokkel` (`YYYYMMDD`) | Felles tidskalender med måned-, kvartal- og årsattributter.                              |
+| **`DimOrganization`**          | Dimensjon | 74     | Koststedsnivå (organisasjonsstruktur)      | `Organisasjonsnokkel`     | Organisasjonshierarki: Fakultet → Institutt → Koststed.                                  |
+| **`DimAccount`**               | Dimensjon | 46     | Kontonivå (DFØ SRS R-102/2025)             | `Konto` (heltall)         | Statlig kontoplan med SRS-regnskapslinjer og kontotyper.                                 |
+| **`DimProject`**               | Dimensjon | 8      | Prosjektkode                               | `Prosjekt`                | Prosjekthierarki for grunnbevilgning og BOA (NFR, EU, Oppdrag).                          |
+| **`DimForecastVersion`**       | Dimensjon | 5      | Versjonsnivå                               | `Versjon`                 | Prognoserunder: `BUD2026`, `FC1_2026`, `FC2_2026`, `LE_2026`, `ML_PROGNOSE`.             |
+| **`DimPositionGroup`**         | Dimensjon | 5      | Stillingsgruppe                            | `Stillingsgruppe`         | Vitenskapelige (UF) vs. teknisk-administrative (TA) stillinger.                          |
+| **`DimStudyProgram`**          | Dimensjon | 22     | Studieprogramkode                          | `Studieprogram`           | Studieprogrammer på Bachelor-, Master- og PhD-nivå.                                      |
+| **`DimGlossary`**              | Dimensjon | 60     | Begrepsnivå (8 fagkategorier)              | `BegrepID`                | Komplett controller- og UH-fagterminologi (SRS, KD 2025, BOA/TDI, EVM, 5 %-regel).       |
+| **`FactGL`**                   | Fakta     | 35 760 | Bilagsrad per dato, org, konto, prosjekt   | Bilags-ID                 | Bokført faktisk regnskap med `Belop_signert` (+ kostnad / - inntekt).                    |
+| **`FactBudget`**               | Fakta     | 17 760 | Måned, org, konto, prosjekt                | Sammensatt nøkkel         | Vedtatt årsbudsjett 2026 periodisert per måned (`BudsjettBelop`).                        |
+| **`FactForecast`**             | Fakta     | 71 040 | Måned, org, konto, prosjekt, versjon       | Sammensatt nøkkel         | Rullende prognoser inkl. `ML_PROGNOSE_2026` med sannsynlighetsvekting (`Sannsynlighet`). |
+| **`FactAction`**               | Fakta     | 21     | Tiltaks-ID per org, konto, prosjekt, frist | `TiltakID`                | Omstillingstiltak og gevinstrealisering (inkl. AI-tiltak `T017`–`T021`).                 |
+| **`FactFTE`**                  | Fakta     | 1 440  | Måned, org, stillingsgruppe                | Sammensatt nøkkel         | Månedlig registrering av totalårsverk og faglige/vitenskapelige årsverk.                 |
+| **`FactStudyPoints`**          | Fakta     | 264    | Måned, org, studieprogram                  | Sammensatt nøkkel         | Registrerte studenter, planlagte og avlagte SP, samt SPE60-enheter.                      |
+| **`FactYearlyReconciliation`** | Fakta     | 12     | Månedsnivå (12 mnd helårsavstemt)          | `MndNr`                   | Offisiell årsrapportmodell: Inntekt 1 433,0M, Kostnad 1 444,0M, Netto -11,0M, CPI 0,95, SPI 0,92. |
 
 ### 3.4 Relasjonsmatrise & Referanseintegritet (22 Aktive Relasjoner)
 
@@ -497,11 +510,12 @@ I overensstemmelse med Edward Tuftes visualiseringsteori benyttes diskrete Unico
 
 ---
 
-## 5. Komplett Rapportsuite (15 Dashboards)
+## 5. Komplett Rapportsuite (17 Dashboards)
 
-Rapportsuiten er delt inn i **10 rollebaserte styrings- og referansepaneler** og **5 drill-through dybdeanalyser**:
+Rapportsuiten er delt inn i **12 overordnede styrings- og referansepaneler** og **5 drill-through dybdeanalyser**:
 
 ```text
+00 Årsrapport Forside & EVM (Offisiell årsrapport & EVM-analyse, 100% avstemt)
 01 Instituttleder (Operativ styring)
 02 Dekan & Fakultetsledelse
 03 Universitetsdirektør & Ledelse
@@ -512,6 +526,7 @@ Rapportsuiten er delt inn i **10 rollebaserte styrings- og referansepaneler** og
 08 Controller Cockpit (Avstemming & Kontrolltårn)
 09 Begrepskatalog & Metodikk (Felles ordbok for UH-sektoren)
 10 AI Controller Hub (Diagnose, Prognose & Preskripsjon)
+11 Veileder for Kontroll & Rapportering (Regulatoriske pilarer & 29 kontrollregler)
 ─────────────────────────────────────────────────────────────────
 DT1 Økonomidetalj (FactGL Transaksjonslogg)
 DT2 Bemanning & Årsverk (FactFTE Lønnsanalyse)
@@ -521,6 +536,18 @@ DT5 Studieaktivitet (FactStudyPoints Programproduksjon)
 ```
 
 ### Detaljert Dashboard-gjennomgang
+
+#### 0. `00 Årsrapport Forside & EVM (Executive Front Page)` (`page_00_forside`)
+
+- **Målgruppe**: Universitetsstyret, Universitetsdirektør, Dekanmøtet og Senior Controller.
+- **Hovedspørsmål**: *Hva er UiAs samlede finansielle helårsresultat, hvordan presterer vi på Capex/Opex benchmarks mot UH-sektornormer, og hva viser Earned Value (EV)-analysen om kostnads- og fremdriftseffektivitet?*
+- **KPI-stripe**: Total Revenue BAC (1 433,0 MNOK) | Total Expenses EAC (1 444,0 MNOK) | Cost Performance Index CPI (0,95) | Schedule Performance Index SPI (0,92) | Net Operating Result (-11,0 MNOK) | Estimate to Complete ETC (100,0 MNOK).
+- **Visuelle elementer & Edward Tufte Data-Ink**:
+  - *Executive Summary Callout*: Offisiell topplederoppsummering for virksomhetsstyring, Note 15-dekning og tertialvis kontrollcutoff.
+  - *4 Toppleder KPI-kort*: Direkte tallverdier med fargede statusmerker (BAC, EAC, CPI, SPI).
+  - *Finansiell ytelse & Capex/Opex benchmarks*: Tabell med inntektsfordeling (Stat 1 234M, Forskning 123M, Andre 76M) og kostnadsfordeling (Lønn 944M / 65,7 %, Drift 340M / 23,7 %, Capex 160M / 11,1 %) benchmarked mot nasjonale UH-normer.
+  - *EVM parametere & avstemmingsbro*: Matematisk og controllerfaglig sammenheng mellom $BAC$, $EAC$, $ETC$, $AC$ og $VAC$ (-11,0 MNOK).
+  - *12-Måneders helårsavstemming (FactYearlyReconciliation)*: Komplett tidsrekke Januar–Desember med månedlig inntekt, kostnad, nettoresultat samt kumulativ $PV$, $EV$, $AC$, $CPI$ og $SPI$.
 
 #### 1. `01 Instituttleder (Operativ styring)` (`page_01_instituttleder`)
 
@@ -1069,16 +1096,25 @@ Dersom prosjektet flyttes til en ny bane:
 
 ### 4. Regenerere eller oppdatere rapporter via skript
 
-Hvis layout eller felter skal modifiseres programmatisk:
+Prosjektet er fullt automatisert via modulære Python-skript:
 
 ```powershell
-# Regenerer semantisk modell i TMDL:
+# 1. Master-oppdatering: Bygg og synkroniser Excel (30 ark), TMDL, PBIR og webportal i én operasjon:
+python scripts/update_all_reports.py
+
+# 2. Regenerer helårsavstemt 12-månedersmodell (FactYearlyReconciliation.csv):
+python scripts/generate_yearly_reconciliation.py
+
+# 3. Bygg komplett 30-arks produksjonsarbeidsbok for Excel:
+python scripts/build_excel_pack.py
+
+# 4. Regenerer semantisk modell i TMDL:
 python scripts/build_tmdl_model.py
 
-# Regenerer alle rapportdashboards i PBIR:
+# 5. Regenerer alle rapportdashboards i PBIR:
 python scripts/build_report_suite.py
 
-# Kjør full revisjon av rapporteringsregler:
+# 6. Kjør full revisjon av rapporteringsregler (90/90 tester):
 python scripts/test_rapportering_skills.py
 ```
 

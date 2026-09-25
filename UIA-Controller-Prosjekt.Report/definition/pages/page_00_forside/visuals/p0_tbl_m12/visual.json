@@ -1,0 +1,269 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "p0_tbl_m12",
+  "position": {
+    "x": 20,
+    "y": 150,
+    "z": 5,
+    "width": 1880,
+    "height": 910,
+    "tabOrder": 5
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactYearlyReconciliation"
+                    }
+                  },
+                  "Property": "MndNr"
+                }
+              },
+              "queryRef": "FactYearlyReconciliation.MndNr",
+              "nativeQueryRef": "MndNr"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactYearlyReconciliation"
+                    }
+                  },
+                  "Property": "Maaned"
+                }
+              },
+              "queryRef": "FactYearlyReconciliation.Maaned",
+              "nativeQueryRef": "Maaned"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactYearlyReconciliation"
+                    }
+                  },
+                  "Property": "StatligBevilgning"
+                }
+              },
+              "queryRef": "FactYearlyReconciliation.StatligBevilgning",
+              "nativeQueryRef": "StatligBevilgning"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactYearlyReconciliation"
+                    }
+                  },
+                  "Property": "Forskningsinntekter"
+                }
+              },
+              "queryRef": "FactYearlyReconciliation.Forskningsinntekter",
+              "nativeQueryRef": "Forskningsinntekter"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactYearlyReconciliation"
+                    }
+                  },
+                  "Property": "AndreInntekter"
+                }
+              },
+              "queryRef": "FactYearlyReconciliation.AndreInntekter",
+              "nativeQueryRef": "AndreInntekter"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactYearlyReconciliation"
+                    }
+                  },
+                  "Property": "TotalInntekt"
+                }
+              },
+              "queryRef": "FactYearlyReconciliation.TotalInntekt",
+              "nativeQueryRef": "TotalInntekt"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactYearlyReconciliation"
+                    }
+                  },
+                  "Property": "Lonnskostnader"
+                }
+              },
+              "queryRef": "FactYearlyReconciliation.Lonnskostnader",
+              "nativeQueryRef": "Lonnskostnader"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactYearlyReconciliation"
+                    }
+                  },
+                  "Property": "Driftskostnader"
+                }
+              },
+              "queryRef": "FactYearlyReconciliation.Driftskostnader",
+              "nativeQueryRef": "Driftskostnader"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactYearlyReconciliation"
+                    }
+                  },
+                  "Property": "InvesteringerCapex"
+                }
+              },
+              "queryRef": "FactYearlyReconciliation.InvesteringerCapex",
+              "nativeQueryRef": "InvesteringerCapex"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactYearlyReconciliation"
+                    }
+                  },
+                  "Property": "TotalKostnad"
+                }
+              },
+              "queryRef": "FactYearlyReconciliation.TotalKostnad",
+              "nativeQueryRef": "TotalKostnad"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactYearlyReconciliation"
+                    }
+                  },
+                  "Property": "NettoResultat"
+                }
+              },
+              "queryRef": "FactYearlyReconciliation.NettoResultat",
+              "nativeQueryRef": "NettoResultat"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactYearlyReconciliation"
+                    }
+                  },
+                  "Property": "Kumulativ_PV"
+                }
+              },
+              "queryRef": "FactYearlyReconciliation.Kumulativ_PV",
+              "nativeQueryRef": "Kumulativ_PV"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactYearlyReconciliation"
+                    }
+                  },
+                  "Property": "Kumulativ_EV"
+                }
+              },
+              "queryRef": "FactYearlyReconciliation.Kumulativ_EV",
+              "nativeQueryRef": "Kumulativ_EV"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactYearlyReconciliation"
+                    }
+                  },
+                  "Property": "Kumulativ_AC"
+                }
+              },
+              "queryRef": "FactYearlyReconciliation.Kumulativ_AC",
+              "nativeQueryRef": "Kumulativ_AC"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactYearlyReconciliation"
+                    }
+                  },
+                  "Property": "Kumulativ_CPI"
+                }
+              },
+              "queryRef": "FactYearlyReconciliation.Kumulativ_CPI",
+              "nativeQueryRef": "Kumulativ_CPI"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactYearlyReconciliation"
+                    }
+                  },
+                  "Property": "Kumulativ_SPI"
+                }
+              },
+              "queryRef": "FactYearlyReconciliation.Kumulativ_SPI",
+              "nativeQueryRef": "Kumulativ_SPI"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'\u00c5rsrapport Universitetet i Agder (UIA) - 100% Avstemt Hel\u00e5rsmodell 2026 (FactYearlyReconciliation)'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

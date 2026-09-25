@@ -101,7 +101,7 @@ def init_duckdb(data_dir):
     tables = [
         "DimAccount", "DimDate", "DimForecastVersion", "DimGlossary", "DimOrganization",
         "DimPositionGroup", "DimProject", "DimStudyProgram",
-        "FactAction", "FactBudget", "FactFTE", "FactForecast", "FactGL", "FactStudyPoints", "FactProjectBOA"
+        "FactAction", "FactBudget", "FactFTE", "FactForecast", "FactGL", "FactStudyPoints", "FactProjectBOA", "FactYearlyReconciliation"
     ]
     for tbl in tables:
         p = os.path.join(data_dir, f"{tbl}.csv").replace("\\", "/")
@@ -240,6 +240,7 @@ def build_sheet_00_navigasjon(wb):
     ws.row_dimensions[r].height = 22
 
     reports = [
+        ("00", "00_Aarsrapport_Forside_EVM", "Universitetsledelsen / Styret / Controller", "Offisiell Årsrapport for UiA: Finansiell ytelse, Capex/Opex benchmarks, EVM analyse (CPI 0.95, SPI 0.92) og 100% avstemt 12-mnd tidsrekke"),
         ("01", "01_Instituttleder", "Instituttleder / Kontorsjef", "Operativ styring, månedlig trend, avviksdrivere og tiltaksstatus"),
         ("02", "02_Dekan", "Dekan & Fakultetsledelse", "Taktisk fakultetsledelse, instituttavvik, BOA-kilder og faglig produktivitet"),
         ("03", "03_Executive", "Universitetsdirektør & Ledelse", "Prognosevandring over runder (BAC → FC1 → FC2 → LE), fakultetsoversikt"),
@@ -319,6 +320,169 @@ def build_sheet_00_navigasjon(wb):
     ws.column_dimensions["D"].width = 30
     ws.column_dimensions["E"].width = 65
     ws.column_dimensions["F"].width = 16
+
+
+def build_sheet_00_aarsrapport_forside_evm(wb, con):
+    ws = wb.create_sheet(title="00_Aarsrapport_Forside_EVM", index=1)
+    render_header(ws, "Årsrapport Universitetet i Agder (UIA) - Project Controlling & Earned Value (EV) Analysis",
+                  "Offisiell Årsrapport for Virksomhetsstyring & Finansiell Ytelse | DFØ SRS R-102 | Edward Tufte Data-Ink",
+                  "Universitetsledelsen / Styret / Senior Controller", max_col=15)
+
+    # Executive Summary Banner
+    ws.merge_cells("B4:N5")
+    box = ws["B4"]
+    box.value = ("Executive Summary: This report provides an analysis of the University of Agder's (UIA) financial performance, "
+                 "using Project Controlling and Earned Value (EV) analysis. The report highlights key findings, recommendations, "
+                 "and action items to ensure the university's financial stability. Total revenue equals 1,433.0 MNOK, total expenditures "
+                 "1,444.0 MNOK, net deficit -11.0 MNOK, with CPI = 0.95 and SPI = 0.92 at late-year cutoff (100% reconciled).")
+    box.font = Font(name=FONT_NAME, size=9.5, italic=True, color="1E293B")
+    box.alignment = Alignment(wrap_text=True, vertical="center")
+    ws.row_dimensions[4].height = 24
+    ws.row_dimensions[5].height = 24
+
+    # 4 KPI Cards
+    kpis = [
+        {"title": "Total Revenue (BAC)", "val": 1433000000.0, "sub": "1 433,0 MNOK | Stat 1 234M", "fmt": FMT_CURR, "badge": "100% BAC"},
+        {"title": "Total Expenses (EAC)", "val": 1444000000.0, "sub": "1 444,0 MNOK | Lønn 944M", "fmt": FMT_CURR, "badge": "-11,0 M Avvik"},
+        {"title": "Cost Performance (CPI)", "val": 0.95, "sub": "EV 1 276,8M / AC 1 344,0M", "fmt": "0.00", "badge": "T3 Cutoff"},
+        {"title": "Schedule Performance (SPI)", "val": 0.92, "sub": "EV 1 276,8M / PV 1 387,8M", "fmt": "0.00", "badge": "T3 Cutoff"}
+    ]
+    render_kpis(ws, 7, kpis)
+
+    # 1. Financial Performance & Capex/Opex Benchmarks
+    r = 11
+    ws.cell(row=r, column=2, value="1. FINANCIAL PERFORMANCE & CAPEX/OPEX BENCHMARKS (NOK MILLION)").font = FONT_SECTION
+    r += 1
+
+    headers = ["Kategori", "Beløp (MNOK)", "% av Inntekt", "% av Kostnad", "UH-Sektornorm", "Status / Hjemmel"]
+    for idx, h in enumerate(headers, start=2):
+        c = ws.cell(row=r, column=idx, value=h)
+        c.font = FONT_TH; c.fill = FILL_TH
+        c.alignment = Alignment(horizontal="right" if idx in [3,4,5] else "left", vertical="center")
+    ws.row_dimensions[r].height = 20
+
+    fin_rows = [
+        ("Total Revenue (BAC)", 1433.0, 1.00, None, "100,0 %", "Samlet inntektsramme (BAC)"),
+        ("  Government Funding", 1234.0, 0.8611, None, "85–88 %", "KDs bevilgning (Basis + SPE60)"),
+        ("  Research Funding", 123.0, 0.0858, None, "8–10 %", "SRS 10 BOA-bidrag (NFR, EU)"),
+        ("  Other Revenue", 76.0, 0.0530, None, "4–6 %", "SRS 9 Oppdrag, EVU, leie"),
+        ("Total Expenses (EAC / AC)", 1444.0, 1.0077, 1.00, "100,0 %", "Helårsforbruk (EAC)"),
+        ("  Personnel Expenses", 944.0, 0.6588, 0.6537, "62,0–65,0 %", "🟡 Moderat over norm"),
+        ("  Operating Expenses", 340.0, 0.2373, 0.2355, "22,0–25,0 %", "🟢 I henhold til norm"),
+        ("  Capital Expenditures", 160.0, 0.1117, 0.1108, "10,0–12,0 %", "🟢 Balansert FoU-løft"),
+        ("Net Operating Result (Underskudd)", -11.0, -0.0077, None, "Balanse", "🔴 Dekkes av Note 15 / avsetninger")
+    ]
+
+    for item in fin_rows:
+        r += 1
+        ws.cell(row=r, column=2, value=item[0]).font = FONT_TD_BOLD if "Total" in item[0] or "Net" in item[0] else FONT_TD
+        c_val = ws.cell(row=r, column=3, value=item[1])
+        c_val.font = FONT_TD_BOLD if "Total" in item[0] or "Net" in item[0] else FONT_TD
+        c_val.number_format = FMT_DEC
+        
+        c_p1 = ws.cell(row=r, column=4, value=item[2] if item[2] is not None else "")
+        if item[2] is not None: c_p1.number_format = FMT_PCT
+        c_p1.font = FONT_TD
+
+        c_p2 = ws.cell(row=r, column=5, value=item[3] if item[3] is not None else "")
+        if item[3] is not None: c_p2.number_format = FMT_PCT
+        c_p2.font = FONT_TD
+
+        ws.cell(row=r, column=6, value=item[4]).font = FONT_TD
+        ws.cell(row=r, column=7, value=item[5]).font = FONT_TD
+        for c in range(2, 8): ws.cell(row=r, column=c).border = BORDER_TOP_BOTTOM
+
+    # 2. EVM Parameters Table
+    r += 3
+    ws.cell(row=r, column=2, value="2. EARNED VALUE MANAGEMENT (EVM) PARAMETRE & AVSTEMMINGSBRO").font = FONT_SECTION
+    r += 1
+
+    evm_headers = ["Parameter", "Verdi", "Formel / Kilde", "Operasjonell Betydning"]
+    for idx, h in enumerate(evm_headers, start=2):
+        c = ws.cell(row=r, column=idx, value=h)
+        c.font = FONT_TH; c.fill = FILL_TH
+        c.alignment = Alignment(horizontal="right" if idx == 3 else "left", vertical="center")
+    ws.row_dimensions[r].height = 20
+
+    evm_rows = [
+        ("Cost Performance Index (CPI)", "0,95", "EV / AC = 1 276,8 / 1 344,0", "0,95 kr verdi opptjent per krone påløpt ved kontrollcutoff"),
+        ("Schedule Performance Index (SPI)", "0,92", "EV / PV = 1 276,8 / 1 387,8", "92% fremdrift realisert mot opprinnelig planlagt milepælskurve"),
+        ("Earned Value (EV)", "1 344,0 MNOK", "Fysisk fremdrift * BAC", "Samlet opptjent verdi ved fullført regnskapsår (M11: 1 276,8M)"),
+        ("Budget at Completion (BAC)", "1 433,0 MNOK", "Total inntektsramme", "Universitetets samlede opprinnelige budsjettgrunnlag"),
+        ("Estimate at Completion (EAC)", "1 444,0 MNOK", "AC + ETC = 1 344,0 + 100,0", "Sluttkostnad ved årets utgang (faktisk totalutgift)"),
+        ("Estimate to Complete (ETC)", "100,0 MNOK", "Gjenstående restkostnad", "Nødvendig budsjett for å fullføre desemberaktivitet (M12)"),
+        ("Actual Cost Cutoff (AC)", "1 344,0 MNOK", "EAC - ETC", "Påløpte kostnader til og med november (M11)"),
+        ("Variance at Completion (VAC)", "-11,0 MNOK", "BAC - EAC = 1 433,0 - 1 444,0", "Sluttavvik som belaster oppspart bevilgningskapital")
+    ]
+    for e_row in evm_rows:
+        r += 1
+        ws.cell(row=r, column=2, value=e_row[0]).font = FONT_TD_BOLD
+        ws.cell(row=r, column=3, value=e_row[1]).font = FONT_TD_BOLD
+        ws.cell(row=r, column=4, value=e_row[2]).font = FONT_TD
+        ws.cell(row=r, column=5, value=e_row[3]).font = FONT_TD
+        for c in range(2, 6): ws.cell(row=r, column=c).border = BORDER_TOP_BOTTOM
+
+    # 3. Full 12-Month Table from FactYearlyReconciliation
+    r += 3
+    ws.cell(row=r, column=2, value="3. 12-MÅNEDERS HELÅRSAVSTEMMING (FactYearlyReconciliation)").font = FONT_SECTION
+    r += 1
+
+    tbl_headers = ["Mnd", "Statlig", "Forskning", "Andre", "Total Inntekt", "Lønn", "Drift", "Capex", "Total Kostnad", "Netto", "Kum. PV", "Kum. EV", "Kum. AC", "CPI", "SPI"]
+    for idx, h in enumerate(tbl_headers, start=2):
+        c = ws.cell(row=r, column=idx, value=h)
+        c.font = FONT_TH; c.fill = FILL_TH
+        c.alignment = Alignment(horizontal="right" if idx > 2 else "left", vertical="center")
+    ws.row_dimensions[r].height = 20
+
+    m12_data = con.execute("""
+        SELECT Maaned, StatligBevilgning, Forskningsinntekter, AndreInntekter, TotalInntekt,
+               Lonnskostnader, Driftskostnader, InvesteringerCapex, TotalKostnad, NettoResultat,
+               Kumulativ_PV, Kumulativ_EV, Kumulativ_AC, Kumulativ_CPI, Kumulativ_SPI
+        FROM FactYearlyReconciliation ORDER BY MndNr
+    """).fetchall()
+
+    start_12 = r + 1
+    for m in m12_data:
+        r += 1
+        ws.cell(row=r, column=2, value=m[0]).font = FONT_TD_BOLD
+        for c_idx in range(3, 17):
+            val_str = str(m[c_idx-2]).replace(",", ".")
+            val = float(val_str)
+            cell = ws.cell(row=r, column=c_idx, value=val)
+            cell.font = FONT_TD
+            if c_idx in [15, 16]:
+                cell.number_format = "0.00"
+            else:
+                cell.number_format = FMT_DEC
+            cell.border = BORDER_TOP_BOTTOM
+
+    # Total Sum Row
+    r += 1
+    ws.cell(row=r, column=2, value="SUM 2026").font = FONT_TD_BOLD
+    for c_idx in range(3, 17):
+        col_let = get_column_letter(c_idx)
+        cell = ws.cell(row=r, column=c_idx)
+        cell.font = FONT_TD_BOLD
+        cell.border = BORDER_TOTAL
+        cell.fill = FILL_TOTAL
+        if c_idx in [15, 16]:
+            cell.value = 0.95 if c_idx == 15 else 0.92
+            cell.number_format = "0.00"
+        else:
+            cell.value = f"=SUM({col_let}{start_12}:{col_let}{r-1})"
+            cell.number_format = FMT_DEC
+
+    auto_fit_columns(ws, min_col=1, max_col=17)
+    ws.column_dimensions["B"].width = 14
+    ws.column_dimensions["C"].width = 12
+    ws.column_dimensions["D"].width = 12
+    ws.column_dimensions["E"].width = 12
+    ws.column_dimensions["F"].width = 14
+    ws.column_dimensions["G"].width = 12
+    ws.column_dimensions["H"].width = 12
+    ws.column_dimensions["I"].width = 12
+    ws.column_dimensions["J"].width = 14
+    ws.column_dimensions["K"].width = 12
 
 
 def build_sheet_01_instituttleder(wb, con):
@@ -1938,6 +2102,9 @@ def main():
     print("\n>>> Building 00_Forside_Navigasjon...")
     build_sheet_00_navigasjon(wb)
 
+    print(">>> Building 00_Aarsrapport_Forside_EVM...")
+    build_sheet_00_aarsrapport_forside_evm(wb, con)
+
     # 2. Build Management Reports 01 - 09
     print(">>> Building 01_Instituttleder...")
     build_sheet_01_instituttleder(wb, con)
@@ -2001,7 +2168,8 @@ def main():
         ("FactFTE", "FactFTE.csv"),
         ("FactStudyPoints", "FactStudyPoints.csv"),
         ("FactAction", "FactAction.csv"),
-        ("FactGL", "FactGL.csv")
+        ("FactGL", "FactGL.csv"),
+        ("FactYearlyReconciliation", "FactYearlyReconciliation.csv")
     ]
     for s_name, file_name in data_tables:
         csv_file = os.path.join(data_dir, file_name)
@@ -2010,6 +2178,7 @@ def main():
     # 5. Set Tab Colors
     tab_colors = {
         "00_Forside_Navigasjon": "0F172A",
+        "00_Aarsrapport_Forside_EVM": "0284C7",
         "01_Instituttleder": "1E40AF",
         "02_Dekan": "1E40AF",
         "03_Executive": "1E40AF",

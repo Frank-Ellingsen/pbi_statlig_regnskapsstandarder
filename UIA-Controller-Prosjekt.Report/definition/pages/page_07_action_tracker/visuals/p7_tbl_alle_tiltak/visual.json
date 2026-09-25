@@ -23,20 +23,6 @@
                       "Entity": "FactAction"
                     }
                   },
-                  "Property": "UseCasesRef"
-                }
-              },
-              "queryRef": "FactAction.UseCasesRef",
-              "nativeQueryRef": "Use Case"
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "FactAction"
-                    }
-                  },
                   "Property": "TiltakID"
                 }
               },

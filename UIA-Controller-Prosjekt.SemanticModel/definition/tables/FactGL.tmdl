@@ -1,54 +1,54 @@
 table FactGL
 	lineageTag: f0000001-0000-0000-0000-000000000001
 
+	column Bilag
+		dataType: string
+		lineageTag: f0000001-0000-0000-0000-000000000002
+		summarizeBy: none
+		sourceColumn: Bilag
+
 	column DatoNokkel
 		dataType: int64
-		lineageTag: f0000001-0000-0000-0000-000000000002
+		lineageTag: f0000001-0000-0000-0000-000000000003
 		summarizeBy: none
 		sourceColumn: DatoNokkel
 
 	column Organisasjonsnokkel
 		dataType: string
-		lineageTag: f0000001-0000-0000-0000-000000000003
+		lineageTag: f0000001-0000-0000-0000-000000000004
 		summarizeBy: none
 		sourceColumn: Organisasjonsnokkel
 
 	column Konto
 		dataType: int64
-		lineageTag: f0000001-0000-0000-0000-000000000004
+		lineageTag: f0000001-0000-0000-0000-000000000005
 		summarizeBy: none
 		sourceColumn: Konto
 
 	column Prosjekt
 		dataType: string
-		lineageTag: f0000001-0000-0000-0000-000000000005
+		lineageTag: f0000001-0000-0000-0000-000000000006
 		summarizeBy: none
 		sourceColumn: Prosjekt
 
-	column Belop
+	column Belop_signert
 		dataType: decimal
 		formatString: #,##0.00
-		lineageTag: f0000001-0000-0000-0000-000000000006
+		lineageTag: f0000001-0000-0000-0000-000000000007
 		summarizeBy: sum
-		sourceColumn: Belop
+		sourceColumn: Belop_signert
 
 	column Tekst
 		dataType: string
-		lineageTag: f0000001-0000-0000-0000-000000000007
+		lineageTag: f0000001-0000-0000-0000-000000000008
 		summarizeBy: none
 		sourceColumn: Tekst
 
-	column TransaksjonsID
-		dataType: string
-		lineageTag: f0000001-0000-0000-0000-000000000008
-		summarizeBy: none
-		sourceColumn: TransaksjonsID
-
-	column UseCasesRef
+	column Datakilde
 		dataType: string
 		lineageTag: f0000001-0000-0000-0000-000000000009
 		summarizeBy: none
-		sourceColumn: UseCasesRef
+		sourceColumn: Datakilde
 
 	partition FactGL = m
 		mode: import
@@ -56,6 +56,6 @@ table FactGL
 				let
 				    Source = Csv.Document(File.Contents(DataFolder & "FactGL.csv"), [Delimiter=";", Columns=8, Encoding=65001, QuoteStyle=QuoteStyle.None]),
 				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
-				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"DatoNokkel", Int64.Type}, {"Organisasjonsnokkel", type text}, {"Konto", Int64.Type}, {"Prosjekt", type text}, {"Belop", Currency.Type}, {"Tekst", type text}, {"TransaksjonsID", type text}, {"UseCasesRef", type text}}, "en-US")
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Bilag", type text}, {"DatoNokkel", Int64.Type}, {"Organisasjonsnokkel", type text}, {"Konto", Int64.Type}, {"Prosjekt", type text}, {"Belop_signert", Currency.Type}, {"Tekst", type text}, {"Datakilde", type text}}, "en-US")
 				in
 				    #"Changed Type"
