@@ -1,0 +1,59 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "p0_kpi_etc",
+  "position": {
+    "x": 1100,
+    "y": 20,
+    "z": 5,
+    "width": 255,
+    "height": 105,
+    "tabOrder": 5
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Helårs ETC"
+                }
+              },
+              "queryRef": "_Measures.Helårs ETC",
+              "nativeQueryRef": "Helårs ETC"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Estimate to Complete ETC (MNOK)'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

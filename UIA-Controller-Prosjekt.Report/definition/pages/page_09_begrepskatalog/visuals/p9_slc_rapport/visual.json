@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "p9_slc_rapport",
   "position": {
     "x": 960,
     "y": 15,
     "z": 3,
-    "width": 450,
     "height": 65,
+    "width": 450,
     "tabOrder": 3
   },
   "visual": {
@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "DimGlossary.RelevantRapport",
-              "nativeQueryRef": "RelevantRapport"
+              "nativeQueryRef": "RelevantRapport",
+              "active": true
             }
           ]
         }

@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "p8_slc_konto",
   "position": {
     "x": 780,
     "y": 15,
     "z": 3,
-    "width": 360,
     "height": 65,
+    "width": 360,
     "tabOrder": 3
   },
   "visual": {
@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "DimAccount.SRS_regnskapslinje",
-              "nativeQueryRef": "SRS_regnskapslinje"
+              "nativeQueryRef": "SRS_regnskapslinje",
+              "active": true
             }
           ]
         }

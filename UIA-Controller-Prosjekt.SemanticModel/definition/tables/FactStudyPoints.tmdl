@@ -61,3 +61,4 @@ table FactStudyPoints
 				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"DatoNokkel", Int64.Type}, {"Organisasjonsnokkel", type text}, {"Studieprogram", type text}, {"RegistrerteStudenter", Int64.Type}, {"PlanlagteStudiepoeng", Int64.Type}, {"AvlagteStudiepoeng", type number}, {"SPE60", type number}, {"BestattAndel", type number}}, "en-US")
 				in
 				    #"Changed Type"
+

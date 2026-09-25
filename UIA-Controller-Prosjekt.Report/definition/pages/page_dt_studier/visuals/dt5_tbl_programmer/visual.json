@@ -173,7 +173,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Studieaktivitet og studiepoengproduksjon med RAG-m\u00e5loppn\u00e5else (FactStudyPoints)'"
+                  "Value": "'Studieaktivitet og studiepoengproduksjon med RAG-måloppnåelse (FactStudyPoints)'"
                 }
               }
             }

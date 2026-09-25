@@ -145,7 +145,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Hovedtall og prognosestatus per fakultet og fellesomr\u00e5de'"
+                  "Value": "'Hovedtall og prognosestatus per fakultet og fellesområde'"
                 }
               }
             }

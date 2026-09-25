@@ -29,7 +29,7 @@ annotation __PBI_TimeIntelligenceEnabled = 0
 
 annotation PBI_ProTooling = ["DevMode"]
 
-annotation PBI_QueryOrder = ["_Measures","DimDate","DimOrganization","DimAccount","DimProject","DimForecastVersion","DimPositionGroup","DimStudyProgram","DimGlossary","FactGL","FactBudget","FactForecast","FactFTE","FactStudyPoints","FactAction","FactYearlyReconciliation","DataFolder"]
+annotation PBI_QueryOrder = ["_Measures","DimDate","DimOrganization","DimAccount","DimProject","DimForecastVersion","DimPositionGroup","DimStudyProgram","DimGlossary","FactGL","FactBudget","FactForecast","FactFTE","FactStudyPoints","FactAction","FactProjectBOA","FactYearlyReconciliation","DataFolder"]
 
 ref table _Measures
 ref table DimDate
@@ -46,6 +46,7 @@ ref table FactForecast
 ref table FactFTE
 ref table FactStudyPoints
 ref table FactAction
+ref table FactProjectBOA
 ref table FactYearlyReconciliation
 
 ref cultureInfo en-US
@@ -151,6 +152,10 @@ relationship 00000001-0000-0000-0000-000000000021
 
 relationship 00000001-0000-0000-0000-000000000022
 \tfromColumn: FactAction.Prosjekt
+\ttoColumn: DimProject.Prosjekt
+
+relationship 00000001-0000-0000-0000-000000000023
+\tfromColumn: FactProjectBOA.Prosjekt
 \ttoColumn: DimProject.Prosjekt
 """
     with open(os.path.join(sem_dir, "relationships.tmdl"), "w", encoding="utf-8") as f:
@@ -1106,7 +1111,322 @@ relationship 00000001-0000-0000-0000-000000000022
     with open(os.path.join(tables_dir, "FactAction.tmdl"), "w", encoding="utf-8") as f:
         f.write(fact_action_content)
 
-    # 17. _Measures.tmdl (Full Controller DAX Library)
+    # 17. FactProjectBOA.tmdl
+    fact_boa_content = """table FactProjectBOA
+\tlineageTag: f0000010-0000-0000-0000-000000000001
+
+\tcolumn Prosjekt
+\t\tdataType: string
+\t\tisKey
+\t\tlineageTag: f0000010-0000-0000-0000-000000000002
+\t\tsummarizeBy: none
+\t\tsourceColumn: Prosjekt
+
+\tcolumn Prosjektnavn
+\t\tdataType: string
+\t\tlineageTag: f0000010-0000-0000-0000-000000000003
+\t\tsummarizeBy: none
+\t\tsourceColumn: Prosjektnavn
+
+\tcolumn Finansieringstype
+\t\tdataType: string
+\t\tlineageTag: f0000010-0000-0000-0000-000000000004
+\t\tsummarizeBy: none
+\t\tsourceColumn: Finansieringstype
+
+\tcolumn Finansieringskilde
+\t\tdataType: string
+\t\tlineageTag: f0000010-0000-0000-0000-000000000005
+\t\tsummarizeBy: none
+\t\tsourceColumn: Finansieringskilde
+
+\tcolumn Kontraktsbelop
+\t\tdataType: decimal
+\t\tformatString: #,##0.00
+\t\tlineageTag: f0000010-0000-0000-0000-000000000006
+\t\tsummarizeBy: sum
+\t\tsourceColumn: Kontraktsbelop
+
+\tcolumn Budsjett
+\t\tdataType: decimal
+\t\tformatString: #,##0.00
+\t\tlineageTag: f0000010-0000-0000-0000-000000000007
+\t\tsummarizeBy: sum
+\t\tsourceColumn: Budsjett
+
+\tcolumn Frikjop
+\t\tdataType: decimal
+\t\tformatString: #,##0.00
+\t\tlineageTag: f0000010-0000-0000-0000-000000000008
+\t\tsummarizeBy: sum
+\t\tsourceColumn: Frikjop
+
+\tcolumn DirekteDrift
+\t\tdataType: decimal
+\t\tformatString: #,##0.00
+\t\tlineageTag: f0000010-0000-0000-0000-000000000009
+\t\tsummarizeBy: sum
+\t\tsourceColumn: DirekteDrift
+
+\tcolumn Overhead
+\t\tdataType: decimal
+\t\tformatString: #,##0.00
+\t\tlineageTag: f0000010-0000-0000-0000-000000000010
+\t\tsummarizeBy: sum
+\t\tsourceColumn: Overhead
+
+\tcolumn Leiested
+\t\tdataType: decimal
+\t\tformatString: #,##0.00
+\t\tlineageTag: f0000010-0000-0000-0000-000000000011
+\t\tsummarizeBy: sum
+\t\tsourceColumn: Leiested
+
+\tcolumn PåløptKostnad
+\t\tdataType: decimal
+\t\tformatString: #,##0.00
+\t\tlineageTag: f0000010-0000-0000-0000-000000000012
+\t\tsummarizeBy: sum
+\t\tsourceColumn: PåløptKostnad
+
+\tcolumn Inntektsført
+\t\tdataType: decimal
+\t\tformatString: #,##0.00
+\t\tlineageTag: f0000010-0000-0000-0000-000000000013
+\t\tsummarizeBy: sum
+\t\tsourceColumn: Inntektsført
+
+\tcolumn Dekningsgrad
+\t\tdataType: double
+\t\tformatString: 0.0%
+\t\tlineageTag: f0000010-0000-0000-0000-000000000014
+\t\tsummarizeBy: average
+\t\tsourceColumn: Dekningsgrad
+
+\tcolumn '%TidGått'
+\t\tdataType: double
+\t\tformatString: 0.0%
+\t\tlineageTag: f0000010-0000-0000-0000-000000000015
+\t\tsummarizeBy: average
+\t\tsourceColumn: '%TidGått'
+
+\tcolumn '%BudsjettForbrukt'
+\t\tdataType: double
+\t\tformatString: 0.0%
+\t\tlineageTag: f0000010-0000-0000-0000-000000000016
+\t\tsummarizeBy: average
+\t\tsourceColumn: '%BudsjettForbrukt'
+
+\tcolumn Forbruksavvik
+\t\tdataType: double
+\t\tformatString: 0.0%
+\t\tlineageTag: f0000010-0000-0000-0000-000000000017
+\t\tsummarizeBy: average
+\t\tsourceColumn: Forbruksavvik
+
+\tcolumn RAG_Status
+\t\tdataType: string
+\t\tlineageTag: f0000010-0000-0000-0000-000000000018
+\t\tsummarizeBy: none
+\t\tsourceColumn: RAG_Status
+
+\tcolumn StatusMerknad
+\t\tdataType: string
+\t\tlineageTag: f0000010-0000-0000-0000-000000000019
+\t\tsummarizeBy: none
+\t\tsourceColumn: StatusMerknad
+
+\tpartition FactProjectBOA = m
+\t\tmode: import
+\t\tsource =
+\t\t\t\tlet
+\t\t\t\t    Source = Csv.Document(File.Contents(DataFolder & "FactProjectBOA.csv"), [Delimiter=";", Columns=18, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+\t\t\t\t    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+\t\t\t\t    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Prosjekt", type text}, {"Prosjektnavn", type text}, {"Finansieringstype", type text}, {"Finansieringskilde", type text}, {"Kontraktsbelop", Currency.Type}, {"Budsjett", Currency.Type}, {"Frikjop", Currency.Type}, {"DirekteDrift", Currency.Type}, {"Overhead", Currency.Type}, {"Leiested", Currency.Type}, {"PåløptKostnad", Currency.Type}, {"Inntektsført", Currency.Type}, {"Dekningsgrad", type number}, {"%TidGått", type number}, {"%BudsjettForbrukt", type number}, {"Forbruksavvik", type number}, {"RAG_Status", type text}, {"StatusMerknad", type text}}, "en-US")
+\t\t\t\tin
+\t\t\t\t    #"Changed Type"
+"""
+    with open(os.path.join(tables_dir, "FactProjectBOA.tmdl"), "w", encoding="utf-8") as f:
+        f.write(fact_boa_content)
+
+    # 18. FactYearlyReconciliation.tmdl
+    fact_recon_content = """table FactYearlyReconciliation
+\tlineageTag: f0000008-0000-0000-0000-000000000001
+
+\tcolumn MndNr
+\t\tdataType: int64
+\t\tformatString: 0
+\t\tlineageTag: f0000008-0000-0000-0000-000000000002
+\t\tsummarizeBy: none
+\t\tsourceColumn: MndNr
+
+\tcolumn Maaned
+\t\tdataType: string
+\t\tlineageTag: f0000008-0000-0000-0000-000000000003
+\t\tsummarizeBy: none
+\t\tsourceColumn: Maaned
+
+\tcolumn StatligBevilgning
+\t\tdataType: double
+\t\tformatString: #,##0.0
+\t\tlineageTag: f0000008-0000-0000-0000-000000000004
+\t\tsummarizeBy: sum
+\t\tsourceColumn: StatligBevilgning
+
+\tcolumn Forskningsinntekter
+\t\tdataType: double
+\t\tformatString: #,##0.0
+\t\tlineageTag: f0000008-0000-0000-0000-000000000005
+\t\tsummarizeBy: sum
+\t\tsourceColumn: Forskningsinntekter
+
+\tcolumn AndreInntekter
+\t\tdataType: double
+\t\tformatString: #,##0.0
+\t\tlineageTag: f0000008-0000-0000-0000-000000000006
+\t\tsummarizeBy: sum
+\t\tsourceColumn: AndreInntekter
+
+\tcolumn Lonnskostnader
+\t\tdataType: double
+\t\tformatString: #,##0.0
+\t\tlineageTag: f0000008-0000-0000-0000-000000000007
+\t\tsummarizeBy: sum
+\t\tsourceColumn: Lonnskostnader
+
+\tcolumn Driftskostnader
+\t\tdataType: double
+\t\tformatString: #,##0.0
+\t\tlineageTag: f0000008-0000-0000-0000-000000000008
+\t\tsummarizeBy: sum
+\t\tsourceColumn: Driftskostnader
+
+\tcolumn InvesteringerCapex
+\t\tdataType: double
+\t\tformatString: #,##0.0
+\t\tlineageTag: f0000008-0000-0000-0000-000000000009
+\t\tsummarizeBy: sum
+\t\tsourceColumn: InvesteringerCapex
+
+\tcolumn PlanlagtVerdi_PV
+\t\tdataType: double
+\t\tformatString: #,##0.0
+\t\tlineageTag: f0000008-0000-0000-0000-000000000010
+\t\tsummarizeBy: sum
+\t\tsourceColumn: PlanlagtVerdi_PV
+
+\tcolumn OpptjentVerdi_EV
+\t\tdataType: double
+\t\tformatString: #,##0.0
+\t\tlineageTag: f0000008-0000-0000-0000-000000000011
+\t\tsummarizeBy: sum
+\t\tsourceColumn: OpptjentVerdi_EV
+
+\tcolumn FaktiskKostnad_AC
+\t\tdataType: double
+\t\tformatString: #,##0.0
+\t\tlineageTag: f0000008-0000-0000-0000-000000000012
+\t\tsummarizeBy: sum
+\t\tsourceColumn: FaktiskKostnad_AC
+
+\tcolumn TotalInntekt
+\t\tdataType: double
+\t\tformatString: #,##0.0
+\t\tlineageTag: f0000008-0000-0000-0000-000000000013
+\t\tsummarizeBy: sum
+\t\tsourceColumn: TotalInntekt
+
+\tcolumn TotalKostnad
+\t\tdataType: double
+\t\tformatString: #,##0.0
+\t\tlineageTag: f0000008-0000-0000-0000-000000000014
+\t\tsummarizeBy: sum
+\t\tsourceColumn: TotalKostnad
+
+\tcolumn NettoResultat
+\t\tdataType: double
+\t\tformatString: #,##0.0
+\t\tlineageTag: f0000008-0000-0000-0000-000000000015
+\t\tsummarizeBy: sum
+\t\tsourceColumn: NettoResultat
+
+\tcolumn Kumulativ_Inntekt
+\t\tdataType: double
+\t\tformatString: #,##0.0
+\t\tlineageTag: f0000008-0000-0000-0000-000000000016
+\t\tsummarizeBy: sum
+\t\tsourceColumn: Kumulativ_Inntekt
+
+\tcolumn Kumulativ_Kostnad
+\t\tdataType: double
+\t\tformatString: #,##0.0
+\t\tlineageTag: f0000008-0000-0000-0000-000000000017
+\t\tsummarizeBy: sum
+\t\tsourceColumn: Kumulativ_Kostnad
+
+\tcolumn Kumulativ_PV
+\t\tdataType: double
+\t\tformatString: #,##0.0
+\t\tlineageTag: f0000008-0000-0000-0000-000000000018
+\t\tsummarizeBy: none
+\t\tsourceColumn: Kumulativ_PV
+
+\tcolumn Kumulativ_EV
+\t\tdataType: double
+\t\tformatString: #,##0.0
+\t\tlineageTag: f0000008-0000-0000-0000-000000000019
+\t\tsummarizeBy: none
+\t\tsourceColumn: Kumulativ_EV
+
+\tcolumn Kumulativ_AC
+\t\tdataType: double
+\t\tformatString: #,##0.0
+\t\tlineageTag: f0000008-0000-0000-0000-000000000020
+\t\tsummarizeBy: none
+\t\tsourceColumn: Kumulativ_AC
+
+\tcolumn Kumulativ_CPI
+\t\tdataType: double
+\t\tformatString: 0.00
+\t\tlineageTag: f0000008-0000-0000-0000-000000000021
+\t\tsummarizeBy: none
+\t\tsourceColumn: Kumulativ_CPI
+
+\tcolumn Kumulativ_SPI
+\t\tdataType: double
+\t\tformatString: 0.00
+\t\tlineageTag: f0000008-0000-0000-0000-000000000022
+\t\tsummarizeBy: none
+\t\tsourceColumn: Kumulativ_SPI
+
+\tcolumn Kumulativ_CV
+\t\tdataType: double
+\t\tformatString: #,##0.0
+\t\tlineageTag: f0000008-0000-0000-0000-000000000023
+\t\tsummarizeBy: none
+\t\tsourceColumn: Kumulativ_CV
+
+\tcolumn Kumulativ_SV
+\t\tdataType: double
+\t\tformatString: #,##0.0
+\t\tlineageTag: f0000008-0000-0000-0000-000000000024
+\t\tsummarizeBy: none
+\t\tsourceColumn: Kumulativ_SV
+
+\tpartition FactYearlyReconciliation = m
+\t\tmode: import
+\t\tsource =
+\t\t\t\tlet
+\t\t\t\t    Source = Csv.Document(File.Contents(DataFolder & "FactYearlyReconciliation.csv"), [Delimiter=";", Columns=23, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+\t\t\t\t    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+\t\t\t\t    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"MndNr", Int64.Type}, {"Maaned", type text}, {"StatligBevilgning", type number}, {"Forskningsinntekter", type number}, {"AndreInntekter", type number}, {"Lonnskostnader", type number}, {"Driftskostnader", type number}, {"InvesteringerCapex", type number}, {"PlanlagtVerdi_PV", type number}, {"OpptjentVerdi_EV", type number}, {"FaktiskKostnad_AC", type number}, {"TotalInntekt", type number}, {"TotalKostnad", type number}, {"NettoResultat", type number}, {"Kumulativ_Inntekt", type number}, {"Kumulativ_Kostnad", type number}, {"Kumulativ_PV", type number}, {"Kumulativ_EV", type number}, {"Kumulativ_AC", type number}, {"Kumulativ_CPI", type number}, {"Kumulativ_SPI", type number}, {"Kumulativ_CV", type number}, {"Kumulativ_SV", type number}}, "no-NO")
+\t\t\t\tin
+\t\t\t\t    #"Changed Type"
+"""
+    with open(os.path.join(tables_dir, "FactYearlyReconciliation.tmdl"), "w", encoding="utf-8") as f:
+        f.write(fact_recon_content)
+
+    # 19. _Measures.tmdl (Full Controller DAX Library)
     measures_content = """table _Measures
 \tlineageTag: m0000000-0000-0000-0000-000000000001
 
@@ -1674,6 +1994,111 @@ relationship 00000001-0000-0000-0000-000000000022
 \t\t```
 \t\tformatString: #,##0.00
 \t\tdisplayFolder: 10 Regulatorisk & Veileder
+
+\tmeasure 'Total Inntekt BAC' = 1433.0
+\t\tformatString: #,##0.0 "MNOK"
+\t\tdisplayFolder: 00 Aarsrapport EVM
+
+\tmeasure 'Total Kostnad EAC' = 1444.0
+\t\tformatString: #,##0.0 "MNOK"
+\t\tdisplayFolder: 00 Aarsrapport EVM
+
+\tmeasure 'Helårs Nettoresultat VAC' = -11.0
+\t\tformatString: #,##0.0 "MNOK"
+\t\tdisplayFolder: 00 Aarsrapport EVM
+
+\tmeasure 'Helårs Earned Value EV' = 1344.0
+\t\tformatString: #,##0.0 "MNOK"
+\t\tdisplayFolder: 00 Aarsrapport EVM
+
+\tmeasure 'Helårs CPI' = 0.95
+\t\tformatString: 0.00
+\t\tdisplayFolder: 00 Aarsrapport EVM
+
+\tmeasure 'Helårs SPI' = 0.92
+\t\tformatString: 0.00
+\t\tdisplayFolder: 00 Aarsrapport EVM
+
+\tmeasure 'Helårs ETC' = 100.0
+\t\tformatString: #,##0.0 "MNOK"
+\t\tdisplayFolder: 00 Aarsrapport EVM
+
+\tmeasure 'Helårs Capex Andel' = 0.11165
+\t\tformatString: 0.0%
+\t\tdisplayFolder: 00 Aarsrapport EVM
+
+\tmeasure 'Helårs Lønnsandel' = 0.65876
+\t\tformatString: 0.0%
+\t\tdisplayFolder: 00 Aarsrapport EVM
+
+\tmeasure 'Helårs Driftsandel' = 0.23726
+\t\tformatString: 0.0%
+\t\tdisplayFolder: 00 Aarsrapport EVM
+
+\tmeasure 'Kumulativ PV' = AVERAGE ( FactYearlyReconciliation[Kumulativ_PV] )
+\t\tformatString: #,##0.0 "MNOK"
+\t\tdisplayFolder: 00 Aarsrapport EVM
+
+\tmeasure 'Kumulativ EV' = AVERAGE ( FactYearlyReconciliation[Kumulativ_EV] )
+\t\tformatString: #,##0.0 "MNOK"
+\t\tdisplayFolder: 00 Aarsrapport EVM
+
+\tmeasure 'Kumulativ AC' = AVERAGE ( FactYearlyReconciliation[Kumulativ_AC] )
+\t\tformatString: #,##0.0 "MNOK"
+\t\tdisplayFolder: 00 Aarsrapport EVM
+
+\tmeasure 'Månedlig Inntekt' = SUM ( FactYearlyReconciliation[TotalInntekt] )
+\t\tformatString: #,##0.0 "MNOK"
+\t\tdisplayFolder: 00 Aarsrapport EVM
+
+\tmeasure 'Månedlig Kostnad' = SUM ( FactYearlyReconciliation[TotalKostnad] )
+\t\tformatString: #,##0.0 "MNOK"
+\t\tdisplayFolder: 00 Aarsrapport EVM
+
+\tmeasure 'Månedlig Nettoresultat' = SUM ( FactYearlyReconciliation[NettoResultat] )
+\t\tformatString: #,##0.0 "MNOK"
+\t\tdisplayFolder: 00 Aarsrapport EVM
+
+\tmeasure EAC = [EAC (Estimate at Completion)]
+\t\tformatString: #,##0.00
+\t\tdisplayFolder: 06 EVM
+
+\tmeasure 'BOA Inntekt YTD SRS 10' = ```
+\t\tCALCULATE (
+\t\t    -[Regnskap],
+\t\t    DimAccount[Konto] IN { 3400, 3420 }
+\t\t)
+\t\t```
+\t\tformatString: #,##0.00
+\t\tdisplayFolder: 07 BOA Prosjekter
+
+\tmeasure 'TDI Kontraktsbeløp' = SUM ( FactProjectBOA[Kontraktsbelop] )
+\t\tformatString: #,##0.00
+\t\tdisplayFolder: 07 BOA Prosjekter
+
+\tmeasure 'TDI Budsjett' = SUM ( FactProjectBOA[Budsjett] )
+\t\tformatString: #,##0.00
+\t\tdisplayFolder: 07 BOA Prosjekter
+
+\tmeasure 'TDI Frikjøp Beløp' = SUM ( FactProjectBOA[Frikjop] )
+\t\tformatString: #,##0.00
+\t\tdisplayFolder: 07 BOA Prosjekter
+
+\tmeasure 'TDI Direkte Drift Beløp' = SUM ( FactProjectBOA[DirekteDrift] )
+\t\tformatString: #,##0.00
+\t\tdisplayFolder: 07 BOA Prosjekter
+
+\tmeasure 'TDI Overhead Beløp' = SUM ( FactProjectBOA[Overhead] )
+\t\tformatString: #,##0.00
+\t\tdisplayFolder: 07 BOA Prosjekter
+
+\tmeasure 'TDI Leiested Beløp' = SUM ( FactProjectBOA[Leiested] )
+\t\tformatString: #,##0.00
+\t\tdisplayFolder: 07 BOA Prosjekter
+
+\tmeasure 'TDI Forbruksavvik %' = AVERAGE ( FactProjectBOA[Forbruksavvik] )
+\t\tformatString: 0.0%
+\t\tdisplayFolder: 07 BOA Prosjekter
 
 \tcolumn Placeholder
 \t\tdataType: string

@@ -180,6 +180,54 @@ def create_bar_chart(name, x, y, width, height, z, cat_entity, cat_column, measu
         }
     }
 
+def create_column_chart(name, x, y, width, height, z, cat_entity, cat_column, measures, title_text=None):
+    y_projections = []
+    for m in measures:
+        entity = m.get("entity", "_Measures")
+        prop = m["property"]
+        y_projections.append({
+            "field": {
+                "Measure": {
+                    "Expression": {"SourceRef": {"Entity": entity}},
+                    "Property": prop
+                }
+            },
+            "queryRef": f"{entity}.{prop}",
+            "nativeQueryRef": prop
+        })
+    
+    vco = make_title(title_text) if title_text else {}
+    return {
+        "$schema": SCHEMA_VC,
+        "name": name,
+        "position": {"x": x, "y": y, "z": z, "width": width, "height": height, "tabOrder": z},
+        "visual": {
+            "visualType": "clusteredColumnChart",
+            "query": {
+                "queryState": {
+                    "Category": {
+                        "projections": [
+                            {
+                                "field": {
+                                    "Column": {
+                                        "Expression": {"SourceRef": {"Entity": cat_entity}},
+                                        "Property": cat_column
+                                    }
+                                },
+                                "queryRef": f"{cat_entity}.{cat_column}",
+                                "nativeQueryRef": cat_column
+                            }
+                        ]
+                    },
+                    "Y": {
+                        "projections": y_projections
+                    }
+                }
+            },
+            "visualContainerObjects": vco
+        }
+    }
+
 def create_table(name, x, y, width, height, z, columns, title_text=None):
     projections = []
     for col in columns:
@@ -262,11 +310,24 @@ def build_all_pages():
     pages_manifest.append(p0_id)
 
     p0_visuals = [
-        create_card("p0_kpi_rev", 20, 20, 450, 110, 1, "Total Inntekt BAC", "Total Revenue (BAC)"),
-        create_card("p0_kpi_exp", 490, 20, 450, 110, 2, "Total Kostnad EAC", "Total Expenses (EAC)"),
-        create_card("p0_kpi_cpi", 960, 20, 450, 110, 3, "Helårs CPI", "Cost Performance Index (CPI)"),
-        create_card("p0_kpi_spi", 1430, 20, 470, 110, 4, "Helårs SPI", "Schedule Performance (SPI)"),
-        create_table("p0_tbl_m12", 20, 150, 1880, 910, 5, [
+        create_card("p0_kpi_rev", 20, 20, 255, 105, 1, "Total Inntekt BAC", "Total Inntekt BAC (MNOK)"),
+        create_card("p0_kpi_exp", 290, 20, 255, 105, 2, "Total Kostnad EAC", "Total Kostnad EAC (MNOK)"),
+        create_card("p0_kpi_vac", 560, 20, 255, 105, 3, "Helårs Nettoresultat VAC", "Nettoresultat VAC (MNOK)"),
+        create_card("p0_kpi_ev", 830, 20, 255, 105, 4, "Helårs Earned Value EV", "Earned Value EV (MNOK)"),
+        create_card("p0_kpi_etc", 1100, 20, 255, 105, 5, "Helårs ETC", "Estimate to Complete ETC (MNOK)"),
+        create_card("p0_kpi_cpi", 1370, 20, 255, 105, 6, "Helårs CPI", "Cost Performance Index (CPI)"),
+        create_card("p0_kpi_spi", 1640, 20, 260, 105, 7, "Helårs SPI", "Schedule Performance (SPI)"),
+        create_line_chart("p0_cht_scurve", 20, 140, 1140, 405, 8, "FactYearlyReconciliation", "Maaned", [
+            {"property": "Kumulativ PV"},
+            {"property": "Kumulativ EV"},
+            {"property": "Kumulativ AC"}
+        ], "EVM S-Kurve 2026: Planlagt (PV) vs Opptjent (EV) vs Faktisk (AC) [MNOK]"),
+        create_column_chart("p0_cht_monthly_result", 1180, 140, 720, 405, 9, "FactYearlyReconciliation", "Maaned", [
+            {"property": "Månedlig Inntekt"},
+            {"property": "Månedlig Kostnad"},
+            {"property": "Månedlig Nettoresultat"}
+        ], "Månedlig Driftsytelse: Inntekt vs Kostnad vs Nettoresultat [MNOK]"),
+        create_table("p0_tbl_m12", 20, 560, 1880, 500, 10, [
             {"entity": "FactYearlyReconciliation", "property": "MndNr"},
             {"entity": "FactYearlyReconciliation", "property": "Maaned"},
             {"entity": "FactYearlyReconciliation", "property": "StatligBevilgning"},

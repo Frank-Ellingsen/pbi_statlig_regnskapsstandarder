@@ -173,7 +173,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Fullstendig prosjektportef\u00f8lje med RAG-status (DimProject / FactGL)'"
+                  "Value": "'Fullstendig prosjektportefølje med RAG-status (DimProject / FactGL)'"
                 }
               }
             }

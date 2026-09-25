@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
   "name": "p0_kpi_spi",
   "position": {
-    "x": 1430,
+    "x": 1640,
     "y": 20,
-    "z": 4,
-    "width": 470,
-    "height": 110,
-    "tabOrder": 4
+    "z": 7,
+    "width": 260,
+    "height": 105,
+    "tabOrder": 7
   },
   "visual": {
     "visualType": "card",
@@ -23,11 +23,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Hel\u00e5rs SPI"
+                  "Property": "Helårs SPI"
                 }
               },
-              "queryRef": "_Measures.Hel\u00e5rs SPI",
-              "nativeQueryRef": "Hel\u00e5rs SPI"
+              "queryRef": "_Measures.Helårs SPI",
+              "nativeQueryRef": "Helårs SPI"
             }
           ]
         }

@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
   "name": "p0_kpi_cpi",
   "position": {
-    "x": 960,
+    "x": 1370,
     "y": 20,
-    "z": 3,
-    "width": 450,
-    "height": 110,
-    "tabOrder": 3
+    "z": 6,
+    "width": 255,
+    "height": 105,
+    "tabOrder": 6
   },
   "visual": {
     "visualType": "card",
@@ -23,11 +23,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Hel\u00e5rs CPI"
+                  "Property": "Helårs CPI"
                 }
               },
-              "queryRef": "_Measures.Hel\u00e5rs CPI",
-              "nativeQueryRef": "Hel\u00e5rs CPI"
+              "queryRef": "_Measures.Helårs CPI",
+              "nativeQueryRef": "Helårs CPI"
             }
           ]
         }

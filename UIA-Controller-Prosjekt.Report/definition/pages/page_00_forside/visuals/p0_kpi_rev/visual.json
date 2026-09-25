@@ -5,8 +5,8 @@
     "x": 20,
     "y": 20,
     "z": 1,
-    "width": 450,
-    "height": 110,
+    "width": 255,
+    "height": 105,
     "tabOrder": 1
   },
   "visual": {
@@ -47,7 +47,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Total Revenue (BAC)'"
+                  "Value": "'Total Inntekt BAC (MNOK)'"
                 }
               }
             }

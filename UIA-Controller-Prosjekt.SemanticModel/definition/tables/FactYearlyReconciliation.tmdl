@@ -1,0 +1,174 @@
+table FactYearlyReconciliation
+	lineageTag: f0000008-0000-0000-0000-000000000001
+
+	column MndNr
+		dataType: int64
+		formatString: 0
+		lineageTag: f0000008-0000-0000-0000-000000000002
+		summarizeBy: none
+		sourceColumn: MndNr
+
+	column Maaned
+		dataType: string
+		lineageTag: f0000008-0000-0000-0000-000000000003
+		summarizeBy: none
+		sourceColumn: Maaned
+		sortByColumn: MndNr
+
+	column StatligBevilgning
+		dataType: double
+		formatString: #,##0.0
+		lineageTag: f0000008-0000-0000-0000-000000000004
+		summarizeBy: sum
+		sourceColumn: StatligBevilgning
+
+	column Forskningsinntekter
+		dataType: double
+		formatString: #,##0.0
+		lineageTag: f0000008-0000-0000-0000-000000000005
+		summarizeBy: sum
+		sourceColumn: Forskningsinntekter
+
+	column AndreInntekter
+		dataType: double
+		formatString: #,##0.0
+		lineageTag: f0000008-0000-0000-0000-000000000006
+		summarizeBy: sum
+		sourceColumn: AndreInntekter
+
+	column Lonnskostnader
+		dataType: double
+		formatString: #,##0.0
+		lineageTag: f0000008-0000-0000-0000-000000000007
+		summarizeBy: sum
+		sourceColumn: Lonnskostnader
+
+	column Driftskostnader
+		dataType: double
+		formatString: #,##0.0
+		lineageTag: f0000008-0000-0000-0000-000000000008
+		summarizeBy: sum
+		sourceColumn: Driftskostnader
+
+	column InvesteringerCapex
+		dataType: double
+		formatString: #,##0.0
+		lineageTag: f0000008-0000-0000-0000-000000000009
+		summarizeBy: sum
+		sourceColumn: InvesteringerCapex
+
+	column PlanlagtVerdi_PV
+		dataType: double
+		formatString: #,##0.0
+		lineageTag: f0000008-0000-0000-0000-000000000010
+		summarizeBy: sum
+		sourceColumn: PlanlagtVerdi_PV
+
+	column OpptjentVerdi_EV
+		dataType: double
+		formatString: #,##0.0
+		lineageTag: f0000008-0000-0000-0000-000000000011
+		summarizeBy: sum
+		sourceColumn: OpptjentVerdi_EV
+
+	column FaktiskKostnad_AC
+		dataType: double
+		formatString: #,##0.0
+		lineageTag: f0000008-0000-0000-0000-000000000012
+		summarizeBy: sum
+		sourceColumn: FaktiskKostnad_AC
+
+	column TotalInntekt
+		dataType: double
+		formatString: #,##0.0
+		lineageTag: f0000008-0000-0000-0000-000000000013
+		summarizeBy: sum
+		sourceColumn: TotalInntekt
+
+	column TotalKostnad
+		dataType: double
+		formatString: #,##0.0
+		lineageTag: f0000008-0000-0000-0000-000000000014
+		summarizeBy: sum
+		sourceColumn: TotalKostnad
+
+	column NettoResultat
+		dataType: double
+		formatString: #,##0.0
+		lineageTag: f0000008-0000-0000-0000-000000000015
+		summarizeBy: sum
+		sourceColumn: NettoResultat
+
+	column Kumulativ_Inntekt
+		dataType: double
+		formatString: #,##0.0
+		lineageTag: f0000008-0000-0000-0000-000000000016
+		summarizeBy: sum
+		sourceColumn: Kumulativ_Inntekt
+
+	column Kumulativ_Kostnad
+		dataType: double
+		formatString: #,##0.0
+		lineageTag: f0000008-0000-0000-0000-000000000017
+		summarizeBy: sum
+		sourceColumn: Kumulativ_Kostnad
+
+	column Kumulativ_PV
+		dataType: double
+		formatString: #,##0.0
+		lineageTag: f0000008-0000-0000-0000-000000000018
+		summarizeBy: none
+		sourceColumn: Kumulativ_PV
+
+	column Kumulativ_EV
+		dataType: double
+		formatString: #,##0.0
+		lineageTag: f0000008-0000-0000-0000-000000000019
+		summarizeBy: none
+		sourceColumn: Kumulativ_EV
+
+	column Kumulativ_AC
+		dataType: double
+		formatString: #,##0.0
+		lineageTag: f0000008-0000-0000-0000-000000000020
+		summarizeBy: none
+		sourceColumn: Kumulativ_AC
+
+	column Kumulativ_CPI
+		dataType: double
+		formatString: 0.00
+		lineageTag: f0000008-0000-0000-0000-000000000021
+		summarizeBy: none
+		sourceColumn: Kumulativ_CPI
+
+	column Kumulativ_SPI
+		dataType: double
+		formatString: 0.00
+		lineageTag: f0000008-0000-0000-0000-000000000022
+		summarizeBy: none
+		sourceColumn: Kumulativ_SPI
+
+	column Kumulativ_CV
+		dataType: double
+		formatString: #,##0.0
+		lineageTag: f0000008-0000-0000-0000-000000000023
+		summarizeBy: none
+		sourceColumn: Kumulativ_CV
+
+	column Kumulativ_SV
+		dataType: double
+		formatString: #,##0.0
+		lineageTag: f0000008-0000-0000-0000-000000000024
+		summarizeBy: none
+		sourceColumn: Kumulativ_SV
+
+	partition FactYearlyReconciliation = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "FactYearlyReconciliation.csv"), [Delimiter=";", Columns=23, Encoding=65001, QuoteStyle=QuoteStyle.None]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"MndNr", Int64.Type}, {"Maaned", type text}, {"StatligBevilgning", type number}, {"Forskningsinntekter", type number}, {"AndreInntekter", type number}, {"Lonnskostnader", type number}, {"Driftskostnader", type number}, {"InvesteringerCapex", type number}, {"PlanlagtVerdi_PV", type number}, {"OpptjentVerdi_EV", type number}, {"FaktiskKostnad_AC", type number}, {"TotalInntekt", type number}, {"TotalKostnad", type number}, {"NettoResultat", type number}, {"Kumulativ_Inntekt", type number}, {"Kumulativ_Kostnad", type number}, {"Kumulativ_PV", type number}, {"Kumulativ_EV", type number}, {"Kumulativ_AC", type number}, {"Kumulativ_CPI", type number}, {"Kumulativ_SPI", type number}, {"Kumulativ_CV", type number}, {"Kumulativ_SV", type number}}, "no-NO")
+				in
+				    #"Changed Type"
+

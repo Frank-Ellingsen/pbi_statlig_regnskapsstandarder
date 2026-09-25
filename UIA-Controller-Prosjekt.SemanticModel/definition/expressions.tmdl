@@ -4,3 +4,4 @@ expression DataFolder = "C:\\Users\\frank\\Desktop\\UIA\\uia_powerbi_complete_fo
 	annotation PBI_NavigationStepName = Navigation
 
 	annotation PBI_ResultType = Text
+

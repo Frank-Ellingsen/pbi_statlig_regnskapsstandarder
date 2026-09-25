@@ -68,3 +68,4 @@ table DimGlossary
 				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"BegrepID", Int64.Type}, {"Begrep", type text}, {"FulltNavn", type text}, {"Kategori", type text}, {"Definisjon", type text}, {"PraktiskTolkning", type text}, {"FormelDAX", type text}, {"RolleKontekst", type text}, {"RelevantRapport", type text}}, "en-US")
 				in
 				    #"Changed Type"
+

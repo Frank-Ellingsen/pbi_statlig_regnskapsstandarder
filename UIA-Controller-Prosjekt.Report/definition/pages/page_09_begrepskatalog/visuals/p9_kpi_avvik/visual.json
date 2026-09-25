@@ -47,7 +47,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Hel\u00e5rs forecastavvik'"
+                  "Value": "'Helårs forecastavvik'"
                 }
               }
             }

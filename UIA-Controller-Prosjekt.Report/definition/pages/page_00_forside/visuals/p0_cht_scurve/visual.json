@@ -1,0 +1,106 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "p0_cht_scurve",
+  "position": {
+    "x": 20,
+    "y": 140,
+    "z": 8,
+    "height": 405,
+    "width": 1140,
+    "tabOrder": 8
+  },
+  "visual": {
+    "visualType": "lineChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactYearlyReconciliation"
+                    }
+                  },
+                  "Property": "Maaned"
+                }
+              },
+              "queryRef": "FactYearlyReconciliation.Maaned",
+              "nativeQueryRef": "Maaned",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Kumulativ PV"
+                }
+              },
+              "queryRef": "_Measures.Kumulativ PV",
+              "nativeQueryRef": "Kumulativ PV"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Kumulativ EV"
+                }
+              },
+              "queryRef": "_Measures.Kumulativ EV",
+              "nativeQueryRef": "Kumulativ EV"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Kumulativ AC"
+                }
+              },
+              "queryRef": "_Measures.Kumulativ AC",
+              "nativeQueryRef": "Kumulativ AC"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'EVM S-Kurve 2026: Planlagt (PV) vs Opptjent (EV) vs Faktisk (AC) [MNOK]'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

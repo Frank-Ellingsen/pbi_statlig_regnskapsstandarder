@@ -1,0 +1,59 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "name": "p0_kpi_ev",
+  "position": {
+    "x": 830,
+    "y": 20,
+    "z": 4,
+    "width": 255,
+    "height": 105,
+    "tabOrder": 4
+  },
+  "visual": {
+    "visualType": "card",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Helårs Earned Value EV"
+                }
+              },
+              "queryRef": "_Measures.Helårs Earned Value EV",
+              "nativeQueryRef": "Helårs Earned Value EV"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Earned Value EV (MNOK)'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

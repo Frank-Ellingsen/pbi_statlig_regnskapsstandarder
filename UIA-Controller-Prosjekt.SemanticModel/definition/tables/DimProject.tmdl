@@ -60,3 +60,4 @@ table DimProject
 				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Prosjekt", type text}, {"Prosjektnavn", type text}, {"Finansieringstype", type text}, {"Finansieringskilde", type text}, {"Prosjektkategori", type text}}, "en-US")
 				in
 				    #"Changed Type"
+

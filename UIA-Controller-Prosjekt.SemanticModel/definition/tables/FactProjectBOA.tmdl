@@ -89,14 +89,14 @@ table FactProjectBOA
 		summarizeBy: average
 		sourceColumn: Dekningsgrad
 
-	column '%TidGått'
+	column %TidGått
 		dataType: double
 		formatString: 0.0%
 		lineageTag: f0000010-0000-0000-0000-000000000015
 		summarizeBy: average
 		sourceColumn: '%TidGått'
 
-	column '%BudsjettForbrukt'
+	column %BudsjettForbrukt
 		dataType: double
 		formatString: 0.0%
 		lineageTag: f0000010-0000-0000-0000-000000000016
@@ -131,3 +131,4 @@ table FactProjectBOA
 				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"Prosjekt", type text}, {"Prosjektnavn", type text}, {"Finansieringstype", type text}, {"Finansieringskilde", type text}, {"Kontraktsbelop", Currency.Type}, {"Budsjett", Currency.Type}, {"Frikjop", Currency.Type}, {"DirekteDrift", Currency.Type}, {"Overhead", Currency.Type}, {"Leiested", Currency.Type}, {"PåløptKostnad", Currency.Type}, {"Inntektsført", Currency.Type}, {"Dekningsgrad", type number}, {"%TidGått", type number}, {"%BudsjettForbrukt", type number}, {"Forbruksavvik", type number}, {"RAG_Status", type text}, {"StatusMerknad", type text}}, "en-US")
 				in
 				    #"Changed Type"
+

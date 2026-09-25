@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "p8_slc_inst",
   "position": {
     "x": 400,
     "y": 15,
     "z": 2,
-    "width": 360,
     "height": 65,
+    "width": 360,
     "tabOrder": 2
   },
   "visual": {
@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "DimOrganization.Instituttnavn",
-              "nativeQueryRef": "Instituttnavn"
+              "nativeQueryRef": "Instituttnavn",
+              "active": true
             }
           ]
         }

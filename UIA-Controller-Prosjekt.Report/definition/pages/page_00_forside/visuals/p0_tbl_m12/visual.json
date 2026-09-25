@@ -3,11 +3,11 @@
   "name": "p0_tbl_m12",
   "position": {
     "x": 20,
-    "y": 150,
-    "z": 5,
+    "y": 560,
+    "z": 10,
     "width": 1880,
-    "height": 910,
-    "tabOrder": 5
+    "height": 500,
+    "tabOrder": 10
   },
   "visual": {
     "visualType": "tableEx",
@@ -257,7 +257,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'\u00c5rsrapport Universitetet i Agder (UIA) - 100% Avstemt Hel\u00e5rsmodell 2026 (FactYearlyReconciliation)'"
+                  "Value": "'Årsrapport Universitetet i Agder (UIA) - 100% Avstemt Helårsmodell 2026 (FactYearlyReconciliation)'"
                 }
               }
             }

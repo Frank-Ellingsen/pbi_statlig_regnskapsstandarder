@@ -187,7 +187,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Hierarkisk avstemmingsmatrise med RAG-avvik (Fakultet \u2192 Institutt \u2192 Regnskapslinje \u2192 Konto)'"
+                  "Value": "'Hierarkisk avstemmingsmatrise med RAG-avvik (Fakultet → Institutt → Regnskapslinje → Konto)'"
                 }
               }
             }

@@ -1,0 +1,106 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
+  "name": "p0_cht_monthly_result",
+  "position": {
+    "x": 1180,
+    "y": 140,
+    "z": 9,
+    "height": 405,
+    "width": 720,
+    "tabOrder": 9
+  },
+  "visual": {
+    "visualType": "clusteredColumnChart",
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "FactYearlyReconciliation"
+                    }
+                  },
+                  "Property": "Maaned"
+                }
+              },
+              "queryRef": "FactYearlyReconciliation.Maaned",
+              "nativeQueryRef": "Maaned",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Månedlig Inntekt"
+                }
+              },
+              "queryRef": "_Measures.Månedlig Inntekt",
+              "nativeQueryRef": "Månedlig Inntekt"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Månedlig Kostnad"
+                }
+              },
+              "queryRef": "_Measures.Månedlig Kostnad",
+              "nativeQueryRef": "Månedlig Kostnad"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Månedlig Nettoresultat"
+                }
+              },
+              "queryRef": "_Measures.Månedlig Nettoresultat",
+              "nativeQueryRef": "Månedlig Nettoresultat"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Månedlig Driftsytelse: Inntekt vs Kostnad vs Nettoresultat [MNOK]'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,12 +1,12 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.0.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "p9_slc_rolle",
   "position": {
     "x": 490,
     "y": 15,
     "z": 2,
-    "width": 450,
     "height": 65,
+    "width": 450,
     "tabOrder": 2
   },
   "visual": {
@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "DimGlossary.RolleKontekst",
-              "nativeQueryRef": "RolleKontekst"
+              "nativeQueryRef": "RolleKontekst",
+              "active": true
             }
           ]
         }

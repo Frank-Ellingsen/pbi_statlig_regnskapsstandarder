@@ -47,7 +47,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Budsjettbel\u00f8p'"
+                  "Value": "'Budsjettbeløp'"
                 }
               }
             }
